@@ -2,7 +2,7 @@
   "name": "cozy",
   "version": "1.0.0",
   "description": "A roommate mangement app for bills, chores, messages and shared calander",
-  "main": "app.js",
+  "main": "server/app.js",
   "scripts": {
     "test": "nodemon server/app.js"
   },
