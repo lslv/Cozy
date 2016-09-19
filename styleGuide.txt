@@ -1,0 +1,23 @@
+*** Code ***
+
+No semicolons
+
+Use const and let
+
+Use fat arrow functions over anonymous function declaration
+
+use single quotes ' over double "
+
+
+*** Git ***
+
+Use brackets [] at the beginning of each commit
+Do not add space between brackets and message
+Use lowercase text
+Use past tense (I wont be strict)
+
+examples:
+// [setup]npm and git init
+// [feature]added calendar
+// [bugfix]removed div that was causing alignment issue
+// [refactor]made database query faster
