@@ -1,19 +1,21 @@
 const express = require('express')
+const chalk = require('chalk')
 const router = express.Router()
 
+//route files
 const billing = require('./billing/routes.billing')
 const bulletinBoard = require('./bulletinBoard/routes.bulletinBoard')
 const chores = require('./chores/routes.chores')
 const users = require('./users/routes.users')
 
-//loggs route to console
+//loggs url to console on request
 router.get('/*', (req, res, next)=>{
-  console.log(`Request Url: ${req.url}`)
+  console.log(chalk.blue(`Request Url: ${req.url}`))
   next()
 })
 
+//routes
 router.use('/', express.static('public'))
-
 router.use('/api/billing', billing)
 router.use('/api/bulletinBoard', bulletinBoard)
 router.use('/api/chores', chores)
