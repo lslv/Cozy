@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const chalk = require('chalk')
 
 const billing = require('./billing/routes.billing')
 const bulletinBoard = require('./bulletinBoard/routes.bulletinBoard')
@@ -8,7 +9,7 @@ const users = require('./users/routes.users')
 
 //loggs route to console
 router.get('/*', (req, res, next)=>{
-  console.log(`Request Url: ${req.url}`)
+  console.log(chalk.blue(`Request Url: ${req.url}`))
   next()
 })
 
