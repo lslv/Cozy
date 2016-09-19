@@ -8,5 +8,5 @@ app.use('/', express.static('public'))
 const port = 1337
 
 app.listen(port, ()=>{
-  console.log(`app is listing on ${port}`)
+  console.log(`app is listening on ${port}`)
 })
