@@ -1,13 +1,8 @@
 const express = require('express')
+const routesMain = require('./routes.main.js')
 const app = express()
 
-//loggs route to console
-app.get('/*', (req, res, next)=>{
-  console.log(`Request.Url: ${req.url}`)
-  next()
-})
-
-app.use('/', express.static('public'))
+app.use('/', routesMain)
 
 const port = process.env.PORT || 1337
 
