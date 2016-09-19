@@ -9,5 +9,5 @@ app.use('/', routesMain)
 const port = process.env.PORT || 1337
 
 app.listen(port, ()=>{
-  console.log(chalk.cyan(`<Cozy> is listing on ${port}`))
+  console.log(chalk.cyan(`<Cozy> is listening on ${port}`))
 })
