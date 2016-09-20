@@ -27260,7 +27260,16 @@
 	  return _react2.default.createElement(
 	    _reactBootstrap.ListGroupItem,
 	    null,
-	    _react2.default.createElement('input', { placeholder: 'Add a post-it message' })
+	    _react2.default.createElement('input', { placeholder: 'Add a post-it message' }),
+	    _react2.default.createElement(
+	      _reactBootstrap.ButtonGroup,
+	      null,
+	      _react2.default.createElement(
+	        _reactBootstrap.Button,
+	        { type: 'submit', className: 'btn btn-info' },
+	        'Leave a message'
+	      )
+	    )
 	  );
 	};
 
@@ -29635,7 +29644,6 @@
 
 	    _this.state = { post: null };
 	    _this.addPost = _this.addPost.bind(_this);
-	    _this.renderPost = _this.renderPost.bind(_this);
 	    return _this;
 	  }
 

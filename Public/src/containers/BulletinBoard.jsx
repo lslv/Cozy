@@ -7,7 +7,6 @@ export default class BulletinBoard extends Component {
     super(props)
     this.state = { post: null }
     this.addPost = this.addPost.bind(this)
-    this.renderPost = this.renderPost.bind(this)
   }
 
   addPost () {
