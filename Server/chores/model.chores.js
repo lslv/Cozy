@@ -1,19 +1,21 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
-const Houses = require('../houses/model.houses.js')
+let Houses = require('../houses/model.houses.js')
+let Users = require('../users/model.users.js')
+
 
 // This is the chore Table itself
 const Chores = sequelize.define('chores',{
   chore_name:{
     type: Sequelize.STRING(50),
-    unique: true,
-    notNull: true
+    allowNull: false
   },
   day_of_week:{
-
+    type: Sequelize.ARRAY(Sequelize.TEXT),
+    allowNull: false
   },
   user_turn:{
-
+    type: Sequelize.INTEGER
   }
 },
 {
@@ -27,11 +29,11 @@ const Chores = sequelize.define('chores',{
 
 Chores.belongsTo(Houses);
 
-Chores.sync({force: true}).then(function () {
+Chores.sync().then(function () {
   // Table created
-  console.log('+++line32 model.chores table successfully created');
+  console.log('+++line32 model.chores table successfully created')
 }).catch(function(err){
-  console.error('There was an error in model.chores', err);
+  console.error('There was an error in model.chores', err)
 });
 
 
@@ -48,7 +50,7 @@ const Chore_Days = sequelize.define('chore_days',{
 
 Chore_Days.belongsTo(Chores)
 
-Chore_Days.sync({force: true}).then(function () {
+Chore_Days.sync().then(function () {
   // Table created
   console.log('+++line53 model.Chore_Days table successfully created')
 }).catch(function(err){
@@ -58,16 +60,10 @@ Chore_Days.sync({force: true}).then(function () {
 //This table keeps track of whether a chore is completed by a user
 
 const Chore_Completions = sequelize.define('chore_completions',{
-  chore_id:{
-
+  verified:{
+    type: Sequelize.BOOLEAN
   },
-  user_id:{
-
-  },
-  verifying_user_id:{
-
-  },
-  complete:{
+  completed:{
     type: Sequelize.BOOLEAN
   },
 },
@@ -78,7 +74,17 @@ const Chore_Completions = sequelize.define('chore_completions',{
   deletedAt: false,
 })
 
-Chore_Completions.sync({force: true}).then(function () {
+Chore_Completions.belongsTo(Chores,{
+  as: 'chore_id',
+  foreignKey: 'Chores'
+})
+
+Chore_Completions.belongsTo(Users,{
+  as: 'user_id',
+  foreignKey: 'Users'
+})
+
+Chore_Completions.sync().then(function () {
   // Table created
   console.log('+++line83 model.Chore_Completions table successfully created')
 }).catch(function(err){
@@ -88,23 +94,28 @@ Chore_Completions.sync({force: true}).then(function () {
 //This Table is the queues the order of user turns
 
 const Queues = sequelize.define('queues',{
-  chore_id:{
-
-  },
-  user_id:{
-
-  },
   turn:{
-
+    type: Sequelize.INTEGER
+    // allowNull: false
   }
 })
 
-Queues.sync({force: true}).then(function () {
+Queues.belongsTo(Users,{
+  as: 'user_id',
+  foreignKey: 'Users'
+})
+
+Queues.belongsTo(Chores,{
+  as: 'chore_id',
+  foreignKey: 'Chores'
+})
+
+Queues.sync().then(function () {
   // Table created
   console.log('+++line104 model.chores.queues table successfully created')
 }).catch(function(err){
   console.error('There was an error in model.chores.queues', err)
 });
 
-//? How to export multiple items?
-module.exports = Chores
+
+module.exports = {Chores: Chores, Chore_Days: Chore_Days, Chore_Completions: Chore_Completions, Queues: Queues}

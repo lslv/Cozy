@@ -4,9 +4,10 @@ const database = require('./config/database.js')
 const routesMain = require('./routes.main.js')
 const app = express()
 //Requiring Tables Here:
-const House = require('./houses/model.houses.js')
-const User = require('./users/model.users.js')
-const Post_Tables = require('./bulletinBoard/model.posts.js')
+let House = require('./houses/model.houses.js')
+let User = require('./users/model.users.js')
+let Post_Tables = require('./bulletinBoard/model.posts.js')
+let Chore_Tables = require('./chores/model.chores.js')
 
 app.use('/', routesMain)
 
