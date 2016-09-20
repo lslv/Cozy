@@ -6,7 +6,7 @@ const Houses = require('../houses/model.houses.js')
 const Users = sequelize.define('users',{
   user_name: {
     type: Sequelize.STRING(50),
-    unique: true,
+    // unique: true,
     notNull: true
   },
   first_name: {
@@ -22,7 +22,7 @@ const Users = sequelize.define('users',{
   },
   email: {
     type: Sequelize.STRING(80),
-    unique: true,
+    // unique: true,
     notNull: true,
     isEmail: true
   },
@@ -42,7 +42,7 @@ const Users = sequelize.define('users',{
       key: 'id'
     }
   }
-},
+} ,
 //Ensure timeStamps are true
 {
   timestamps: true,
@@ -50,8 +50,16 @@ const Users = sequelize.define('users',{
   updatedAt: 'updated_at',
   deletedAt: 'deleted_at',
   paranoid: true
-})
+}
+)
 
-Users.sync()
+Users.belongsTo(Houses);
+
+sequelize.sync({force: true}).then(function () {
+  // Table created
+  console.log('+++line60 model.users table successfully created');
+}).catch(function(err){
+  console.error('There was an error', err);
+});
 
 module.exports = Users
