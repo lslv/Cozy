@@ -7,7 +7,7 @@ const app = express()
 let House = require('./houses/model.houses.js')
 let User = require('./users/model.users.js')
 let Post_Tables = require('./bulletinBoard/model.posts.js')
-// let Chore_Tables = require
+let Chore_Tables = require('./chores/model.chores.js')
 
 app.use('/', routesMain)
 

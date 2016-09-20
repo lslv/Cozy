@@ -61,18 +61,17 @@ const Post_Votes = sequelize.define('post_votes',{
   }
 })
 
-Post_Votes.belongsTo(Users
-  ,{
+Post_Votes.belongsTo(Users,
+{
   as: 'user_id',
   foreignKey: 'Users'
-}
-)
-Post_Votes.belongsTo(Posts
-  ,{
+})
+
+Post_Votes.belongsTo(Posts,
+{
   as: 'post_id',
   foreignKey: 'Posts'
-}
-)
+})
 
 Post_Votes.sync().then(function () {
   // Table created
