@@ -6,6 +6,7 @@ const app = express()
 //Requiring Tables Here:
 const House = require('./houses/model.houses.js')
 const User = require('./users/model.users.js')
+const Post_Tables = require('./bulletinBoard/model.posts.js')
 
 app.use('/', routesMain)
 
