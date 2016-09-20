@@ -4,7 +4,7 @@ const sequelize = require('../config/database')
 const Houses = sequelize.define('houses',{
   house_name: {
     type: Sequelize.STRING(50),
-    // unique: true,
+    unique: true,
     notNull: false
   },
   //Amount input in cents
@@ -24,7 +24,7 @@ const Houses = sequelize.define('houses',{
   paranoid: true
 })
 
-sequelize.sync({force: true}).then(function () {
+Houses.sync({force: true}).then(function () {
 
   console.log('+++line 29 model.houses.js table successfully created');
   // Table created
@@ -33,7 +33,7 @@ sequelize.sync({force: true}).then(function () {
   //   slush_fund_value: '45343'
   // });
 }).catch(function(err){
-  console.error('There was an error', err);
+  console.error('There was an error in model.houses', err);
 });
 
 module.exports = Houses
