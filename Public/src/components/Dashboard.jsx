@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 
-export default class Landing extends Component {
+export default class Dashboard extends Component {
   render () {
     return (
       <div>
         <p>
-          In the landing page
+          In the dashboard
         </p>
         <button>
-          <Link to='/dashboard'> Go to the dashboard
+          <Link to='/bulletin_board'> Go to the bulletin board
           </Link>
         </button>
       </div>
