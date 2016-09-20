@@ -43,7 +43,7 @@ Posts.belongsTo(Users
 // })
 // Posts.hasMany(Posts, {as:child_post})
 
-Posts.sync({force: true}).then(function () {
+Posts.sync().then(function () {
   // Table created
   console.log('+++line43 model.posts table successfully created')
 }).catch(function(err){
@@ -61,21 +61,25 @@ const Post_Votes = sequelize.define('post_votes',{
   }
 })
 
-Post_Votes.belongsTo(Users,{
+Post_Votes.belongsTo(Users
+  ,{
   as: 'user_id',
   foreignKey: 'Users'
-})
-Post_Votes.belongsTo(Posts,{
+}
+)
+Post_Votes.belongsTo(Posts
+  ,{
   as: 'post_id',
   foreignKey: 'Posts'
-})
+}
+)
 
-Post_Votes.sync({force: true}).then(function () {
+Post_Votes.sync().then(function () {
   // Table created
-  console.log('+++line70 model.post_Votes table successfully created')
+  console.log('+++line79 model.post_Votes table successfully created')
 }).catch(function(err){
   console.error('There was an error in model.users', err)
 })
 
-//? How do I export tables properly?
+
 module.exports = {Posts: Posts, Post_Votes: Post_Votes}

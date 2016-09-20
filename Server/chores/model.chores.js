@@ -29,7 +29,7 @@ const Chores = sequelize.define('chores',{
 
 Chores.belongsTo(Houses);
 
-Chores.sync({force: true}).then(function () {
+Chores.sync().then(function () {
   // Table created
   console.log('+++line32 model.chores table successfully created');
 }).catch(function(err){
@@ -50,7 +50,7 @@ const Chore_Days = sequelize.define('chore_days',{
 
 Chore_Days.belongsTo(Chores)
 
-Chore_Days.sync({force: true}).then(function () {
+Chore_Days.sync().then(function () {
   // Table created
   console.log('+++line53 model.Chore_Days table successfully created')
 }).catch(function(err){
@@ -80,7 +80,7 @@ const Chore_Completions = sequelize.define('chore_completions',{
   deletedAt: false,
 })
 
-Chore_Completions.sync({force: true}).then(function () {
+Chore_Completions.sync().then(function () {
   // Table created
   console.log('+++line83 model.Chore_Completions table successfully created')
 }).catch(function(err){
@@ -91,7 +91,7 @@ Chore_Completions.sync({force: true}).then(function () {
 
 const Queues = sequelize.define('queues',{
   chore_id:{
-
+    
   },
   user_id:{
 
@@ -101,7 +101,7 @@ const Queues = sequelize.define('queues',{
   }
 })
 
-Queues.sync({force: true}).then(function () {
+Queues.sync().then(function () {
   // Table created
   console.log('+++line104 model.chores.queues table successfully created')
 }).catch(function(err){
