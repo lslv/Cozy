@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
-const Houses = require('../houses/model.houses.js')
-const Users = require('../users/mode.users.js')
+let Houses = require('../houses/model.houses.js')
+let Users = require('../users/model.users.js')
 
 
 //This is the table for Posts and comments on posts
@@ -11,12 +11,13 @@ const Posts = sequelize.define('posts',{
     type: Sequelize.STRING(50),
     notNull: true
   },
-  description:{
+  message:{
     type: Sequelize.STRING
-  },
-  expired_at:{
-    type: Sequelize.DATE
   }
+  //,
+  // expired_at:{
+  //   type: Sequelize.DATE
+  // }
 },
 {
   timestamps: true,
@@ -24,18 +25,22 @@ const Posts = sequelize.define('posts',{
   paranoid: true
 })
 
-Posts.belongsTo(Houses,{
-  as: 'house_id',
-  foreignKey: 'Houses'
-})
-Posts.belongsTo(Users,{
-  as: 'user_id',
-  foreignKey: 'Users'
-})
+Posts.belongsTo(Houses
+  //,{
+  //as: 'house_id',
+  //foreignKey: 'Houses'
+//}
+)
+Posts.belongsTo(Users
+//   ,{
+//   as: 'user_id',
+//   foreignKey: 'Users'
+// }
+)
 
-Posts.hasOne(Posts,{
-  as:parent_post
-})
+// Posts.hasOne(Posts,{
+//   as:'parent_post'
+// })
 // Posts.hasMany(Posts, {as:child_post})
 
 Posts.sync({force: true}).then(function () {
@@ -73,5 +78,4 @@ Post_Votes.sync({force: true}).then(function () {
 })
 
 //? How do I export tables properly?
-module.exports = Posts
-module.exports = Post_Votes
+module.exports = {Posts: Posts, Post_Votes: Post_Votes}

@@ -1,7 +1,7 @@
 //requiring necessary modules and files for table creation
 const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
-const Houses = require('../houses/model.houses.js')
+let Houses = require('../houses/model.houses.js')
 
 const Users = sequelize.define('users',{
   user_name: {
@@ -59,7 +59,7 @@ Users.sync({force: true}).then(function () {
   // Table created
   console.log('+++line60 model.users table successfully created')
 }).catch(function(err){
-  console.error('There was an error in model.users', err)
+  console.error('+++line62 There was an error in model.users', err)
 })
 
 module.exports = Users
