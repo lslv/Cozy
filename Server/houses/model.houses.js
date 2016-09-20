@@ -24,6 +24,16 @@ const Houses = sequelize.define('houses',{
   paranoid: true
 })
 
-Houses.sync()
+Houses.sync({force: true}).then(function () {
+
+  console.log('+++line 29 model.houses.js table successfully created');
+  // Table created
+  // return Houses.create({
+  //   house_name: 'John',
+  //   slush_fund_value: '45343'
+  // });
+}).catch(function(err){
+  console.error('There was an error in model.houses', err);
+});
 
 module.exports = Houses
