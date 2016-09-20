@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Router, Route, hashHistory } from 'react-router'
 import Landing from './Landing'
-import BulletinBoard from './BulletinBoard'
+import BulletinBoard from '../containers/BulletinBoard'
 import Dashboard from './Dashboard'
 
 export default class App extends Component {
