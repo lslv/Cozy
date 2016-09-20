@@ -29642,15 +29642,28 @@
 
 	    var _this = _possibleConstructorReturn(this, (BulletinBoard.__proto__ || Object.getPrototypeOf(BulletinBoard)).call(this, props));
 
-	    _this.state = { post: null };
-	    _this.addPost = _this.addPost.bind(_this);
+	    _this.state = {
+	      postMsg: '',
+	      flag: false
+	    };
+	    _this.renderAddPost = _this.renderAddPost.bind(_this);
+	    _this.togglePost = _this.togglePost.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(BulletinBoard, [{
-	    key: 'addPost',
-	    value: function addPost() {
-	      this.setState({ post: _react2.default.createElement(_BulletinPost2.default, null) });
+	    key: 'togglePost',
+	    value: function togglePost() {
+	      this.setState({ flag: !this.state.flag });
+	    }
+	  }, {
+	    key: 'renderAddPost',
+	    value: function renderAddPost() {
+	      if (this.state.flag) {
+	        return _react2.default.createElement(_BulletinPost2.default, null);
+	      } else {
+	        return _react2.default.createElement('noscript', null);
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -29664,14 +29677,14 @@
 	          'Add a post-it',
 	          _react2.default.createElement(
 	            'span',
-	            { onClick: this.addPost },
+	            { onClick: this.togglePost },
 	            _react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' })
 	          )
 	        ),
 	        _react2.default.createElement(
 	          _reactBootstrap.ListGroup,
 	          null,
-	          this.state.post
+	          this.renderAddPost()
 	        )
 	      );
 	    }

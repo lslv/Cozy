@@ -5,27 +5,35 @@ import { Col, ListGroup, ListGroupItem } from 'react-bootstrap'
 export default class BulletinBoard extends Component {
   constructor (props) {
     super(props)
-    this.state = { post: null }
-    this.addPost = this.addPost.bind(this)
+    this.state = {
+      postMsg: '',
+      flag: false
+    }
+    this.renderAddPost = this.renderAddPost.bind(this)
+    this.togglePost = this.togglePost.bind(this)
   }
-
-  addPost () {
-    this.setState({ post: <BulletinPost /> })
+  togglePost () {
+    this.setState({flag: !this.state.flag})
+  }
+  renderAddPost () {
+    if (this.state.flag) {
+      return (<BulletinPost />)
+    }else {
+      return <noscript />
+    }
   }
 
   render () {
     return (
-
       <Col xs={12} md={8}>
       <p>
         Add a post-it
-        <span onClick={this.addPost}><i className='fa fa-plus-circle' aria-hidden='true'></i></span>
+        <span onClick={this.togglePost}><i className='fa fa-plus-circle' aria-hidden='true'></i></span>
       </p>
       <ListGroup>
-        {this.state.post}
+        {this.renderAddPost()}
       </ListGroup>
       </Col>
-
     )
   }
 }
