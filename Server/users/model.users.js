@@ -1,21 +1,20 @@
 //requiring necessary modules and files for table creation
 const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
-const House = require('../houses/model.houses.js')
 
 const Users = sequelize.define('users',{
   user_name: {
-    type:Sequelize.STRING(50),
+    type: Sequelize.STRING(50),
     unique: true,
-    allowNull:false
+    notNull: true
   },
   first_name: {
     type: Sequelize.STRING(60),
-    allowNull: false
+    notNull: true
   },
   last_name: {
     type: Sequelize.STRING(60),
-    allowNull: false
+    notNull: false
   },
   admin:{
     type: Sequelize.BOOLEAN
@@ -26,6 +25,30 @@ const Users = sequelize.define('users',{
     notNull: true,
     isEmail: true
   },
+  password: {
+    type: Sequelize.STRING,
+    notNull: true
+  },
+  pay_percentage:{
+    type: Sequelize.DECIMAL,
+    notNull: true,
+    isDecimal: true
+  },
+  house_id:{
+    type: Sequelize.INTEGER,
+    references: {
+      model: Houses,
+      key: 'id'
+    }
+  }
+},
+//Ensure timeStamps are true
+{
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
+  deletedAt: 'deleted_at',
+  paranoid: true
 })
 
 sequelize.sync()
