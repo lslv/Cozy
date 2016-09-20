@@ -1,6 +1,7 @@
 //requiring necessary modules and files for table creation
 const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
+const Houses = require('../houses/model.houses.js')
 
 const Users = sequelize.define('users',{
   user_name: {
@@ -51,6 +52,6 @@ const Users = sequelize.define('users',{
   paranoid: true
 })
 
-sequelize.sync()
+Users.sync()
 
 module.exports = Users

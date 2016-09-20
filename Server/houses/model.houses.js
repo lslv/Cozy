@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
-const Users = require('../houses/model.users.js')
 
 const Houses = sequelize.define('houses',{
   house_name: {
@@ -25,6 +24,6 @@ const Houses = sequelize.define('houses',{
   paranoid: true
 })
 
-sequelize.sync()
+Houses.sync()
 
 module.exports = Houses
