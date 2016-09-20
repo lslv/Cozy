@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import BulletinPost from '../components/BulletinPost'
+import AddPost from './AddPost'
 import { Col, ListGroup, ListGroupItem } from 'react-bootstrap'
+import { connect } from 'react-redux'
 
-export default class BulletinBoard extends Component {
+class BulletinBoard extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      postMsg: '',
       flag: false
     }
     this.renderAddPost = this.renderAddPost.bind(this)
@@ -17,13 +17,15 @@ export default class BulletinBoard extends Component {
   }
   renderAddPost () {
     if (this.state.flag) {
-      return (<BulletinPost />)
+      return (<AddPost />)
     }else {
       return <noscript />
     }
   }
 
   render () {
+
+    // Below ListGroup,
     return (
       <Col xs={12} md={8}>
       <p>
@@ -37,3 +39,9 @@ export default class BulletinBoard extends Component {
     )
   }
 }
+
+function mapStateToProps ({posts}) {
+  return {posts}
+}
+
+export default connect(mapStateToProps)(BulletinBoard)
