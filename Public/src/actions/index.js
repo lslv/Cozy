@@ -11,7 +11,7 @@ export function addPost (postData) {
   // on return, attach postData to the payload
 
   // Dummy data
-  postData.user_id = '1'
+  postData.username = 'Lee'
   postData.house_id = '2'
 
   console.log('postData', postData)
