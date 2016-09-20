@@ -29521,6 +29521,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _BulletinPost = __webpack_require__(270);
+
+	var _BulletinPost2 = _interopRequireDefault(_BulletinPost);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29542,13 +29546,9 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
+	        'p',
 	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'In the BulletinBoard'
-	        )
+	        'This is the bulletin board'
 	      );
 	    }
 	  }]);
@@ -29621,6 +29621,12 @@
 	}(_react.Component);
 
 	exports.default = Dashboard;
+
+/***/ },
+/* 270 */
+/***/ function(module, exports) {
+
+	"use strict";
 
 /***/ }
 /******/ ]);
