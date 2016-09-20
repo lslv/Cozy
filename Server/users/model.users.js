@@ -43,7 +43,6 @@ const Users = sequelize.define('users',{
   //   }
   // }
 } ,
-//Ensure timeStamps are true
 {
   timestamps: true,
   // createdAt: 'created_at',
@@ -58,9 +57,9 @@ Users.belongsTo(Houses);
 
 Users.sync({force: true}).then(function () {
   // Table created
-  console.log('+++line60 model.users table successfully created');
+  console.log('+++line60 model.users table successfully created')
 }).catch(function(err){
-  console.error('There was an error in model.users', err);
-});
+  console.error('There was an error in model.users', err)
+})
 
 module.exports = Users

@@ -3,6 +3,7 @@ const chalk = require('chalk')
 const database = require('./config/database.js')
 const routesMain = require('./routes.main.js')
 const app = express()
+//Requiring Tables Here:
 const House = require('./houses/model.houses.js')
 const User = require('./users/model.users.js')
 

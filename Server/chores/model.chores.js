@@ -46,13 +46,13 @@ const Chore_Days = sequelize.define('chore_days',{
   }
 })
 
-Chore_Days.belongsTo(Chores);
+Chore_Days.belongsTo(Chores)
 
 Chore_Days.sync({force: true}).then(function () {
   // Table created
-  console.log('+++line53 model.Chore_Days table successfully created');
+  console.log('+++line53 model.Chore_Days table successfully created')
 }).catch(function(err){
-  console.error('There was an error in model.chores.Chore_Days', err);
+  console.error('There was an error in model.chores.Chore_Days', err)
 });
 
 //This table keeps track of whether a chore is completed by a user
@@ -80,9 +80,9 @@ const Chore_Completions = sequelize.define('chore_completions',{
 
 Chore_Completions.sync({force: true}).then(function () {
   // Table created
-  console.log('+++line83 model.Chore_Completions table successfully created');
+  console.log('+++line83 model.Chore_Completions table successfully created')
 }).catch(function(err){
-  console.error('There was an error in model.chores.Chore_Completions', err);
+  console.error('There was an error in model.chores.Chore_Completions', err)
 });
 
 //This Table is the queues the order of user turns
@@ -101,9 +101,9 @@ const Queues = sequelize.define('queues',{
 
 Queues.sync({force: true}).then(function () {
   // Table created
-  console.log('+++line104 model.chores.queues table successfully created');
+  console.log('+++line104 model.chores.queues table successfully created')
 }).catch(function(err){
-  console.error('There was an error in model.chores.queues', err);
+  console.error('There was an error in model.chores.queues', err)
 });
 
 //? How to export multiple items?
