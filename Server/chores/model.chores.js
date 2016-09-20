@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
-const Houses = require('../houses/model.houses.js')
+let Houses = require('../houses/model.houses.js')
+let Users = require('../users/model.users.js')
+
 
 // This is the chore Table itself
 const Chores = sequelize.define('chores',{
@@ -107,4 +109,4 @@ Queues.sync({force: true}).then(function () {
 });
 
 //? How to export multiple items?
-module.exports = Chores
+module.exports = {Chores: Chores, Chore_Days: Chore_Days, Chore_Completions: Chore_Completions, Queues: Queues}
