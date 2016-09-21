@@ -9,10 +9,6 @@ const Chores = sequelize.define('chores', {
     type: Sequelize.STRING(50),
     allowNull: false
   },
-  day_of_week: {
-    type: Sequelize.ARRAY(Sequelize.TEXT),
-    allowNull: false
-  },
   user_turn: {
     type: Sequelize.INTEGER
   }
@@ -57,14 +53,11 @@ Chore_Days.sync().then(function () {
 
 // This table keeps track of whether a chore is completed by a user
 const Chore_Completions = sequelize.define('chore_completions', {
-  chore_id: {
-
-  },
   user_id: {
-
+    type: Sequelize.INTEGER
   },
   verifying_user_id: {
-
+    type: Sequelize.INTEGER
   },
   complete: {
     type: Sequelize.BOOLEAN
@@ -80,11 +73,6 @@ const Chore_Completions = sequelize.define('chore_completions', {
 Chore_Completions.belongsTo(Chores, {
   as: 'chore_id',
   foreignKey: 'Chores'
-})
-
-Chore_Completions.belongsTo(Users, {
-  as: 'user_id',
-  foreignKey: 'Users'
 })
 
 Chore_Completions.sync().then(function () {

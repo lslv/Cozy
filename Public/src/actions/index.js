@@ -14,7 +14,12 @@ export function addPost (postData) {
   // postData.username = 'Lee'
   // postData.house_id = '2'
 
-  axios.post('/api/bulletinBoard', postData)
+  axios.post('/api/bulletinBoard/addPost', {
+    title: postData.title,
+    message: postData.message
+  })
+    .then(response => console.log('Successfully posted to bulletin board', response))
+    .catch(error => console.log('There was an error posting to the bulletin board', error))
 
   return {
     type: ADD_POST,
