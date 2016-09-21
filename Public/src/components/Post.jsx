@@ -5,8 +5,7 @@ export default (props) => {
   return (
     <ListGroupItem>
       <p>
-        Username:
-        {props.data.username}
+        User: This will have the user name / pic
       </p>
       <p>
         Title:

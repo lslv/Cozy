@@ -10,32 +10,32 @@ const Chores = sequelize.define('chores', {
     type: Sequelize.STRING(50),
     allowNull: false
   },
-  user_turn:{
+  user_turn: {
     type: Sequelize.INTEGER
   }
 },
-{
-  timestamps: true,
-  underscored: true,
-  paranoid: true
-})
+  {
+    timestamps: true,
+    underscored: true,
+    paranoid: true
+  })
 
 Chores.belongsTo(Houses)
 
 Chores.sync().then(function () {
   // Table created
   console.log(chalk.yellow('+++line32 model.chores table successfully created'))
-}).catch(function(err){
+}).catch(function (err) {
   console.error('There was an error in model.chores', err)
 })
 
 // This is the Chore Days
 
-//This is the Chore Days
+// This is the Chore Days
 
-const Chore_Days = sequelize.define('chore_days',{
-  //Days will be inputed as "monday, tuesday, wednesday, thursday, friday, saturday, sunday"
-  day:{
+const Chore_Days = sequelize.define('chore_days', {
+  // Days will be inputed as "monday, tuesday, wednesday, thursday, friday, saturday, sunday"
+  day: {
     type: Sequelize.STRING(10),
     unique: true,
     notNull: true
@@ -47,50 +47,44 @@ Chore_Days.belongsTo(Chores)
 Chore_Days.sync().then(function () {
   // Table created
   console.log(chalk.yellow('+++line53 model.Chore_Days table successfully created'))
-}).catch(function(err){
+}).catch(function (err) {
   console.error('There was an error in model.chores.Chore_Days', err)
 })
 
-//This table keeps track of whether a chore is completed by a user
-
-const Chore_Completions = sequelize.define('chore_completions',{
-  verified:{
+// This table keeps track of whether a chore is completed by a user
+const Chore_Completions = sequelize.define('chore_completions', {
+  verified: {
     type: Sequelize.BOOLEAN
   },
-  completed:{
+  completed: {
     type: Sequelize.BOOLEAN
-  },
+  }
 },
-{
-  timestamps: true,
-  createdAt: 'created_at',
-  updatedAt: false,
-  deletedAt: false,
-})
+  {
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: false,
+    deletedAt: false
+  })
 
-Chore_Completions.belongsTo(Chores,{
+Chore_Completions.belongsTo(Chores, {
   as: 'chore_id',
   foreignKey: 'Chores'
-})
-
-Chore_Completions.belongsTo(Users, {
-  as: 'user_id',
-  foreignKey: 'Users'
 })
 
 Chore_Completions.sync().then(function () {
   // Table created
   console.log(chalk.yellow('+++line83 model.Chore_Completions table successfully created'))
-}).catch(function(err){
+}).catch(function (err) {
   console.error('There was an error in model.chores.Chore_Completions', err)
 })
 
-//This Table is the queues the order of user turns
+// This Table is the queues the order of user turns
 
-const Queues = sequelize.define('queues',{
-  turn:{
+const Queues = sequelize.define('queues', {
+  turn: {
     type: Sequelize.INTEGER
-    // allowNull: false
+  // allowNull: false
   }
 })
 
@@ -107,7 +101,7 @@ Queues.belongsTo(Chores, {
 Queues.sync().then(function () {
   // Table created
   console.log(chalk.yellow('+++line104 model.chores.queues table successfully created'))
-}).catch(function(err){
+}).catch(function (err) {
   console.error('There was an error in model.chores.queues', err)
 })
 
