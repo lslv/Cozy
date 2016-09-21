@@ -78,12 +78,18 @@ Chore_Completions.belongsTo(Chores, {
   foreignKey: 'Chores'
 })
 
-Chore_Completions.sync().then(function () {
-  // Table created
-  console.log(chalk.yellow('+++line83 model.Chore_Completions table successfully created'))
-}).catch(function (err) {
-  console.error('There was an error in model.chores.Chore_Completions', err)
+Chore_Completions.belongsTo(Users, {
+  as: 'user_id',
+  foreignKey: 'Users'
 })
+
+//DO NOT DELETE THIS. THIS ALLOWS FOR THE CHORE_COMPLETIONS TABLE TO BE CREATED.CHORE_COMPLETIONS IS USED FOR GAMIFYING OUR APP
+// Chore_Completions.sync().then(function () {
+//   // Table created
+//   console.log(chalk.yellow('+++line83 model.Chore_Completions table successfully created'))
+// }).catch(function(err){
+//   console.error('There was an error in model.chores.Chore_Completions', err)
+// })
 
 // This Table is the queues the order of user turns
 
