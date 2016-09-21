@@ -17,8 +17,7 @@ const Posts = sequelize.define('posts', {
 },
   {
     timestamps: true,
-    underscored: true,
-    paranoid: true
+    underscored: true
   })
 
 Posts.belongsTo(Houses
