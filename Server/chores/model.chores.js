@@ -99,7 +99,7 @@ const Queues = sequelize.define('queues',{
   }
 })
 
-Queues.sync({force: true}).then(function () {
+Queues.sync().then(function () {
   // Table created
   console.log('+++line104 model.chores.queues table successfully created')
 }).catch(function(err){

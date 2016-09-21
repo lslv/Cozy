@@ -70,7 +70,7 @@ Post_Votes.belongsTo(Posts,{
   foreignKey: 'Posts'
 })
 
-Post_Votes.sync({force: true}).then(function () {
+Post_Votes.sync().then(function () {
   // Table created
   console.log('+++line70 model.post_Votes table successfully created')
 }).catch(function(err){
