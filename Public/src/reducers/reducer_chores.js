@@ -1,11 +1,8 @@
 import { GET_CHORES, ADD_CHORE } from '../actions/index'
 
-const INITIAL_STATE=["take out trash","do dishes","walk dog"]
+const INITIAL_STATE=[{title:"take out trash", time:"every wednesday"},{title:"do dishes", time:"every tuesday"},{title:"walk dog", time:"everyday"}]
 
 export default function(state = INITIAL_STATE , action) {
-	console.log('inside reducer')
-	// console.log(action.type)
-	// console.log(action.payload)
   switch (action.type) {
     case ADD_CHORE:
       return [action.payload, ...state]

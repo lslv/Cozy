@@ -8,13 +8,15 @@ class ChoreList extends Component {
 	componentWillMount(){
 		//console.log("Should Grab Dynamic Chores Data from backend before component mounts")
 	}
-
 	renderChoreList(){
 		console.log("rendering chore List")
 		console.log("chore list ",this.props.chores)
 		return this.props.chores.map((chore)=>{
 			return (
-				<li key={chore}>{chore}</li>
+				<ul key={chore.title}>
+					<li>{chore.title}</li>
+					<li>{chore.time}</li>
+				</ul>
 				)
 		})
 	}
@@ -25,9 +27,7 @@ class ChoreList extends Component {
 			<AddChore />
 			<div>
 			</div>
-			<ul>
 			{this.renderChoreList()}
-			</ul>
 			</div>
 			)
 	}

@@ -1,43 +1,24 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
+// import {connect} from 'react-redux'
 import {addChore} from '../actions/index'
-import {bindActionCreators} from 'redux'
+// import {bindActionCreators} from 'redux'
 import { Button, Collapse, Well } from 'react-bootstrap'
+import {reduxForm} from 'redux-form'
 
 class AddChore extends Component {
 	constructor(props){
 		super(props)
 		this.state={
-			title:''
 		}
-		this.handleSubmit=this.handleSubmit.bind(this);
 	}
 	handleSubmit(event){
 		event.preventDefault();
 		console.log('handling Submit')
 		this.props.addChore(this.state.title)
 		this.setState({ open: !this.state.open })
-		this.setState({ title:''});
 	}
-
-	onInputChange(event){
-		this.setState({title:event.target.value})
-	}
-
-	// render(){
-	// 	return(
-	// 		<div>
-	// 			<form onSubmit={(event)=>this.handleSubmit(event)}>
-	// 				<h3>Create a new chore</h3>
-	// 					<label>Title</label>
-	// 					<input type="text" value={this.state.title} onChange={this.onInputChange.bind(this)} className="form-control"/>
-	// 				<button type="submit" className="btn btn-primary">Submit</button>
-	// 			</form>
-
-	// 		</div>
-	// 		)
-	// }
 render() {
+	const { fields:{title, time}, handleSubmit}= this.props;
     return (
       <div>
         <Button onClick={ ()=> this.setState({ open: !this.state.open })}>
@@ -47,11 +28,21 @@ render() {
           <div>
             <Well>
             	<div>
-				<form onSubmit={(event)=>this.handleSubmit(event)}>
+
+				<form onSubmit={handleSubmit(this.props.addChore)}>
 					<h3>Create a new chore</h3>
-						<label>Title</label>
-						<input type="text" value={this.state.title} onChange={this.onInputChange.bind(this)} className="form-control"/>
-					<button type="submit" className="btn btn-primary">Submit</button>
+
+					<div>
+					<label>Title</label>
+					<input type="text" className="form-control" {...title} />
+					</div>
+
+					<div>
+					<label>Reocurring Time</label>
+					<input type="text" className="form-control" {...time}/>
+					</div>
+
+					<button onClick={ ()=> this.setState({ open: !this.state.open })} type="submit" className="btn btn-primary">Submit</button>
 				</form>
 
 			</div>
@@ -63,8 +54,15 @@ render() {
   }
 }
 
-function mapDispatchToProps(dispatch){
-	return bindActionCreators({addChore}, dispatch)
-}
 
-export default connect(null, mapDispatchToProps)(AddChore)
+export default reduxForm({
+		form: 'AddChore',
+		fields:['title', 'time']},null,{addChore})(AddChore)
+
+
+
+
+
+
+
+
