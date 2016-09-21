@@ -49144,7 +49144,7 @@
 	}(_react.Component);
 
 	function mapStateToProps(state) {
-		return { chores: state.chores.chores }; //add state infusion there
+		return { chores: state.chores }; //add state infusion there
 	}
 
 	function mapDispatchToProps(dispatch) {
@@ -50013,7 +50013,9 @@
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? INITIAL_STATE : arguments[0];
 	  var action = arguments[1];
 
-	  // console.log(action.type);
+	  console.log('inside reducer');
+	  console.log(action.type);
+	  console.log(action.payload);
 	  switch (action.type) {
 	    case _index.ADD_CHORE:
 	      return [action.payload].concat(_toConsumableArray(state));
@@ -50029,7 +50031,7 @@
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-	var INITIAL_STATE = { chores: ["take out trash", "do dishes", "walk dog"] };
+	var INITIAL_STATE = ["take out trash", "do dishes", "walk dog"];
 
 /***/ },
 /* 547 */
@@ -50047,7 +50049,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRedux = __webpack_require__(491);
+
 	var _index = __webpack_require__(512);
+
+	var _redux = __webpack_require__(498);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50060,55 +50066,48 @@
 	var AddChore = function (_Component) {
 		_inherits(AddChore, _Component);
 
-		function AddChore() {
+		function AddChore(props) {
 			_classCallCheck(this, AddChore);
 
-			return _possibleConstructorReturn(this, (AddChore.__proto__ || Object.getPrototypeOf(AddChore)).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, (AddChore.__proto__ || Object.getPrototypeOf(AddChore)).call(this, props));
+
+			_this.state = {
+				title: ''
+			};
+			return _this;
 		}
 
 		_createClass(AddChore, [{
 			key: 'handleSubmit',
 			value: function handleSubmit() {
 				console.log('handling Submit');
+				this.props.addChore(this.state.title);
+			}
+		}, {
+			key: 'onInputChange',
+			value: function onInputChange(event) {
+				this.setState({ title: event.target.value });
 			}
 		}, {
 			key: 'render',
 			value: function render() {
-				var _this2 = this;
-
 				return _react2.default.createElement(
 					'div',
 					null,
 					_react2.default.createElement(
 						'form',
-						{ onSubmit: function onSubmit() {
-								return _this2.handleSubmit();
-							} },
+						{ onSubmit: this.handleSubmit.bind(this) },
 						_react2.default.createElement(
 							'h3',
 							null,
 							'Create a new chore'
 						),
 						_react2.default.createElement(
-							'div',
-							{ className: 'form-group' },
-							_react2.default.createElement(
-								'label',
-								null,
-								'Title'
-							),
-							_react2.default.createElement('input', { type: 'text', className: 'form-control' })
+							'label',
+							null,
+							'Title'
 						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'form-group' },
-							_react2.default.createElement(
-								'label',
-								null,
-								'Time'
-							),
-							_react2.default.createElement('input', { type: 'text', className: 'form-control' })
-						),
+						_react2.default.createElement('input', { type: 'text', value: this.state.title, onChange: this.onInputChange.bind(this), className: 'form-control' }),
 						_react2.default.createElement(
 							'button',
 							{ type: 'submit', className: 'btn btn-primary' },
@@ -50122,7 +50121,11 @@
 		return AddChore;
 	}(_react.Component);
 
-	exports.default = AddChore;
+	function mapDispatchToProps(dispatch) {
+		return (0, _redux.bindActionCreators)({ addChore: _index.addChore }, dispatch);
+	}
+
+	exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(AddChore);
 
 /***/ }
 /******/ ]);

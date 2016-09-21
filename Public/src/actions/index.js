@@ -26,7 +26,7 @@ export function addPost (postData) {
 
 export function getChores (choreData){
   //make an axios get request to the backend for a list of choses
-  console.log("getting a chore action");
+  console.log("getting a chore action")
   return{
     type: GET_CHORES,
     payload: postChore
@@ -37,7 +37,7 @@ export function getChores (choreData){
 export function addChore (choreData){
 //make an axios post request to the backend to add a new chore
 //eventually that will be the payload
-console.log("adding a chore action");
+console.log("adding a chore action")
   return{
     type: ADD_CHORE,
     payload: choreData
