@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Col, ListGroup, ListGroupItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import axios from 'axios'
 import { updatePosts } from '../actions/index'
 import { bindActionCreators } from 'redux'
 
@@ -20,17 +19,8 @@ class BulletinBoard extends Component {
   }
 
   componentWillMount () {
-    // Here, do a get request to post DB to get all posts in the house
-    // use this to update the props
-
-    // for testing purposes, get all where title = test
-    // Eventually, get all where house_id matches the user's house_id
-    axios.get('/api/bulletinBoard/getPosts?title=title')
-      .then(response => {
-        console.log('successfully got posts from db', response)
-        this.props.updatePosts(response.data)
-      })
-      .catch(error => console.log('error getting posts from db', error))
+    // grab the posts that exist in the DB and add them to post state
+    this.props.updatePosts()
   }
 
   toggleAddPost () {
@@ -54,8 +44,6 @@ class BulletinBoard extends Component {
   }
 
   render () {
-    console.log('this.props.posts in BulletinBoard', this.props)
-    // Below ListGroup, map everything in this.props.posts to return a 'post' component (need to make)
     return (
       <Col xs={12} md={8}>
       <p>
