@@ -18,7 +18,7 @@ class AddChore extends Component {
 		this.setState({ open: !this.state.open })
 	}
 render() {
-	const { fields:{title, time}, handleSubmit}= this.props;
+	const { fields:{title, time}, handleSubmit}= this.props
     return (
       <div>
         <Button onClick={ ()=> this.setState({ open: !this.state.open })}>
@@ -50,7 +50,7 @@ render() {
           </div>
         </Collapse>
       </div>
-    );
+    )
   }
 }
 
