@@ -12,6 +12,11 @@ export default class Dashboard extends Component {
           <Link to='/bulletin_board'> Go to the bulletin board
           </Link>
         </button>
+        <br />
+        <button>
+          <Link to='/chorelist'> Go to the chore list board
+          </Link>
+        </button>
       </div>
     )
   }

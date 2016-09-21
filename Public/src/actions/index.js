@@ -1,6 +1,9 @@
 import axios from 'axios'
 
 export const ADD_POST = 'ADD_POST'
+export const GET_CHORES = 'GET_CHORES'
+export const ADD_CHORE = 'ADD_CHORE'
+export const DELETE_CHORE = 'DELETE_CHORE'
 
 export function addPost (postData) {
 
@@ -19,5 +22,33 @@ export function addPost (postData) {
   return {
     type: ADD_POST,
     payload: postData
+  }
+}
+
+export function getChores (choreData){
+  //make an axios get request to the backend for a list of choses
+  console.log("getting a chore action")
+  return{
+    type: GET_CHORES,
+    payload: postChore
+  }
+}
+
+
+export function addChore (choreData){
+//make an axios post request to the backend to add a new chore
+//eventually that will be the payload
+console.log("adding a chore action")
+  return{
+    type: ADD_CHORE,
+    payload: choreData
+  }
+}
+
+export function deleteChore(choreId){
+console.log("deleting a chore action")
+  return{
+    type: DELETE_CHORE,
+    payload: choreId
   }
 }
