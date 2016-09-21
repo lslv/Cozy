@@ -52,6 +52,7 @@ console.log("adding a chore action")
 
 export function deleteChore(choreId){
 console.log("deleting a chore action")
+//make a delete request to the backend
   return{
     type: DELETE_CHORE,
     payload: choreId

@@ -3,8 +3,16 @@ import {connect} from 'react-redux'
 import {getChores} from '../actions/index'
 import {bindActionCreator} from 'redux'
 import AddChore from './AddChore'
+import Chore from './Chore'
+import {Accordion, Panel, Button, Collapse, Well} from 'react-bootstrap';
 
 class ChoreList extends Component {
+	constructor(props){
+		super(props)
+		this.state={
+			open:true
+		}
+	}
 	componentWillMount(){
 		//console.log("Should Grab Dynamic Chores Data from backend before component mounts")
 	}
@@ -13,26 +21,23 @@ class ChoreList extends Component {
 		console.log("chore list ",this.props.chores)
 		return this.props.chores.map((chore)=>{
 			return (
-				<ul key={chore.title}>
-					<li>{chore.title}</li>
-					<li>{chore.time}</li>
-				</ul>
+					<Chore key={chore.title} chore={chore} />		
 				)
 		})
 	}
-
 	render(){
 		return (
 			<div>
-			<AddChore />
-			<div>
-			</div>
-			{this.renderChoreList()}
+				<Accordion>
+					<Panel>
+						<AddChore />
+					</Panel>
+					{this.renderChoreList()}
+				</Accordion>
 			</div>
 			)
 	}
 }
-
 
 function mapStateToProps(state){
 	return {chores:state.chores} //add state infusion there
