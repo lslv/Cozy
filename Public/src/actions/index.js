@@ -3,6 +3,7 @@ import axios from 'axios'
 export const ADD_POST = 'ADD_POST'
 export const GET_CHORES = 'GET_CHORES'
 export const ADD_CHORE = 'ADD_CHORE'
+export const DELETE_CHORE = 'DELETE_CHORE'
 
 export function addPost (postData) {
 
@@ -41,5 +42,13 @@ console.log("adding a chore action")
   return{
     type: ADD_CHORE,
     payload: choreData
+  }
+}
+
+export function deleteChore(choreId){
+console.log("deleting a chore action")
+  return{
+    type: DELETE_CHORE,
+    payload: choreId
   }
 }

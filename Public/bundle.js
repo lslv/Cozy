@@ -47590,10 +47590,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.ADD_CHORE = exports.GET_CHORES = exports.ADD_POST = undefined;
+	exports.DELETE_CHORE = exports.ADD_CHORE = exports.GET_CHORES = exports.ADD_POST = undefined;
 	exports.addPost = addPost;
 	exports.getChores = getChores;
 	exports.addChore = addChore;
+	exports.deleteChore = deleteChore;
 
 	var _axios = __webpack_require__(513);
 
@@ -47604,6 +47605,7 @@
 	var ADD_POST = exports.ADD_POST = 'ADD_POST';
 	var GET_CHORES = exports.GET_CHORES = 'GET_CHORES';
 	var ADD_CHORE = exports.ADD_CHORE = 'ADD_CHORE';
+	var DELETE_CHORE = exports.DELETE_CHORE = 'DELETE_CHORE';
 
 	function addPost(postData) {
 
@@ -47641,6 +47643,14 @@
 	  return {
 	    type: ADD_CHORE,
 	    payload: choreData
+	  };
+	}
+
+	function deleteChore(choreId) {
+	  console.log("deleting a chore action");
+	  return {
+	    type: DELETE_CHORE,
+	    payload: choreId
 	  };
 	}
 
@@ -50014,8 +50024,8 @@
 	  var action = arguments[1];
 
 	  console.log('inside reducer');
-	  console.log(action.type);
-	  console.log(action.payload);
+	  // console.log(action.type)
+	  // console.log(action.payload)
 	  switch (action.type) {
 	    case _index.ADD_CHORE:
 	      return [action.payload].concat(_toConsumableArray(state));
@@ -50055,6 +50065,8 @@
 
 	var _redux = __webpack_require__(498);
 
+	var _reactBootstrap = __webpack_require__(240);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50074,44 +50086,91 @@
 			_this.state = {
 				title: ''
 			};
+			_this.handleSubmit = _this.handleSubmit.bind(_this);
 			return _this;
 		}
 
 		_createClass(AddChore, [{
 			key: 'handleSubmit',
-			value: function handleSubmit() {
+			value: function handleSubmit(event) {
+				event.preventDefault();
 				console.log('handling Submit');
 				this.props.addChore(this.state.title);
+				this.setState({ open: !this.state.open });
+				this.setState({ title: '' });
 			}
 		}, {
 			key: 'onInputChange',
 			value: function onInputChange(event) {
 				this.setState({ title: event.target.value });
 			}
+
+			// render(){
+			// 	return(
+			// 		<div>
+			// 			<form onSubmit={(event)=>this.handleSubmit(event)}>
+			// 				<h3>Create a new chore</h3>
+			// 					<label>Title</label>
+			// 					<input type="text" value={this.state.title} onChange={this.onInputChange.bind(this)} className="form-control"/>
+			// 				<button type="submit" className="btn btn-primary">Submit</button>
+			// 			</form>
+
+			// 		</div>
+			// 		)
+			// }
+
 		}, {
 			key: 'render',
 			value: function render() {
+				var _this2 = this;
+
 				return _react2.default.createElement(
 					'div',
 					null,
 					_react2.default.createElement(
-						'form',
-						{ onSubmit: this.handleSubmit.bind(this) },
+						_reactBootstrap.Button,
+						{ onClick: function onClick() {
+								return _this2.setState({ open: !_this2.state.open });
+							} },
+						'Add Chore ',
+						_react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' })
+					),
+					_react2.default.createElement(
+						_reactBootstrap.Collapse,
+						{ 'in': this.state.open },
 						_react2.default.createElement(
-							'h3',
+							'div',
 							null,
-							'Create a new chore'
-						),
-						_react2.default.createElement(
-							'label',
-							null,
-							'Title'
-						),
-						_react2.default.createElement('input', { type: 'text', value: this.state.title, onChange: this.onInputChange.bind(this), className: 'form-control' }),
-						_react2.default.createElement(
-							'button',
-							{ type: 'submit', className: 'btn btn-primary' },
-							'Submit'
+							_react2.default.createElement(
+								_reactBootstrap.Well,
+								null,
+								_react2.default.createElement(
+									'div',
+									null,
+									_react2.default.createElement(
+										'form',
+										{ onSubmit: function onSubmit(event) {
+												return _this2.handleSubmit(event);
+											} },
+										_react2.default.createElement(
+											'h3',
+											null,
+											'Create a new chore'
+										),
+										_react2.default.createElement(
+											'label',
+											null,
+											'Title'
+										),
+										_react2.default.createElement('input', { type: 'text', value: this.state.title, onChange: this.onInputChange.bind(this), className: 'form-control' }),
+										_react2.default.createElement(
+											'button',
+											{ type: 'submit', className: 'btn btn-primary' },
+											'Submit'
+										)
+									)
+								)
+							)
 						)
 					)
 				);
