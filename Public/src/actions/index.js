@@ -11,12 +11,10 @@ export function addPost (postData) {
   // on return, attach postData to the payload
 
   // Dummy data
-  postData.username = 'Lee'
-  postData.house_id = '2'
+  // postData.username = 'Lee'
+  // postData.house_id = '2'
 
   axios.post('/api/bulletinBoard', postData)
-
-  console.log('postData', postData)
 
   return {
     type: ADD_POST,

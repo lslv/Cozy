@@ -29632,6 +29632,11 @@
 	  }
 
 	  _createClass(BulletinBoard, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      // Here, do a get request to post DB to get all posts in the house
+	    }
+	  }, {
 	    key: 'toggleAddPost',
 	    value: function toggleAddPost() {
 	      console.log('this.props', this.props.posts);
@@ -48421,12 +48426,10 @@
 	  // on return, attach postData to the payload
 
 	  // Dummy data
-	  postData.username = 'Lee';
-	  postData.house_id = '2';
+	  // postData.username = 'Lee'
+	  // postData.house_id = '2'
 
 	  _axios2.default.post('/api/bulletinBoard', postData);
-
-	  console.log('postData', postData);
 
 	  return {
 	    type: ADD_POST,

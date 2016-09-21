@@ -15,6 +15,11 @@ class BulletinBoard extends Component {
     this.toggleAddPost = this.toggleAddPost.bind(this)
     this.renderPosts = this.renderPosts.bind(this)
   }
+
+  componentWillMount () {
+    // Here, do a get request to post DB to get all posts in the house
+  }
+
   toggleAddPost () {
     console.log('this.props', this.props.posts)
     this.setState({flag: !this.state.flag})
