@@ -26,3 +26,12 @@ export function addPost (postData) {
     payload: postData
   }
 }
+
+export const GET_POSTS = 'GET_POSTS'
+
+export function updatePosts (postsfromDB) {
+  return {
+    type: GET_POSTS,
+    payload: postsfromDB
+  }
+}

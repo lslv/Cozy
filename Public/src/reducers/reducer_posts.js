@@ -1,10 +1,19 @@
-import { ADD_POST } from '../actions/index'
+import { ADD_POST, GET_POSTS } from '../actions/index'
 
 export default function(state = [] , action) {
   switch (action.type) {
     case ADD_POST: {
-      console.log('in reducer_posts', action)
       return [action.payload, ...state]
+    }
+    case GET_POSTS: {
+      if (action.payload) {
+        console.log('action payload in get posts', action.payload)
+        let allPosts = []
+        for (let post of action.payload) {
+          allPosts.push(post)
+        }
+        return allPosts.concat(...state)
+      }
     }
   }
   return state

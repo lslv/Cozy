@@ -27257,6 +27257,14 @@
 
 	var _reactRedux = __webpack_require__(490);
 
+	var _axios = __webpack_require__(513);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _index = __webpack_require__(512);
+
+	var _redux = __webpack_require__(497);
+
 	var _AddPost = __webpack_require__(511);
 
 	var _AddPost2 = _interopRequireDefault(_AddPost);
@@ -27293,9 +27301,19 @@
 	  _createClass(BulletinBoard, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
+	      var _this2 = this;
+
 	      // Here, do a get request to post DB to get all posts in the house
 	      // use this to update the props
 
+	      // for testing purposes, get all where title = test
+	      // Eventually, get all where house_id matches the user's house_id
+	      _axios2.default.get('/api/bulletinBoard/getPosts?title=title').then(function (response) {
+	        console.log('successfully got posts from db', response);
+	        _this2.props.updatePosts(response.data);
+	      }).catch(function (error) {
+	        return console.log('error getting posts from db', error);
+	      });
 	    }
 	  }, {
 	    key: 'toggleAddPost',
@@ -27321,7 +27339,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      'this.props in BulletinBoard', this.props;
+	      console.log('this.props.posts in BulletinBoard', this.props);
 	      // Below ListGroup, map everything in this.props.posts to return a 'post' component (need to make)
 	      return _react2.default.createElement(
 	        _reactBootstrap.Col,
@@ -27355,7 +27373,11 @@
 	  return { posts: posts };
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(BulletinBoard);
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({ updatePosts: _index.updatePosts }, dispatch);
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(BulletinBoard);
 
 /***/ },
 /* 239 */
@@ -47623,8 +47645,9 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.ADD_POST = undefined;
+	exports.GET_POSTS = exports.ADD_POST = undefined;
 	exports.addPost = addPost;
+	exports.updatePosts = updatePosts;
 
 	var _axios = __webpack_require__(513);
 
@@ -47658,6 +47681,15 @@
 	  return {
 	    type: ADD_POST,
 	    payload: postData
+	  };
+	}
+
+	var GET_POSTS = exports.GET_POSTS = 'GET_POSTS';
+
+	function updatePosts(postsfromDB) {
+	  return {
+	    type: GET_POSTS,
+	    payload: postsfromDB
 	  };
 	}
 
@@ -53556,8 +53588,40 @@
 	  switch (action.type) {
 	    case _index.ADD_POST:
 	      {
-	        console.log('in reducer_posts', action);
 	        return [action.payload].concat(_toConsumableArray(state));
+	      }
+	    case _index.GET_POSTS:
+	      {
+	        if (action.payload) {
+	          console.log('action payload in get posts', action.payload);
+	          var allPosts = [];
+	          var _iteratorNormalCompletion = true;
+	          var _didIteratorError = false;
+	          var _iteratorError = undefined;
+
+	          try {
+	            for (var _iterator = action.payload[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	              var post = _step.value;
+
+	              allPosts.push(post);
+	            }
+	          } catch (err) {
+	            _didIteratorError = true;
+	            _iteratorError = err;
+	          } finally {
+	            try {
+	              if (!_iteratorNormalCompletion && _iterator.return) {
+	                _iterator.return();
+	              }
+	            } finally {
+	              if (_didIteratorError) {
+	                throw _iteratorError;
+	              }
+	            }
+	          }
+
+	          return allPosts.concat.apply(allPosts, _toConsumableArray(state));
+	        }
 	      }
 	  }
 	  return state;
