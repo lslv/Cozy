@@ -2,10 +2,12 @@ const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
 let Houses = require('../houses/model.houses.js')
 let Users = require('../users/model.users.js')
+let chalk = require('chalk')
 
-// This is the table for Posts and comments on posts
 
-const Posts = sequelize.define('posts', {
+//This is the table for Posts and comments on posts
+
+const Posts = sequelize.define('posts',{
   title: {
     type: Sequelize.STRING(50),
     notNull: true
@@ -13,22 +15,18 @@ const Posts = sequelize.define('posts', {
   message: {
     type: Sequelize.STRING
   }
-// ,
-// expired_at:{
-//   type: Sequelize.DATE
-// }
 },
-  {
-    timestamps: true,
-    underscored: true,
-    paranoid: true
-  })
+{
+  timestamps: true,
+  underscored: true,
+  paranoid: true
+})
 
 Posts.belongsTo(Houses
-// ,{
-// as: 'house_id',
-// foreignKey: 'Houses'
-// }
+  //,{
+  //as: 'house_id',
+  //foreignKey: 'Houses'
+//}
 )
 Posts.belongsTo(Users
 //   ,{
@@ -44,34 +42,40 @@ Posts.belongsTo(Users
 
 Posts.sync().then(function () {
   // Table created
-  console.log('+++line43 model.posts table successfully created')
-}).catch(function (err) {
+  console.log(chalk.green('+++line43 model.posts table successfully created'))
+}).catch(function(err){
   console.error('There was an error in model.users', err)
 })
 
+
+
 // This is the table for votes on posts
 
-const Post_Votes = sequelize.define('post_votes', {
-  // Vote_value consists of 0's (a down vote) and 1's (an up vote)
-  vote_value: {
+const Post_Votes = sequelize.define('post_votes',{
+  //Vote_value consists of 0's (a down vote) and 1's (an up vote)
+  vote_value:{
     type: Sequelize.INTEGER
   }
 })
 
 Post_Votes.belongsTo(Users,
-  {
-    as: 'user_id',
-    foreignKey: 'Users'
-  })
+{
+  as: 'user_id',
+  foreignKey: 'Users'
+})
 
-Post_Votes.belongsTo(Posts)
+Post_Votes.belongsTo(Posts,
+{
+  as: 'post_id',
+  foreignKey: 'Posts'
+})
 
 Post_Votes.sync().then(function () {
   // Table created
-  console.log('+++line70 model.post_Votes table successfully created')
-}).catch(function (err) {
+  console.log(chalk.green('+++line79 model.post_Votes table successfully created'))
+}).catch(function(err){
   console.error('There was an error in model.users', err)
 })
 
-// ? How do I export tables properly?
+
 module.exports = {Posts: Posts, Post_Votes: Post_Votes}
