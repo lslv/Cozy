@@ -17,7 +17,12 @@ export function addPost (postData) {
   // postData.username = 'Lee'
   // postData.house_id = '2'
 
-  axios.post('/api/bulletinBoard', postData)
+  axios.post('/api/bulletinBoard/addPost', {
+    title: postData.title,
+    message: postData.message
+  })
+    .then(response => console.log('Successfully posted to bulletin board', response))
+    .catch(error => console.log('There was an error posting to the bulletin board', error))
 
   return {
     type: ADD_POST,
@@ -50,5 +55,12 @@ console.log("deleting a chore action")
   return{
     type: DELETE_CHORE,
     payload: choreId
+
+export const GET_POSTS = 'GET_POSTS'
+
+export function updatePosts (postsfromDB) {
+  return {
+    type: GET_POSTS,
+    payload: postsfromDB
   }
 }
