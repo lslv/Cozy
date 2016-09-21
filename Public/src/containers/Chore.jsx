@@ -12,6 +12,10 @@ class Chore extends Component {
 		}
 	}
 
+	deleteChore(choreId){
+		this.props.deleteChore(choreId)
+	}
+
 	render(){
 		const {chore}= this.props
 		return (
@@ -22,7 +26,9 @@ class Chore extends Component {
 				onClick={()=>this.setState({open: !this.state.open})}>
 					<h3>{chore.title}</h3>
 					<h6>{chore.time}</h6>
-					<Button bsStyle="danger">Delete Chore</Button>
+					<Button bsStyle="danger"
+					onClick={()=> this.deleteChore(chore.id)}>
+					Delete Chore</Button>
 				</Panel>
 			)
 	}

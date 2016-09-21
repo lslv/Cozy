@@ -47685,6 +47685,7 @@
 
 	function deleteChore(choreId) {
 	  console.log("deleting a chore action");
+	  //make a delete request to the backend
 	  return {
 	    type: DELETE_CHORE,
 	    payload: choreId
@@ -50122,6 +50123,18 @@
 	      return [action.payload].concat(_toConsumableArray(state));
 	    case _index.GET_CHORES:
 	      return [].concat(_toConsumableArray(state)); //for the time being just do this even tho is redundant
+	    case _index.DELETE_CHORE:
+	      var tempState = state;
+	      console.log('deleting chore' + action.payload);
+	      for (var i = 0; i < state.length; i++) {
+	        if (state[i].id == action.payload) {
+	          console.log('found the one to delete');
+	          console.log(tempState);
+	          tempState.splice(i, 1);
+	          console.log(tempState);
+	          return [].concat(_toConsumableArray(tempState));
+	        }
+	      }break;
 	    default:
 	      return state;
 	  }
@@ -50132,7 +50145,7 @@
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-	var INITIAL_STATE = [{ title: "take out trash", time: "every wednesday" }, { title: "do dishes", time: "every tuesday" }, { title: "walk dog", time: "everyday" }];
+	var INITIAL_STATE = [{ title: "take out trash", time: "every wednesday", id: 1 }, { title: "do dishes", time: "every tuesday", id: 2 }, { title: "walk dog", time: "everyday", id: 3 }];
 
 /***/ },
 /* 548 */
@@ -53392,6 +53405,11 @@
 		}
 
 		_createClass(Chore, [{
+			key: 'deleteChore',
+			value: function deleteChore(choreId) {
+				this.props.deleteChore(choreId);
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				var _this2 = this;
@@ -53419,7 +53437,10 @@
 					),
 					_react2.default.createElement(
 						_reactBootstrap.Button,
-						{ bsStyle: 'danger' },
+						{ bsStyle: 'danger',
+							onClick: function onClick() {
+								return _this2.deleteChore(chore.id);
+							} },
 						'Delete Chore'
 					)
 				);
