@@ -7,12 +7,11 @@ export default function(state = [] , action) {
     }
     case GET_POSTS: {
       if (action.payload) {
-        console.log('action payload in get posts', action.payload)
         let allPosts = []
         for (let post of action.payload.data) {
           allPosts.push(post)
         }
-        return allPosts.concat(...state)
+        return [...state].concat(allPosts)
       }
     }
   }

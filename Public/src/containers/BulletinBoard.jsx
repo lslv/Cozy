@@ -11,7 +11,8 @@ class BulletinBoard extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      flag: false
+      flag: false,
+      showLoadingIcon: false
     }
     this.renderAddPost = this.renderAddPost.bind(this)
     this.toggleAddPost = this.toggleAddPost.bind(this)
@@ -20,7 +21,9 @@ class BulletinBoard extends Component {
 
   componentWillMount () {
     // grab the posts that exist in the DB and add them to post state
+    this.setState({ showLoadingIcon: !this.state.showLoadingIcon })
     this.props.updatePosts()
+      .then(() => this.setState({ showLoadingIcon: !this.state.showLoadingIcon }))
   }
 
   toggleAddPost () {
@@ -38,24 +41,28 @@ class BulletinBoard extends Component {
   renderPosts () {
     return this.props.posts.map((post) => {
       return (
-        <Post data={post} key={post.id} />
+        <Post data={post} key={post.id || post.message} />
       )
     })
   }
 
   render () {
-    return (
-      <Col xs={12} md={8}>
-      <p>
-        Add a post-it
-        <span onClick={this.toggleAddPost}><i className='fa fa-plus-circle' aria-hidden='true'></i></span>
-      </p>
-      <ListGroup>
-        {this.renderAddPost()}
-        {this.renderPosts()}
-      </ListGroup>
-      </Col>
-    )
+    if (this.state.showLoadingIcon) {
+      return ( <img src='../../loader.gif' />)
+    } else {
+      return (
+        <Col xs={12} md={8}>
+        <p>
+          Add a post-it
+          <span onClick={this.toggleAddPost}><i className='fa fa-plus-circle' aria-hidden='true'></i></span>
+        </p>
+        <ListGroup>
+          {this.renderAddPost()}
+          {this.renderPosts()}
+        </ListGroup>
+        </Col>
+      )
+    }
   }
 }
 

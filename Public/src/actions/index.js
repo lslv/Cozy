@@ -69,9 +69,7 @@ export function updatePosts () {
   const testQuery = '/api/bulletinBoard/getPosts?title=title'
 
   const request = axios.get(testQuery)
-  console.log('request in updatePosts', request)
-  // .then(response => console.log('successfully got posts from db', response.data))
-  // .catch(error => console.log('error getting posts from db', error))
+
   return {
     type: GET_POSTS,
     payload: request

@@ -27291,7 +27291,8 @@
 	    var _this = _possibleConstructorReturn(this, (BulletinBoard.__proto__ || Object.getPrototypeOf(BulletinBoard)).call(this, props));
 
 	    _this.state = {
-	      flag: false
+	      flag: false,
+	      showLoadingIcon: false
 	    };
 	    _this.renderAddPost = _this.renderAddPost.bind(_this);
 	    _this.toggleAddPost = _this.toggleAddPost.bind(_this);
@@ -27302,8 +27303,13 @@
 	  _createClass(BulletinBoard, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
+	      var _this2 = this;
+
 	      // grab the posts that exist in the DB and add them to post state
-	      this.props.updatePosts();
+	      this.setState({ showLoadingIcon: !this.state.showLoadingIcon });
+	      this.props.updatePosts().then(function () {
+	        return _this2.setState({ showLoadingIcon: !_this2.state.showLoadingIcon });
+	      });
 	    }
 	  }, {
 	    key: 'toggleAddPost',
@@ -27323,32 +27329,36 @@
 	    key: 'renderPosts',
 	    value: function renderPosts() {
 	      return this.props.posts.map(function (post) {
-	        return _react2.default.createElement(_Post2.default, { data: post, key: post.id });
+	        return _react2.default.createElement(_Post2.default, { data: post, key: post.id || post.message });
 	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        _reactBootstrap.Col,
-	        { xs: 12, md: 8 },
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Add a post-it',
+	      if (this.state.showLoadingIcon) {
+	        return _react2.default.createElement('img', { src: '../../loader.gif' });
+	      } else {
+	        return _react2.default.createElement(
+	          _reactBootstrap.Col,
+	          { xs: 12, md: 8 },
 	          _react2.default.createElement(
-	            'span',
-	            { onClick: this.toggleAddPost },
-	            _react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' })
+	            'p',
+	            null,
+	            'Add a post-it',
+	            _react2.default.createElement(
+	              'span',
+	              { onClick: this.toggleAddPost },
+	              _react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' })
+	            )
+	          ),
+	          _react2.default.createElement(
+	            _reactBootstrap.ListGroup,
+	            null,
+	            this.renderAddPost(),
+	            this.renderPosts()
 	          )
-	        ),
-	        _react2.default.createElement(
-	          _reactBootstrap.ListGroup,
-	          null,
-	          this.renderAddPost(),
-	          this.renderPosts()
-	        )
-	      );
+	        );
+	      }
 	    }
 	  }]);
 
@@ -47620,9 +47630,7 @@
 	  var testQuery = '/api/bulletinBoard/getPosts?title=title';
 
 	  var request = _axios2.default.get(testQuery);
-	  console.log('request in updatePosts', request);
-	  // .then(response => console.log('successfully got posts from db', response.data))
-	  // .catch(error => console.log('error getting posts from db', error))
+
 	  return {
 	    type: GET_POSTS,
 	    payload: request
@@ -55612,7 +55620,6 @@
 	    case _index.GET_POSTS:
 	      {
 	        if (action.payload) {
-	          console.log('action payload in get posts', action.payload);
 	          var allPosts = [];
 	          var _iteratorNormalCompletion = true;
 	          var _didIteratorError = false;
@@ -55639,7 +55646,7 @@
 	            }
 	          }
 
-	          return allPosts.concat.apply(allPosts, _toConsumableArray(state));
+	          return [].concat(_toConsumableArray(state)).concat(allPosts);
 	        }
 	      }
 	  }
