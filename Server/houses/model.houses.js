@@ -24,7 +24,7 @@ const Houses = sequelize.define('houses',{
   paranoid: true
 })
 
-Houses.sync({force: true}).then(function () {
+Houses.sync().then(function () {
 
   console.log('+++line 29 model.houses.js table successfully created')
   // Table created

@@ -55,7 +55,7 @@ const Users = sequelize.define('users',{
 
 Users.belongsTo(Houses);
 
-Users.sync({force: true}).then(function () {
+Users.sync().then(function () {
   // Table created
   console.log('+++line60 model.users table successfully created')
 }).catch(function(err){
