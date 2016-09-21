@@ -29626,14 +29626,14 @@
 	      flag: false
 	    };
 	    _this.renderAddPost = _this.renderAddPost.bind(_this);
-	    _this.togglePost = _this.togglePost.bind(_this);
+	    _this.toggleAddPost = _this.toggleAddPost.bind(_this);
 	    _this.renderPosts = _this.renderPosts.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(BulletinBoard, [{
-	    key: 'togglePost',
-	    value: function togglePost() {
+	    key: 'toggleAddPost',
+	    value: function toggleAddPost() {
 	      console.log('this.props', this.props.posts);
 	      this.setState({ flag: !this.state.flag });
 	    }
@@ -29649,7 +29649,6 @@
 	  }, {
 	    key: 'renderPosts',
 	    value: function renderPosts() {
-	      console.log('this.props in BulletinBoard', this.props.posts);
 	      return this.props.posts.map(function (post) {
 	        return _react2.default.createElement(_Post2.default, { data: post, key: post.message });
 	      });
@@ -29668,7 +29667,7 @@
 	          'Add a post-it',
 	          _react2.default.createElement(
 	            'span',
-	            { onClick: this.togglePost },
+	            { onClick: this.toggleAddPost },
 	            _react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' })
 	          )
 	        ),
@@ -48415,7 +48414,7 @@
 
 	function addPost(postData) {
 
-	  // Post data comes in as { postMsg: 'the user's input msg }
+	  // Post data comes in as { title: 'title', message: 'msg' }
 	  // Grab user_id and house_id from local storage and attach to postData object
 	  // So payload should be set as { postMsg: 'User input', user_id: 1, house_id:2 }
 	  // Post updated postData obj to the DB
@@ -48424,6 +48423,8 @@
 	  // Dummy data
 	  postData.username = 'Lee';
 	  postData.house_id = '2';
+
+	  _axios2.default.post('/api/bulletinBoard', postData);
 
 	  console.log('postData', postData);
 
@@ -49845,30 +49846,41 @@
 
 	    var _this = _possibleConstructorReturn(this, (AddPost.__proto__ || Object.getPrototypeOf(AddPost)).call(this, props));
 
-	    _this.state = { message: '' };
+	    _this.state = { title: '', message: '' };
 
-	    _this.onInputChange = _this.onInputChange.bind(_this);
+	    _this.onMsgInputChange = _this.onMsgInputChange.bind(_this);
+	    _this.onTitleInputChange = _this.onTitleInputChange.bind(_this);
 	    _this.handleClick = _this.handleClick.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(AddPost, [{
-	    key: 'onInputChange',
-	    value: function onInputChange(event) {
+	    key: 'onMsgInputChange',
+	    value: function onMsgInputChange(event) {
 	      this.setState({ message: event.target.value });
+	    }
+	  }, {
+	    key: 'onTitleInputChange',
+	    value: function onTitleInputChange(event) {
+	      this.setState({ title: event.target.value });
 	    }
 	  }, {
 	    key: 'handleClick',
 	    value: function handleClick() {
 	      this.props.addPost(this.state);
+	      this.setState({ message: '', title: '' });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      if (this.state.flag) {
+	        return _react2.default.createElement('noscript', null);
+	      }
 	      return _react2.default.createElement(
 	        _reactBootstrap.ListGroupItem,
 	        null,
-	        _react2.default.createElement('input', { placeholder: 'Add a post-it message', value: this.state.message, onChange: this.onInputChange }),
+	        _react2.default.createElement('input', { placeholder: 'Add title', value: this.state.title, onChange: this.onTitleInputChange }),
+	        _react2.default.createElement('input', { placeholder: 'Add a post-it message', value: this.state.message, onChange: this.onMsgInputChange }),
 	        _react2.default.createElement(
 	          _reactBootstrap.ButtonGroup,
 	          null,
@@ -49919,6 +49931,12 @@
 	      null,
 	      'Username:',
 	      props.data.username
+	    ),
+	    _React2.default.createElement(
+	      'p',
+	      null,
+	      'Title:',
+	      props.data.title
 	    ),
 	    _React2.default.createElement(
 	      'p',

@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const controller = require('./controller.bulletinBoard')
 
-router.get('/test', (req, res)=>{
-  res.status(200).send('hello bulletinBoard test')
+router.post('/addPost', (req, res) => {
+  console.log('in addpost controller')
+  controller.addPost(req, res)
 })
 
 module.exports = router

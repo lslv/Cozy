@@ -8,24 +8,34 @@ class AddPost extends Component {
   constructor (props) {
     super(props)
 
-    this.state = { message: ''}
+    this.state = { title: '', message: ''}
 
-    this.onInputChange = this.onInputChange.bind(this)
+    this.onMsgInputChange = this.onMsgInputChange.bind(this)
+    this.onTitleInputChange = this.onTitleInputChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
 
-  onInputChange (event) {
+  onMsgInputChange (event) {
     this.setState({ message: event.target.value })
+  }
+
+  onTitleInputChange (event) {
+    this.setState({ title: event.target.value })
   }
 
   handleClick () {
     this.props.addPost(this.state)
+    this.setState({ message: '', title: ''})
   }
 
   render () {
+    if (this.state.flag) {
+      return <noscript />
+    }
     return (
       <ListGroupItem>
-        <input placeholder='Add a post-it message' value={this.state.message} onChange={this.onInputChange} />
+        <input placeholder='Add title' value={this.state.title} onChange={this.onTitleInputChange} />
+        <input placeholder='Add a post-it message' value={this.state.message} onChange={this.onMsgInputChange} />
         <ButtonGroup>
           <Button onClick={this.handleClick} type='submit' className='btn btn-info'>
             Leave a message

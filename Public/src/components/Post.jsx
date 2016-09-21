@@ -9,6 +9,10 @@ export default (props) => {
         {props.data.username}
       </p>
       <p>
+        Title:
+        {props.data.title}
+      </p>
+      <p>
         Message:
         {props.data.message}
       </p>

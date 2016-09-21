@@ -12,10 +12,10 @@ class BulletinBoard extends Component {
       flag: false
     }
     this.renderAddPost = this.renderAddPost.bind(this)
-    this.togglePost = this.togglePost.bind(this)
+    this.toggleAddPost = this.toggleAddPost.bind(this)
     this.renderPosts = this.renderPosts.bind(this)
   }
-  togglePost () {
+  toggleAddPost () {
     console.log('this.props', this.props.posts)
     this.setState({flag: !this.state.flag})
   }
@@ -28,7 +28,6 @@ class BulletinBoard extends Component {
   }
 
   renderPosts () {
-    console.log('this.props in BulletinBoard', this.props.posts)
     return this.props.posts.map((post) => {
       return (
         <Post data={post} key={post.message} />
@@ -43,7 +42,7 @@ class BulletinBoard extends Component {
       <Col xs={12} md={8}>
       <p>
         Add a post-it
-        <span onClick={this.togglePost}><i className='fa fa-plus-circle' aria-hidden='true'></i></span>
+        <span onClick={this.toggleAddPost}><i className='fa fa-plus-circle' aria-hidden='true'></i></span>
       </p>
       <ListGroup>
         {this.renderAddPost()}
