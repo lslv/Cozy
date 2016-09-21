@@ -7,4 +7,9 @@ router.post('/addPost', (req, res) => {
   controller.addPost(req, res)
 })
 
+router.get('/getPosts', (req, res) => {
+  console.log('in getPosts controller')
+  controller.getPosts(req, res)
+})
+
 module.exports = router

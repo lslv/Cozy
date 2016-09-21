@@ -27294,11 +27294,12 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      // Here, do a get request to post DB to get all posts in the house
+	      // use this to update the props
+
 	    }
 	  }, {
 	    key: 'toggleAddPost',
 	    value: function toggleAddPost() {
-	      console.log('this.props', this.props.posts);
 	      this.setState({ flag: !this.state.flag });
 	    }
 	  }, {
@@ -27314,7 +27315,7 @@
 	    key: 'renderPosts',
 	    value: function renderPosts() {
 	      return this.props.posts.map(function (post) {
-	        return _react2.default.createElement(_Post2.default, { data: post, key: post.message });
+	        return _react2.default.createElement(_Post2.default, { data: post, key: post.id });
 	      });
 	    }
 	  }, {
@@ -49029,8 +49030,7 @@
 	    _React2.default.createElement(
 	      'p',
 	      null,
-	      'Username:',
-	      props.data.username
+	      'User: This will have the user name / pic'
 	    ),
 	    _React2.default.createElement(
 	      'p',

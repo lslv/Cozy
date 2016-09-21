@@ -18,12 +18,14 @@ class BulletinBoard extends Component {
 
   componentWillMount () {
     // Here, do a get request to post DB to get all posts in the house
+    // use this to update the props
+
   }
 
   toggleAddPost () {
-    console.log('this.props', this.props.posts)
     this.setState({flag: !this.state.flag})
   }
+
   renderAddPost () {
     if (this.state.flag) {
       return (<AddPost />)
@@ -35,7 +37,7 @@ class BulletinBoard extends Component {
   renderPosts () {
     return this.props.posts.map((post) => {
       return (
-        <Post data={post} key={post.message} />
+        <Post data={post} key={post.id} />
       )
     })
   }

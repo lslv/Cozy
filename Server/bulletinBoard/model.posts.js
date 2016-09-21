@@ -42,12 +42,13 @@ Posts.belongsTo(Users
 // })
 // Posts.hasMany(Posts, {as:child_post})
 
-Posts.sync().then(function () {
-  // Table created
-  console.log('+++line43 model.posts table successfully created')
-}).catch(function (err) {
-  console.error('There was an error in model.users', err)
-})
+Posts.sync()
+// .then(function () {
+//   // Table created
+//   console.log('+++line43 model.posts table successfully created')
+// }).catch(function (err) {
+//   console.error('There was an error in model.users', err)
+// })
 
 // This is the table for votes on posts
 
