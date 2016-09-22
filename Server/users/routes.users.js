@@ -14,6 +14,10 @@ router.post('/logout', (req, res)=>{
 
 })
 
+router.get('/userById', (req, res)=>{
+  controller.userById(req, res)
+})
+
 router.get('/houseIdUsers', (req, res)=>{
   controller.houseIdUsers(req, res)
 })
