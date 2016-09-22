@@ -59,5 +59,19 @@ module.exports = {
       .catch((err) => {
         res.status(404).send(err)
       })
+  },
+
+  getQueue: (req, res) => {
+    console.log('getQueue query', req.query)
+    db.Queues.findAll({where: {choreId:req.query.choreId}})
+    .then((queues)=>{
+      res.status(200).json(queues)
+    })
+    .catch((err)=>{
+      res.status(404).send(err)
+    })
+
   }
+
+
 }
