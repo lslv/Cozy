@@ -70,10 +70,8 @@ module.exports = {
           return db_poll.Poll_Options.bulkCreate(pollOptions, {
             transaction: t
           })
-        }).then(t.commit.bind(t), t.rollback.bind(t))
-
-      res.status(201).json({
-        createdPollId: createdPoll.dataValues.id
+        }).then((t) => {
+        res.status(200).json(t)
       })
     })
   }
