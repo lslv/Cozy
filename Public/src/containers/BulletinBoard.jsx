@@ -5,7 +5,7 @@ import { updatePosts } from '../actions/index'
 import { bindActionCreators } from 'redux'
 
 import AddPost from './AddPost'
-import Post from '../components/Post'
+import Post from './Post'
 
 class BulletinBoard extends Component {
   constructor (props) {

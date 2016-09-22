@@ -27270,7 +27270,7 @@
 
 	var _AddPost2 = _interopRequireDefault(_AddPost);
 
-	var _Post = __webpack_require__(535);
+	var _Post = __webpack_require__(595);
 
 	var _Post2 = _interopRequireDefault(_Post);
 
@@ -49105,159 +49105,7 @@
 	exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(AddPost);
 
 /***/ },
-/* 535 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactBootstrap = __webpack_require__(239);
-
-	var _redux = __webpack_require__(497);
-
-	var _reactRedux = __webpack_require__(490);
-
-	var _index = __webpack_require__(511);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Post = function (_Component) {
-	  _inherits(Post, _Component);
-
-	  function Post(props) {
-	    _classCallCheck(this, Post);
-
-	    var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this, props));
-
-	    _this.state = {
-	      open: false,
-	      editMode: false,
-	      editMessageValue: ''
-	    };
-
-	    _this.handleDelete = _this.handleDelete.bind(_this);
-	    _this.handleCollapsible = _this.handleCollapsible.bind(_this);
-	    _this.showMessageEdit = _this.showMessageEdit.bind(_this);
-	    _this.handleMessageEdit = _this.handleMessageEdit.bind(_this);
-	    _this.toggleMessageEdit = _this.toggleMessageEdit.bind(_this);
-	    _this.handleInputChange = _this.handleInputChange.bind(_this);
-	    _this.stopProp = _this.stopProp.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(Post, [{
-	    key: 'handleDelete',
-	    value: function handleDelete(e) {
-	      this.props.deletePost(this.props.data);
-	    }
-	  }, {
-	    key: 'stopProp',
-	    value: function stopProp(e) {
-	      // Stops propogation to parent panel's click event when focus goes to input
-	      e.stopPropagation();
-	    }
-	  }, {
-	    key: 'handleInputChange',
-	    value: function handleInputChange(e) {
-	      this.setState({ editMessageValue: e.target.value });
-	    }
-	  }, {
-	    key: 'handleMessageEdit',
-	    value: function handleMessageEdit(e) {
-	      e.stopPropagation();
-	      this.props.editPost(this.props.data, this.state.editMessageValue);
-	      this.setState({ editMode: !this.state.editMode });
-	    }
-	  }, {
-	    key: 'showMessageEdit',
-	    value: function showMessageEdit() {
-	      var post = this.props.data;
-	      if (!this.state.editMode) {
-	        return _react2.default.createElement(
-	          'h3',
-	          null,
-	          post.message
-	        );
-	      } else {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement('input', {
-	            value: this.state.editMessageValue,
-	            onClick: this.stopProp,
-	            onChange: this.handleInputChange,
-	            placeholder: post.message }),
-	          _react2.default.createElement(
-	            _reactBootstrap.Button,
-	            { bsStyle: 'success', onClick: this.handleMessageEdit },
-	            _react2.default.createElement('i', { className: 'fa fa-check-circle', 'aria-hidden': 'true' })
-	          )
-	        );
-	      }
-	    }
-	  }, {
-	    key: 'toggleMessageEdit',
-	    value: function toggleMessageEdit(e) {
-	      // stop propogation prevents the event from propogating to parent element and calling the parent event (in this case: panel onClick)
-	      e.stopPropagation();
-	      this.setState({ editMode: !this.state.editMode });
-	    }
-	  }, {
-	    key: 'handleCollapsible',
-	    value: function handleCollapsible(e) {
-	      this.setState({ open: !this.state.open });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var post = this.props.data;
-	      return _react2.default.createElement(
-	        _reactBootstrap.Panel,
-	        {
-	          header: post.title,
-	          collapsible: true,
-	          expanded: this.state.open,
-	          onClick: this.handleCollapsible },
-	        this.showMessageEdit(),
-	        _react2.default.createElement(
-	          _reactBootstrap.Button,
-	          { bsStyle: 'danger', onClick: this.handleDelete },
-	          _react2.default.createElement('i', { className: 'fa fa-minus-circle', 'aria-hidden': 'true' })
-	        ),
-	        _react2.default.createElement(
-	          _reactBootstrap.Button,
-	          { bsStyle: 'warning', onClick: this.toggleMessageEdit },
-	          _react2.default.createElement('i', { className: 'fa fa-pencil', 'aria-hidden': 'true' })
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Post;
-	}(_react.Component);
-
-	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)({ deletePost: _index.deletePost, editPost: _index.editPost }, dispatch);
-	}
-
-	exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Post);
-
-/***/ },
+/* 535 */,
 /* 536 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -53684,6 +53532,159 @@
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 	var INITIAL_STATE = [];
+
+/***/ },
+/* 595 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactBootstrap = __webpack_require__(239);
+
+	var _redux = __webpack_require__(497);
+
+	var _reactRedux = __webpack_require__(490);
+
+	var _index = __webpack_require__(511);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Post = function (_Component) {
+	  _inherits(Post, _Component);
+
+	  function Post(props) {
+	    _classCallCheck(this, Post);
+
+	    var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this, props));
+
+	    _this.state = {
+	      open: false,
+	      editMode: false,
+	      editMessageValue: ''
+	    };
+
+	    _this.handleDelete = _this.handleDelete.bind(_this);
+	    _this.handleCollapsible = _this.handleCollapsible.bind(_this);
+	    _this.showMessageEdit = _this.showMessageEdit.bind(_this);
+	    _this.handleMessageEdit = _this.handleMessageEdit.bind(_this);
+	    _this.toggleMessageEdit = _this.toggleMessageEdit.bind(_this);
+	    _this.handleInputChange = _this.handleInputChange.bind(_this);
+	    _this.stopProp = _this.stopProp.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(Post, [{
+	    key: 'handleDelete',
+	    value: function handleDelete(e) {
+	      this.props.deletePost(this.props.data);
+	    }
+	  }, {
+	    key: 'stopProp',
+	    value: function stopProp(e) {
+	      // Stops propogation to parent panel's click event when focus goes to input
+	      e.stopPropagation();
+	    }
+	  }, {
+	    key: 'handleInputChange',
+	    value: function handleInputChange(e) {
+	      this.setState({ editMessageValue: e.target.value });
+	    }
+	  }, {
+	    key: 'handleMessageEdit',
+	    value: function handleMessageEdit(e) {
+	      e.stopPropagation();
+	      this.props.editPost(this.props.data, this.state.editMessageValue);
+	      this.setState({ editMode: !this.state.editMode });
+	    }
+	  }, {
+	    key: 'showMessageEdit',
+	    value: function showMessageEdit() {
+	      var post = this.props.data;
+	      if (!this.state.editMode) {
+	        return _react2.default.createElement(
+	          'h3',
+	          null,
+	          post.message
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement('input', {
+	            value: this.state.editMessageValue,
+	            onClick: this.stopProp,
+	            onChange: this.handleInputChange,
+	            placeholder: post.message }),
+	          _react2.default.createElement(
+	            _reactBootstrap.Button,
+	            { bsStyle: 'success', onClick: this.handleMessageEdit },
+	            _react2.default.createElement('i', { className: 'fa fa-check-circle', 'aria-hidden': 'true' })
+	          )
+	        );
+	      }
+	    }
+	  }, {
+	    key: 'toggleMessageEdit',
+	    value: function toggleMessageEdit(e) {
+	      // stop propogation prevents the event from propogating to parent element and calling the parent event (in this case: panel onClick)
+	      e.stopPropagation();
+	      this.setState({ editMode: !this.state.editMode });
+	    }
+	  }, {
+	    key: 'handleCollapsible',
+	    value: function handleCollapsible(e) {
+	      this.setState({ open: !this.state.open });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var post = this.props.data;
+	      return _react2.default.createElement(
+	        _reactBootstrap.Panel,
+	        {
+	          header: post.title,
+	          collapsible: true,
+	          expanded: this.state.open,
+	          onClick: this.handleCollapsible },
+	        this.showMessageEdit(),
+	        _react2.default.createElement(
+	          _reactBootstrap.Button,
+	          { bsStyle: 'danger', onClick: this.handleDelete },
+	          _react2.default.createElement('i', { className: 'fa fa-minus-circle', 'aria-hidden': 'true' })
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Button,
+	          { bsStyle: 'warning', onClick: this.toggleMessageEdit },
+	          _react2.default.createElement('i', { className: 'fa fa-pencil', 'aria-hidden': 'true' })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Post;
+	}(_react.Component);
+
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({ deletePost: _index.deletePost, editPost: _index.editPost }, dispatch);
+	}
+
+	exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Post);
 
 /***/ }
 /******/ ]);
