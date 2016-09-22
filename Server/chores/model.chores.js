@@ -31,8 +31,8 @@ Chores.belongsTo(Houses)
 Chores.sync().then(function () {
   // Table created
   console.log(chalk.yellow('+++line32 model.chores table successfully created'))
-}).catch(function (err) {
-  console.error('There was an error in model.chores', err)
+}).catch(function(err){
+  console.error(chalk.red('There was an error in model.chores'), err)
 })
 
 // This is the Chore Days
@@ -53,8 +53,8 @@ Chore_Days.belongsTo(Chores)
 Chore_Days.sync().then(function () {
   // Table created
   console.log(chalk.yellow('+++line53 model.Chore_Days table successfully created'))
-}).catch(function (err) {
-  console.error('There was an error in model.chores.Chore_Days', err)
+}).catch(function(err){
+  console.error(chalk.red('There was an error in model.chores.Chore_Days'), err)
 })
 
 // This table keeps track of whether a chore is completed by a user
@@ -107,8 +107,8 @@ Queues.belongsTo(Chores) //changed column
 Queues.sync().then(function () {
   // Table created
   console.log(chalk.yellow('+++line104 model.chores.queues table successfully created'))
-}).catch(function (err) {
-  console.error('There was an error in model.chores.queues', err)
+}).catch(function(err){
+  console.error(chalk.red('There was an error in model.chores.queues'), err)
 })
 
 module.exports = {Chores: Chores, Chore_Days: Chore_Days, Chore_Completions: Chore_Completions, Queues: Queues}
