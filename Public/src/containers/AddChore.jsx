@@ -12,11 +12,11 @@ class AddChore extends Component {
 	handleSubmit(event){
 		event.preventDefault();
 		console.log('handling Submit')
-		this.props.addChore(this.state.title)
+		this.props.addChore(this.state.chore_name)
 		this.setState({ open: !this.state.open })
 	}
 render() {
-	const { fields:{title, time}, handleSubmit}= this.props
+	const { fields:{chore_name, day}, handleSubmit}= this.props
     return (
       <div>
         <Button bsStyle="primary" onClick={ ()=> this.setState({ open: !this.state.open })}>
@@ -24,22 +24,27 @@ render() {
         </Button>
         <Collapse in={this.state.open}>
           <div>
-            <Well>
             	<div>
 					<form onSubmit={handleSubmit(this.props.addChore)}>
 						<h3>Create a new chore</h3>
 						<div>
-						<label>Title</label>
-						<input type="text" className="form-control" {...title} />
-						</div>
+							<label>Chore Name</label>
+							<input type="text" className="form-control" {...chore_name} />
+							</div>
 						<div>
-						<label>Reocurring Time</label>
-						<input type="text" className="form-control" {...time}/>
+							<label>Reocurring Day</label>
+							<input type="text" className="form-control" {...day}/>
 						</div>
-						<button onClick={ ()=> this.setState({ open: !this.state.open })} type="submit" className="btn btn-primary">Submit</button>
+						<Button
+						onClick={ ()=> this.setState({ open: !this.state.open })}
+						type="submit"
+						className="btn btn-primary"
+						bsStyle="success"
+						>
+						Submit
+						</Button>
 					</form>
 				</div>
-            </Well>
           </div>
         </Collapse>
       </div>
@@ -48,7 +53,7 @@ render() {
 }
 export default reduxForm({
 		form: 'AddChore',
-		fields:['title', 'time']},null,{addChore})(AddChore)
+		fields:['chore_name', 'day']},null,{addChore})(AddChore)
 
 
 

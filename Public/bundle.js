@@ -27266,7 +27266,7 @@
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _index = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../actions/index\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _index = __webpack_require__(512);
 
 	var _redux = __webpack_require__(497);
 
@@ -47564,7 +47564,7 @@
 
 	var _reactRedux = __webpack_require__(490);
 
-	var _index = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../actions/index\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _index = __webpack_require__(512);
 
 	var _redux = __webpack_require__(497);
 
@@ -47642,7 +47642,86 @@
 	exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(AddPost);
 
 /***/ },
-/* 512 */,
+/* 512 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.DELETE_CHORE = exports.ADD_CHORE = exports.GET_CHORES = exports.ADD_POST = undefined;
+	exports.addPost = addPost;
+	exports.getChores = getChores;
+	exports.addChore = addChore;
+	exports.deleteChore = deleteChore;
+
+	var _axios = __webpack_require__(513);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ADD_POST = exports.ADD_POST = 'ADD_POST';
+	var GET_CHORES = exports.GET_CHORES = 'GET_CHORES';
+	var ADD_CHORE = exports.ADD_CHORE = 'ADD_CHORE';
+	var DELETE_CHORE = exports.DELETE_CHORE = 'DELETE_CHORE';
+
+	function addPost(postData) {
+
+	  // Post data comes in as { title: 'title', message: 'msg' }
+	  // Grab user_id and house_id from local storage and attach to postData object
+	  // So payload should be set as { postMsg: 'User input', user_id: 1, house_id:2 }
+	  // Post updated postData obj to the DB
+	  // on return, attach postData to the payload
+
+	  // Dummy data
+	  // postData.username = 'Lee'
+	  // postData.house_id = '2'
+
+	  _axios2.default.post('/api/bulletinBoard', postData);
+
+	  return {
+	    type: ADD_POST,
+	    payload: postData
+	  };
+	}
+
+	function getChores() {
+	  var house_id = arguments.length <= 0 || arguments[0] === undefined ? 1 : arguments[0];
+	  //harcoded in house ID
+	  console.log("getting a chore action");
+	  var payload = _axios2.default.get('http://localhost:1337/api/chores/getChores', {
+	    params: { house_id: house_id } }); //hardcoded in localhost
+	  return {
+	    type: GET_CHORES,
+	    payload: payload
+	  };
+	}
+
+	function addChore(choreData) {
+	  console.log("adding a chore action");
+	  choreData.user_turn = 0; //hardcoded user with user 1
+	  choreData.house_id = 1; //hardcoded house Id of 1
+	  var payload = _axios2.default.post('http://localhost:1337/api/chores/postChore', choreData); //hardcoded in local host
+	  return {
+	    type: ADD_CHORE,
+	    payload: payload
+	  };
+	}
+
+	function deleteChore(choreId) {
+	  console.log("deleting a chore action");
+	  console.log(choreId);
+	  var payload = _axios2.default.delete('http://localhost:1337/api/chores/deleteChore', {
+	    params: { id: choreId } }); //hardcoded in local host
+	  return {
+	    type: DELETE_CHORE,
+	    payload: payload
+	  };
+	}
+
+/***/ },
 /* 513 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -49120,7 +49199,7 @@
 
 	var _reactRedux = __webpack_require__(490);
 
-	var _index = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../actions/index\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _index = __webpack_require__(512);
 
 	var _redux = __webpack_require__(497);
 
@@ -49159,15 +49238,16 @@
 		_createClass(ChoreList, [{
 			key: 'componentWillMount',
 			value: function componentWillMount() {
-				//console.log("Should Grab Dynamic Chores Data from backend before component mounts")
+				this.props.getChores() //eventually need to pass in house ID from local storage
+				.then(function (chores) {
+					console.log(chores);
+				});
 			}
 		}, {
 			key: 'renderChoreList',
 			value: function renderChoreList() {
-				console.log("rendering chore List");
-				console.log("chore list ", this.props.chores);
 				return this.props.chores.map(function (chore) {
-					return _react2.default.createElement(_Chore2.default, { key: chore.title, chore: chore });
+					return _react2.default.createElement(_Chore2.default, { key: chore.chore_name, chore: chore });
 				});
 			}
 		}, {
@@ -50081,7 +50161,7 @@
 	  return state;
 	};
 
-	var _index = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../actions/index\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _index = __webpack_require__(512);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -50089,7 +50169,7 @@
 /* 547 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -50101,18 +50181,14 @@
 
 	  switch (action.type) {
 	    case _index.ADD_CHORE:
-	      return [action.payload].concat(_toConsumableArray(state));
+	      return [action.payload.data].concat(_toConsumableArray(state));
 	    case _index.GET_CHORES:
-	      return [].concat(_toConsumableArray(state)); //for the time being just do this even tho is redundant
+	      return [].concat(_toConsumableArray(action.payload.data));
 	    case _index.DELETE_CHORE:
 	      var tempState = state;
-	      console.log('deleting chore' + action.payload);
 	      for (var i = 0; i < state.length; i++) {
-	        if (state[i].id == action.payload) {
-	          console.log('found the one to delete');
-	          console.log(tempState);
+	        if (state[i].id == action.payload.data.id) {
 	          tempState.splice(i, 1);
-	          console.log(tempState);
 	          return [].concat(_toConsumableArray(tempState));
 	        }
 	      }break;
@@ -50122,11 +50198,11 @@
 	  return state;
 	};
 
-	var _index = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../actions/index\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _index = __webpack_require__(512);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-	var INITIAL_STATE = [{ title: "take out trash", time: "every wednesday", id: 1 }, { title: "do dishes", time: "every tuesday", id: 2 }, { title: "walk dog", time: "everyday", id: 3 }];
+	var INITIAL_STATE = [];
 
 /***/ },
 /* 548 */
@@ -53209,7 +53285,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-			value: true
+		value: true
 	});
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -53220,7 +53296,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _index = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../actions/index\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _index = __webpack_require__(512);
 
 	var _reactBootstrap = __webpack_require__(239);
 
@@ -53235,109 +53311,110 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var AddChore = function (_Component) {
-			_inherits(AddChore, _Component);
+		_inherits(AddChore, _Component);
 
-			function AddChore(props) {
-					_classCallCheck(this, AddChore);
+		function AddChore(props) {
+			_classCallCheck(this, AddChore);
 
-					var _this = _possibleConstructorReturn(this, (AddChore.__proto__ || Object.getPrototypeOf(AddChore)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (AddChore.__proto__ || Object.getPrototypeOf(AddChore)).call(this, props));
 
-					_this.state = {};
-					return _this;
+			_this.state = {};
+			return _this;
+		}
+
+		_createClass(AddChore, [{
+			key: 'handleSubmit',
+			value: function handleSubmit(event) {
+				event.preventDefault();
+				console.log('handling Submit');
+				this.props.addChore(this.state.chore_name);
+				this.setState({ open: !this.state.open });
 			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
 
-			_createClass(AddChore, [{
-					key: 'handleSubmit',
-					value: function handleSubmit(event) {
-							event.preventDefault();
-							console.log('handling Submit');
-							this.props.addChore(this.state.title);
-							this.setState({ open: !this.state.open });
-					}
-			}, {
-					key: 'render',
-					value: function render() {
-							var _this2 = this;
+				var _props = this.props;
+				var _props$fields = _props.fields;
+				var chore_name = _props$fields.chore_name;
+				var day = _props$fields.day;
+				var handleSubmit = _props.handleSubmit;
 
-							var _props = this.props;
-							var _props$fields = _props.fields;
-							var title = _props$fields.title;
-							var time = _props$fields.time;
-							var handleSubmit = _props.handleSubmit;
-
-							return _react2.default.createElement(
-									'div',
-									null,
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_reactBootstrap.Button,
+						{ bsStyle: 'primary', onClick: function onClick() {
+								return _this2.setState({ open: !_this2.state.open });
+							} },
+						'Add Chore ',
+						_react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' })
+					),
+					_react2.default.createElement(
+						_reactBootstrap.Collapse,
+						{ 'in': this.state.open },
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(
+								'div',
+								null,
+								_react2.default.createElement(
+									'form',
+									{ onSubmit: handleSubmit(this.props.addChore) },
 									_react2.default.createElement(
-											_reactBootstrap.Button,
-											{ bsStyle: 'primary', onClick: function onClick() {
-															return _this2.setState({ open: !_this2.state.open });
-													} },
-											'Add Chore ',
-											_react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' })
+										'h3',
+										null,
+										'Create a new chore'
 									),
 									_react2.default.createElement(
-											_reactBootstrap.Collapse,
-											{ 'in': this.state.open },
-											_react2.default.createElement(
-													'div',
-													null,
-													_react2.default.createElement(
-															_reactBootstrap.Well,
-															null,
-															_react2.default.createElement(
-																	'div',
-																	null,
-																	_react2.default.createElement(
-																			'form',
-																			{ onSubmit: handleSubmit(this.props.addChore) },
-																			_react2.default.createElement(
-																					'h3',
-																					null,
-																					'Create a new chore'
-																			),
-																			_react2.default.createElement(
-																					'div',
-																					null,
-																					_react2.default.createElement(
-																							'label',
-																							null,
-																							'Title'
-																					),
-																					_react2.default.createElement('input', _extends({ type: 'text', className: 'form-control' }, title))
-																			),
-																			_react2.default.createElement(
-																					'div',
-																					null,
-																					_react2.default.createElement(
-																							'label',
-																							null,
-																							'Reocurring Time'
-																					),
-																					_react2.default.createElement('input', _extends({ type: 'text', className: 'form-control' }, time))
-																			),
-																			_react2.default.createElement(
-																					'button',
-																					{ onClick: function onClick() {
-																									return _this2.setState({ open: !_this2.state.open });
-																							}, type: 'submit', className: 'btn btn-primary' },
-																					'Submit'
-																			)
-																	)
-															)
-													)
-											)
+										'div',
+										null,
+										_react2.default.createElement(
+											'label',
+											null,
+											'Chore Name'
+										),
+										_react2.default.createElement('input', _extends({ type: 'text', className: 'form-control' }, chore_name))
+									),
+									_react2.default.createElement(
+										'div',
+										null,
+										_react2.default.createElement(
+											'label',
+											null,
+											'Reocurring Day'
+										),
+										_react2.default.createElement('input', _extends({ type: 'text', className: 'form-control' }, day))
+									),
+									_react2.default.createElement(
+										_reactBootstrap.Button,
+										{
+											onClick: function onClick() {
+												return _this2.setState({ open: !_this2.state.open });
+											},
+											type: 'submit',
+											className: 'btn btn-primary',
+											bsStyle: 'success'
+										},
+										'Submit'
 									)
-							);
-					}
-			}]);
+								)
+							)
+						)
+					)
+				);
+			}
+		}]);
 
-			return AddChore;
+		return AddChore;
 	}(_react.Component);
 
 	exports.default = (0, _reduxForm.reduxForm)({
-			form: 'AddChore',
-			fields: ['title', 'time'] }, null, { addChore: _index.addChore })(AddChore);
+		form: 'AddChore',
+		fields: ['chore_name', 'day'] }, null, { addChore: _index.addChore })(AddChore);
 
 /***/ },
 /* 594 */
@@ -53357,7 +53434,7 @@
 
 	var _reactRedux = __webpack_require__(490);
 
-	var _index = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../actions/index\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _index = __webpack_require__(512);
 
 	var _redux = __webpack_require__(497);
 
@@ -53400,7 +53477,7 @@
 				return _react2.default.createElement(
 					_reactBootstrap.Panel,
 					{
-						header: chore.title,
+						header: chore.chore_name,
 						collapsible: true,
 						expanded: this.state.open,
 						onClick: function onClick() {
@@ -53409,16 +53486,17 @@
 					_react2.default.createElement(
 						'h3',
 						null,
-						chore.title
+						chore.chore_name
 					),
 					_react2.default.createElement(
 						'h6',
 						null,
-						chore.time
+						chore.day
 					),
 					_react2.default.createElement(
 						_reactBootstrap.Button,
-						{ bsStyle: 'danger',
+						{
+							bsStyle: 'danger',
 							onClick: function onClick() {
 								return _this2.deleteChore(chore.id);
 							} },
