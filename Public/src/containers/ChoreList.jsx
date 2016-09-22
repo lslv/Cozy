@@ -14,14 +14,15 @@ class ChoreList extends Component {
 		}
 	}
 	componentWillMount(){
-		//console.log("Should Grab Dynamic Chores Data from backend before component mounts")
+		this.props.getChores() //eventually need to pass in house ID from local storage
+		.then((chores)=>{
+			console.log(chores)
+		})
 	}
 	renderChoreList(){
-		console.log("rendering chore List")
-		console.log("chore list ",this.props.chores)
 		return this.props.chores.map((chore)=>{
 			return (
-					<Chore key={chore.title} chore={chore} />		
+					<Chore key={chore.chore_name} chore={chore} />		
 				)
 		})
 	}

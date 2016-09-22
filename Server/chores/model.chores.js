@@ -10,6 +10,9 @@ const Chores = sequelize.define('chores', {
     type: Sequelize.STRING(50),
     allowNull: false
   },
+  day:{
+    type: Sequelize.STRING(20)
+  },
   user_turn: {
     type: Sequelize.INTEGER
   }

@@ -1,5 +1,4 @@
 import axios from 'axios'
-
 export const ADD_POST = 'ADD_POST'
 export const GET_POSTS = 'GET_POSTS'
 export const DELETE_POST = 'DELETE_POST'
@@ -18,42 +17,45 @@ export function addPost (postData) {
   // Dummy data
   // postData.username = 'Lee'
   // postData.house_id = '2'
-
   const request = axios.post('/api/bulletinBoard/addPost', {
     title: postData.title,
     message: postData.message
   })
-
   return {
     type: ADD_POST,
     payload: request
   }
 }
 
-export function getChores (choreData) {
-  // make an axios get request to the backend for a list of choses
-  console.log('getting a chore action')
-  return {
+export function getChores (house_id=1){ //harcoded in house ID
+  console.log("getting a chore action")
+  const payload =axios.get('http://localhost:1337/api/chores/getChores', {
+    params:{house_id}}) //hardcoded in localhost
+  return{
     type: GET_CHORES,
-    payload: postChore
+    payload: payload
   }
 }
 
-export function addChore (choreData) {
-  // make an axios post request to the backend to add a new chore
-  // eventually that will be the payload
-  console.log('adding a chore action')
-  return {
+export function addChore (choreData){
+  console.log("adding a chore action")
+  choreData.user_turn=0 //hardcoded user with user 1
+  choreData.house_id=1 //hardcoded house Id of 1
+  const payload= axios.post('http://localhost:1337/api/chores/postChore', choreData) //hardcoded in local host
+  return{
     type: ADD_CHORE,
-    payload: choreData
+    payload: payload
   }
 }
 
-export function deleteChore (choreId) {
-  console.log('deleting a chore action')
-  return {
+export function deleteChore(choreId){
+  console.log("deleting a chore action")
+  console.log(choreId);
+  const payload= axios.delete('http://localhost:1337/api/chores/deleteChore', {
+    params:{id:choreId}}) //hardcoded in local host
+  return{
     type: DELETE_CHORE,
-    payload: choreId
+    payload: payload
   }
 }
 
