@@ -1,4 +1,4 @@
-import { ADD_POST, GET_POSTS, DELETE_POST } from '../actions/index'
+import { ADD_POST, GET_POSTS, DELETE_POST, EDIT_POST } from '../actions/index'
 
 export default function(state = [] , action) {
   switch (action.type) {
@@ -16,7 +16,21 @@ export default function(state = [] , action) {
     }
     case DELETE_POST: {
       let index = [...state].indexOf(action.payload)
+      console.log('index', index)
       return [...state.slice(0, index), ...state.slice(index + 1)]
+    }
+    case EDIT_POST: {
+      let temp
+      let index
+
+      state.forEach((obj, i) => {
+        // check if the obj in state and updated obj have the same id
+        if (obj.id == action.payload.data.id) {
+          temp = action.payload.data
+          index = i
+        }
+      })
+      return [...state.slice(0, index), temp, ...state.slice(index + 1)]
     }
   }
   return state
