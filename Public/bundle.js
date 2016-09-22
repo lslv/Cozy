@@ -47622,9 +47622,7 @@
 	  // Eventually, get all where house_id matches the user's house_id
 
 	  var testQuery = '/api/bulletinBoard/getPosts?title=title';
-
 	  var request = _axios2.default.get(testQuery);
-
 	  return {
 	    type: GET_POSTS,
 	    payload: request
@@ -47632,13 +47630,8 @@
 	}
 
 	function deletePost(post) {
-	  console.log('postId', post.id);
-
 	  var query = '/api/bulletinBoard/deletePost?id=' + post.id;
-
 	  var request = _axios2.default.delete(query);
-	  console.log('request', request);
-
 	  return {
 	    type: DELETE_POST,
 	    payload: post
@@ -47782,10 +47775,14 @@
 
 	    var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this, props));
 
-	    _this.state = { open: false };
+	    _this.state = {
+	      open: false
+
+	    };
 
 	    _this.handleDelete = _this.handleDelete.bind(_this);
 	    _this.handleCollapsible = _this.handleCollapsible.bind(_this);
+	    _this.handleMessageEdit = _this.handleMessageEdit.bind(_this);
 	    return _this;
 	  }
 
@@ -47793,6 +47790,15 @@
 	    key: 'handleDelete',
 	    value: function handleDelete() {
 	      this.props.deletePost(this.props.data);
+	    }
+	  }, {
+	    key: 'handleMessageEdit',
+	    value: function handleMessageEdit() {
+	      var message = document.getElementById('message');
+	      console.log('message text', message.textContent);
+	      // destroy h3 elem
+	      // create an input and set the value of it
+	      // message.parentNode.removeChild(message)
 	    }
 	  }, {
 	    key: 'handleCollapsible',
@@ -47812,7 +47818,7 @@
 	          onClick: this.handleCollapsible },
 	        _react2.default.createElement(
 	          'h3',
-	          null,
+	          { id: 'message' },
 	          post.message
 	        ),
 	        _react2.default.createElement(
@@ -47822,7 +47828,7 @@
 	        ),
 	        _react2.default.createElement(
 	          _reactBootstrap.Button,
-	          { bsStyle: 'warning', onClick: this.handleDelete },
+	          { bsStyle: 'warning', onClick: this.handleMessageEdit },
 	          _react2.default.createElement('i', { className: 'fa fa-pencil', 'aria-hidden': 'true' })
 	        )
 	      );

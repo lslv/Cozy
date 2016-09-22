@@ -66,9 +66,7 @@ export function updatePosts () {
   // Eventually, get all where house_id matches the user's house_id
 
   const testQuery = '/api/bulletinBoard/getPosts?title=title'
-
   const request = axios.get(testQuery)
-
   return {
     type: GET_POSTS,
     payload: request
@@ -76,13 +74,8 @@ export function updatePosts () {
 }
 
 export function deletePost (post) {
-  console.log('postId', post.id)
-
   const query = `/api/bulletinBoard/deletePost?id=${post.id}`
-
   const request = axios.delete(query)
-  console.log('request', request)
-
   return {
     type: DELETE_POST,
     payload: post
