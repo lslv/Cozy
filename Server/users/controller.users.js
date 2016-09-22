@@ -15,5 +15,16 @@ module.exports = {
         }
       })
       .catch(err => res.status(401).send(err))
+  },
+
+  houseIdUsers: (req ,res) => {
+    Users.findAll({
+      where: { house_id: parseInt(req.headers.houseid) }
+    })
+    .then(users =>{
+      res.status(200).json(users)
+    })
+    .catch(err => res.status(401).send(err))
   }
+
 }
