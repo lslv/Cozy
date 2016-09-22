@@ -27200,6 +27200,10 @@
 
 	var _login2 = _interopRequireDefault(_login);
 
+	var _logout = __webpack_require__(261);
+
+	var _logout2 = _interopRequireDefault(_logout);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27226,7 +27230,8 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          _react2.default.createElement(_login2.default, null)
+	          _react2.default.createElement(_login2.default, null),
+	          _react2.default.createElement(_logout2.default, null)
 	        ),
 	        _react2.default.createElement(
 	          'p',
