@@ -37,7 +37,7 @@ class AddPost extends Component {
         <input placeholder='Add title' value={this.state.title} onChange={this.onTitleInputChange} />
         <input placeholder='Add a post-it message' value={this.state.message} onChange={this.onMsgInputChange} />
         <ButtonGroup>
-          <Button onClick={this.handleClick} type='submit' className='btn btn-info'>
+          <Button onClick={this.handleClick} type='submit' bsStyle='info'>
             Leave a message
           </Button>
         </ButtonGroup>

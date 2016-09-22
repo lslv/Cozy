@@ -3,7 +3,6 @@ import { ADD_POST, GET_POSTS, DELETE_POST } from '../actions/index'
 export default function(state = [] , action) {
   switch (action.type) {
     case ADD_POST: {
-      console.log('action.payload', action.payload.data)
       return [action.payload.data, ...state]
     }
     case GET_POSTS: {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Col, ListGroup, ListGroupItem } from 'react-bootstrap'
+import { Col, ListGroup, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { updatePosts } from '../actions/index'
 import { bindActionCreators } from 'redux'
@@ -52,10 +52,9 @@ class BulletinBoard extends Component {
     } else {
       return (
         <Col xs={12} md={8}>
-        <p>
-          Add a post-it
-          <span onClick={this.toggleAddPost}><i className='fa fa-plus-circle' aria-hidden='true'></i></span>
-        </p>
+        <Button bsStyle='info' onClick={this.toggleAddPost}>
+          Add a post-it <i className='fa fa-plus-circle' aria-hidden='true'></i>
+        </Button>
         <ListGroup>
           {this.renderAddPost()}
           {this.renderPosts()}
