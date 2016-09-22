@@ -9,12 +9,12 @@ class AddChore extends Component {
 		this.state={
 		}
 	}
-	handleSubmit(event){
-		event.preventDefault();
-		console.log('handling Submit')
-		this.props.addChore(this.state.chore_name)
-		this.setState({ open: !this.state.open })
-	}
+	// handleSubmit(event){
+	// 	event.preventDefault();
+	// 	console.log('handling Submit')
+	// 	this.props.addChore(this.state.chore_name)
+	// 	this.setState({ open: !this.state.open })
+	// }
 render() {
 	const { fields:{chore_name, day}, handleSubmit}= this.props
     return (
