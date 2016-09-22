@@ -25,6 +25,16 @@ module.exports = {
       res.status(200).json(users)
     })
     .catch(err => res.status(401).send(err))
+  },
+
+  userById: (req, res) => {
+    Users.findAll({
+      where: { id: parseInt(req.headers.userid) }
+    })
+    .then(user => {
+      res.status(200).json(user[0])
+    })
+    .catch(err => res.status(401).send(err))
   }
 
 }
