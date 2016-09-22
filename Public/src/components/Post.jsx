@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { ListGroupItem, Button, Panel } from 'react-bootstrap'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { deletePost } from '../actions/index'
+import { deletePost, editPost } from '../actions/index'
 
 class Post extends Component {
   constructor (props) {
@@ -15,21 +15,31 @@ class Post extends Component {
 
     this.handleDelete = this.handleDelete.bind(this)
     this.handleCollapsible = this.handleCollapsible.bind(this)
+    this.showMessageEdit = this.showMessageEdit.bind(this)
     this.handleMessageEdit = this.handleMessageEdit.bind(this)
     this.toggleMessageEdit = this.toggleMessageEdit.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.stopProp = this.stopProp.bind(this)
   }
 
   handleDelete (e) {
-    console.log('e target delete', e.target)
     this.props.deletePost(this.props.data)
   }
 
-  handleInputChange (event) {
-    this.setState({ editMessageValue: event.target.value })
+  stopProp (e) {
+    console.log('e in stopProp', e)
+    e.stopPropagation()
+  }
+
+  handleInputChange (e) {
+    this.setState({ editMessageValue: e.target.value })
   }
 
   handleMessageEdit () {
+    this.props.editPost(this.props.data, this.state.editMessageValue)
+  }
+
+  showMessageEdit () {
     const post = this.props.data
     if (!this.state.editMode) {
       return (
@@ -38,14 +48,17 @@ class Post extends Component {
     } else {
       return (
         <div>
-          <input value={this.state.editMessageValue} onChange={this.handleInputChange} placeholder={post.message} />
-          <Button bsStyle='success'>
+          <input
+            value={this.state.editMessageValue}
+            onClick={this.stopProp}
+            onChange={this.handleInputChange}
+            placeholder={post.message} />
+          <Button bsStyle='success' onClick={this.handleMessageEdit}>
             <i className='fa fa-check-circle' aria-hidden='true'></i>
           </Button>
         </div>
       )
     }
-
   // put an else if to check it the save button has been clicked. Send an action to update the state (in action, do axios put req)
   }
 
@@ -56,6 +69,7 @@ class Post extends Component {
   }
 
   handleCollapsible (e) {
+    console.log('e', e)
     this.setState({ open: !this.state.open })
   }
 
@@ -67,7 +81,7 @@ class Post extends Component {
         collapsible
         expanded={this.state.open}
         onClick={this.handleCollapsible}>
-        {this.handleMessageEdit()}
+        {this.showMessageEdit()}
         <Button bsStyle='danger' onClick={this.handleDelete}>
           <i className='fa fa-minus-circle' aria-hidden='true'></i>
         </Button>
@@ -80,7 +94,7 @@ class Post extends Component {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({deletePost}, dispatch)
+  return bindActionCreators({deletePost, editPost}, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(Post)

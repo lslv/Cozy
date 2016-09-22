@@ -47635,13 +47635,16 @@
 	  };
 	}
 
-	function editPost(post) {
+	function editPost(post, updatedMessage) {
+	  console.log('post', post);
+	  console.log('updatedMessage', updatedMessage);
 	  var query = '/api/bulletinBoard/editPost';
 	  var request = _axios2.default.put(query, {
+	    id: post.id,
 	    message: post.message
 	  });
 	  return {
-	    type: GET_POSTS,
+	    type: EDIT_POST,
 	    payload: request
 	  };
 	}
@@ -49144,26 +49147,38 @@
 
 	    _this.handleDelete = _this.handleDelete.bind(_this);
 	    _this.handleCollapsible = _this.handleCollapsible.bind(_this);
+	    _this.showMessageEdit = _this.showMessageEdit.bind(_this);
 	    _this.handleMessageEdit = _this.handleMessageEdit.bind(_this);
 	    _this.toggleMessageEdit = _this.toggleMessageEdit.bind(_this);
 	    _this.handleInputChange = _this.handleInputChange.bind(_this);
+	    _this.stopProp = _this.stopProp.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(Post, [{
 	    key: 'handleDelete',
 	    value: function handleDelete(e) {
-	      console.log('e target delete', e.target);
 	      this.props.deletePost(this.props.data);
 	    }
 	  }, {
+	    key: 'stopProp',
+	    value: function stopProp(e) {
+	      console.log('e in stopProp', e);
+	      e.stopPropagation();
+	    }
+	  }, {
 	    key: 'handleInputChange',
-	    value: function handleInputChange(event) {
-	      this.setState({ editMessageValue: event.target.value });
+	    value: function handleInputChange(e) {
+	      this.setState({ editMessageValue: e.target.value });
 	    }
 	  }, {
 	    key: 'handleMessageEdit',
 	    value: function handleMessageEdit() {
+	      this.props.editPost(this.props.data, this.state.editMessageValue);
+	    }
+	  }, {
+	    key: 'showMessageEdit',
+	    value: function showMessageEdit() {
 	      var post = this.props.data;
 	      if (!this.state.editMode) {
 	        return _react2.default.createElement(
@@ -49175,15 +49190,18 @@
 	        return _react2.default.createElement(
 	          'div',
 	          null,
-	          _react2.default.createElement('input', { value: this.state.editMessageValue, onChange: this.handleInputChange, placeholder: post.message }),
+	          _react2.default.createElement('input', {
+	            value: this.state.editMessageValue,
+	            onClick: this.stopProp,
+	            onChange: this.handleInputChange,
+	            placeholder: post.message }),
 	          _react2.default.createElement(
 	            _reactBootstrap.Button,
-	            { bsStyle: 'success' },
+	            { bsStyle: 'success', onClick: this.handleMessageEdit },
 	            _react2.default.createElement('i', { className: 'fa fa-check-circle', 'aria-hidden': 'true' })
 	          )
 	        );
 	      }
-
 	      // put an else if to check it the save button has been clicked. Send an action to update the state (in action, do axios put req)
 	    }
 	  }, {
@@ -49196,6 +49214,7 @@
 	  }, {
 	    key: 'handleCollapsible',
 	    value: function handleCollapsible(e) {
+	      console.log('e', e);
 	      this.setState({ open: !this.state.open });
 	    }
 	  }, {
@@ -49209,7 +49228,7 @@
 	          collapsible: true,
 	          expanded: this.state.open,
 	          onClick: this.handleCollapsible },
-	        this.handleMessageEdit(),
+	        this.showMessageEdit(),
 	        _react2.default.createElement(
 	          _reactBootstrap.Button,
 	          { bsStyle: 'danger', onClick: this.handleDelete },
@@ -49228,7 +49247,7 @@
 	}(_react.Component);
 
 	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)({ deletePost: _index.deletePost }, dispatch);
+	  return (0, _redux.bindActionCreators)({ deletePost: _index.deletePost, editPost: _index.editPost }, dispatch);
 	}
 
 	exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Post);

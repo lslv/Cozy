@@ -24,7 +24,6 @@ module.exports = {
   },
 
   editPost: (req, res) => {
-    console.log('req body', req.body)
     db.Posts.findOne({
       where: {
         id: req.body.id
@@ -40,7 +39,6 @@ module.exports = {
   },
 
   deletePost: (req, res) => {
-    console.log('req query', req.query)
     // delete works similarly to a get req - Data should come through as a query
     db.Posts.findOne({
       where: { id: req.query.id}
