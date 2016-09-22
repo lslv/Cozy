@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
+let chalk = require('chalk')
 
 const Houses = sequelize.define('houses', {
   house_name: {
@@ -26,14 +27,14 @@ const Houses = sequelize.define('houses', {
 
   Houses.sync().then(function () {
 
-    console.log('+++line 29 model.houses.js table successfully created')
+    console.log(chalk.blue('+++line 29 model.houses.js table successfully created'))
     // Table created
     // return Houses.create({
     //   house_name: 'John',
     //   slush_fund_value: '45343'
     // });
   }).catch(function(err){
-    console.error('There was an error in model.houses', err)
+    console.error(chalk.red('There was an error in model.houses'), err)
   })
 
 

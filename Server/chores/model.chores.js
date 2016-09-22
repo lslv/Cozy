@@ -30,9 +30,9 @@ Chores.belongsTo(Houses)
 
 Chores.sync().then(function () {
   // Table created
-	console.log(chalk.yellow('+++line32 model.chores table successfully created'))
-}).catch(function (err) {
-	console.error('There was an error in model.chores', err)
+  console.log(chalk.yellow('+++line32 model.chores table successfully created'))
+}).catch(function(err){
+  console.error(chalk.red('There was an error in model.chores'), err)
 })
 
 // This is the Chore Days
@@ -54,7 +54,7 @@ Chore_Days.sync().then(function () {
   // Table created
 	console.log(chalk.yellow('+++line53 model.Chore_Days table successfully created'))
 }).catch(function (err) {
-	console.error('There was an error in model.chores.Chore_Days', err)
+	console.error(chalk.red('There was an error in model.chores.Chore_Days'), err)
 })
 
 // This table keeps track of whether a chore is completed by a user
