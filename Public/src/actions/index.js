@@ -65,8 +65,12 @@ export function updatePosts () {
   // for testing purposes, get all where title = title
   // Eventually, get all where house_id matches the user's house_id
 
-  const testQuery = '/api/bulletinBoard/getPosts?title=title'
-  const request = axios.get(testQuery)
+  const testQuery = '/api/bulletinBoard/getPosts'
+  const request = axios.get(testQuery, {
+    params: {
+      title: 'title'
+    }
+  })
   return {
     type: GET_POSTS,
     payload: request

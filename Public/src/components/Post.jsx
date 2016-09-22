@@ -8,28 +8,54 @@ class Post extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      open: false
-
+      open: false,
+      editMode: false,
+      editMessageValue: ''
     }
 
     this.handleDelete = this.handleDelete.bind(this)
     this.handleCollapsible = this.handleCollapsible.bind(this)
     this.handleMessageEdit = this.handleMessageEdit.bind(this)
+    this.toggleMessageEdit = this.toggleMessageEdit.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
-  handleDelete () {
+  handleDelete (e) {
+    console.log('e target delete', e.target)
     this.props.deletePost(this.props.data)
   }
 
-  handleMessageEdit () {
-    const message = document.getElementById('message')
-    console.log('message text', message.textContent)
-  // destroy h3 elem
-  // create an input and set the value of it
-  // message.parentNode.removeChild(message)
+  handleInputChange (event) {
+    this.setState({ editMessageValue: event.target.value })
   }
 
-  handleCollapsible () {
+  handleMessageEdit () {
+    const post = this.props.data
+    if (!this.state.editMode) {
+      return (
+        <h3>{post.message}</h3>
+      )
+    } else {
+      return (
+        <div>
+          <input value={this.state.editMessageValue} onChange={this.handleInputChange} placeholder={post.message} />
+          <Button bsStyle='success'>
+            <i className='fa fa-check-circle' aria-hidden='true'></i>
+          </Button>
+        </div>
+      )
+    }
+
+  // put an else if to check it the save button has been clicked. Send an action to update the state (in action, do axios put req)
+  }
+
+  toggleMessageEdit (e) {
+    // stop propogation prevents the event from propogating to parent element and calling the parent event (in this case: panel onClick)
+    e.stopPropagation()
+    this.setState({ editMode: !this.state.editMode })
+  }
+
+  handleCollapsible (e) {
     this.setState({ open: !this.state.open })
   }
 
@@ -41,11 +67,11 @@ class Post extends Component {
         collapsible
         expanded={this.state.open}
         onClick={this.handleCollapsible}>
-        <h3 id='message'>{post.message}</h3>
+        {this.handleMessageEdit()}
         <Button bsStyle='danger' onClick={this.handleDelete}>
           <i className='fa fa-minus-circle' aria-hidden='true'></i>
         </Button>
-        <Button bsStyle='warning' onClick={this.handleMessageEdit}>
+        <Button bsStyle='warning' onClick={this.toggleMessageEdit}>
           <i className='fa fa-pencil' aria-hidden='true'></i>
         </Button>
       </Panel>
