@@ -41,7 +41,7 @@ class BulletinBoard extends Component {
   renderPosts () {
     return this.props.posts.map((post) => {
       return (
-        <Post data={post} key={post.id || post.message} />
+        <Post data={post} key={post.id} />
       )
     })
   }

@@ -1,6 +1,7 @@
 import axios from 'axios'
 export const ADD_POST = 'ADD_POST'
 export const GET_POSTS = 'GET_POSTS'
+export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const GET_CHORES = 'GET_CHORES'
 export const ADD_CHORE = 'ADD_CHORE'
@@ -67,24 +68,35 @@ export function updatePosts () {
   // for testing purposes, get all where title = title
   // Eventually, get all where house_id matches the user's house_id
 
-  const testQuery = '/api/bulletinBoard/getPosts?title=title'
-
-  const request = axios.get(testQuery)
-
+  const testQuery = '/api/bulletinBoard/getPosts'
+  const request = axios.get(testQuery, {
+    params: {
+      title: 'title'
+    }
+  })
   return {
     type: GET_POSTS,
     payload: request
   }
 }
 
+export function editPost (post, updatedMessage) {
+  console.log('post', post)
+  console.log('updatedMessage', updatedMessage)
+  const query = `/api/bulletinBoard/editPost`
+  const request = axios.put(query, {
+    id: post.id,
+    message: updatedMessage
+  })
+  return {
+    type: EDIT_POST,
+    payload: request
+  }
+}
+
 export function deletePost (post) {
-  console.log('postId', post.id)
-
   const query = `/api/bulletinBoard/deletePost?id=${post.id}`
-
   const request = axios.delete(query)
-  console.log('request', request)
-
   return {
     type: DELETE_POST,
     payload: post

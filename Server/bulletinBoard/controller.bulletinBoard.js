@@ -23,8 +23,22 @@ module.exports = {
       .catch(err => res.status(404).send(err))
   },
 
+  editPost: (req, res) => {
+    db.Posts.findOne({
+      where: {
+        id: req.body.id
+      }
+    })
+      .then((postToUpdate) => {
+        postToUpdate.update({
+          message: req.body.message
+        })
+        res.status(200).send(postToUpdate)
+      })
+      .catch(error => res.status(404).send(error))
+  },
+
   deletePost: (req, res) => {
-    console.log('req query', req.query)
     // delete works similarly to a get req - Data should come through as a query
     db.Posts.findOne({
       where: { id: req.query.id}
