@@ -27342,14 +27342,10 @@
 	          _reactBootstrap.Col,
 	          { xs: 12, md: 8 },
 	          _react2.default.createElement(
-	            'p',
-	            null,
-	            'Add a post-it',
-	            _react2.default.createElement(
-	              'span',
-	              { onClick: this.toggleAddPost },
-	              _react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' })
-	            )
+	            _reactBootstrap.Button,
+	            { bsStyle: 'info', onClick: this.toggleAddPost },
+	            'Add a post-it ',
+	            _react2.default.createElement('i', { className: 'fa fa-plus-circle', 'aria-hidden': 'true' })
 	          ),
 	          _react2.default.createElement(
 	            _reactBootstrap.ListGroup,
@@ -47729,7 +47725,7 @@
 	          null,
 	          _react2.default.createElement(
 	            _reactBootstrap.Button,
-	            { onClick: this.handleClick, type: 'submit', className: 'btn btn-info' },
+	            { onClick: this.handleClick, type: 'submit', bsStyle: 'info' },
 	            'Leave a message'
 	          )
 	        )
@@ -47786,7 +47782,10 @@
 
 	    var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this, props));
 
+	    _this.state = { open: false };
+
 	    _this.handleDelete = _this.handleDelete.bind(_this);
+	    _this.handleCollapsible = _this.handleCollapsible.bind(_this);
 	    return _this;
 	  }
 
@@ -47796,33 +47795,35 @@
 	      this.props.deletePost(this.props.data);
 	    }
 	  }, {
+	    key: 'handleCollapsible',
+	    value: function handleCollapsible() {
+	      this.setState({ open: !this.state.open });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var post = this.props.data;
 	      return _react2.default.createElement(
-	        _reactBootstrap.ListGroupItem,
-	        null,
+	        _reactBootstrap.Panel,
+	        {
+	          header: post.title,
+	          collapsible: true,
+	          expanded: this.state.open,
+	          onClick: this.handleCollapsible },
 	        _react2.default.createElement(
-	          'p',
+	          'h3',
 	          null,
-	          'User: This will have the user name / pic'
+	          post.message
 	        ),
 	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Title:',
-	          this.props.data.title
+	          _reactBootstrap.Button,
+	          { bsStyle: 'danger', onClick: this.handleDelete },
+	          _react2.default.createElement('i', { className: 'fa fa-minus-circle', 'aria-hidden': 'true' })
 	        ),
 	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Message:',
-	          this.props.data.message
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Delete post: ',
-	          _react2.default.createElement('i', { className: 'fa fa-minus-circle', onClick: this.handleDelete, 'aria-hidden': 'true' })
+	          _reactBootstrap.Button,
+	          { bsStyle: 'warning', onClick: this.handleDelete },
+	          _react2.default.createElement('i', { className: 'fa fa-pencil', 'aria-hidden': 'true' })
 	        )
 	      );
 	    }
@@ -52088,7 +52089,6 @@
 	  switch (action.type) {
 	    case _index.ADD_POST:
 	      {
-	        console.log('action.payload', action.payload.data);
 	        return [action.payload.data].concat(_toConsumableArray(state));
 	      }
 	    case _index.GET_POSTS:
