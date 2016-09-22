@@ -47579,18 +47579,14 @@
 	  // postData.username = 'Lee'
 	  // postData.house_id = '2'
 
-	  _axios2.default.post('/api/bulletinBoard/addPost', {
+	  var request = _axios2.default.post('/api/bulletinBoard/addPost', {
 	    title: postData.title,
 	    message: postData.message
-	  }).then(function (response) {
-	    return console.log('Successfully posted to bulletin board', response.data);
-	  }).catch(function (error) {
-	    return console.log('There was an error posting to the bulletin board', error);
 	  });
 
 	  return {
 	    type: ADD_POST,
-	    payload: postData
+	    payload: request
 	  };
 	}
 
@@ -52091,7 +52087,8 @@
 	  switch (action.type) {
 	    case _index.ADD_POST:
 	      {
-	        return [action.payload].concat(_toConsumableArray(state));
+	        console.log('action.payload', action.payload.data);
+	        return [action.payload.data].concat(_toConsumableArray(state));
 	      }
 	    case _index.GET_POSTS:
 	      {
@@ -52128,7 +52125,6 @@
 	    case _index.DELETE_POST:
 	      {
 	        var index = [].concat(_toConsumableArray(state)).indexOf(action.payload);
-	        console.log('action and index', action.payload, index);
 	        return [].concat(_toConsumableArray(state.slice(0, index)), _toConsumableArray(state.slice(index + 1)));
 	      }
 	  }

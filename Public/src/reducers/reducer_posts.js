@@ -3,7 +3,8 @@ import { ADD_POST, GET_POSTS, DELETE_POST } from '../actions/index'
 export default function(state = [] , action) {
   switch (action.type) {
     case ADD_POST: {
-      return [action.payload, ...state]
+      console.log('action.payload', action.payload.data)
+      return [action.payload.data, ...state]
     }
     case GET_POSTS: {
       if (action.payload) {
@@ -16,7 +17,6 @@ export default function(state = [] , action) {
     }
     case DELETE_POST: {
       let index = [...state].indexOf(action.payload)
-      console.log('action and index', action.payload, index)
       return [...state.slice(0, index), ...state.slice(index + 1)]
     }
   }
