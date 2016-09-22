@@ -2,6 +2,7 @@ import axios from 'axios'
 
 export const ADD_POST = 'ADD_POST'
 export const GET_POSTS = 'GET_POSTS'
+export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const GET_CHORES = 'GET_CHORES'
 export const ADD_CHORE = 'ADD_CHORE'
@@ -70,6 +71,17 @@ export function updatePosts () {
     params: {
       title: 'title'
     }
+  })
+  return {
+    type: GET_POSTS,
+    payload: request
+  }
+}
+
+export function editPost (post) {
+  const query = `/api/bulletinBoard/editPost`
+  const request = axios.put(query, {
+    message: post.message
   })
   return {
     type: GET_POSTS,

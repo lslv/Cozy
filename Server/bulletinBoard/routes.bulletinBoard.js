@@ -16,4 +16,8 @@ router.delete('/deletePost', (req, res) => {
   controller.deletePost(req, res)
 })
 
+router.put('/editPost', (req, res) => {
+  controller.editPost(req, res)
+})
+
 module.exports = router

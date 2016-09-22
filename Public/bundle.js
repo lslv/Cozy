@@ -47542,12 +47542,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.DELETE_CHORE = exports.ADD_CHORE = exports.GET_CHORES = exports.DELETE_POST = exports.GET_POSTS = exports.ADD_POST = undefined;
+	exports.DELETE_CHORE = exports.ADD_CHORE = exports.GET_CHORES = exports.DELETE_POST = exports.EDIT_POST = exports.GET_POSTS = exports.ADD_POST = undefined;
 	exports.addPost = addPost;
 	exports.getChores = getChores;
 	exports.addChore = addChore;
 	exports.deleteChore = deleteChore;
 	exports.updatePosts = updatePosts;
+	exports.editPost = editPost;
 	exports.deletePost = deletePost;
 
 	var _axios = __webpack_require__(512);
@@ -47558,6 +47559,7 @@
 
 	var ADD_POST = exports.ADD_POST = 'ADD_POST';
 	var GET_POSTS = exports.GET_POSTS = 'GET_POSTS';
+	var EDIT_POST = exports.EDIT_POST = 'EDIT_POST';
 	var DELETE_POST = exports.DELETE_POST = 'DELETE_POST';
 	var GET_CHORES = exports.GET_CHORES = 'GET_CHORES';
 	var ADD_CHORE = exports.ADD_CHORE = 'ADD_CHORE';
@@ -47626,6 +47628,17 @@
 	    params: {
 	      title: 'title'
 	    }
+	  });
+	  return {
+	    type: GET_POSTS,
+	    payload: request
+	  };
+	}
+
+	function editPost(post) {
+	  var query = '/api/bulletinBoard/editPost';
+	  var request = _axios2.default.put(query, {
+	    message: post.message
 	  });
 	  return {
 	    type: GET_POSTS,
