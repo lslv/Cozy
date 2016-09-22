@@ -12,4 +12,8 @@ router.get('/getPosts', (req, res) => {
   controller.getPosts(req, res)
 })
 
+router.delete('/deletePost', (req, res) => {
+  controller.deletePost(req, res)
+})
+
 module.exports = router
