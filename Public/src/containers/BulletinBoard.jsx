@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Col, ListGroup, ListGroupItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import axios from 'axios'
 import { updatePosts } from '../actions/index'
 import { bindActionCreators } from 'redux'
 
@@ -12,7 +11,8 @@ class BulletinBoard extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      flag: false
+      flag: false,
+      showLoadingIcon: false
     }
     this.renderAddPost = this.renderAddPost.bind(this)
     this.toggleAddPost = this.toggleAddPost.bind(this)
@@ -20,17 +20,10 @@ class BulletinBoard extends Component {
   }
 
   componentWillMount () {
-    // Here, do a get request to post DB to get all posts in the house
-    // use this to update the props
-
-    // for testing purposes, get all where title = test
-    // Eventually, get all where house_id matches the user's house_id
-    axios.get('/api/bulletinBoard/getPosts?title=title')
-      .then(response => {
-        console.log('successfully got posts from db', response)
-        this.props.updatePosts(response.data)
-      })
-      .catch(error => console.log('error getting posts from db', error))
+    // grab the posts that exist in the DB and add them to post state
+    this.setState({ showLoadingIcon: !this.state.showLoadingIcon })
+    this.props.updatePosts()
+      .then(() => this.setState({ showLoadingIcon: !this.state.showLoadingIcon }))
   }
 
   toggleAddPost () {
@@ -48,26 +41,28 @@ class BulletinBoard extends Component {
   renderPosts () {
     return this.props.posts.map((post) => {
       return (
-        <Post data={post} key={post.id} />
+        <Post data={post} key={post.id || post.message} />
       )
     })
   }
 
   render () {
-    console.log('this.props.posts in BulletinBoard', this.props)
-    // Below ListGroup, map everything in this.props.posts to return a 'post' component (need to make)
-    return (
-      <Col xs={12} md={8}>
-      <p>
-        Add a post-it
-        <span onClick={this.toggleAddPost}><i className='fa fa-plus-circle' aria-hidden='true'></i></span>
-      </p>
-      <ListGroup>
-        {this.renderAddPost()}
-        {this.renderPosts()}
-      </ListGroup>
-      </Col>
-    )
+    if (this.state.showLoadingIcon) {
+      return ( <img src='../../loader.gif' />)
+    } else {
+      return (
+        <Col xs={12} md={8}>
+        <p>
+          Add a post-it
+          <span onClick={this.toggleAddPost}><i className='fa fa-plus-circle' aria-hidden='true'></i></span>
+        </p>
+        <ListGroup>
+          {this.renderAddPost()}
+          {this.renderPosts()}
+        </ListGroup>
+        </Col>
+      )
+    }
   }
 }
 

@@ -1,6 +1,8 @@
 import axios from 'axios'
 
 export const ADD_POST = 'ADD_POST'
+export const GET_POSTS = 'GET_POSTS'
+export const DELETE_POST = 'DELETE_POST'
 export const GET_CHORES = 'GET_CHORES'
 export const ADD_CHORE = 'ADD_CHORE'
 export const DELETE_CHORE = 'DELETE_CHORE'
@@ -17,51 +19,72 @@ export function addPost (postData) {
   // postData.username = 'Lee'
   // postData.house_id = '2'
 
-  axios.post('/api/bulletinBoard/addPost', {
+  const request = axios.post('/api/bulletinBoard/addPost', {
     title: postData.title,
     message: postData.message
   })
-    .then(response => console.log('Successfully posted to bulletin board', response))
-    .catch(error => console.log('There was an error posting to the bulletin board', error))
 
   return {
     type: ADD_POST,
-    payload: postData
+    payload: request
   }
 }
 
-export function getChores (choreData){
-  //make an axios get request to the backend for a list of choses
-  console.log("getting a chore action")
-  return{
+export function getChores (choreData) {
+  // make an axios get request to the backend for a list of choses
+  console.log('getting a chore action')
+  return {
     type: GET_CHORES,
     payload: postChore
   }
 }
 
-
-export function addChore (choreData){
-//make an axios post request to the backend to add a new chore
-//eventually that will be the payload
-console.log("adding a chore action")
-  return{
+export function addChore (choreData) {
+  // make an axios post request to the backend to add a new chore
+  // eventually that will be the payload
+  console.log('adding a chore action')
+  return {
     type: ADD_CHORE,
     payload: choreData
   }
 }
 
-export function deleteChore(choreId){
-console.log("deleting a chore action")
-//make a delete request to the backend
-  return{
+export function deleteChore (choreId) {
+  console.log('deleting a chore action')
+  return {
     type: DELETE_CHORE,
     payload: choreId
+  }
+}
 
-export const GET_POSTS = 'GET_POSTS'
+export function updatePosts () {
 
-export function updatePosts (postsfromDB) {
+  // Here, do a get request to post DB to get all posts in the house
+  // use this to update the props
+
+  // for testing purposes, get all where title = title
+  // Eventually, get all where house_id matches the user's house_id
+
+  const testQuery = '/api/bulletinBoard/getPosts?title=title'
+
+  const request = axios.get(testQuery)
+
   return {
     type: GET_POSTS,
-    payload: postsfromDB
+    payload: request
+  }
+}
+
+export function deletePost (post) {
+  console.log('postId', post.id)
+
+  const query = `/api/bulletinBoard/deletePost?id=${post.id}`
+
+  const request = axios.delete(query)
+  console.log('request', request)
+
+  return {
+    type: DELETE_POST,
+    payload: post
   }
 }
