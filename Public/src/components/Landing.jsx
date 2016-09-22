@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import Login from './login'
+import Logout from './logout'
+
 
 export default class Landing extends Component {
   render () {
@@ -8,6 +10,7 @@ export default class Landing extends Component {
       <div>
         <div>
           <Login />
+          <Logout />
         </div>
         <p>
           In the landing page
