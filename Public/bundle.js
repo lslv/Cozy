@@ -47641,7 +47641,7 @@
 	  var query = '/api/bulletinBoard/editPost';
 	  var request = _axios2.default.put(query, {
 	    id: post.id,
-	    message: post.message
+	    message: updatedMessage
 	  });
 	  return {
 	    type: EDIT_POST,
@@ -49163,7 +49163,7 @@
 	  }, {
 	    key: 'stopProp',
 	    value: function stopProp(e) {
-	      console.log('e in stopProp', e);
+	      // Stops propogation to parent panel's click event when focus goes to input
 	      e.stopPropagation();
 	    }
 	  }, {
@@ -49173,8 +49173,10 @@
 	    }
 	  }, {
 	    key: 'handleMessageEdit',
-	    value: function handleMessageEdit() {
+	    value: function handleMessageEdit(e) {
+	      e.stopPropagation();
 	      this.props.editPost(this.props.data, this.state.editMessageValue);
+	      this.setState({ editMode: !this.state.editMode });
 	    }
 	  }, {
 	    key: 'showMessageEdit',
@@ -49202,7 +49204,6 @@
 	          )
 	        );
 	      }
-	      // put an else if to check it the save button has been clicked. Send an action to update the state (in action, do axios put req)
 	    }
 	  }, {
 	    key: 'toggleMessageEdit',
@@ -49214,7 +49215,6 @@
 	  }, {
 	    key: 'handleCollapsible',
 	    value: function handleCollapsible(e) {
-	      console.log('e', e);
 	      this.setState({ open: !this.state.open });
 	    }
 	  }, {
@@ -53574,11 +53574,11 @@
 	  var action = arguments[1];
 
 	  switch (action.type) {
-	    case _index.ADD_POST:
+	    case _index2.ADD_POST:
 	      {
 	        return [action.payload.data].concat(_toConsumableArray(state));
 	      }
-	    case _index.GET_POSTS:
+	    case _index2.GET_POSTS:
 	      {
 	        if (action.payload) {
 	          var allPosts = [];
@@ -53610,16 +53610,31 @@
 	          return [].concat(_toConsumableArray(state)).concat(allPosts);
 	        }
 	      }
-	    case _index.DELETE_POST:
+	    case _index2.DELETE_POST:
 	      {
 	        var index = [].concat(_toConsumableArray(state)).indexOf(action.payload);
+	        console.log('index', index);
 	        return [].concat(_toConsumableArray(state.slice(0, index)), _toConsumableArray(state.slice(index + 1)));
+	      }
+	    case _index2.EDIT_POST:
+	      {
+	        var temp = void 0;
+	        var _index = void 0;
+
+	        state.forEach(function (obj, i) {
+	          // check if the obj in state and updated obj have the same id
+	          if (obj.id == action.payload.data.id) {
+	            temp = action.payload.data;
+	            _index = i;
+	          }
+	        });
+	        return [].concat(_toConsumableArray(state.slice(0, _index)), [temp], _toConsumableArray(state.slice(_index + 1)));
 	      }
 	  }
 	  return state;
 	};
 
-	var _index = __webpack_require__(511);
+	var _index2 = __webpack_require__(511);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 

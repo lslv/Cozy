@@ -84,7 +84,7 @@ export function editPost (post, updatedMessage) {
   const query = `/api/bulletinBoard/editPost`
   const request = axios.put(query, {
     id: post.id,
-    message: post.message
+    message: updatedMessage
   })
   return {
     type: EDIT_POST,

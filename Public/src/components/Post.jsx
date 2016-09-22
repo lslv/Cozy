@@ -27,7 +27,7 @@ class Post extends Component {
   }
 
   stopProp (e) {
-    console.log('e in stopProp', e)
+    // Stops propogation to parent panel's click event when focus goes to input
     e.stopPropagation()
   }
 
@@ -35,8 +35,10 @@ class Post extends Component {
     this.setState({ editMessageValue: e.target.value })
   }
 
-  handleMessageEdit () {
+  handleMessageEdit (e) {
+    e.stopPropagation()
     this.props.editPost(this.props.data, this.state.editMessageValue)
+    this.setState({ editMode: !this.state.editMode })
   }
 
   showMessageEdit () {
@@ -59,7 +61,6 @@ class Post extends Component {
         </div>
       )
     }
-  // put an else if to check it the save button has been clicked. Send an action to update the state (in action, do axios put req)
   }
 
   toggleMessageEdit (e) {
@@ -69,7 +70,6 @@ class Post extends Component {
   }
 
   handleCollapsible (e) {
-    console.log('e', e)
     this.setState({ open: !this.state.open })
   }
 
