@@ -20,13 +20,14 @@ class Chore extends Component {
 		const {chore}= this.props
 		return (
 				<Panel
-				header={chore.title}
+				header={chore.chore_name}
 				collapsible
 				expanded={this.state.open}
 				onClick={()=>this.setState({open: !this.state.open})}>
-					<h3>{chore.title}</h3>
-					<h6>{chore.time}</h6>
-					<Button bsStyle="danger"
+					<h3>{chore.chore_name}</h3>
+					<h6>{chore.day}</h6>
+					<Button
+					bsStyle="danger"
 					onClick={()=> this.deleteChore(chore.id)}>
 					Delete Chore</Button>
 				</Panel>
