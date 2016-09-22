@@ -1,4 +1,4 @@
-import { ADD_POST, GET_POSTS } from '../actions/index'
+import { ADD_POST, GET_POSTS, DELETE_POST } from '../actions/index'
 
 export default function(state = [] , action) {
   switch (action.type) {
@@ -13,6 +13,11 @@ export default function(state = [] , action) {
         }
         return [...state].concat(allPosts)
       }
+    }
+    case DELETE_POST: {
+      let index = [...state].indexOf(action.payload)
+      console.log('action and index', action.payload, index)
+      return [...state.slice(0, index), ...state.slice(index + 1)]
     }
   }
   return state

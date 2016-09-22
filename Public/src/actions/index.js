@@ -2,6 +2,7 @@ import axios from 'axios'
 
 export const ADD_POST = 'ADD_POST'
 export const GET_POSTS = 'GET_POSTS'
+export const DELETE_POST = 'DELETE_POST'
 export const GET_CHORES = 'GET_CHORES'
 export const ADD_CHORE = 'ADD_CHORE'
 export const DELETE_CHORE = 'DELETE_CHORE'
@@ -22,7 +23,7 @@ export function addPost (postData) {
     title: postData.title,
     message: postData.message
   })
-    .then(response => console.log('Successfully posted to bulletin board', response))
+    .then(response => console.log('Successfully posted to bulletin board', response.data))
     .catch(error => console.log('There was an error posting to the bulletin board', error))
 
   return {
@@ -73,5 +74,19 @@ export function updatePosts () {
   return {
     type: GET_POSTS,
     payload: request
+  }
+}
+
+export function deletePost (post) {
+  console.log('postId', post.id)
+
+  const query = `/api/bulletinBoard/deletePost?id=${post.id}`
+
+  const request = axios.delete(query)
+  console.log('request', request)
+
+  return {
+    type: DELETE_POST,
+    payload: post
   }
 }

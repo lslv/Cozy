@@ -47546,12 +47546,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.DELETE_CHORE = exports.ADD_CHORE = exports.GET_CHORES = exports.GET_POSTS = exports.ADD_POST = undefined;
+	exports.DELETE_CHORE = exports.ADD_CHORE = exports.GET_CHORES = exports.DELETE_POST = exports.GET_POSTS = exports.ADD_POST = undefined;
 	exports.addPost = addPost;
 	exports.getChores = getChores;
 	exports.addChore = addChore;
 	exports.deleteChore = deleteChore;
 	exports.updatePosts = updatePosts;
+	exports.deletePost = deletePost;
 
 	var _axios = __webpack_require__(597);
 
@@ -47561,6 +47562,7 @@
 
 	var ADD_POST = exports.ADD_POST = 'ADD_POST';
 	var GET_POSTS = exports.GET_POSTS = 'GET_POSTS';
+	var DELETE_POST = exports.DELETE_POST = 'DELETE_POST';
 	var GET_CHORES = exports.GET_CHORES = 'GET_CHORES';
 	var ADD_CHORE = exports.ADD_CHORE = 'ADD_CHORE';
 	var DELETE_CHORE = exports.DELETE_CHORE = 'DELETE_CHORE';
@@ -47581,7 +47583,7 @@
 	    title: postData.title,
 	    message: postData.message
 	  }).then(function (response) {
-	    return console.log('Successfully posted to bulletin board', response);
+	    return console.log('Successfully posted to bulletin board', response.data);
 	  }).catch(function (error) {
 	    return console.log('There was an error posting to the bulletin board', error);
 	  });
@@ -47634,6 +47636,20 @@
 	  return {
 	    type: GET_POSTS,
 	    payload: request
+	  };
+	}
+
+	function deletePost(post) {
+	  console.log('postId', post.id);
+
+	  var query = '/api/bulletinBoard/deletePost?id=' + post.id;
+
+	  var request = _axios2.default.delete(query);
+	  console.log('request', request);
+
+	  return {
+	    type: DELETE_POST,
+	    payload: post
 	  };
 	}
 
@@ -47744,37 +47760,86 @@
 	  value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
 	var _reactBootstrap = __webpack_require__(239);
 
+	var _redux = __webpack_require__(497);
+
+	var _reactRedux = __webpack_require__(490);
+
+	var _index = __webpack_require__(511);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = function (props) {
-	  return _react2.default.createElement(
-	    _reactBootstrap.ListGroupItem,
-	    null,
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      'User: This will have the user name / pic'
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      'Title:',
-	      props.data.title
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      'Message:',
-	      props.data.message
-	    )
-	  );
-	};
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Post = function (_Component) {
+	  _inherits(Post, _Component);
+
+	  function Post(props) {
+	    _classCallCheck(this, Post);
+
+	    var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this, props));
+
+	    _this.handleDelete = _this.handleDelete.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(Post, [{
+	    key: 'handleDelete',
+	    value: function handleDelete() {
+	      this.props.deletePost(this.props.data);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        _reactBootstrap.ListGroupItem,
+	        null,
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'User: This will have the user name / pic'
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'Title:',
+	          this.props.data.title
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'Message:',
+	          this.props.data.message
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'Delete post: ',
+	          _react2.default.createElement('i', { className: 'fa fa-minus-circle', onClick: this.handleDelete, 'aria-hidden': 'true' })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Post;
+	}(_react.Component);
+
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({ deletePost: _index.deletePost }, dispatch);
+	}
+
+	exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Post);
 
 /***/ },
 /* 514 */,
@@ -52059,6 +52124,12 @@
 
 	          return [].concat(_toConsumableArray(state)).concat(allPosts);
 	        }
+	      }
+	    case _index.DELETE_POST:
+	      {
+	        var index = [].concat(_toConsumableArray(state)).indexOf(action.payload);
+	        console.log('action and index', action.payload, index);
+	        return [].concat(_toConsumableArray(state.slice(0, index)), _toConsumableArray(state.slice(index + 1)));
 	      }
 	  }
 	  return state;

@@ -27,7 +27,7 @@ module.exports = {
     console.log('req query', req.query)
     // delete works similarly to a get req - Data should come through as a query
     db.Posts.findOne({
-      where: { message: req.query.message}
+      where: { id: req.query.id}
     })
       .then(post => post.destroy())
       .then(() => res.status(200).send('row deleted'))
