@@ -1,19 +1,35 @@
 const db = require('../chores/model.chores')
+const Users = require('../users/model.users')
 
 module.exports = {
   postChore: (req, res) => {
+    console.log(req.body);
     db.Chores.create({
       chore_name: req.body.chore_name,
       user_turn: 0,
       day:req.body.day,
       house_id: req.body.house_id,
     })
-      .then((createdPost) => {
-        res.status(200).send(createdPost)
+    .then((createdPost) => {
+      Users.findAll({where:{house_id:req.body.house_id}})
+      .then((users)=>{
+          var queuePosts=[];
+          var turnNum=0;
+          users.forEach((user)=>{
+            queuePosts.push({
+              turn:turnNum,
+              userId: user.dataValues.id,
+              choreId: createdPost.dataValues.id
+              })
+            turnNum++
+          })
+          db.Queues.bulkCreate(queuePosts)
       })
-      .catch((err) => {
-        res.status(404).send(err)
-      })
+      res.status(200).send(createdPost)
+    })
+    .catch((err) => {
+      res.status(404).send(err)
+    })
   },
 
   getChores: (req, res) => {
