@@ -51,10 +51,7 @@ module.exports = {
   },
 
   addPoll: (req, res) => {
-    console.log('req body', req.body)
-
     return sequelize.transaction().then((t) => {
-
       return db_poll.Polls.create({
         question: req.body.question
       }, {transaction: t})
@@ -64,7 +61,6 @@ module.exports = {
             return {
               text: option,
               pollId: createdPoll.dataValues.id
-
             }
           })
           return db_poll.Poll_Options.bulkCreate(pollOptions, {
@@ -74,5 +70,19 @@ module.exports = {
         res.status(200).json(t)
       })
     })
+  },
+
+  getPoll: (req, res) => {
+    console.log('req params', req.params)
+    db_poll.Polls.findOne({
+      where: {
+        id: req.params.pollId
+      },
+      include: {
+        model: db_poll.Poll_Options
+      }
+    })
+      .then(poll => res.status(200).json(poll))
+      .catch(error => res.status(404).send(error))
   }
 }

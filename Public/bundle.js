@@ -47588,10 +47588,10 @@
 
 	function getChores() {
 	  var house_id = arguments.length <= 0 || arguments[0] === undefined ? 1 : arguments[0];
-	  //harcoded in house ID
-	  console.log("getting a chore action");
+	  // harcoded in house ID
+	  console.log('getting a chore action');
 	  var payload = _axios2.default.get('http://localhost:1337/api/chores/getChores', {
-	    params: { house_id: house_id } }); //hardcoded in localhost
+	    params: { house_id: house_id } }); // hardcoded in localhost
 	  return {
 	    type: GET_CHORES,
 	    payload: payload
@@ -47599,10 +47599,10 @@
 	}
 
 	function addChore(choreData) {
-	  console.log("adding a chore action");
-	  choreData.user_turn = 0; //hardcoded user with user 1
-	  choreData.house_id = 1; //hardcoded house Id of 1
-	  var payload = _axios2.default.post('http://localhost:1337/api/chores/postChore', choreData); //hardcoded in local host
+	  console.log('adding a chore action');
+	  choreData.user_turn = 0; // hardcoded user with user 1
+	  choreData.house_id = 1; // hardcoded house Id of 1
+	  var payload = _axios2.default.post('http://localhost:1337/api/chores/postChore', choreData); // hardcoded in local host
 	  return {
 	    type: ADD_CHORE,
 	    payload: payload
@@ -47610,10 +47610,10 @@
 	}
 
 	function deleteChore(choreId) {
-	  console.log("deleting a chore action");
+	  console.log('deleting a chore action');
 	  console.log(choreId);
 	  var payload = _axios2.default.delete('http://localhost:1337/api/chores/deleteChore', {
-	    params: { id: choreId } }); //hardcoded in local host
+	    params: { id: choreId } }); // hardcoded in local host
 	  return {
 	    type: DELETE_CHORE,
 	    payload: payload
@@ -47641,8 +47641,6 @@
 	}
 
 	function editPost(post, updatedMessage) {
-	  console.log('post', post);
-	  console.log('updatedMessage', updatedMessage);
 	  var query = '/api/bulletinBoard/editPost';
 	  var request = _axios2.default.put(query, {
 	    id: post.id,
