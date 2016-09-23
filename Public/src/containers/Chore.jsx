@@ -15,10 +15,28 @@ class Chore extends Component {
 	deleteChore(choreId){
 		this.props.deleteChore(choreId)
 	}
+	renderQueue(){
+		// console.log(this.props.queue)
+		if(this.props.queue)
+		return this.props.queue.map((queuePosition,index)=>{
+			if(index < this.props.queue.length-1)
+			{return (
+							<span key={queuePosition.id}>
+							User {queuePosition.userId}s Turn ->
+							</span>
+							)}
+			else{
+				return (
+							<span key={queuePosition.id}>
+							User {queuePosition.userId}s Turn
+							</span>
+							)
+			}
+		})
+	}
 
 	render(){
 		const {chore}= this.props
-		console.log("chore Item")
 		return (
 				<Panel
 				header={chore.chore_name}
@@ -27,7 +45,8 @@ class Chore extends Component {
 				onClick={()=>this.setState({open: !this.state.open})}>
 					<h3>{chore.chore_name}</h3>
 					<h6>{chore.day}</h6>
-					<span>{JSON.stringify(this.props.queue)}</span>
+					{this.renderQueue()}
+					<br/>
 					<Button
 					bsStyle="danger"
 					onClick={()=> this.deleteChore(chore.id)}>

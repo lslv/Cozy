@@ -18,32 +18,18 @@ class ChoreList extends Component {
 		.then(()=>{
 			this.props.chores.forEach((chore)=>{
 				this.props.getQueue(chore.id)
-				// console.log(chore)
 			})
 		})
 		
 	}
 	renderChoreList(){
-		// console.log(this.props.queues)
 		if(Object.keys(this.props.queues).length){
-			// console.log('we out here')
 			return this.props.chores.map( chore => {
-				// console.log("inside render ChoreList")
-				// console.log(this.props.queues)
-				// console.log(Object.keys(this.props.queues))
-				// for(var key in this.props.queues){
-				// 	console.log('key ',key )
-				// 	console.log('this.props.queue ', this.props.queues[key] )
-
-				// }
-				// console.log("after render ChoreList")
 				return <Chore key={chore.chore_name} chore={chore} queue={this.props.queues[chore.id]} />
 			}	)
 		}
 	}
 	render(){
-		// console.log("in chorelist render")
-		// console.log(this.props.queues)
 		return (
 			<div>
 				<Accordion>
@@ -58,7 +44,6 @@ class ChoreList extends Component {
 }
 
 function mapStateToProps(state){
-	//console.log(state)
 	return {chores:state.chores, queues:state.queues} //add state infusion there
 }
 

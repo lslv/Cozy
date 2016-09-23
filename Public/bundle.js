@@ -49337,7 +49337,6 @@
 				.then(function () {
 					_this2.props.chores.forEach(function (chore) {
 						_this2.props.getQueue(chore.id);
-						// console.log(chore)
 					});
 				});
 			}
@@ -49346,19 +49345,8 @@
 			value: function renderChoreList() {
 				var _this3 = this;
 
-				// console.log(this.props.queues)
 				if (Object.keys(this.props.queues).length) {
-					// console.log('we out here')
 					return this.props.chores.map(function (chore) {
-						// console.log("inside render ChoreList")
-						// console.log(this.props.queues)
-						// console.log(Object.keys(this.props.queues))
-						// for(var key in this.props.queues){
-						// 	console.log('key ',key )
-						// 	console.log('this.props.queue ', this.props.queues[key] )
-
-						// }
-						// console.log("after render ChoreList")
 						return _react2.default.createElement(_Chore2.default, { key: chore.chore_name, chore: chore, queue: _this3.props.queues[chore.id] });
 					});
 				}
@@ -49366,8 +49354,6 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				// console.log("in chorelist render")
-				// console.log(this.props.queues)
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -49389,7 +49375,6 @@
 	}(_react.Component);
 
 	function mapStateToProps(state) {
-		//console.log(state)
 		return { chores: state.chores, queues: state.queues }; //add state infusion there
 	}
 
@@ -52662,13 +52647,38 @@
 				this.props.deleteChore(choreId);
 			}
 		}, {
+			key: 'renderQueue',
+			value: function renderQueue() {
+				var _this2 = this;
+
+				// console.log(this.props.queue)
+				if (this.props.queue) return this.props.queue.map(function (queuePosition, index) {
+					if (index < _this2.props.queue.length - 1) {
+						return _react2.default.createElement(
+							'span',
+							{ key: queuePosition.id },
+							'User ',
+							queuePosition.userId,
+							's Turn ->'
+						);
+					} else {
+						return _react2.default.createElement(
+							'span',
+							{ key: queuePosition.id },
+							'User ',
+							queuePosition.userId,
+							's Turn'
+						);
+					}
+				});
+			}
+		}, {
 			key: 'render',
 			value: function render() {
-				var _this2 = this;
+				var _this3 = this;
 
 				var chore = this.props.chore;
 
-				console.log("chore Item");
 				return _react2.default.createElement(
 					_reactBootstrap.Panel,
 					{
@@ -52676,7 +52686,7 @@
 						collapsible: true,
 						expanded: this.state.open,
 						onClick: function onClick() {
-							return _this2.setState({ open: !_this2.state.open });
+							return _this3.setState({ open: !_this3.state.open });
 						} },
 					_react2.default.createElement(
 						'h3',
@@ -52688,17 +52698,14 @@
 						null,
 						chore.day
 					),
-					_react2.default.createElement(
-						'span',
-						null,
-						JSON.stringify(this.props.queue)
-					),
+					this.renderQueue(),
+					_react2.default.createElement('br', null),
 					_react2.default.createElement(
 						_reactBootstrap.Button,
 						{
 							bsStyle: 'danger',
 							onClick: function onClick() {
-								return _this2.deleteChore(chore.id);
+								return _this3.deleteChore(chore.id);
 							} },
 						'Delete Chore'
 					)
@@ -53663,15 +53670,12 @@
 
 	  switch (action.type) {
 	    case _index.GET_QUEUE:
-	      // console.log("inside queue reducer")
-	      // return {12:'FUCKKKK'}
-	      // console.log(action.payload)
-	      var key = action.payload.data[0].choreId;
-	      // console.log('queue chore key'+key)
-	      var tempState = {};
-	      tempState[key] = action.payload.data;
-	      return _extends({}, state, tempState);
-	      // return state;
+	      if (action.payload.data[0]) {
+	        var key = action.payload.data[0].choreId;
+	        var tempState = {};
+	        tempState[key] = action.payload.data;
+	        return _extends({}, state, tempState);
+	      } else return state;
 	      break;
 	    default:
 	      return state;
