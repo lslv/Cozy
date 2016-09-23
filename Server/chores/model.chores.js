@@ -91,15 +91,9 @@ const Queues = sequelize.define('queues', {
   }
 })
 
-Queues.belongsTo(Users, {
-  as: 'user_id',
-  foreignKey: 'Users'
-})
+Queues.belongsTo(Users) //changed column
 
-Queues.belongsTo(Chores, {
-  as: 'chore_id',
-  foreignKey: 'Chores'
-})
+Queues.belongsTo(Chores) //changed column
 
 Queues.sync().then(function () {
   // Table created

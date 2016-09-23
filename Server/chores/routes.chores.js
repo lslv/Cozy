@@ -17,4 +17,9 @@ router.delete('/deleteChore', (req, res)=>{
   	controller.deleteChore(req,res)
 })
 
+router.get('/getQueue', (req, res)=>{
+	console.log('get queue controller')
+	controller.getQueue(req,res)
+})
+
 module.exports = router
