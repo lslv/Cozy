@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {deleteChore} from '../actions/index'
-import {bindActionCreator} from 'redux'
+import {deleteChore, getQueue} from '../actions/index'
+import {bindActionCreators} from 'redux'
 import {Button, Panel} from 'react-bootstrap';
 
 class Chore extends Component {
@@ -12,27 +12,25 @@ class Chore extends Component {
 		}
 	}
 
+	componentWillMount(){
+		this.props.getQueue(this.props.chore.id)
+	}
+
+
 	deleteChore(choreId){
 		this.props.deleteChore(choreId)
 	}
+
 	renderQueue(){
-		// console.log(this.props.queue)
-		if(this.props.queue)
-		return this.props.queue.map((queuePosition,index)=>{
-			if(index < this.props.queue.length-1)
-			{return (
-							<span key={queuePosition.id}>
-							User {queuePosition.userId}s Turn ->
-							</span>
-							)}
-			else{
+		const {queues}=this.props
+		if(Object.keys(queues).length && queues[this.props.chore.id])
+			return queues[this.props.chore.id].map((queuePosition,index)=>{		
 				return (
-							<span key={queuePosition.id}>
-							User {queuePosition.userId}s Turn
-							</span>
-							)
-			}
-		})
+						<span key={queuePosition.id}>
+						User {queuePosition.userId}s Turn ->  
+						</span>
+						)
+			})
 	}
 
 	render(){
@@ -55,9 +53,13 @@ class Chore extends Component {
 			)
 	}
 }
-
-function mapDispatchToProps(dispatch){
-	return bindActionCreator({deleteChore}, dispatch)
+function mapStateToProps(state){
+	return {queues:state.queues}
 }
 
-export default connect(null,{deleteChore})(Chore)
+
+function mapDispatchToProps(dispatch){
+	return bindActionCreators({deleteChore, getQueue}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chore)

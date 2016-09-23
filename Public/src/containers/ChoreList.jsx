@@ -15,19 +15,10 @@ class ChoreList extends Component {
 	}
 	componentWillMount(){
 		this.props.getChores() //eventually need to pass in house ID from local storage
-		.then(()=>{
-			this.props.chores.forEach((chore)=>{
-				this.props.getQueue(chore.id)
-			})
-		})
 		
 	}
 	renderChoreList(){
-		if(Object.keys(this.props.queues).length){
-			return this.props.chores.map( chore => {
-				return <Chore key={chore.chore_name} chore={chore} queue={this.props.queues[chore.id]} />
-			}	)
-		}
+			return this.props.chores.map( chore => <Chore key={chore.chore_name} chore={chore} />)
 	}
 	render(){
 		return (
@@ -44,11 +35,11 @@ class ChoreList extends Component {
 }
 
 function mapStateToProps(state){
-	return {chores:state.chores, queues:state.queues} //add state infusion there
+	return {chores:state.chores} //add state infusion there
 }
 
 function mapDispatchToProps(dispatch){
-	return bindActionCreators({getChores, getQueue}, dispatch)
+	return bindActionCreators({getChores}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChoreList)

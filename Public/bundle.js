@@ -49331,25 +49331,14 @@
 		_createClass(ChoreList, [{
 			key: 'componentWillMount',
 			value: function componentWillMount() {
-				var _this2 = this;
-
-				this.props.getChores() //eventually need to pass in house ID from local storage
-				.then(function () {
-					_this2.props.chores.forEach(function (chore) {
-						_this2.props.getQueue(chore.id);
-					});
-				});
+				this.props.getChores(); //eventually need to pass in house ID from local storage
 			}
 		}, {
 			key: 'renderChoreList',
 			value: function renderChoreList() {
-				var _this3 = this;
-
-				if (Object.keys(this.props.queues).length) {
-					return this.props.chores.map(function (chore) {
-						return _react2.default.createElement(_Chore2.default, { key: chore.chore_name, chore: chore, queue: _this3.props.queues[chore.id] });
-					});
-				}
+				return this.props.chores.map(function (chore) {
+					return _react2.default.createElement(_Chore2.default, { key: chore.chore_name, chore: chore });
+				});
 			}
 		}, {
 			key: 'render',
@@ -49375,11 +49364,11 @@
 	}(_react.Component);
 
 	function mapStateToProps(state) {
-		return { chores: state.chores, queues: state.queues }; //add state infusion there
+		return { chores: state.chores }; //add state infusion there
 	}
 
 	function mapDispatchToProps(dispatch) {
-		return (0, _redux.bindActionCreators)({ getChores: _index.getChores, getQueue: _index.getQueue }, dispatch);
+		return (0, _redux.bindActionCreators)({ getChores: _index.getChores }, dispatch);
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ChoreList);
@@ -52642,6 +52631,11 @@
 		}
 
 		_createClass(Chore, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				this.props.getQueue(this.props.chore.id);
+			}
+		}, {
 			key: 'deleteChore',
 			value: function deleteChore(choreId) {
 				this.props.deleteChore(choreId);
@@ -52649,33 +52643,22 @@
 		}, {
 			key: 'renderQueue',
 			value: function renderQueue() {
-				var _this2 = this;
+				var queues = this.props.queues;
 
-				// console.log(this.props.queue)
-				if (this.props.queue) return this.props.queue.map(function (queuePosition, index) {
-					if (index < _this2.props.queue.length - 1) {
-						return _react2.default.createElement(
-							'span',
-							{ key: queuePosition.id },
-							'User ',
-							queuePosition.userId,
-							's Turn ->'
-						);
-					} else {
-						return _react2.default.createElement(
-							'span',
-							{ key: queuePosition.id },
-							'User ',
-							queuePosition.userId,
-							's Turn'
-						);
-					}
+				if (Object.keys(queues).length && queues[this.props.chore.id]) return queues[this.props.chore.id].map(function (queuePosition, index) {
+					return _react2.default.createElement(
+						'span',
+						{ key: queuePosition.id },
+						'User ',
+						queuePosition.userId,
+						's Turn ->'
+					);
 				});
 			}
 		}, {
 			key: 'render',
 			value: function render() {
-				var _this3 = this;
+				var _this2 = this;
 
 				var chore = this.props.chore;
 
@@ -52686,7 +52669,7 @@
 						collapsible: true,
 						expanded: this.state.open,
 						onClick: function onClick() {
-							return _this3.setState({ open: !_this3.state.open });
+							return _this2.setState({ open: !_this2.state.open });
 						} },
 					_react2.default.createElement(
 						'h3',
@@ -52705,7 +52688,7 @@
 						{
 							bsStyle: 'danger',
 							onClick: function onClick() {
-								return _this3.deleteChore(chore.id);
+								return _this2.deleteChore(chore.id);
 							} },
 						'Delete Chore'
 					)
@@ -52716,11 +52699,15 @@
 		return Chore;
 	}(_react.Component);
 
-	function mapDispatchToProps(dispatch) {
-		return (0, _redux.bindActionCreator)({ deleteChore: _index.deleteChore }, dispatch);
+	function mapStateToProps(state) {
+		return { queues: state.queues };
 	}
 
-	exports.default = (0, _reactRedux.connect)(null, { deleteChore: _index.deleteChore })(Chore);
+	function mapDispatchToProps(dispatch) {
+		return (0, _redux.bindActionCreators)({ deleteChore: _index.deleteChore, getQueue: _index.getQueue }, dispatch);
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Chore);
 
 /***/ },
 /* 585 */

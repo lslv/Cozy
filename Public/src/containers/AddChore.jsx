@@ -16,7 +16,7 @@ class AddChore extends Component {
 	// 	this.setState({ open: !this.state.open })
 	// }
 render() {
-	const { fields:{chore_name, day}, handleSubmit}= this.props
+	const { fields:{chore_name, day}, handleSubmit } = this.props
     return (
       <div>
         <Button bsStyle="primary" onClick={ ()=> this.setState({ open: !this.state.open })}>
