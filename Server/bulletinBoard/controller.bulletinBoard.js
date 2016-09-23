@@ -51,24 +51,23 @@ module.exports = {
   },
 
   addPoll: (req, res) => {
+
     return sequelize.transaction().then((t) => {
       return db_poll.Polls.create({
         question: req.body.question
       }, {transaction: t})
         .then((createdPoll) => {
-          // have to send options as an array
           const pollOptions = req.body.options.map((option) => {
             return {
               text: option,
               pollId: createdPoll.dataValues.id
             }
           })
+          console.log('pollOptions var created = ', pollOptions)
           return db_poll.Poll_Options.bulkCreate(pollOptions, {
             transaction: t
           })
-        }).then((t) => {
-        res.status(200).json(t)
-      })
+        }).then(t.commit.bind(t), t.rollback.bind(t))
     })
   },
 
