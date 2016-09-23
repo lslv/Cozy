@@ -6,6 +6,7 @@ export const DELETE_POST = 'DELETE_POST'
 export const GET_CHORES = 'GET_CHORES'
 export const ADD_CHORE = 'ADD_CHORE'
 export const DELETE_CHORE = 'DELETE_CHORE'
+export const UPDATE_CHORE = 'UPDATE_CHORE'
 export const GET_QUEUE = 'GET_QUEUE'
 
 export function addPost (postData) {
@@ -43,6 +44,7 @@ export function addChore (choreData){
   console.log("adding a chore action")
   choreData.user_turn=0 //hardcoded user with user 1
   choreData.house_id=1 //hardcoded house Id of 1
+  choreData.num_of_users=4 //hardcoded number of users to be 4
   const payload= axios.post('http://localhost:1337/api/chores/postChore', choreData) //hardcoded in local host
   return{
     type: ADD_CHORE,
@@ -61,6 +63,15 @@ export function deleteChore(choreId){
   }
 }
 
+export function updateChoreTurn(choreId){
+  console.log('updating chore# ' +choreId)
+  const payload=axios.put('http://localhost:1337/api/chores/updateChoreTurn', {id:choreId})
+  return {
+    type: UPDATE_CHORE,
+    payload:payload
+  }
+}
+
 export function getQueue(choreId){
   console.log("grabbing a chore queue")
   // console.log(choreId);
@@ -70,6 +81,10 @@ export function getQueue(choreId){
     type: GET_QUEUE,
     payload: payload
   }
+}
+
+export function updateQueue(choreId){
+
 }
 
 export function updatePosts () {
