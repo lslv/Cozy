@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getChores} from '../actions/index'
-import {bindActionCreator} from 'redux'
+import {getChores, getQueue} from '../actions/index'
+import {bindActionCreators} from 'redux'
 import AddChore from './AddChore'
 import Chore from './Chore'
 import {Accordion, Panel, Button, Collapse, Well} from 'react-bootstrap';
@@ -15,16 +15,10 @@ class ChoreList extends Component {
 	}
 	componentWillMount(){
 		this.props.getChores() //eventually need to pass in house ID from local storage
-		.then((chores)=>{
-			console.log(chores)
-		})
+		
 	}
 	renderChoreList(){
-		return this.props.chores.map((chore)=>{
-			return (
-					<Chore key={chore.chore_name} chore={chore} />		
-				)
-		})
+			return this.props.chores.map( chore => <Chore key={chore.chore_name} chore={chore} />)
 	}
 	render(){
 		return (
@@ -45,7 +39,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-	return bindActionCreator({getChores}, dispatch)
+	return bindActionCreators({getChores}, dispatch)
 }
 
-export default connect(mapStateToProps, {getChores})(ChoreList)
+export default connect(mapStateToProps, mapDispatchToProps)(ChoreList)
