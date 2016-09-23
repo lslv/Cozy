@@ -62,7 +62,7 @@ export function deleteChore(choreId){
 
 export function getQueue(choreId){
   console.log("grabbing a chore queue")
-  console.log(choreId);
+  // console.log(choreId);
   const payload= axios.get('http://localhost:1337/api/chores/getQueue', {
     params:{choreId:choreId}}) //hardcoded in local host
   return{
