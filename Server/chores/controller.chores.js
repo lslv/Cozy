@@ -7,6 +7,7 @@ module.exports = {
     db.Chores.create({
       chore_name: req.body.chore_name,
       user_turn: 0,
+      num_of_users:req.body.num_of_users,
       day:req.body.day,
       house_id: req.body.house_id,
     })
@@ -71,6 +72,28 @@ module.exports = {
       res.status(404).send(err)
     })
 
+  },
+  updateChoreTurn: (req, res) => {
+    console.log('update Chores query: ', req.body)
+    db.Chores.findOne({
+      where: { id: req.body.id }
+    })
+    .then((choreToBeUpdated) => {
+      //might need to add the number of users in a house
+      var newTurn= choreToBeUpdated.user_turn + 1
+      if(newTurn < choreToBeUpdated.num_of_users)
+        return choreToBeUpdated.update({user_turn: newTurn})
+      else
+        return choreToBeUpdated.update({user_turn: 0})
+
+    })
+    .then((updatedChore) => {
+      console.log(updatedChore);
+      res.status(200).send(updatedChore)
+    })
+    .catch((err) => {
+      res.status(404).send(err)
+    })
   }
 
 
