@@ -18,8 +18,8 @@ router.use(bodyParser())
 
 // loggs url to console on request
 router.get('/*', (req, res, next) => {
-  console.log(chalk.blue(`Request Url: ${req.url}`))
-  next()
+	console.log(chalk.blue(`Request Url: ${req.url}`))
+	next()
 })
 
 // routes
@@ -30,7 +30,7 @@ router.use('/api/chores', chores)
 router.use('/api/users', users)
 
 router.use((req, res, next) => {
-  res.status(404).send('Sorry that does not exist')
+	res.status(404).send('Sorry that does not exist')
 })
 
 module.exports = router
