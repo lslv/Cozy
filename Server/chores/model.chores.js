@@ -15,7 +15,10 @@ const Chores = sequelize.define('chores', {
   },
   user_turn: {
     type: Sequelize.INTEGER
-  }
+  },
+  num_of_users:{
+    type: Sequelize.INTEGER
+  },
 },
   {
     timestamps: true,

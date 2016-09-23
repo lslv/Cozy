@@ -22,4 +22,10 @@ router.get('/getQueue', (req, res)=>{
 	controller.getQueue(req,res)
 })
 
+router.put('/updateChoreTurn', (req, res)=>{
+	console.log('getting chores update turn controller')
+  	controller.updateChoreTurn(req,res)
+})
+
+
 module.exports = router

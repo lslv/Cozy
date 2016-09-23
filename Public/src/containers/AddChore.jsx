@@ -9,12 +9,7 @@ class AddChore extends Component {
 		this.state={
 		}
 	}
-	// handleSubmit(event){
-	// 	event.preventDefault();
-	// 	console.log('handling Submit')
-	// 	this.props.addChore(this.state.chore_name)
-	// 	this.setState({ open: !this.state.open })
-	// }
+
 render() {
 	const { fields:{chore_name, day}, handleSubmit } = this.props
     return (
@@ -39,8 +34,7 @@ render() {
 						onClick={ ()=> this.setState({ open: !this.state.open })}
 						type="submit"
 						className="btn btn-primary"
-						bsStyle="success"
-						>
+						bsStyle="success">
 						Submit
 						</Button>
 					</form>

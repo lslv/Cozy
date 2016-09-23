@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {deleteChore, getQueue} from '../actions/index'
+import {deleteChore, getQueue, updateChoreTurn, updateQueue} from '../actions/index'
 import {bindActionCreators} from 'redux'
 import {Button, Panel} from 'react-bootstrap';
 
@@ -22,15 +22,33 @@ class Chore extends Component {
 	}
 
 	renderQueue(){
-		const {queues}=this.props
-		if(Object.keys(queues).length && queues[this.props.chore.id])
-			return queues[this.props.chore.id].map((queuePosition,index)=>{		
-				return (
+		const {queues} = this.props
+		const {chore} = this.props
+		if(Object.keys(queues).length && queues[this.props.chore.id]){
+			var choreQueue= queues[this.props.chore.id]
+			var queueInOrder=[ ...choreQueue.slice(chore.user_turn), ...choreQueue.slice(0, chore.user_turn) ]
+			return queueInOrder.map((queuePosition,index)=>{		
+				if(index< queues[this.props.chore.id].length-1)
+					return (
 						<span key={queuePosition.id}>
 						User {queuePosition.userId}s Turn ->  
 						</span>
 						)
+				else
+					return (
+						<span key={queuePosition.id}>
+						User {queuePosition.userId}s Turn 
+						</span>
+						)
 			})
+		}
+	}
+
+	handleVerify(event){
+		event.stopPropagation()
+		//need to both change the order in the state, and the user turn of the chore and handle outputing the new user chore queue based off of the turn
+		this.props.updateChoreTurn(this.props.chore.id)
+		//this.props.updateQueue(this.props.chore.id)
 	}
 
 	render(){
@@ -48,7 +66,13 @@ class Chore extends Component {
 					<Button
 					bsStyle="danger"
 					onClick={()=> this.deleteChore(chore.id)}>
-					Delete Chore</Button>
+					Delete Chore
+					</Button>
+					<Button
+					bsStyle="info"
+					onClick={(event) => this.handleVerify(event)}>
+					Verify Chore
+					</Button>
 				</Panel>
 			)
 	}
@@ -59,7 +83,7 @@ function mapStateToProps(state){
 
 
 function mapDispatchToProps(dispatch){
-	return bindActionCreators({deleteChore, getQueue}, dispatch)
+	return bindActionCreators({deleteChore, getQueue, updateChoreTurn, updateQueue}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chore)
