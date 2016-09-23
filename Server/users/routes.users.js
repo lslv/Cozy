@@ -3,7 +3,7 @@ const router = express.Router()
 const controller = require('./controller.users')
 
 router.post('/signup', (req, res)=>{
-
+  controller.signup(req, res)
 })
 
 router.post('/login', (req, res)=>{

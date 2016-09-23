@@ -4,6 +4,9 @@ import Landing from './Landing'
 import BulletinBoard from '../containers/BulletinBoard'
 import Dashboard from './Dashboard'
 import ChoreList from '../containers/ChoreList'
+import Signup from './Signup'
+import Login from './Login'
+import Logout from './Logout'
 
 export default class App extends Component {
   render () {
@@ -14,6 +17,9 @@ export default class App extends Component {
         <Route path='/bulletin_board' component={BulletinBoard} />
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/chorelist' component={ChoreList} />
+        <Route path='/signup' component={Signup} />
+        <Route path='/login' component={Login} />
+        <Route path='/logout' component={Logout} />
       </Router>
     )
   }
