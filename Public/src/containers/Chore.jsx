@@ -32,13 +32,13 @@ class Chore extends Component {
 				if(index< queues[this.props.chore.id].length-1)
 					return (
 						<span key={queuePosition.id}>
-						{ users[queuePosition.userId].user_name } Turn ->  
+						{ `${users[queuePosition.userId].user_name}\'s` } Turn ->  
 						</span>
 						)
 				else
 					return (
 						<span key={queuePosition.id}>
-						{ users[queuePosition.userId].user_name } Turn 
+						{ `${users[queuePosition.userId].user_name}\'s` } Turn 
 						</span>
 						)
 			})

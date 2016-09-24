@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {addChore} from '../actions/index'
-import { Button, Collapse, Well } from 'react-bootstrap'
+import { Button, Collapse, Well, FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
 import {reduxForm} from 'redux-form'
 
 class AddChore extends Component {
@@ -28,7 +28,15 @@ class AddChore extends Component {
 							</div>
 						<div>
 							<label>Reocurring Day</label>
-							<input type="text" className="form-control" {...day}/>
+							<select className="form-control" {...day}>
+								<option value="sunday">sunday</option>
+								<option value="monday">monday</option>
+								<option value="tuesday">tuesday</option>
+								<option value="wednesday">wednesday</option>
+								<option value="thursday">thursday</option>
+								<option value="friday">friday</option>
+								<option value="saturday">saturday</option>
+							</select>
 						</div>
 						<Button
 						onClick={ ()=> this.setState({ open: !this.state.open })}
@@ -48,6 +56,20 @@ class AddChore extends Component {
 export default reduxForm({
 	form: 'AddChore',
 	fields:['chore_name', 'day']},null,{addChore})(AddChore)
+
+//form group for multiple day selection->will be used later
+// <FormGroup controlId="formControlsSelectMultiple">
+//   <ControlLabel>Select Recoccuring Days</ControlLabel>
+//   <FormControl componentClass="select" multiple {...day}>
+// 	<option value="sunday">sunday</option>
+// 	<option value="monday">monday</option>
+// 	<option value="tuesday">tuesday</option>
+// 	<option value="wednesday">wednesday</option>
+// 	<option value="thursday">thursday</option>
+// 	<option value="friday">friday</option>
+// 	<option value="saturday">saturday</option>
+//   </FormControl>
+// </FormGroup>
 
 
 

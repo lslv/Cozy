@@ -42,7 +42,7 @@ export function getChores (house_id=1){ //harcoded in house ID
 }
 
 export function addChore (choreData){
-	console.log('adding a chore action')
+	console.log('adding a chore action', choreData)
 	choreData.user_turn=0 //hardcoded user with user 1
 	choreData.house_id=1 //hardcoded house Id of 1
 	choreData.num_of_users=4 //hardcoded number of users to be 4
