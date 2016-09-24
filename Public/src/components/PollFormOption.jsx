@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default (props) => {
-  return (
+	return (
     <div className='form-group'>
       <label>
         Option
