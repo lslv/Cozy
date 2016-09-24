@@ -33,7 +33,6 @@ module.exports = {
 	else{
 		Users.findOne({where:{user_name:req.body.chore_adder}})
     .then((user)=>{
-	console.log(user)
 	db.Queues.create({
 		turn:0,
 		userId:user.dataValues.id,
@@ -70,10 +69,10 @@ module.exports = {
 			where: {id: req.query.id }
 		})
       .then((choreToDelete) => {
-	return choreToDelete.destroy()
-})
-      .then((deletedChore)=>{
-	res.status(200).json(deletedChore)
+	choreToDelete.destroy()
+// })
+//       .then((deletedChore)=>{
+	res.status(200).json(choreToDelete)
 })
       .catch((err) => {
 	res.status(404).send(err)
