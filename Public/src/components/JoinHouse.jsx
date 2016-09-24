@@ -20,9 +20,15 @@ export default class JoinHouse extends Component{
     )
 	}
 	onSearch(searchText){
-		this.setState({searchText})
-		axios.get('/api/houses/search', {search: this.state.searchText})
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+		this.setState({searchText}, () =>{
+			axios.get('/api/houses/search', {
+				params:{
+					search: this.state.searchText
+				}
+			})
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
+		})
+
 	}
 }
