@@ -10,9 +10,9 @@ class AddChore extends Component {
 		}
 	}
 
-render() {
-	const { fields:{chore_name, day}, handleSubmit } = this.props
-    return (
+	render() {
+		const { fields:{chore_name, day}, handleSubmit } = this.props
+		return (
       <div>
         <Button bsStyle="primary" onClick={ ()=> this.setState({ open: !this.state.open })}>
           Add Chore <i className='fa fa-plus-circle' aria-hidden='true'></i>
@@ -43,11 +43,11 @@ render() {
         </Collapse>
       </div>
     )
-  }
+	}
 }
 export default reduxForm({
-		form: 'AddChore',
-		fields:['chore_name', 'day']},null,{addChore})(AddChore)
+	form: 'AddChore',
+	fields:['chore_name', 'day']},null,{addChore})(AddChore)
 
 
 
