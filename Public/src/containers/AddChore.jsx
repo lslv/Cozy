@@ -9,10 +9,23 @@ class AddChore extends Component {
 		this.state={
 			selectValue:'Sunday'
 		}
+		this.checkIfValidSubmit=this.checkIfValidSubmit.bind(this)
+	}
+
+	checkIfValidSubmit(event){
+		console.log('inside checkIfValidSubmit')
+		//console.log('event', event)
+		event.preventDefault()
+		if(this.props.handleSubmit(this.props.addChore)(event)){
+			this.setState({ open: !this.state.open })
+		}
+		//debugger
 	}
 
 	render() {
 		const { fields:{type, chore_name, day}, handleSubmit } = this.props
+		// console.log(handleSubmit(this.props.addChore))
+		// console.log(this.props)
 		return (
       <div>
         <Button bsStyle="primary" onClick={ ()=> this.setState({ open: !this.state.open })}>
@@ -21,11 +34,12 @@ class AddChore extends Component {
         <Collapse in={this.state.open}>
           <div>
             	<div>
-					<form onSubmit={handleSubmit(this.props.addChore)}>
+					<form onSubmit={this.checkIfValidSubmit }>
 						<h3>Create a new chore</h3>
 						<div>
 							<label>Choose Type Of Chore</label>
 							<select className="form-control" {...type}>
+								<option value="">----</option>
 								<option value="group">group</option>
 								<option value="personal">personal</option>
 							</select>
@@ -48,7 +62,7 @@ class AddChore extends Component {
 							</select>
 						</div>
 						<Button
-						onClick={ ()=> this.setState({ open: !this.state.open })}
+						
 						type="submit"
 						className="btn btn-primary"
 						bsStyle="success">
@@ -63,6 +77,8 @@ class AddChore extends Component {
 	}
 }
 
+// onClick={ ()=> this.setState({ open: !this.state.open })}
+
 function validate(formElements){
 	const errors={}
 
@@ -70,6 +86,15 @@ function validate(formElements){
 		formElements.day === '' ){
 		errors.day = 'Must Select A Valid Day'
 		console.log('Must Select A Valid Day')
+	}
+	if(formElements.type === undefined || formElements.type === '----' ||
+		formElements.type === '' ){
+		errors.type = 'Must Select A Valid Type'
+		console.log('Must Select A Valid Type')
+	}
+	if(formElements.chore_name===''){
+		errors.chore_name='Must Input A Chore Name'
+		console.log('Must Input A Chore Name')
 	}
 	return errors
 }
