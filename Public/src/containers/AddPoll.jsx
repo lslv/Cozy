@@ -16,10 +16,10 @@ class AddPoll extends Component {
 
 	submitForm(e) {
 		e.preventDefault()
-    const { handleSubmit, resetForm } = this.props
+    const { handleSubmit, destroyForm, resetForm } = this.props
 		let result = handleSubmit(this.props.addPoll)
 		result(e)
-    resetForm()
+    destroyForm()
 	}
 
 	render () {
