@@ -15,35 +15,43 @@ export default class Signup extends Component{
 	}
 	render () {
 		return (
-      <div>
+      <form>
         <input
         value={this.state.Firstname}
         placeholder="First name"
+        required
         onChange={event => this.onFirstnameChange(event.target.value)}
         /><br />
         <input
         value={this.state.Lastname}
         placeholder="Last name"
+        required
         onChange={event => this.onLastnameChange(event.target.value)}
         /><br />
         <input
         value={this.state.Username}
         placeholder="User name"
+        required
         onChange={event => this.onUsernameChange(event.target.value)}
         /><br />
         <input
         value={this.state.Email}
         placeholder="Email"
+        type="email"
+        required
         onChange={event => this.onEmailChange(event.target.value)}
         /><br />
         <input
         value={this.state.Password}
         placeholder="Password"
+        required
         type="password"
         onChange={event => this.onPasswordChange(event.target.value)}
         /><br />
-        <button onClick={event => this.onSignup()}>Submit</button>
-      </div>
+        <input
+          type="submit"
+         onClick={event => this.onSignup()} />
+      </form>
     )
 	}
 
