@@ -11,14 +11,16 @@ class AddPoll extends Component {
 	constructor (props) {
 		super(props)
 
-    this.submitForm = this.submitForm.bind(this)
+		this.submitForm = this.submitForm.bind(this)
 	}
 
-  submitForm(e) {
-    e.preventDefault()
-    let result = this.props.handleSubmit(this.props.addPoll)
-    result(e)
-  }
+	submitForm(e) {
+		e.preventDefault()
+    const { handleSubmit, resetForm } = this.props
+		let result = handleSubmit(this.props.addPoll)
+		result(e)
+    resetForm()
+	}
 
 	render () {
 		const { addValue, fields: { question, options }} = this.props
@@ -39,13 +41,13 @@ class AddPoll extends Component {
           </Button>
         </div>
         {options.map((option, i) => {
-	       return (
+	return (
             <div className='form-group' key={i}>
               <label>Option { i + 1}</label>
                 <PureInput type='text' className='form-control' placeholder={i + 1} field={option.option} />
             </div>
           )
-          })}
+})}
       </form>
     )
 	}
