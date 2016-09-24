@@ -2,6 +2,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
 let Houses = require('../houses/model.houses.js')
+let chalk = require('chalk')
 
 const Users = sequelize.define('users', {
 	user_name: {
