@@ -7,6 +7,7 @@ export default function(state ={} , action) {
 			var key=action.payload.data[0].choreId
 			var tempState={}
 			tempState[key]=action.payload.data
+			// console.log({...state, ...tempState})
 			return {...state, ...tempState}
 		}
 		else

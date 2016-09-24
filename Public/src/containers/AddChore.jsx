@@ -7,11 +7,12 @@ class AddChore extends Component {
 	constructor(props){
 		super(props)
 		this.state={
+			selectValue:'Sunday'
 		}
 	}
 
 	render() {
-		const { fields:{chore_name, day}, handleSubmit } = this.props
+		const { fields:{type, chore_name, day}, handleSubmit } = this.props
 		return (
       <div>
         <Button bsStyle="primary" onClick={ ()=> this.setState({ open: !this.state.open })}>
@@ -23,12 +24,20 @@ class AddChore extends Component {
 					<form onSubmit={handleSubmit(this.props.addChore)}>
 						<h3>Create a new chore</h3>
 						<div>
-							<label>Chore Name</label>
+							<label>Choose Type Of Chore</label>
+							<select className="form-control" {...type}>
+								<option value="group">group</option>
+								<option value="personal">personal</option>
+							</select>
+						</div>
+						<div>
+							<label>Input Chore Name</label>
 							<input type="text" className="form-control" {...chore_name} />
 							</div>
 						<div>
-							<label>Reocurring Day</label>
+							<label>Choose Reocurring Day</label>
 							<select className="form-control" {...day}>
+								<option value="">----</option>
 								<option value="sunday">sunday</option>
 								<option value="monday">monday</option>
 								<option value="tuesday">tuesday</option>
@@ -53,9 +62,23 @@ class AddChore extends Component {
     )
 	}
 }
+
+function validate(formElements){
+	const errors={}
+
+	if(formElements.day === undefined || formElements.day === '----' ||
+		formElements.day === '' ){
+		errors.day = 'Must Select A Valid Day'
+		console.log('Must Select A Valid Day')
+	}
+	return errors
+}
+
+
 export default reduxForm({
 	form: 'AddChore',
-	fields:['chore_name', 'day']},null,{addChore})(AddChore)
+	fields:['type','chore_name', 'day'],
+	validate},null,{addChore})(AddChore)
 
 //form group for multiple day selection->will be used later
 // <FormGroup controlId="formControlsSelectMultiple">
