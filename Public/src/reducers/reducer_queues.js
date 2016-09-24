@@ -1,4 +1,4 @@
-import {GET_QUEUE} from '../actions/index'
+import {GET_QUEUE} from '../actions/actions_queues'
 
 export default function(state ={} , action) {
 	switch (action.type) {

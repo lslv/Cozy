@@ -1,4 +1,4 @@
-import { ADD_POST, GET_POSTS, DELETE_POST, EDIT_POST } from '../actions/index'
+import { ADD_POST, GET_POSTS, DELETE_POST, EDIT_POST } from '../actions/actions_posts'
 
 export default function(state = [] , action) {
   switch (action.type) {

@@ -3,11 +3,12 @@ import React from 'react'
 export default (props) => {
 	return (
     <div className='form-group'>
-      <label>
-        Option
-        {props.optionNumber}
-      </label>
-      <input type='text' className='form-control' placeholder={props.optionNumber} />
-    </div>
+	    <label key={props.field}>{field}</label>
+	      <input type='text' 
+	      value={this.state[field]} 
+	      className='form-control'
+	      placeholder={field} 
+	      onChange={event => this.setState({ [field]: event.target.value })} />
+     </div>
   )
 }

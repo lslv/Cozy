@@ -1,4 +1,4 @@
-import { GET_CHORES, ADD_CHORE, DELETE_CHORE, UPDATE_CHORE } from '../actions/index'
+import { GET_CHORES, ADD_CHORE, DELETE_CHORE, UPDATE_CHORE } from '../actions/actions_chores'
 
 const INITIAL_STATE=[]
 

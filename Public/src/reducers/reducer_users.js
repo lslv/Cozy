@@ -1,4 +1,4 @@
-import {GET_USERS} from '../actions/index.js'
+import {GET_USERS} from '../actions/actions_users'
 
 export default function(state={}, action){
 	switch(action.type){
