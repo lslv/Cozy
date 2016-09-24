@@ -55,6 +55,7 @@ const Users = sequelize.define('users', {
 )
 
 Users.belongsTo(Houses)
+// Users.belongsTo(Ratings)
 
 Users.sync().then(function () {
   // Table created

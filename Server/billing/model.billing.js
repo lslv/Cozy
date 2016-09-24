@@ -1,4 +1,3 @@
-// requiring necessary modules and files for table creation
 const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
 let Houses = require('../houses/model.houses.js')
