@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Router, browserHistory, Link } from 'react-router'
 import axios from 'axios'
 
 export default class Login extends Component{
@@ -22,6 +23,7 @@ export default class Login extends Component{
           required
           type="password"
           onChange={event => this.onPasswordChange(event.target.value)} />
+
         <input
           onClick={event => this.onLogin()}
           value="Login"
@@ -49,10 +51,15 @@ export default class Login extends Component{
       //this should be a token in the future
 	sessionStorage.setItem('username', response.data.user_name)
 	sessionStorage.setItem('id', response.data.id)
+	this.context.router.push('/house_select')
 	console.log(sessionStorage.getItem('user'))
 })
     .catch((error)=>{
-	console.log(error)
+	console.error(error)
 })
 	}
+}
+
+Login.contextTypes = {
+	router: React.PropTypes.object
 }
