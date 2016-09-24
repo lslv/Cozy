@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {deleteChore, getQueue, updateChoreTurn, updateQueue} from '../actions/index'
+import {deleteChore, updateChoreTurn } from '../actions/actions_chores'
+import { getQueue } from '../actions/actions_queues'
 import {bindActionCreators} from 'redux'
 import {Button, Panel} from 'react-bootstrap'
 
@@ -84,7 +85,7 @@ function mapStateToProps(state){
 
 
 function mapDispatchToProps(dispatch){
-	return bindActionCreators({deleteChore, getQueue, updateChoreTurn, updateQueue}, dispatch)
+	return bindActionCreators({deleteChore, getQueue, updateChoreTurn}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chore)

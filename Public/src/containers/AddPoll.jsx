@@ -44,12 +44,22 @@ export default class AddPoll extends Component {
           <Button bsStyle='primary' onClick={this.addOption}>
             Add option: <i className='fa fa-plus-circle' aria-hidden='true'></i>
           </Button>
+          <Button bsStyle='success' onClick={this.addOption}>
+            Make poll
+          </Button>
         </div>
-        {/*this.renderNewOption()*/}
         {Object.keys(this.state).map((field) => {
           if(field !== 'counter') {
-            <label key={field}>
-              <input type='text' value={this.state[field]} onChange={event => this.setState({ [field]: event.target.value })} /> 
+            return (
+            <div className='form-group' key={field}>
+            <label>{field}</label>
+              <input type='text' 
+              value={this.state[field]} 
+              className='form-control'
+              placeholder={field} 
+              onChange={event => this.setState({ [field]: event.target.value })} />
+            </div>
+            ) 
           }
         })}
       </form>

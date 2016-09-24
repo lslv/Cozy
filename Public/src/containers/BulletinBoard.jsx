@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Col, ListGroup, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { updatePosts } from '../actions/index'
+import { updatePosts } from '../actions/actions_posts'
 import { bindActionCreators } from 'redux'
 
 import AddPost from './AddPost'

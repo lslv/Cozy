@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getChores, getUsers} from '../actions/index'
+import {getChores } from '../actions/actions_chores'
+import { getUsers } from '../actions/actions_users'
 import {bindActionCreators} from 'redux'
 import AddChore from './AddChore'
 import Chore from './Chore'

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {addChore} from '../actions/index'
+import {addChore} from '../actions/actions_chores'
 import { Button, Collapse, Well, FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
 import {reduxForm} from 'redux-form'
 

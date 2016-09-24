@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { ListGroupItem, Button, Panel } from 'react-bootstrap'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { deletePost, editPost } from '../actions/index'
+import { deletePost, editPost } from '../actions/actions_posts'
 
 class Post extends Component {
   constructor (props) {
