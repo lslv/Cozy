@@ -1,15 +1,20 @@
 const Users = require('../users/model.users')
+const bcrypt = require('bcryptjs')
 
 module.exports = {
 
 	signup: (req, res) => {
-		Users.create({
-			user_name: req.body.username,
-			first_name: req.body.firstname,
-			last_name: req.body.lastname,
-			email: req.body.email,
-			password: req.body.password,
-			pay_percentage: 0
+		bcrypt.genSalt(10, (err, salt) => {
+			bcrypt.hash(req.body.password, salt, (err, hash) =>{
+				Users.create({
+					user_name: req.body.username,
+					first_name: req.body.firstname,
+					last_name: req.body.lastname,
+					email: req.body.email,
+					password: hash,
+					pay_percentage: 0
+				})
+			})
 		})
       .then(createdPost => res.status(200).send(createdPost))
       .catch(err => res.status(400).send(err))
@@ -20,14 +25,16 @@ module.exports = {
 			where: { user_name: req.body.username }
 		})
       .then(user => {
-	if(user[0].user_name === req.body.username && user[0].password === req.body.password){
+	bcrypt.compare(req.body.password, user[0].password, (err, password) => {
+		if(user[0].user_name === req.body.username && password){
           //make this send token and redacted user object
-		res.status(200).json(user[0])
-	}else{
-		res.status(400).send('wrong username or password')
-	}
+			res.status(200).json(user[0])
+		}else{
+			res.status(400).send('wrong username or password')
+		}
+	})
 })
-      .catch(err => res.status(400).send(err))
+.catch(err => res.status(400).send(err))
 	},
 
 	houseIdUsers: (req ,res) => {
