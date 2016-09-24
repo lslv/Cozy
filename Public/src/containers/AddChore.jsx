@@ -14,12 +14,12 @@ class AddChore extends Component {
 
 	checkIfValidSubmit(event){
 		console.log('inside checkIfValidSubmit')
-		//console.log('event', event)
+		const {handleSubmit, addChore, resetForm} = this.props
 		event.preventDefault()
-		if(this.props.handleSubmit(this.props.addChore)(event)){
+		if(handleSubmit(addChore)(event)){
 			this.setState({ open: !this.state.open })
+			resetForm()
 		}
-		//debugger
 	}
 
 	render() {
@@ -36,19 +36,20 @@ class AddChore extends Component {
             	<div>
 					<form onSubmit={this.checkIfValidSubmit }>
 						<h3>Create a new chore</h3>
-						<div>
+						<div className={`form-group ${type.touched && type.error ? 'has-error' : ''}`}>
 							<label>Choose Type Of Chore</label>
-							<select className="form-control" {...type}>
+							<select className="form-control"
+							{...type}>
 								<option value="">----</option>
 								<option value="group">group</option>
 								<option value="personal">personal</option>
 							</select>
 						</div>
-						<div>
+						<div className={`form-group ${chore_name.touched && chore_name.error ? 'has-error' : ''}`}>
 							<label>Input Chore Name</label>
 							<input type="text" className="form-control" {...chore_name} />
 							</div>
-						<div>
+						<div className={`form-group ${day.touched && day.error ? 'has-error' : ''}`}>
 							<label>Choose Reocurring Day</label>
 							<select className="form-control" {...day}>
 								<option value="">----</option>
@@ -92,7 +93,7 @@ function validate(formElements){
 		errors.type = 'Must Select A Valid Type'
 		console.log('Must Select A Valid Type')
 	}
-	if(formElements.chore_name===''){
+	if(formElements.chore_name === undefined || formElements.chore_name=== ''){
 		errors.chore_name='Must Input A Chore Name'
 		console.log('Must Input A Chore Name')
 	}
