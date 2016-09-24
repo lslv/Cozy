@@ -10,20 +10,24 @@ export default class Login extends Component{
 
 	render () {
 		return (
-      <div>
+      <form>
         <input
           value={this.state.username}
           placeholder="Username"
+          required
           onChange={event => this.onUsernameChange(event.target.value)} />
         <input
           value={this.state.password}
           placeholder="Password"
+          required
           type="password"
           onChange={event => this.onPasswordChange(event.target.value)} />
-        <button
+        <input
           onClick={event => this.onLogin()}
-        >login</button>
-      </div>
+          value="Login"
+          type="submit"
+        />
+      </form>
     )
 	}
 
