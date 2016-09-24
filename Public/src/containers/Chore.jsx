@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {deleteChore, getQueue, updateChoreTurn, updateQueue} from '../actions/index'
 import {bindActionCreators} from 'redux'
-import {Button, Panel} from 'react-bootstrap';
+import {Button, Panel} from 'react-bootstrap'
 
 class Chore extends Component {
 	constructor(props){
@@ -24,6 +24,7 @@ class Chore extends Component {
 	renderQueue(){
 		const {queues} = this.props
 		const {chore} = this.props
+		const {users}= this.props
 		if(Object.keys(queues).length && queues[this.props.chore.id]){
 			var choreQueue= queues[this.props.chore.id]
 			var queueInOrder=[ ...choreQueue.slice(chore.user_turn), ...choreQueue.slice(0, chore.user_turn) ]
@@ -31,13 +32,13 @@ class Chore extends Component {
 				if(index< queues[this.props.chore.id].length-1)
 					return (
 						<span key={queuePosition.id}>
-						User {queuePosition.userId}s Turn ->  
+						{ `${users[queuePosition.userId].user_name}\'s` } Turn ->  
 						</span>
 						)
 				else
 					return (
 						<span key={queuePosition.id}>
-						User {queuePosition.userId}s Turn 
+						{ `${users[queuePosition.userId].user_name}\'s` } Turn 
 						</span>
 						)
 			})
@@ -78,7 +79,7 @@ class Chore extends Component {
 	}
 }
 function mapStateToProps(state){
-	return {queues:state.queues}
+	return {queues:state.queues, users:state.users}
 }
 
 

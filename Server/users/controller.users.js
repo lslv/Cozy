@@ -31,8 +31,9 @@ module.exports = {
 	},
 
 	houseIdUsers: (req ,res) => {
+		console.log('getting user by house id', req.query)
 		Users.findAll({
-			where: { house_id: parseInt(req.headers.houseid) }
+			where: { house_id: req.query.house_id }
 		})
     .then(users =>{
 	res.status(200).json(users)
