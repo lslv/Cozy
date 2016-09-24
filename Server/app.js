@@ -9,6 +9,7 @@ let User = require('./users/model.users.js')
 let Post_Tables = require('./bulletinBoard/model.posts.js')
 let Poll_Tables = require('./bulletinBoard/model.polls.js')
 let Chore_Tables = require('./chores/model.chores.js')
+let Bill_Tables = require('./billing/model.billing.js')
 
 app.use('/', routesMain)
 
