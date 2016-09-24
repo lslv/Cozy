@@ -5,8 +5,8 @@ export default class HouseSetup extends Component{
 	render(){
 		return (
       <div>
-        <p>Create a house</p>
-        <p>Join a house</p>
+        <button><Link to="/create_house">Create a house</Link></button>
+        <button><Link to="/join_house">Join a house</Link></button>
       </div>
     )
 	}

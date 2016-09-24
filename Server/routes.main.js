@@ -17,7 +17,7 @@ router.use(cors())
 router.use(bodyParser())
 
 // loggs url to console on request
-router.get('/*', (req, res, next) => {
+router.use('/*', (req, res, next) => {
 	console.log(chalk.blue(`Request Url: ${req.url}`))
 	next()
 })
