@@ -10,7 +10,7 @@ module.exports = {
 			house_id: req.body.house_id,
 			user_id: req.body.user_id
 		})
-      .then(createdPost => res.status(200).send(createdPost))
+      .then(createdPost => res.status(201).send(createdPost))
       .catch(err => res.status(404).send(err))
 	},
 
@@ -67,7 +67,7 @@ module.exports = {
 		transaction: t
 	})
 }).then(t.commit.bind(t), t.rollback.bind(t))
-  .then(t => res.status(200).send('poll added'))
+  .then(() => res.sendStatus(201))
   .catch(err => res.status(404).send(err))
 		})
 	},
@@ -77,11 +77,28 @@ module.exports = {
 			where: {
 				id: req.params.pollId
 			},
+			group: ['poll_options.id', 'polls.id'],
+			attributes: ['question'],
 			include: {
-				model: db_poll.Poll_Options
+				model: db_poll.Poll_Options,
+				attributes: [
+				['id', 'optionId'], 'text', 
+				[sequelize.fn('COUNT', sequelize.col('poll_options.votes.id')), 'voteCount']],
+			include: {
+				model: db_poll.Votes,
+				attributes: []
+			}
 			}
 		})
       .then(poll => res.status(200).json(poll))
+      .catch(error => res.status(404).send(error))
+	},
+
+	vote: (req, res) => {
+		db_poll.Votes.create({
+			pollOptionId: req.body.pollOptionId
+		})
+	  .then(()=> res.sendStatus(201))
       .catch(error => res.status(404).send(error))
 	}
 }

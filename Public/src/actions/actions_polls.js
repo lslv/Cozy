@@ -1,5 +1,6 @@
 import axios from 'axios'
 export const ADD_POLL = 'ADD_POLL'
+export const GET_POLLS = 'GET_POLLS'
 
 
 export function addPoll(pollData) {

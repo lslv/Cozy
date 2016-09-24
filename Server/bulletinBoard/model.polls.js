@@ -42,4 +42,21 @@ Poll_Options.sync().then(function () {
 	console.error('There was an error in model.poll_options', err)
 })
 
-module.exports = {Polls: Polls, Poll_Options: Poll_Options}
+const Votes = sequelize.define('votes', {
+}, {
+	timestamps: false
+})
+
+Votes.belongsTo(Poll_Options)
+Poll_Options.hasMany(Votes)
+
+Votes.sync().then(function () {
+  // Table created
+	console.log(chalk.green('+++line55 model.votes table successfully created'))
+}).catch(function (err) {
+	console.error('There was an error in model.poll_options', err)
+})
+
+
+
+module.exports = {Polls: Polls, Poll_Options: Poll_Options, Votes: Votes}
