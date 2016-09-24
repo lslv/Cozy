@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Collapse, Well } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { reduxForm } from 'redux-form'
 
 import PollFormOption from '../components/PollFormOption'
@@ -11,24 +11,11 @@ export default class AddPoll extends Component {
 		this.state = { counter: 1 }
 
 		this.addOption = this.addOption.bind(this)
-		this.renderNewOption = this.renderNewOption.bind(this)
 	}
 
 
 	addOption () {
-		this.state[`Option ${this.state.counter}`] = ''
-    this.setState({ counter: this.state.counter+=1})
-		console.log('this.state', this.state)
-		// this.renderNewOption()
-	}
-
-	renderNewOption () {
-		// return this.state.iterator.map((option, i) => {
-		// 	i+=1
-		// 	return (
-  //       <PollFormOption key={i} optionNumber={i}/>
-  //     )
-		// })
+    
 	}
 
 	render () {
@@ -48,20 +35,6 @@ export default class AddPoll extends Component {
             Make poll
           </Button>
         </div>
-        {Object.keys(this.state).map((field) => {
-          if(field !== 'counter') {
-            return (
-            <div className='form-group' key={field}>
-            <label>{field}</label>
-              <input type='text' 
-              value={this.state[field]} 
-              className='form-control'
-              placeholder={field} 
-              onChange={event => this.setState({ [field]: event.target.value })} />
-            </div>
-            ) 
-          }
-        })}
       </form>
     )
 	}
