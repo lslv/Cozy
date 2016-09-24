@@ -7,10 +7,11 @@ import ChoreList from '../containers/ChoreList'
 import Signup from './Signup'
 import Login from './Login'
 import Logout from './Logout'
+import HouseSelect from './HouseSelect'
 
 export default class App extends Component {
-  render () {
-    return (
+	render () {
+		return (
       // Set up routes
       <Router history={hashHistory}>
         <Route path='/' component={Landing} />
@@ -20,7 +21,8 @@ export default class App extends Component {
         <Route path='/signup' component={Signup} />
         <Route path='/login' component={Login} />
         <Route path='/logout' component={Logout} />
+        <Route path='/house_select' component={HouseSelect} />
       </Router>
     )
-  }
+	}
 }
