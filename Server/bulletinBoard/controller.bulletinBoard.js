@@ -51,7 +51,6 @@ module.exports = {
 	},
 
 	addPoll: (req, res) => {
-
 		return sequelize.transaction().then((t) => {
 			return db_poll.Polls.create({
 				question: req.body.question,
@@ -65,7 +64,7 @@ module.exports = {
 		}
 	})
 	return db_poll.Poll_Options.bulkCreate(pollOptions, {
-		transaction: t
+		transaction: t,
 	})
 }).then(t.commit.bind(t), t.rollback.bind(t))
   .then(() => res.sendStatus(201))

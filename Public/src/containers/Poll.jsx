@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
-import { Button, Panel } from 'react-bootstrap'
+import { Button, Panel, Radio } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { deletePoll } from '../actions/actions_polls'
 
@@ -21,14 +21,26 @@ class Poll extends Component {
 	}
 
 	render() {
+
+		const poll = this.props.data
+
 		return (
 			<Panel
       	bsStyle='primary'
-        header='test poll'
+        header={poll.question}
         collapsible
         expanded={this.state.open}
         onClick={this.handleCollapsible}>
-        <p>Test</p>
+        {poll.poll_options.map((option) => {
+	return (
+        	<Radio key={option.optionId}>
+        	{option.text}
+        	</Radio>
+        	)
+})}
+        <Button bsStyle='success'>
+          Submit <i className='fa fa-check-circle' aria-hidden='true'></i>
+        </Button>
       </Panel>
 		)
 	}

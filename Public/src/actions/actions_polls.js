@@ -9,13 +9,13 @@ export function addPoll(pollData) {
 	// get house id from session storage
 
 	const pollOptions = pollData.options.map(item => item.option)
+
 	const request = axios.post('/api/bulletinBoard/addPoll', {
 		question: pollData.question,
 		options: pollOptions,
 		//******House ID set to 1 for test purposes
 		houseId: 1
 	})
-
 	return {
 		type: ADD_POLL,
 		payload: request
