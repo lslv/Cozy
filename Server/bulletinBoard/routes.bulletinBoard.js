@@ -26,8 +26,8 @@ router.post('/addPoll', (req, res) => {
   controller.addPoll(req, res)
 })
 
-router.get('/getPoll/:pollId', (req, res) => {
-  controller.getPoll(req, res)
+router.get('/getPolls', (req, res) => {
+  controller.getPolls(req, res)
 })
 
 router.post('/vote', (req, res) => {

@@ -54,7 +54,8 @@ module.exports = {
 
 		return sequelize.transaction().then((t) => {
 			return db_poll.Polls.create({
-				question: req.body.question
+				question: req.body.question,
+				houseId: req.body.houseId
 			}, {transaction: t})
         .then((createdPoll) => {
 	const pollOptions = req.body.options.map((option) => {
@@ -72,10 +73,11 @@ module.exports = {
 		})
 	},
 
-	getPoll: (req, res) => {
-		db_poll.Polls.findOne({
+	getPolls: (req, res) => {
+		console.log('req query', req.query)
+		db_poll.Polls.findAll({
 			where: {
-				id: req.params.pollId
+				houseId: req.query.houseId
 			},
 			group: ['poll_options.id', 'polls.id'],
 			attributes: ['question'],

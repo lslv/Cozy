@@ -77,6 +77,7 @@ class Post extends Component {
 		const post = this.props.data
 		return (
       <Panel
+      	bsStyle='info'
         header={post.title}
         collapsible
         expanded={this.state.open}

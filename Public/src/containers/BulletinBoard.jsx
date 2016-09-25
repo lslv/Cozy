@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { Col, ListGroup, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { updatePosts } from '../actions/actions_posts'
+import { getPosts } from '../actions/actions_posts'
+import { getPolls } from '../actions/actions_polls'
 import { bindActionCreators } from 'redux'
 
 import AddPost from './AddPost'
-import Post from './Post'
 import AddPoll from './AddPoll'
+import Post from './Post'
+import Poll from './Poll'
 
 class BulletinBoard extends Component {
 	constructor (props) {
@@ -24,10 +26,12 @@ class BulletinBoard extends Component {
 	}
 
 	componentWillMount () {
+		const { getPosts, getPolls } = this.props
     // grab the posts that exist in the DB and add them to post state
 		this.setState({ showLoadingIcon: !this.state.showLoadingIcon })
-		this.props.getPosts()
-      .then(() => this.setState({ showLoadingIcon: !this.state.showLoadingIcon }))
+		getPosts()
+		getPolls()
+      	.then(() => this.setState({ showLoadingIcon: !this.state.showLoadingIcon }))
 	}
 
 	toggleAddPost () {
@@ -63,6 +67,7 @@ class BulletinBoard extends Component {
 	}
 
 	render () {
+		console.log('this props', this.props)
 		if (this.state.showLoadingIcon) {
 			return ( <img src='../../loader.gif' />)
 		} else {
@@ -85,12 +90,12 @@ class BulletinBoard extends Component {
 	}
 }
 
-function mapStateToProps ({posts}) {
-	return {posts}
+function mapStateToProps ({posts, polls}) {
+	return {posts, polls}
 }
 
 function mapDispatchToProps (dispatch) {
-	return bindActionCreators({getPosts}, dispatch)
+	return bindActionCreators({getPosts, getPolls}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BulletinBoard)
