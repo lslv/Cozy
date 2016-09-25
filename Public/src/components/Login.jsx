@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Router, browserHistory, Link } from 'react-router'
 import axios from 'axios'
 
-export default class Login extends Component{
+export default class Login extends Component {
 	constructor (props) {
-		super(props)
+		super (props)
 
 		this.state = { username: '', password: ''}
 	}
@@ -46,7 +46,7 @@ export default class Login extends Component{
 			username: this.state.username,
 			password: this.state.password
 		})
-    .then((response)=>{
+    .then((response) => {
 	console.log(response)
       //this should be a token in the future
 	sessionStorage.setItem('username', response.data.user_name)
@@ -54,7 +54,7 @@ export default class Login extends Component{
 	this.context.router.push('/house_select')
 	console.log(sessionStorage.getItem('user'))
 })
-    .catch((error)=>{
+    .catch((error) => {
 	console.error(error)
 })
 	}

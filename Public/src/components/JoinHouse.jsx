@@ -9,7 +9,7 @@ export default class JoinHouse extends Component{
 	render () {
 		return (
       <div>
-      <h1>Join House</h1>
+      	<h1>Join House</h1>
         <form>
           <input
             value={this.state.searchText}
