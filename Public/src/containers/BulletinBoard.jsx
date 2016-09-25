@@ -23,6 +23,7 @@ class BulletinBoard extends Component {
 		this.toggleAddPost = this.toggleAddPost.bind(this)
 		this.toggleAddPoll = this.toggleAddPoll.bind(this)
 		this.renderPosts = this.renderPosts.bind(this)
+		this.renderPolls = this.renderPolls.bind(this)
 	}
 
 	componentWillMount () {
@@ -66,6 +67,14 @@ class BulletinBoard extends Component {
 		})
 	}
 
+	renderPolls () {
+		return this.props.polls.map((poll) => {
+			return (
+        <Poll data={poll} key={poll.question} />
+      )
+		})
+	}
+
 	render () {
 		console.log('this props', this.props)
 		if (this.state.showLoadingIcon) {
@@ -83,6 +92,7 @@ class BulletinBoard extends Component {
           {this.renderAddPost()}
           {this.renderAddPoll()}
           {this.renderPosts()}
+          {this.renderPolls()}
         </ListGroup>
         </Col>
       )

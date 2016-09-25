@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
+import { Button, Panel } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { deletePoll } from '../actions/actions_polls'
 

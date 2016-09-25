@@ -74,7 +74,6 @@ module.exports = {
 	},
 
 	getPolls: (req, res) => {
-		console.log('req query', req.query)
 		db_poll.Polls.findAll({
 			where: {
 				houseId: req.query.houseId
