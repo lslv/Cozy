@@ -9,64 +9,64 @@ import Post from './Post'
 import AddPoll from './AddPoll'
 
 class BulletinBoard extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      postFlag: false,
-      pollFlag: false,
-      showLoadingIcon: false
-    }
-    this.renderAddPost = this.renderAddPost.bind(this)
-    this.renderAddPoll = this.renderAddPoll.bind(this)
-    this.toggleAddPost = this.toggleAddPost.bind(this)
-    this.toggleAddPoll = this.toggleAddPoll.bind(this)
-    this.renderPosts = this.renderPosts.bind(this)
-  }
+	constructor (props) {
+		super(props)
+		this.state = {
+			postFlag: false,
+			pollFlag: false,
+			showLoadingIcon: false
+		}
+		this.renderAddPost = this.renderAddPost.bind(this)
+		this.renderAddPoll = this.renderAddPoll.bind(this)
+		this.toggleAddPost = this.toggleAddPost.bind(this)
+		this.toggleAddPoll = this.toggleAddPoll.bind(this)
+		this.renderPosts = this.renderPosts.bind(this)
+	}
 
-  componentWillMount () {
+	componentWillMount () {
     // grab the posts that exist in the DB and add them to post state
-    this.setState({ showLoadingIcon: !this.state.showLoadingIcon })
-    this.props.updatePosts()
+		this.setState({ showLoadingIcon: !this.state.showLoadingIcon })
+		this.props.getPosts()
       .then(() => this.setState({ showLoadingIcon: !this.state.showLoadingIcon }))
-  }
+	}
 
-  toggleAddPost () {
-    this.setState({postFlag: !this.state.postFlag})
-  }
+	toggleAddPost () {
+		this.setState({postFlag: !this.state.postFlag})
+	}
 
-  toggleAddPoll () {
-    this.setState({pollFlag: !this.state.pollFlag})
-  }
+	toggleAddPoll () {
+		this.setState({pollFlag: !this.state.pollFlag})
+	}
 
-  renderAddPost () {
-    if (this.state.postFlag) {
-      return (<AddPost />)
-    }else {
-      return <noscript />
-    }
-  }
+	renderAddPost () {
+		if (this.state.postFlag) {
+			return (<AddPost />)
+		}else {
+			return <noscript />
+		}
+	}
 
-  renderAddPoll () {
-    if (this.state.pollFlag) {
-      return (<AddPoll />)
-    }else {
-      return <noscript />
-    }
-  }
+	renderAddPoll () {
+		if (this.state.pollFlag) {
+			return (<AddPoll />)
+		}else {
+			return <noscript />
+		}
+	}
 
-  renderPosts () {
-    return this.props.posts.map((post) => {
-      return (
+	renderPosts () {
+		return this.props.posts.map((post) => {
+			return (
         <Post data={post} key={post.id} />
       )
-    })
-  }
+		})
+	}
 
-  render () {
-    if (this.state.showLoadingIcon) {
-      return ( <img src='../../loader.gif' />)
-    } else {
-      return (
+	render () {
+		if (this.state.showLoadingIcon) {
+			return ( <img src='../../loader.gif' />)
+		} else {
+			return (
         <Col xs={12} md={8}>
         <Button bsStyle='info' onClick={this.toggleAddPost}>
           Add a post-it <i className='fa fa-plus-circle' aria-hidden='true'></i>
@@ -81,16 +81,16 @@ class BulletinBoard extends Component {
         </ListGroup>
         </Col>
       )
-    }
-  }
+		}
+	}
 }
 
 function mapStateToProps ({posts}) {
-  return {posts}
+	return {posts}
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({updatePosts}, dispatch)
+	return bindActionCreators({getPosts}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BulletinBoard)
