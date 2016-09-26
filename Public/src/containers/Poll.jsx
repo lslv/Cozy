@@ -11,17 +11,49 @@ class Poll extends Component {
 		super(props)
 
 		this.state = {
+			pollResultsView: false,
 			open: false,
 			choice: 0
 		}
 		this.handleCollapsible = this.handleCollapsible.bind(this)
 		this.setChoice = this.setChoice.bind(this)
 		this.voteOnPoll = this.voteOnPoll.bind(this)
+		this.toggleResultsView = this.toggleResultsView.bind(this)
+		this.pollView = this.pollView.bind(this)
 	}
 
 	setChoice(e) {
 		e.stopPropagation()
 		this.setState({ choice: e.target.value})
+	}
+
+	toggleResultsView(e) {
+		e.stopPropagation()
+		this.setState({ pollResultsView: !this.state.pollResultsView})
+	}
+
+	pollView() {
+		const poll = this.props.data
+
+		if(!this.state.pollResultsView) {
+			return poll.poll_options.map((option) => {
+				return (
+				<div key={option.optionId}>
+		        	<input
+		        	type='radio'
+		        	name='options' 
+		        	value={option.optionId}
+		        	onClick={this.setChoice} />
+		        	{option.text}
+	
+   				</div>
+		    	)
+			})
+		} else {
+			return (
+				<div>Cool</div>
+			)
+		}
 	}
 
 	voteOnPoll(e) {
@@ -46,21 +78,13 @@ class Poll extends Component {
         collapsible
         expanded={this.state.open}
         onClick={this.handleCollapsible}>
-        {poll.poll_options.map((option) => {
-	return (
-		<div key={option.optionId}>
-        	<input
-        	type='radio'
-        	name='options' 
-        	value={option.optionId}
-        	onClick={this.setChoice} />
-        	{option.text}
-        </div>
-        	)
-})}
-        <Button bsStyle='success' type='submit' onClick={this.voteOnPoll}>
-          Submit <i className='fa fa-check-circle' aria-hidden='true'></i>
-        </Button>
+        {this.pollView()}
+         <Button bsStyle='success' type='submit' onClick={this.voteOnPoll}>
+		Submit <i className='fa fa-check-circle' aria-hidden='true'></i>
+		</Button>
+			<Button bsStyle='info' type='submit' onClick={this.toggleResultsView}>
+				See Results
+			</Button>
       </Panel>
 		)
 	}

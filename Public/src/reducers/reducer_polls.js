@@ -1,7 +1,6 @@
 import { ADD_POLL, GET_POLLS, DELETE_POLL, VOTE } from '../actions/actions_polls'
 
 export default function(state = [], action) {
-		console.log('action', action)
 	switch(action.type) {
 		case ADD_POLL: {
 			//right now only see poll on refresh
@@ -25,9 +24,6 @@ export default function(state = [], action) {
 			return [...state.slice(0, index), ...state.slice(index + 1)]
 		}
 		case VOTE: {
-			console.log('action', action.payload)
-			console.log('state', [...state])
-
 			let temp;
 			let index;
 			//Find the matching poll in state and set to temp obj
@@ -47,7 +43,6 @@ export default function(state = [], action) {
 					console.log('after update', option)
 				}
 			}
-			
 			return [...state.slice(0, index), temp, ...state.slice(index + 1)]
 		}
 

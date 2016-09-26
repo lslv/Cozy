@@ -91,7 +91,6 @@ module.exports = {
 	},
 
 	vote: (req, res) => {
-		console.log('req body', req.body)
 		db_poll.Votes.create({
 			pollOptionId: req.body.pollOptionId
 		})

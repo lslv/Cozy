@@ -76,7 +76,6 @@ class BulletinBoard extends Component {
 	}
 
 	render () {
-		console.log('polls', this.props.polls)
 		if (this.state.showLoadingIcon) {
 			return ( <img src='../../loader.gif' />)
 		} else {
