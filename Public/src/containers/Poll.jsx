@@ -20,7 +20,6 @@ class Poll extends Component {
 	}
 
 	setChoice(e) {
-		const { vote } = this.props
 		e.stopPropagation()
 		this.setState({ choice: e.target.value})
 	}
@@ -28,6 +27,7 @@ class Poll extends Component {
 	voteOnPoll(e) {
 		e.preventDefault()
 		e.stopPropagation()
+		const { vote } = this.props
 		vote(this.state.choice)
 	}
 

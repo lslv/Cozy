@@ -50,10 +50,8 @@ export function vote(choice) {
 
 	return {
 		type: VOTE,
-		payload: request
+		payload: choice
 	}
-
-
 }
 
 export function deletePoll(poll) {
