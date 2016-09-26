@@ -84,18 +84,16 @@ export default class Signup extends Component{
 			username: this.state.Username,
 			email: this.state.Email,
 			password: this.state.Password
-			
+
 		})
     .then((response)=>{
 	console.log(response)
-      //this should be a token in the future
-      //sessionStorage.setItem('user', response.data.user_name)
-	sessionStorage.setItem('user', 'test')
+	sessionStorage.setItem('username', response.data.user_name)
+	sessionStorage.setItem('id', response.data.id)
+	sessionStorage.setItem('pay_percentage', response.data.pay_percentage)
 	this.context.router.push('/house_select')
 })
-    .catch((error)=>{
-	console.log(error)
-})
+    .catch((error)=>{console.log(error)})
 	}
 
 }
