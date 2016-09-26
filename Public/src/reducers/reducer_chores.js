@@ -15,11 +15,13 @@ export default function(state = INITIAL_STATE , action) {
 	case GET_CHORES:
 		return [...action.payload.data]
 	case DELETE_CHORE:
-		var tempState=state
+		console.log(state)
+		console.log(action.payload)
 		for(var i=0;i<state.length;i++)
 			if(state[i].id==action.payload.data.id){
-				tempState.splice(i,1)
-				return [...tempState]
+				console.log(action.payload.data)
+				console.log(state[i])
+				return [...state.slice(0,i),...state.slice(i+1)]
 			}
 		break
 	default:
