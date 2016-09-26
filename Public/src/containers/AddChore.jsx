@@ -13,7 +13,6 @@ class AddChore extends Component {
 	}
 
 	checkIfValidSubmit(event){
-		console.log('inside checkIfValidSubmit')
 		const {handleSubmit, addChore, resetForm} = this.props
 		event.preventDefault()
 		if(handleSubmit(addChore)(event)){
@@ -24,8 +23,6 @@ class AddChore extends Component {
 
 	render() {
 		const { fields:{type, chore_name, day}, handleSubmit } = this.props
-		// console.log(handleSubmit(this.props.addChore))
-		// console.log(this.props)
 		return (
       <div>
         <Button bsStyle="primary" onClick={ ()=> this.setState({ open: !this.state.open })}>
@@ -78,24 +75,18 @@ class AddChore extends Component {
 	}
 }
 
-// onClick={ ()=> this.setState({ open: !this.state.open })}
-
 function validate(formElements){
 	const errors={}
-
-	if(formElements.day === undefined || formElements.day === '----' ||
-		formElements.day === '' ){
-		errors.day = 'Must Select A Valid Day'
-		console.log('Must Select A Valid Day')
-	}
 	if(formElements.type === undefined || formElements.type === '----' ||
 		formElements.type === '' ){
 		errors.type = 'Must Select A Valid Type'
-		console.log('Must Select A Valid Type')
 	}
 	if(formElements.chore_name === undefined || formElements.chore_name=== ''){
 		errors.chore_name='Must Input A Chore Name'
-		console.log('Must Input A Chore Name')
+	}
+	if(formElements.day === undefined || formElements.day === '----' ||
+		formElements.day === '' ){
+		errors.day = 'Must Select A Valid Day'
 	}
 	return errors
 }

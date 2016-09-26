@@ -4,6 +4,7 @@ import {deleteChore, updateChoreTurn } from '../actions/actions_chores'
 import { getQueue } from '../actions/actions_queues'
 import {bindActionCreators} from 'redux'
 import {Button, Panel} from 'react-bootstrap'
+import Queue from './Queue'
 
 class Chore extends Component {
 	constructor(props){
@@ -33,7 +34,7 @@ class Chore extends Component {
 				if(index< queues[this.props.chore.id].length-1)
 					return (
 						<span key={queuePosition.id}>
-						{ `${users[queuePosition.userId].user_name}\'s` } Turn ->  
+						{ `${users[queuePosition.userId].user_name}\'s` } Turn {'<'}-  
 						</span>
 						)
 				else
@@ -45,12 +46,18 @@ class Chore extends Component {
 			})
 		}
 	}
+	renderQueueNetwork(){
+		const {queues} = this.props
+		const {chore} = this.props
+		const {users}= this.props
+		if(Object.keys(queues).length && queues[this.props.chore.id]){
+			return <Queue chore={chore} queues={queues} users={users}/>
+		}
+	}
 
 	handleVerify(event){
 		event.stopPropagation()
-		//need to both change the order in the state, and the user turn of the chore and handle outputing the new user chore queue based off of the turn
 		this.props.updateChoreTurn(this.props.chore.id)
-		//this.props.updateQueue(this.props.chore.id)
 	}
 
 	render(){
@@ -60,10 +67,12 @@ class Chore extends Component {
 				header={chore.chore_name}
 				collapsible
 				expanded={this.state.open}
-				onClick={()=>this.setState({open: !this.state.open})}>
+				onClick={()=>this.setState({open: true})}>
 					<h3>{chore.chore_name}</h3>
 					<h6>{chore.day}</h6>
 					{this.renderQueue()}
+					<br/>
+					{this.renderQueueNetwork()}
 					<br/>
 					<Button
 					bsStyle="danger"
