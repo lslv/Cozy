@@ -1,68 +1,60 @@
 import React, { Component } from 'react'
-import { Button, Collapse, Well } from 'react-bootstrap'
-import { reduxForm } from 'redux-form'
+import { Button } from 'react-bootstrap'
+import { reduxForm, addArrayValue } from 'redux-form'
 
-import PollFormOption from '../components/PollFormOption'
+import PureInput from '../components/PureInput'
+import { addPoll, getPolls } from '../actions/actions_polls'
 
-export default class AddPoll extends Component {
+const fields = ['question', 'options[].option']
+
+class AddPoll extends Component {
 	constructor (props) {
 		super(props)
 
-		this.state = { counter: 1 }
-
-		this.addOption = this.addOption.bind(this)
-		this.renderNewOption = this.renderNewOption.bind(this)
+		this.submitForm = this.submitForm.bind(this)
 	}
 
-
-	addOption () {
-		this.state[`Option ${this.state.counter}`] = ''
-    this.setState({ counter: this.state.counter+=1})
-		console.log('this.state', this.state)
-		// this.renderNewOption()
-	}
-
-	renderNewOption () {
-		// return this.state.iterator.map((option, i) => {
-		// 	i+=1
-		// 	return (
-  //       <PollFormOption key={i} optionNumber={i}/>
-  //     )
-		// })
+	submitForm(e) {
+		e.preventDefault()
+    const { handleSubmit, destroyForm, resetForm, getPolls } = this.props
+		let result = handleSubmit(this.props.addPoll)
+		result(e)
+    .then(() => getPolls())
+    resetForm()
 	}
 
 	render () {
+		const { addValue, fields: { question, options }} = this.props
 		return (
-      <form>
+      <form onSubmit={this.submitForm}>
         <div className='form-group'>
           <label>
             Ask a question:
           </label>
-          <input type='text' className='form-control' placeholder='Whats your question?' />
+          <PureInput type='text' className='form-control' placeholder='Whats your question?' field={question} title={question.error} />
         </div>
         <div className='form-group'>
-          <Button bsStyle='primary' onClick={this.addOption}>
+          <Button bsStyle='primary' onClick={() => options.addField()}>
             Add option: <i className='fa fa-plus-circle' aria-hidden='true'></i>
           </Button>
-          <Button bsStyle='success' onClick={this.addOption}>
+          <Button bsStyle='success' type='submit'>
             Make poll
           </Button>
         </div>
-        {Object.keys(this.state).map((field) => {
-          if(field !== 'counter') {
-            return (
-            <div className='form-group' key={field}>
-            <label>{field}</label>
-              <input type='text' 
-              value={this.state[field]} 
-              className='form-control'
-              placeholder={field} 
-              onChange={event => this.setState({ [field]: event.target.value })} />
+        {options.map((option, i) => {
+	return (
+            <div className='form-group' key={i}>
+              <label>Option { i + 1}</label>
+                <PureInput type='text' className='form-control' placeholder={i + 1} field={option.option} />
             </div>
-            ) 
-          }
-        })}
+          )
+})}
       </form>
     )
 	}
 }
+
+export default reduxForm({
+	form: 'deep',
+	fields
+}, undefined, { addValue: addArrayValue, addPoll: addPoll, getPolls: getPolls })(AddPoll)

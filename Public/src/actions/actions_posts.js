@@ -47,7 +47,7 @@ export function deletePost (post) {
 	}
 }
 
-export function updatePosts () {
+export function getPosts () {
 
   // Here, do a get request to post DB to get all posts in the house
   // use this to update the props
