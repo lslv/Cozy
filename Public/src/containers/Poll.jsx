@@ -45,19 +45,18 @@ class Poll extends Component {
 		        	value={option.optionId}
 		        	onClick={this.setChoice} />
 		        	{option.text}
-	
    				</div>
 		    	)
 			})
 		} else {
-			let data = poll.poll_options.map(option => [option.text, option.voteCount, 'blue'])
-				console.log('data', data)
-				return (
+			let data = poll.poll_options.map(option => [option.text, parseInt(option.voteCount)])
+			return (
 					<div>
+					<h4>{poll.question}</h4>
 						<Chart chartType="BarChart" 
-						data={[['Choice', 'Vote Count', {'role':'style'}], data]} 
+						data={[['Choice', 'Vote Count'], ...data]} 
 						options={{}} graph_id="BarChart"  
-						width={"100%"} height={"300px"}  
+						width={'90%'} height={'150px'}  
 						legend_toggle={true} />
 					</div>
 					)
