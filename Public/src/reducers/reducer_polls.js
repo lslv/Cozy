@@ -38,9 +38,7 @@ export default function(state = [], action) {
 			//update the vote count
 			for(let option of temp.poll_options) {
 				if(option.optionId == action.payload) {
-					console.log('before update', option)
 					option.voteCount++
-					console.log('after update', option)
 				}
 			}
 			return [...state.slice(0, index), temp, ...state.slice(index + 1)]

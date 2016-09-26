@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
-import { reduxForm, addArrayValue } from 'redux-form'
+import { reduxForm } from 'redux-form'
 
 import PureInput from '../components/PureInput'
 import { addPoll, getPolls } from '../actions/actions_polls'
@@ -24,7 +24,7 @@ class AddPoll extends Component {
 	}
 
 	render () {
-		const { addValue, fields: { question, options }} = this.props
+		const { fields: { question, options }} = this.props
 		return (
       <form onSubmit={this.submitForm}>
         <div className='form-group'>
@@ -57,4 +57,4 @@ class AddPoll extends Component {
 export default reduxForm({
 	form: 'deep',
 	fields
-}, undefined, { addValue: addArrayValue, addPoll: addPoll, getPolls: getPolls })(AddPoll)
+}, undefined, { addPoll: addPoll, getPolls: getPolls })(AddPoll)
