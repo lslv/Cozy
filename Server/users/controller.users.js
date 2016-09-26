@@ -14,10 +14,10 @@ module.exports = {
 					password: hash,
 					pay_percentage: 0
 				})
+				.then(createdPost => res.status(200).send(createdPost))
+				.catch(err => res.status(400).send(err))
 			})
 		})
-      .then(createdPost => res.status(200).send(createdPost))
-      .catch(err => res.status(400).send(err))
 	},
 
 	login: (req, res) => {

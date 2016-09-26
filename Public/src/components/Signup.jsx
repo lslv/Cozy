@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Router, browserHistory, Link } from 'react-router'
 import axios from 'axios'
 
 export default class Signup extends Component{
@@ -83,16 +84,22 @@ export default class Signup extends Component{
 			username: this.state.Username,
 			email: this.state.Email,
 			password: this.state.Password
+			
 		})
     .then((response)=>{
 	console.log(response)
       //this should be a token in the future
       //sessionStorage.setItem('user', response.data.user_name)
-	console.log(sessionStorage.getItem('user'))
+	sessionStorage.setItem('user', 'test')
+	this.context.router.push('/house_select')
 })
     .catch((error)=>{
 	console.log(error)
 })
 	}
 
+}
+
+Signup.contextTypes = {
+	router: React.PropTypes.object
 }
