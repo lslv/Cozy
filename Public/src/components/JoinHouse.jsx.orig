@@ -9,7 +9,11 @@ export default class JoinHouse extends Component{
 	render () {
 		return (
       <div>
+<<<<<<< HEAD
       <h1>Join House</h1>
+=======
+      	<h1>Join House</h1>
+>>>>>>> hosueSearch
         <form>
           <input
             value={this.state.searchText}
@@ -20,6 +24,12 @@ export default class JoinHouse extends Component{
     )
 	}
 	onSearch(searchText){
+<<<<<<< HEAD
+		this.setState({searchText})
+		axios.get('/api/houses/search', {search: this.state.searchText})
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+=======
 		this.setState({searchText}, () =>{
 			axios.get('/api/houses/search', {
 				params:{
@@ -30,5 +40,6 @@ export default class JoinHouse extends Component{
       .catch(err => console.log(err))
 		})
 
+>>>>>>> hosueSearch
 	}
 }
