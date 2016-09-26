@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
-import { Button, Panel, Radio } from 'react-bootstrap'
+import { Button, Panel } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { deletePoll } from '../actions/actions_polls'
+import { deletePoll, vote } from '../actions/actions_polls'
 
 import { addPoll } from '../actions/actions_polls'
 
@@ -11,9 +11,24 @@ class Poll extends Component {
 		super(props)
 
 		this.state = {
-			open: false
+			open: false,
+			choice: 0
 		}
 		this.handleCollapsible = this.handleCollapsible.bind(this)
+		this.setChoice = this.setChoice.bind(this)
+		this.voteOnPoll = this.voteOnPoll.bind(this)
+	}
+
+	setChoice(e) {
+		const { vote } = this.props
+		e.stopPropagation()
+		this.setState({ choice: e.target.value})
+	}
+
+	voteOnPoll(e) {
+		e.preventDefault()
+		e.stopPropagation()
+		vote(this.state.choice)
 	}
 
 	handleCollapsible() {
@@ -33,12 +48,17 @@ class Poll extends Component {
         onClick={this.handleCollapsible}>
         {poll.poll_options.map((option) => {
 	return (
-        	<Radio key={option.optionId}>
+		<div key={option.optionId}>
+        	<input
+        	type='radio'
+        	name='options' 
+        	value={option.optionId}
+        	onClick={this.setChoice} />
         	{option.text}
-        	</Radio>
+        </div>
         	)
 })}
-        <Button bsStyle='success'>
+        <Button bsStyle='success' type='submit' onClick={this.voteOnPoll}>
           Submit <i className='fa fa-check-circle' aria-hidden='true'></i>
         </Button>
       </Panel>
@@ -47,7 +67,7 @@ class Poll extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({deletePoll}, dispatch)
+	return bindActionCreators({deletePoll, vote}, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(Poll)

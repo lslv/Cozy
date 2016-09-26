@@ -1,6 +1,7 @@
 const db_post = require('../bulletinBoard/model.posts')
 const db_poll = require('../bulletinBoard/model.polls')
 const sequelize = require('../config/database')
+const Promise = require('bluebird')
 
 module.exports = {
 	addPost: (req, res) => {
@@ -51,25 +52,20 @@ module.exports = {
 	},
 
 	addPoll: (req, res) => {
-		return sequelize.transaction().then((t) => {
-			return db_poll.Polls.create({
+		db_poll.Polls.create({
 				question: req.body.question,
 				houseId: req.body.houseId
-			}, {transaction: t})
-        .then((createdPoll) => {
-	const pollOptions = req.body.options.map((option) => {
-		return {
-			text: option,
-			pollId: createdPoll.dataValues.id
-		}
-	})
-	return db_poll.Poll_Options.bulkCreate(pollOptions, {
-		transaction: t,
-	})
-}).then(t.commit.bind(t), t.rollback.bind(t))
-  .then(() => res.sendStatus(201))
-  .catch(err => res.status(404).send(err))
 		})
+        .then((createdPoll) => {
+		return Promise.all(req.body.options.map((option) => {
+			return db_poll.Poll_Options.create({
+				text: option,
+				pollId: createdPoll.dataValues.id
+			})
+		}))
+		})
+  		.then(poll => res.status(201).send(poll))
+  		.catch(err => res.status(404).send(err))
 	},
 
 	getPolls: (req, res) => {
@@ -84,10 +80,10 @@ module.exports = {
 				attributes: [
 				['id', 'optionId'], 'text', 
 				[sequelize.fn('COUNT', sequelize.col('poll_options.votes.id')), 'voteCount']],
-			include: {
-				model: db_poll.Votes,
-				attributes: []
-			}
+				include: {
+					model: db_poll.Votes,
+					attributes: []
+				}
 			}
 		})
       .then(poll => res.status(200).json(poll))
@@ -95,6 +91,7 @@ module.exports = {
 	},
 
 	vote: (req, res) => {
+		console.log('req body', req.body)
 		db_poll.Votes.create({
 			pollOptionId: req.body.pollOptionId
 		})

@@ -2,6 +2,7 @@ import axios from 'axios'
 export const ADD_POLL = 'ADD_POLL'
 export const DELETE_POLL = 'DELETE_POLL'
 export const GET_POLLS = 'GET_POLLS'
+export const VOTE = 'VOTE'
 
 
 export function addPoll(pollData) {
@@ -41,10 +42,24 @@ export function getPolls() {
 
 }
 
+export function vote(choice) {
+	console.log('choice', choice)
+	const request = axios.post('/api/bulletinBoard/vote', {
+			pollOptionId: choice
+	})
+
+	return {
+		type: VOTE,
+		payload: request
+	}
+
+
+}
+
 export function deletePoll(poll) {
 
 	//testing: get poll where question = 'how are you?'
-	const request = axios.deletePolls('/api/bulletinBoard/getPolls', {
+	const request = axios.delete('/api/bulletinBoard/getPolls', {
 		params: {
 			id: poll.id
 		}

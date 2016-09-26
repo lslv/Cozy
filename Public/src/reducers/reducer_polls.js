@@ -7,11 +7,17 @@ export default function(state = [], action) {
 		return [...state]
 	}
 	case GET_POLLS: {
+		let data = action.payload.data
+		//always get unique polls so they doesn't duplicate on multiple calls
+		let polls = data.filter((poll, i) => {
+			return data.indexOf(poll) === i
+		})
+		//push each poll obj to array
 		let allPolls = []
-		for (let poll of action.payload.data) {
+		for (let poll of polls) {
 			allPolls.push(poll)
 		}
-		return [...state].concat(allPolls)
+		return allPolls
 	}
 	case DELETE_POLL: {
 		let index = [...state].indexOf(action.payload)

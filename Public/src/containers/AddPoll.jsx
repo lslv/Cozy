@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap'
 import { reduxForm, addArrayValue } from 'redux-form'
 
 import PureInput from '../components/PureInput'
-import { addPoll } from '../actions/actions_polls'
+import { addPoll, getPolls } from '../actions/actions_polls'
 
 const fields = ['question', 'options[].option']
 
@@ -16,10 +16,11 @@ class AddPoll extends Component {
 
 	submitForm(e) {
 		e.preventDefault()
-    const { handleSubmit, destroyForm, resetForm } = this.props
+    const { handleSubmit, destroyForm, resetForm, getPolls } = this.props
 		let result = handleSubmit(this.props.addPoll)
 		result(e)
-    destroyForm()
+    .then(() => getPolls())
+    resetForm()
 	}
 
 	render () {
@@ -56,4 +57,4 @@ class AddPoll extends Component {
 export default reduxForm({
 	form: 'deep',
 	fields
-}, undefined, { addValue: addArrayValue, addPoll: addPoll })(AddPoll)
+}, undefined, { addValue: addArrayValue, addPoll: addPoll, getPolls: getPolls })(AddPoll)

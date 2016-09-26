@@ -28,7 +28,7 @@ class BulletinBoard extends Component {
 
 	componentWillMount () {
 		const { getPosts, getPolls } = this.props
-    // grab the posts that exist in the DB and add them to post state
+    	// grab the posts that exist in the DB and add them to post state
 		this.setState({ showLoadingIcon: !this.state.showLoadingIcon })
 		getPosts()
 		getPolls()
@@ -91,9 +91,11 @@ class BulletinBoard extends Component {
         <ListGroup>
           {this.renderAddPost()}
           {this.renderAddPoll()}
+          </ListGroup>
+          <ListGroup>
           {this.renderPosts()}
           {this.renderPolls()}
-        </ListGroup>
+          </ListGroup>
         </Col>
       )
 		}
