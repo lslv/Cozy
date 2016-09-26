@@ -34,7 +34,6 @@ class Poll extends Component {
 
 	pollView() {
 		const poll = this.props.data
-		console.log('poll', poll)
 		if(!this.state.pollResultsView) {
 			return poll.poll_options.map((option) => {
 				return (

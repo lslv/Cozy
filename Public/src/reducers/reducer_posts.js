@@ -6,7 +6,6 @@ export default function(state = [] , action) {
 		return [action.payload.data, ...state]
 	}
 	case GET_POSTS: {
-		console.log(state)
 		if (action.payload) {
 			let allPosts = []
 			for (let post of action.payload.data) {

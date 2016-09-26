@@ -43,7 +43,6 @@ export function getPolls() {
 }
 
 export function vote(choice) {
-	console.log('choice', choice)
 	const request = axios.post('/api/bulletinBoard/vote', {
 			pollOptionId: choice
 	})
