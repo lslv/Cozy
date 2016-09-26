@@ -3,13 +3,13 @@ import { bindActionCreators } from 'redux'
 import { Button, Panel } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { deletePoll, vote } from '../actions/actions_polls'
+import {Chart} from 'react-google-charts'
 
 import { addPoll } from '../actions/actions_polls'
 
 class Poll extends Component {
 	constructor(props) {
 		super(props)
-
 		this.state = {
 			pollResultsView: false,
 			open: false,
@@ -34,7 +34,7 @@ class Poll extends Component {
 
 	pollView() {
 		const poll = this.props.data
-
+		console.log('poll', poll)
 		if(!this.state.pollResultsView) {
 			return poll.poll_options.map((option) => {
 				return (
@@ -50,9 +50,17 @@ class Poll extends Component {
 		    	)
 			})
 		} else {
-			return (
-				<div>Cool</div>
-			)
+			let data = poll.poll_options.map(option => [option.text, option.voteCount, 'blue'])
+				console.log('data', data)
+				return (
+					<div>
+						<Chart chartType="BarChart" 
+						data={[['Choice', 'Vote Count', {'role':'style'}], data]} 
+						options={{}} graph_id="BarChart"  
+						width={"100%"} height={"300px"}  
+						legend_toggle={true} />
+					</div>
+					)
 		}
 	}
 
