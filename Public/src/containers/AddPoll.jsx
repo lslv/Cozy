@@ -16,29 +16,30 @@ class AddPoll extends Component {
 
 	submitForm(e) {
 		e.preventDefault()
-    const { handleSubmit, destroyForm, resetForm, getPolls } = this.props
+		const { handleSubmit, destroyForm, resetForm, getPolls } = this.props
 		let result = handleSubmit(this.props.addPoll)
 		result(e)
     .then(() => getPolls())
-    resetForm()
+		resetForm()
 	}
 
 	render () {
-		const { fields: { question, options }} = this.props
+		const { fields: { question, options }, errors, submitting} = this.props
 		return (
       <form onSubmit={this.submitForm}>
-        <div className='form-group'>
+        <div className={`form-group ${question.touched && question.error ? 'has-error' : ''}`}>
           <label>
             Ask a question:
           </label>
           <PureInput type='text' className='form-control' placeholder='Whats your question?' field={question} title={question.error} />
+          <p>{errors.question}</p>
         </div>
         <div className='form-group'>
           <Button bsStyle='primary' onClick={() => options.addField()}>
             Add option: <i className='fa fa-plus-circle' aria-hidden='true'></i>
           </Button>
-          <Button bsStyle='success' type='submit'>
-            Make poll
+          <Button bsStyle='success' type='submit' disabled={submitting}>
+           Make poll
           </Button>
         </div>
         {options.map((option, i) => {
@@ -54,7 +55,20 @@ class AddPoll extends Component {
 	}
 }
 
+const validate = (formElements) => {
+	const errors = {}
+
+	if(!formElements.question) {
+		errors.question = 'Must ask a question'
+	}
+  //Not working yet
+	// if(!formElements.options.option) {
+	// 	errors.option = 'Must include an option'
+	// }
+	return errors
+}
+
 export default reduxForm({
 	form: 'deep',
-	fields
-}, undefined, { addPoll: addPoll, getPolls: getPolls })(AddPoll)
+	fields,
+	validate}, undefined, { addPoll: addPoll, getPolls: getPolls })(AddPoll)
