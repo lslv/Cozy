@@ -34,6 +34,7 @@ Polls.belongsTo(Users)
 Polls.hasMany(Poll_Options)
 Poll_Options.belongsTo(Polls)
 Votes.belongsTo(Poll_Options)
+Votes.belongsTo(Users)
 Poll_Options.hasMany(Votes)
 
 

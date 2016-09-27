@@ -7,17 +7,9 @@ export const DELETE_POST = 'DELETE_POST'
 
 export function addPost (postData) {
 
-  // Post data comes in as { title: 'title', message: 'msg' }
-  // Grab user_id and house_id from local storage and attach to postData object
-  // So payload should be set as { postMsg: 'User input', user_id: 1, house_id:2 }
-  // Post updated postData obj to the DB
-  // on return, attach postData to the payload
 	const user_id = sessionStorage.getItem('id')
 	const house_id = sessionStorage.getItem('house_id') || null
 
-  // Dummy data
-  // postData.userId = 'Lee'
-  // postData.house_id = '2'
 	const request = axios.post('/api/bulletinBoard/addPost', {
 		title: postData.title,
 		message: postData.message,
@@ -53,11 +45,7 @@ export function deletePost (post) {
 
 export function getPosts () {
 
-  // Here, do a get request to post DB to get all posts in the house
-  // use this to update the props
-
-  // for testing purposes, get all where title = title
-  // Eventually, get all where house_id matches the user's house_id
+  // for testing purposes, get all where house_id = 1
 	const house_id = sessionStorage.getItem('house_id') || null
 
 	const query = '/api/bulletinBoard/getPosts'

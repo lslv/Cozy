@@ -16,11 +16,8 @@ module.exports = {
 	},
 
 	getPosts: (req, res) => {
-    // For testing purposes, now grabbing the data where title = test
-    // Eventually, it will grab all from House_id
-
 		db_post.Posts.findAll({
-			where: { title: req.query.title }
+			where: { house_id: req.query.house_id }
 		})
       .then(queriedPosts => res.status(200).json(queriedPosts))
       .catch(err => res.status(404).send(err))
@@ -52,9 +49,11 @@ module.exports = {
 	},
 
 	addPoll: (req, res) => {
+		console.log('req body', req.body)
 		db_poll.Polls.create({
 			question: req.body.question,
-			houseId: req.body.houseId
+			houseId: req.body.houseId,
+			userId: req.body.userId
 		})
         .then((createdPoll) => {
 	return Promise.all(req.body.options.map((option) => {
@@ -74,17 +73,19 @@ module.exports = {
 				houseId: req.query.houseId
 			},
 			group: ['poll_options.id', 'polls.id'],
-			attributes: ['question'],
-			include: {
-				model: db_poll.Poll_Options,
-				attributes: [
-				['id', 'optionId'], 'text', 
-				[sequelize.fn('COUNT', sequelize.col('poll_options.votes.id')), 'voteCount']],
-				include: {
-					model: db_poll.Votes,
-					attributes: []
+			attributes: ['question', 'userId'],
+			include: [ 
+				{
+					model: db_poll.Poll_Options,
+					attributes: [
+					['id', 'optionId'], 'text', 
+					[sequelize.fn('COUNT', sequelize.col('poll_options.votes.id')), 'voteCount']],
+					include: {
+						model: db_poll.Votes,
+						attributes: []
+					}
 				}
-			}
+			],
 		})
       .then(poll => res.status(200).json(poll))
       .catch(error => res.status(404).send(error))
@@ -101,10 +102,18 @@ module.exports = {
 	},
 
 	vote: (req, res) => {
+		console.log('req body', req.body)
 		db_poll.Votes.create({
-			pollOptionId: req.body.pollOptionId
+			pollOptionId: req.body.pollOptionId,
+			userId: req.body.user_id
 		})
 	  .then(()=> res.sendStatus(201))
       .catch(error => res.status(404).send(error))
+	},
+
+	getVotes: (req,res) => {
+		db_poll.Votes.findAll()
+		.then(votes => res.status(200).send(votes))
+		.catch(err => res.status(404).send(err))
 	}
 }

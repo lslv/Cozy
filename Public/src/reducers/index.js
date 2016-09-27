@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import PostReducer from './reducer_posts'
 import PollReducer from './reducer_polls'
+import VotesReducer from './reducer_votes'
 import ChoreReducer from './reducer_chores'
 import QueueReducer from './reducer_queues'
 import UserReducer from './reducer_users'
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   chores: ChoreReducer,
   queues: QueueReducer,
   users: UserReducer,
+  votes: VotesReducer,
   form: formReducer
 })
 

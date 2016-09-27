@@ -1,9 +1,9 @@
-import { ADD_POLL, GET_POLLS, DELETE_POLL, VOTE } from '../actions/actions_polls'
+import { ADD_POLL, GET_POLLS, DELETE_POLL, VOTE, GET_VOTES } from '../actions/actions_polls'
 
 export default function(state = [], action) {
 	switch(action.type) {
 		case ADD_POLL: {
-			//right now only see poll on refresh
+			//state is refreshed when getting polls
 			return [...state]
 		}
 		case GET_POLLS: {
@@ -42,6 +42,9 @@ export default function(state = [], action) {
 				}
 			}
 			return [...state.slice(0, index), temp, ...state.slice(index + 1)]
+		}
+		case GET_VOTES: {
+			return [...state]
 		}
 
 	}
