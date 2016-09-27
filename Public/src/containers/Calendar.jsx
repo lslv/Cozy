@@ -39,48 +39,25 @@ class Calendar extends Component {
 		const {queues} = this.props
 		const {chore} = this.props
 		const {users}= this.props
-
 		events=this.props.chores.map((chore)=>{
-			// console.log(this.props.users)
-			// console.log(this.props.queues)
-
 			var choreQueue= queues[chore.id]
 			var queueInOrder=[ ...choreQueue.slice(chore.user_turn), ...choreQueue.slice(0, chore.user_turn) ]
-			console.log('choreId ', chore.id, 'queueInOrder', queueInOrder)
-
+			// console.log('choreId ', chore.id, 'queueInOrder', queueInOrder)
 			return queueInOrder.map((queuePosition,index)=>{
 				var choreDate=new Date(moment().day(chore.day))
-				choreDate.setDate(choreDate.getDate()+(7*index))
+				// var verifyCount=7*1 // this would be a good way too offset, just have to store how many times verified
+				var verifyCount=0
+				choreDate.setDate(choreDate.getDate()+(7*index)+verifyCount)
 				console.log(choreDate)
 				return {
-					'title' :chore.chore_name + '-',
+					'title' :chore.chore_name + ' - ' +users[queuePosition.userId].user_name,
 					'allDay': true,
 					'start' : choreDate,
 					'end'   : choreDate
 				}
 			})
-
-
-
-
-
-
-
-
-
-
-
-			// return{
-			// 	'title' :chore.chore_name + '-',
-			// 	'allDay': true,
-			// 	'start' : moment().day(chore.day),
-			// 	'end'   : moment().day(chore.day)
-			// }
 		})
-
-		// console.log(events)
 		events=[].concat.apply([], events)
-		// console.log(events)
 		this.setState({events})
 		
 	}
