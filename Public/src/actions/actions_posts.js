@@ -12,13 +12,16 @@ export function addPost (postData) {
   // So payload should be set as { postMsg: 'User input', user_id: 1, house_id:2 }
   // Post updated postData obj to the DB
   // on return, attach postData to the payload
+  const user_id = sessionStorage.getItem('id')
 
   // Dummy data
-  // postData.username = 'Lee'
+  // postData.userId = 'Lee'
   // postData.house_id = '2'
 	const request = axios.post('/api/bulletinBoard/addPost', {
 		title: postData.title,
-		message: postData.message
+		message: postData.message,
+		house_id: 1,
+		user_id: user_id
 	})
 	return {
 		type: ADD_POST,

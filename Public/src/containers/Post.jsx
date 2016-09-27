@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Panel } from 'react-bootstrap'
+import { Button, Panel, FormGroup, FormControl } from 'react-bootstrap'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { deletePost, editPost } from '../actions/actions_posts'
@@ -10,7 +10,8 @@ class Post extends Component {
 		this.state = {
 			open: false,
 			editMode: false,
-			editMessageValue: ''
+			editMessageValue: '',
+			isAuthor: false
 		}
 
 		this.handleDelete = this.handleDelete.bind(this)
@@ -19,11 +20,27 @@ class Post extends Component {
 		this.handleMessageEdit = this.handleMessageEdit.bind(this)
 		this.toggleMessageEdit = this.toggleMessageEdit.bind(this)
 		this.handleInputChange = this.handleInputChange.bind(this)
+		this.editValidation = this.editValidation.bind(this)
+		this.showAuthoringTools = this.showAuthoringTools.bind(this)
 		this.stopProp = this.stopProp.bind(this)
+	}
+
+	componentWillMount() {
+		const post = this.props.data
+		const user_id = sessionStorage.getItem('id')
+		if(user_id == post.user_id) {
+			this.setState({ isAuthor: true })
+		}
 	}
 
 	handleDelete () {
 		this.props.deletePost(this.props.data)
+	}
+
+	editValidation() {
+		const editLength = this.state.editMessageValue.length
+		if(editLength < 2) return 'error'
+		return 'success'
 	}
 
 	stopProp (e) {
@@ -50,17 +67,44 @@ class Post extends Component {
 		} else {
 			return (
         <div>
-          <input
+        <FormGroup 
+        validationState={this.editValidation()}>
+        <div className='col-xs-4'>
+          <FormControl
+          	bsClass='form-control'
             value={this.state.editMessageValue}
             onClick={this.stopProp}
             onChange={this.handleInputChange}
             placeholder={post.message} />
+        </div>
           <Button bsStyle='success' onClick={this.handleMessageEdit}>
             <i className='fa fa-check-circle' aria-hidden='true'></i>
           </Button>
+         </FormGroup>
         </div>
       )
 		}
+	}
+
+	showAuthoringTools() {
+
+		if(this.state.isAuthor) {
+			return (
+				<div>
+				 <Button bsStyle='danger' onClick={this.handleDelete}>
+          			<i className='fa fa-minus-circle' aria-hidden='true'></i>
+        		 </Button>
+        		 <Button bsStyle='warning' onClick={this.toggleMessageEdit}>
+          			<i className='fa fa-pencil' aria-hidden='true'></i>
+        		 </Button>
+				</div>
+			)
+		} else {
+			return (
+				<noscript/>
+			)
+		}
+
 	}
 
 	toggleMessageEdit (e) {
@@ -83,12 +127,7 @@ class Post extends Component {
         expanded={this.state.open}
         onClick={this.handleCollapsible}>
         {this.showMessageEdit()}
-        <Button bsStyle='danger' onClick={this.handleDelete}>
-          <i className='fa fa-minus-circle' aria-hidden='true'></i>
-        </Button>
-        <Button bsStyle='warning' onClick={this.toggleMessageEdit}>
-          <i className='fa fa-pencil' aria-hidden='true'></i>
-        </Button>
+       	{this.showAuthoringTools()}
       </Panel>
     )
 	}
