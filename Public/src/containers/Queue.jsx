@@ -1,14 +1,13 @@
 import React, {Component} from 'react'
 import vis from 'vis'
+import _ from 'lodash'
 
 export default class Queue extends Component{
 	constructor(props){
 		super(props)
 		// console.log('queue props in queue component',this.props.queues)
 		this.state={
-			network:null,
-			nodes:null,
-			edges:null
+			onceForceUpdate:_.once(this.forceUpdate.bind(this))
 		}
 	}
 	componentDidMount() {
@@ -62,19 +61,38 @@ export default class Queue extends Component{
 
     // initialize your network!
 		var network = new vis.Network(container, data, options)
-		var nodeIdList=nodes.map((node)=> node.id )
-		network.fit({nodes:nodes.map((node)=> node.id )})
+		// var nodeIdList=nodes.map((node)=> node.id )
+		// console.log(nodeIdList)
+		// network.fit({nodes:nodeIdList})
+		// network.redraw()
+		// network.moveTo({position:{x:-50,y:+50}})
+		// console.log(network.fit)
 		
-		this.setState({network})
+		// this.setState({network:network}, ()=>{
+		// 	console.log('network state saved')
+		// 	this.setState({stuff:'stuff'},()=>{
+		// 		console.log('trigger rerender')
+		// 		var nodeIdList=this.state.nodes.map((node)=> node.id )
+		// 		this.state.network.fit({nodes:nodeIdList})
+		// 	})
+		// })
+		this.setState({network:network})
+
           
 	}
 
 	render(){
-		return (
-            <div className="network" id={`mynetwork${this.props.chore.id}`}>
-            </div>
-            )
 
+		if(this.state.network){
+			var nodeIdList=this.state.nodes.map((node)=> node.id )
+			console.log('center the queue network')
+			this.state.network.fit({nodes:nodeIdList})
+		}
+		console.log('parent panel state: ',this.props.open)
+		if(this.props.open){
+			this.state.onceForceUpdate()
+		}
+		return <div className="network" id={`mynetwork${this.props.chore.id}`}></div>
 	}
 
 }
