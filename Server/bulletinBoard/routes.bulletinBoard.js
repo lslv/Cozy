@@ -30,8 +30,15 @@ router.get('/getPolls', (req, res) => {
   controller.getPolls(req, res)
 })
 
+router.delete('/deletePoll', (req, res) => {
+  controller.deletePoll(req, res)
+})
+
 router.post('/vote', (req, res) => {
   controller.vote(req, res)
 })
 
+router.get('/getVotes', (req, res) => {
+  controller.getVotes(req, res)
+})
 module.exports = router

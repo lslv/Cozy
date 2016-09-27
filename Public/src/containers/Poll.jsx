@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { Button, Panel } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { deletePoll, vote } from '../actions/actions_polls'
+import { addPoll, deletePoll } from '../actions/actions_polls'
+import { vote, getVotes } from '../actions/actions_votes'
 import {Chart} from 'react-google-charts'
 
-import { addPoll } from '../actions/actions_polls'
 
 class Poll extends Component {
 	constructor(props) {
@@ -13,23 +13,74 @@ class Poll extends Component {
 		this.state = {
 			pollResultsView: false,
 			open: false,
-			choice: 0
+			choice: 0,
+			hasVoted: false,
+			isAuthor: false
 		}
 		this.handleCollapsible = this.handleCollapsible.bind(this)
 		this.setChoice = this.setChoice.bind(this)
 		this.voteOnPoll = this.voteOnPoll.bind(this)
 		this.toggleResultsView = this.toggleResultsView.bind(this)
 		this.pollView = this.pollView.bind(this)
+		this.showDelete = this.showDelete.bind(this)
+		this.hasVotedOnPoll = this.hasVotedOnPoll.bind(this)
+	}
+
+	componentWillMount() {
+		const poll = this.props.data
+		//Endable editing if the user is the author of the post 
+		const user_id = sessionStorage.getItem('id')
+		if(user_id == poll.userId) {
+			this.setState({ isAuthor: true })
+		}
+		const { getVotes } = this.props
+		getVotes()
+		.then(() => this.hasVotedOnPoll())
+	}
+
+	hasVotedOnPoll() {
+		//Check if the voter has previously voted on the poll
+		const poll = this.props.data
+		const user_id = sessionStorage.getItem('id')
+		const { votes } = this.props
+		console.log('this props', this.props)
+		let flag = false
+		for(let vote of votes) {
+			for(let option of poll.poll_options) {
+				if(option.optionId == vote.pollOptionId && vote.userId == user_id) {
+					flag = true
+					break
+				}
+			}
+		}
+		if(flag) {
+			this.setState({ hasVoted: true })
+		}
 	}
 
 	setChoice(e) {
 		e.stopPropagation()
-		this.setState({ choice: e.target.value})
+		this.setState({ choice: e.target.value })
 	}
 
 	toggleResultsView(e) {
 		e.stopPropagation()
 		this.setState({ pollResultsView: !this.state.pollResultsView})
+	}
+
+	showDelete() {
+		const { deletePoll , data } = this.props
+		if(this.state.isAuthor) {
+		return (
+		<Button bsStyle='danger' type='submit' onClick={() => deletePoll(data)}>
+		<i className='fa fa-minus-circle' aria-hidden='true'></i>
+		</Button>
+		)
+		} else {
+			return (
+				<noscript/>
+			)
+		}
 	}
 
 	pollView() {
@@ -44,7 +95,7 @@ class Poll extends Component {
 		        	value={option.optionId}
 		        	onClick={this.setChoice} />
 		        	{option.text}
-   				</div>
+				</div>
 		    	)
 			})
 		} else {
@@ -65,6 +116,7 @@ class Poll extends Component {
 	voteOnPoll(e) {
 		e.preventDefault()
 		e.stopPropagation()
+		this.setState({ hasVoted: true })
 		const { vote } = this.props
 		vote(this.state.choice)
 	}
@@ -74,30 +126,34 @@ class Poll extends Component {
 	}
 
 	render() {
-
 		const poll = this.props.data
-
+		const hasVoted = this.state.hasVoted
 		return (
-			<Panel
+		<Panel
       	bsStyle='primary'
         header={poll.question}
         collapsible
         expanded={this.state.open}
         onClick={this.handleCollapsible}>
         {this.pollView()}
-         <Button bsStyle='success' type='submit' onClick={this.voteOnPoll}>
-		Submit <i className='fa fa-check-circle' aria-hidden='true'></i>
+         <Button bsStyle='success' type='submit' onClick={!hasVoted ? this.voteOnPoll : null} disabled={hasVoted}>
+		{hasVoted ? 'Thanks!': 'Submit'} <i className='fa fa-check-circle' aria-hidden='true'></i>
 		</Button>
-			<Button bsStyle='info' type='submit' onClick={this.toggleResultsView}>
-				See Results
-			</Button>
+		<Button bsStyle='info' type='submit' onClick={this.toggleResultsView}>
+			See Results
+		</Button>
+		{this.showDelete()}
       </Panel>
 		)
 	}
 }
 
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators({deletePoll, vote}, dispatch)
+function mapStateToProps({votes}) {
+	return {votes}
 }
 
-export default connect(null, mapDispatchToProps)(Poll)
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({deletePoll, vote, getVotes}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Poll)
