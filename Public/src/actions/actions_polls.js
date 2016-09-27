@@ -46,6 +46,7 @@ export function getPolls() {
 }
 
 export function deletePoll(poll) {
+	console.log('poll', poll)
 
 	const request = axios.delete('/api/bulletinBoard/deletePoll', {
 		params: {

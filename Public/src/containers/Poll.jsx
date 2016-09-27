@@ -69,8 +69,7 @@ class Poll extends Component {
 	}
 
 	showDelete() {
-		console.log('isAuthor', this.state.isAuthor)
-		const { deletePoll , data} = this.props
+		const { deletePoll , data } = this.props
 		if(this.state.isAuthor) {
 		return (
 		<Button bsStyle='danger' type='submit' onClick={() => deletePoll(data)}>
