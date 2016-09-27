@@ -1,4 +1,3 @@
-// requiring necessary modules and files for table creation
 const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
 let Houses = require('../houses/model.houses.js')
@@ -19,16 +18,16 @@ const Bills = sequelize.define('bills', {
 		type: Sequelize.DECIMAL,
 		notNull: true
 	},
-  due_date:{
-    type: Sequelize.DATE,
-    notNull: true
-  }
+	due_date:{
+		type: Sequelize.DATE,
+		notNull: true
+	}
 } ,
 	{
 		timestamps: true,
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
-    deletedAt: false,
+		createdAt: 'created_at',
+		updatedAt: 'updated_at',
+		deletedAt: false,
 	}
 )
 
@@ -44,27 +43,27 @@ Bills.sync().then(function () {
 //This is the Slush_Fund_Payments Table
 
 const Slush_Fund_Payments = sequelize.define('slush_fund_payments',{
-  amount_in_cents:{
-    type: Sequelize.DECIMAL,
+	amount_in_cents:{
+		type: Sequelize.DECIMAL,
 		notNull: true
-  }
+	}
 } ,
-  {
-    timestamps: true,
-    createdAt: 'created_at',
-    updatedAt: false,
-    deletedAt: false,
-  }
+	{
+		timestamps: true,
+		createdAt: 'created_at',
+		updatedAt: false,
+		deletedAt: false,
+	}
 )
 
 Slush_Fund_Payments.belongsTo(Houses, {
-  as: 'house_id',
-  foreignKey: 'houses'
+	as: 'house_id',
+	foreignKey: 'houses'
 })
 
 Slush_Fund_Payments.belongsTo(Users, {
-  as: 'user_id',
-  foreignKey: 'users'
+	as: 'user_id',
+	foreignKey: 'users'
 })
 
 Slush_Fund_Payments.sync().then(function () {
