@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 
 export default class Dashboard extends Component {
-  render () {
-    return (
+	render () {
+		return (
       <div>
         <p>
           In the dashboard
@@ -17,7 +17,12 @@ export default class Dashboard extends Component {
           <Link to='/chorelist'> Go to the chore list board
           </Link>
         </button>
+        <br />
+        <button>
+          <Link to='/calendar'> Go to the Calendar
+          </Link>
+        </button>
       </div>
     )
-  }
+	}
 }
