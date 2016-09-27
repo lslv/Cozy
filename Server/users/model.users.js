@@ -3,7 +3,7 @@ const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
 let Houses = require('../houses/model.houses.js')
 let chalk = require('chalk')
-//let User_Ratings = require('../ratings/model.ratings.js')
+// let User_Ratings = require('../ratings/model.ratings.js')
 
 const Users = sequelize.define('users', {
 	user_name: {
@@ -36,42 +36,26 @@ const Users = sequelize.define('users', {
 		type: Sequelize.DECIMAL,
 		notNull: true,
 		isDecimal: true
-	} // ,
-// house_id:{
-//   type: Sequelize.INTEGER,
-//   references: {
-//     model: Houses,
-//     key: 'id'
-//   }
-// }
+	}
 } ,
 	{
 		timestamps: true,
-    // createdAt: 'created_at',
-    // updatedAt: 'updated_at',
-    // deletedAt: 'deleted_at',
 		underscored: true,
 		paranoid: true
 	}
 )
 
-// Slush_Fund_Payments.belongsTo(Houses, {
-//   as: 'house_id',
-//   foreignKey: 'houses'
-// })
-
 Users.belongsTo(Houses)
 
-// Users.belongsTo(User_Ratings, {
-//	as: 'reviews',
-//	foreignKey: 'user_ratings'
-//})
+Users.sync()
+	// .then(function () {
+	//   // Table created
+	// 	console.log(chalk.white('+++line72 model.users table successfully created'))
+	// })
+	// .catch(function (err) {
+	// 	console.error(chalk.white('+++line74 There was an error in model.users'), err)
+	// })
 
-Users.sync().then(function () {
-  // Table created
-	console.log(chalk.white('+++line72 model.users table successfully created'))
-}).catch(function (err) {
-	console.error(chalk.white('+++line74 There was an error in model.users'), err)
-})
+console.log(chalk.cyan('+++line 57 this is users table in users model: ', Users))
 
 module.exports = Users
