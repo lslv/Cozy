@@ -8,14 +8,17 @@ export const VOTE = 'VOTE'
 export function addPoll(pollData) {
 
 	// get house id from session storage
+	const user_id = sessionStorage.getItem('id')
+	const house_id = sessionStorage.getItem('house_id') || null
+
 
 	const pollOptions = pollData.options.map(item => item.option)
 
 	const request = axios.post('/api/bulletinBoard/addPoll', {
 		question: pollData.question,
 		options: pollOptions,
-		//******House ID set to 1 for test purposes
-		houseId: 1
+		user_id: user_id,
+		houseId: house_id
 	})
 	return {
 		type: ADD_POLL,
@@ -44,7 +47,7 @@ export function getPolls() {
 
 export function vote(choice) {
 	const request = axios.post('/api/bulletinBoard/vote', {
-			pollOptionId: choice
+		pollOptionId: choice
 	})
 
 	return {
@@ -55,8 +58,7 @@ export function vote(choice) {
 
 export function deletePoll(poll) {
 
-	//testing: get poll where question = 'how are you?'
-	const request = axios.delete('/api/bulletinBoard/getPolls', {
+	const request = axios.delete('/api/bulletinBoard/deletePoll', {
 		params: {
 			id: poll.id
 		}

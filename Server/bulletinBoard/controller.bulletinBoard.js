@@ -53,17 +53,17 @@ module.exports = {
 
 	addPoll: (req, res) => {
 		db_poll.Polls.create({
-				question: req.body.question,
-				houseId: req.body.houseId
+			question: req.body.question,
+			houseId: req.body.houseId
 		})
         .then((createdPoll) => {
-		return Promise.all(req.body.options.map((option) => {
-			return db_poll.Poll_Options.create({
-				text: option,
-				pollId: createdPoll.dataValues.id
-			})
-		}))
+	return Promise.all(req.body.options.map((option) => {
+		return db_poll.Poll_Options.create({
+			text: option,
+			pollId: createdPoll.dataValues.id
 		})
+	}))
+})
   		.then(poll => res.status(201).send(poll))
   		.catch(err => res.status(404).send(err))
 	},
@@ -87,6 +87,16 @@ module.exports = {
 			}
 		})
       .then(poll => res.status(200).json(poll))
+      .catch(error => res.status(404).send(error))
+	},
+
+	deletePoll: (req,res) => {
+		//Have to find all options and votes associated with it
+		db_poll.Polls.findOne({
+			where: { id: req.query.id}
+		})
+      .then(poll => poll.destroy())
+      .then(() => res.status(200).send('poll deleted'))
       .catch(error => res.status(404).send(error))
 	},
 

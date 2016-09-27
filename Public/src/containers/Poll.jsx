@@ -14,13 +14,23 @@ class Poll extends Component {
 			pollResultsView: false,
 			open: false,
 			choice: 0,
-			isLoading: false
+			isLoading: false,
+			isAuthor: false
 		}
 		this.handleCollapsible = this.handleCollapsible.bind(this)
 		this.setChoice = this.setChoice.bind(this)
 		this.voteOnPoll = this.voteOnPoll.bind(this)
 		this.toggleResultsView = this.toggleResultsView.bind(this)
 		this.pollView = this.pollView.bind(this)
+		this.showDelete = this.showDelete.bind(this)
+	}
+
+	componentWillMount() {
+		const poll = this.props.data
+		const user_id = sessionStorage.getItem('id')
+		if(user_id == poll.user_id) {
+			this.setState({ isAuthor: true })
+		}
 	}
 
 	setChoice(e) {
@@ -31,6 +41,15 @@ class Poll extends Component {
 	toggleResultsView(e) {
 		e.stopPropagation()
 		this.setState({ pollResultsView: !this.state.pollResultsView})
+	}
+
+	showDelete() {
+		const { deletePoll , data} = this.props
+		if(this.state.isAuthor) {
+		<Button bsStyle='danger' type='submit' onClick={deletePoll(data)}>
+		<i className='fa fa-minus-circle' aria-hidden='true'></i>
+		</Button>
+		}
 	}
 
 	pollView() {
@@ -45,7 +64,7 @@ class Poll extends Component {
 		        	value={option.optionId}
 		        	onClick={this.setChoice} />
 		        	{option.text}
-   				</div>
+				</div>
 		    	)
 			})
 		} else {
@@ -89,11 +108,13 @@ class Poll extends Component {
         onClick={this.handleCollapsible}>
         {this.pollView()}
          <Button bsStyle='success' type='submit' onClick={!isLoading ? this.voteOnPoll : null} disabled={isLoading}>
+        }
 		{isLoading ? 'Thanks!' : 'Submit'} <i className='fa fa-check-circle' aria-hidden='true'></i>
 		</Button>
-			<Button bsStyle='info' type='submit' onClick={this.toggleResultsView}>
-				See Results
-			</Button>
+		<Button bsStyle='info' type='submit' onClick={this.toggleResultsView}>
+			See Results
+		</Button>
+		{this.showDelete()}
       </Panel>
 		)
 	}

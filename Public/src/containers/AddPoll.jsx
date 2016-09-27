@@ -19,7 +19,7 @@ class AddPoll extends Component {
 		const { handleSubmit, destroyForm, resetForm, getPolls } = this.props
 		let result = handleSubmit(this.props.addPoll)
 		result(e)
-    .then(() => getPolls())
+    	.then(() => getPolls())
 		resetForm()
 	}
 

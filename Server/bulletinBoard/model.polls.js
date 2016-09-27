@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
-let Houses = require('../houses/model.houses.js')
-let chalk = require('chalk')
+const Houses = require('../houses/model.houses')
+const Users = require('../users/model.users')
+const chalk = require('chalk')
 
 // These are the tables for all Poll related data: Poll, 
 // pollOptions, votes
@@ -29,6 +30,7 @@ const Votes = sequelize.define('votes', {
 
 //Relationships
 Polls.belongsTo(Houses)
+Polls.belongsTo(Users)
 Polls.hasMany(Poll_Options)
 Poll_Options.belongsTo(Polls)
 Votes.belongsTo(Poll_Options)
