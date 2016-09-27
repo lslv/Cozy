@@ -13,7 +13,8 @@ class Poll extends Component {
 		this.state = {
 			pollResultsView: false,
 			open: false,
-			choice: 0
+			choice: 0,
+			isLoading: false
 		}
 		this.handleCollapsible = this.handleCollapsible.bind(this)
 		this.setChoice = this.setChoice.bind(this)
@@ -65,6 +66,7 @@ class Poll extends Component {
 	voteOnPoll(e) {
 		e.preventDefault()
 		e.stopPropagation()
+		this.setState({ isLoading: true })
 		const { vote } = this.props
 		vote(this.state.choice)
 	}
@@ -76,17 +78,18 @@ class Poll extends Component {
 	render() {
 
 		const poll = this.props.data
+		const isLoading = this.state.isLoading
 
 		return (
-			<Panel
+		<Panel
       	bsStyle='primary'
         header={poll.question}
         collapsible
         expanded={this.state.open}
         onClick={this.handleCollapsible}>
         {this.pollView()}
-         <Button bsStyle='success' type='submit' onClick={this.voteOnPoll}>
-		Submit <i className='fa fa-check-circle' aria-hidden='true'></i>
+         <Button bsStyle='success' type='submit' onClick={!isLoading ? this.voteOnPoll : null} disabled={isLoading}>
+		{isLoading ? 'Thanks!' : 'Submit'} <i className='fa fa-check-circle' aria-hidden='true'></i>
 		</Button>
 			<Button bsStyle='info' type='submit' onClick={this.toggleResultsView}>
 				See Results
