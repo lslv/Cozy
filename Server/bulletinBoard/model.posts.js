@@ -38,13 +38,6 @@ Posts.belongsTo(Users
 // })
 // Posts.hasMany(Posts, {as:child_post})
 
-Posts.sync().then(function () {
-  // Table created
-  console.log(chalk.green('+++line43 model.posts table successfully created'))
-}).catch(function (err) {
-  console.error('There was an error in model.users', err)
-})
-
 // This is the table for votes on posts
 
 const Post_Votes = sequelize.define('post_votes', {
@@ -66,11 +59,23 @@ Post_Votes.belongsTo(Posts,
     foreignKey: 'Posts'
   })
 
+Posts.sync().then(function () {
+  // Table created
+  console.log(chalk.green('+++line43 model.posts table successfully created'))
+}).catch(function (err) {
+  console.error('There was an error in model.users', err)
+})
+
 Post_Votes.sync().then(function () {
   // Table created
   console.log(chalk.green('+++line79 model.post_Votes table successfully created'))
 }).catch(function (err) {
   console.error('There was an error in model.users', err)
 })
+
+//Uncomment to drop tables
+// Posts.sync({force:true})
+// Post_Votes.sync({force:true})
+
 
 module.exports = {Posts: Posts, Post_Votes: Post_Votes}

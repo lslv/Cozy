@@ -2,20 +2,22 @@ import axios from 'axios'
 export const ADD_POLL = 'ADD_POLL'
 export const DELETE_POLL = 'DELETE_POLL'
 export const GET_POLLS = 'GET_POLLS'
-export const VOTE = 'VOTE'
 
 
 export function addPoll(pollData) {
 
 	// get house id from session storage
+	const user_id = sessionStorage.getItem('id')
+	const house_id = sessionStorage.getItem('house_id') || null
+
 
 	const pollOptions = pollData.options.map(item => item.option)
 
 	const request = axios.post('/api/bulletinBoard/addPoll', {
 		question: pollData.question,
 		options: pollOptions,
-		//******House ID set to 1 for test purposes
-		houseId: 1
+		userId: user_id,
+		houseId: house_id
 	})
 	return {
 		type: ADD_POLL,
@@ -25,12 +27,11 @@ export function addPoll(pollData) {
 
 export function getPolls() {
 
-	//get house id frim
+	const house_id = sessionStorage.getItem('house_id')
 
-	//testing: get poll where question = 'how are you?'
 	const request = axios.get('/api/bulletinBoard/getPolls', {
 		params: {
-			houseId: 1
+			houseId: house_id
 		}
 		
 	})
@@ -42,28 +43,14 @@ export function getPolls() {
 
 }
 
-export function vote(choice) {
-	console.log('choice', choice)
-	const request = axios.post('/api/bulletinBoard/vote', {
-			pollOptionId: choice
-	})
-
-	return {
-		type: VOTE,
-		payload: choice
-	}
-}
-
 export function deletePoll(poll) {
+	console.log('poll', poll)
 
-	//testing: get poll where question = 'how are you?'
-	const request = axios.delete('/api/bulletinBoard/getPolls', {
+	const request = axios.delete('/api/bulletinBoard/deletePoll', {
 		params: {
 			id: poll.id
 		}
-		
 	})
-
 	return {
 		type: DELETE_POLL,
 		payload: poll
