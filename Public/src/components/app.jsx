@@ -10,6 +10,7 @@ import Logout from './Logout'
 import HouseSelect from './HouseSelect'
 import CreateHouse from './CreateHouse'
 import JoinHouse from './JoinHouse'
+import Profile from './Profile'
 
 export default class App extends Component {
 	render () {
@@ -23,10 +24,8 @@ export default class App extends Component {
         <Route path='/signup' component={Signup} />
         <Route path='/login' component={Login} />
         <Route path='/logout' component={Logout} />
-        <Route path='/house_select' component={HouseSelect} />
-				<Route path='/create_house' component={CreateHouse} />
-				<Route path='/join_house' component={JoinHouse} />
-			</Router>
+        <Route path='/profile' component={Profile} />
+      </Router>
     )
 	}
 }
