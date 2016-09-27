@@ -15,7 +15,7 @@ class Chore extends Component {
 	}
 
 	componentWillMount(){
-		this.props.getQueue(this.props.chore.id)
+		this.props.getQueue(this.props.chore.id) //refactor this code so that it grabs all chores associated with a house
 	}
 
 

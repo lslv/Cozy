@@ -4,17 +4,17 @@ const controller = require('./controller.chores.js')
 
 router.post('/postChore', (req, res)=>{
 	console.log('adding chore controller')
-  	controller.postChore(req,res)
+	controller.postChore(req,res)
 })
 
 router.get('/getChores', (req, res)=>{
 	console.log('getting chores controller')
-  	controller.getChores(req,res)
+	controller.getChores(req,res)
 })
 
 router.delete('/deleteChore', (req, res)=>{
 	console.log('delete chores controller')
-  	controller.deleteChore(req,res)
+	controller.deleteChore(req,res)
 })
 
 router.get('/getQueue', (req, res)=>{
@@ -22,9 +22,14 @@ router.get('/getQueue', (req, res)=>{
 	controller.getQueue(req,res)
 })
 
+router.get('/getQueues', (req, res)=>{
+	console.log('get queues controller')
+	controller.getQueue(req,res)
+})
+
 router.put('/updateChoreTurn', (req, res)=>{
 	console.log('getting chores update turn controller')
-  	controller.updateChoreTurn(req,res)
+	controller.updateChoreTurn(req,res)
 })
 
 

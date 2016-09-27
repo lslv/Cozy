@@ -30,9 +30,9 @@ Chores.belongsTo(Houses)
 
 Chores.sync().then(function () {
   // Table created
-  console.log(chalk.yellow('+++line32 model.chores table successfully created'))
+	console.log(chalk.yellow('+++line32 model.chores table successfully created'))
 }).catch(function(err){
-  console.error(chalk.red('There was an error in model.chores'), err)
+	console.error(chalk.red('There was an error in model.chores'), err)
 })
 
 // This is the Chore Days
@@ -97,6 +97,8 @@ const Queues = sequelize.define('queues', {
 Queues.belongsTo(Users) //changed column
 
 Queues.belongsTo(Chores) //changed column
+
+Queues.belongsTo(Houses) //changed column
 
 Queues.sync().then(function () {
   // Table created
