@@ -3,38 +3,24 @@ const sequelize = require('../config/database')
 const Users = require('../users/model.users')
 const chalk = require('chalk')
 
-console.log('=====')
-console.log('=====')
-console.log('=====')
-console.log('=====')
-console.log(Users)
-console.log('=====')
-console.log('=====')
-console.log('=====')
-console.log('======')
-
 const User_Ratings = sequelize.define('user_ratings',{
+	reviewed_by: {
+		type: Sequelize.INTEGER,
+		notNull: true
+	},
 	star: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER,
+		notNull: true
 	},
 	review: {
 		type: Sequelize.TEXT,
 		notNull: true
 	}
-	// reviewer_user_name: {
-	// 	type: Sequelize.STRING(50),
-	// 	references: {
-	// 		model: Users,
-	// 		key: 'user_name'
-	// 	}
-	// }
 },{
 	timestamps: true,
 	underscore: true,
 	deletedAt: false
 })
-
-// User_Ratings(belongs)
 
 
 User_Ratings.sync().then(function () {
