@@ -55,10 +55,10 @@ const Users = sequelize.define('users', {
 	}
 )
 
-Slush_Fund_Payments.belongsTo(Houses, {
-  as: 'house_id',
-  foreignKey: 'houses'
-})
+// Slush_Fund_Payments.belongsTo(Houses, {
+//   as: 'house_id',
+//   foreignKey: 'houses'
+// })
 
 Users.belongsTo(Houses)
 

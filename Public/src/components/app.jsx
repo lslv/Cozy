@@ -7,6 +7,7 @@ import ChoreList from '../containers/ChoreList'
 import Signup from './Signup'
 import Login from './Login'
 import Logout from './Logout'
+import Profile from './Profile'
 
 export default class App extends Component {
   render () {
@@ -20,6 +21,7 @@ export default class App extends Component {
         <Route path='/signup' component={Signup} />
         <Route path='/login' component={Login} />
         <Route path='/logout' component={Logout} />
+        <Route path='/profile' component={Profile} />
       </Router>
     )
   }

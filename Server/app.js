@@ -10,6 +10,7 @@ let Post_Tables = require('./bulletinBoard/model.posts.js')
 let Poll_Tables = require('./bulletinBoard/model.polls.js')
 let Chore_Tables = require('./chores/model.chores.js')
 let Bill_Tables = require('./billing/model.billing.js')
+//let Rating_Tables = require('./ratings/model.ratings.js')
 
 app.use('/', routesMain)
 

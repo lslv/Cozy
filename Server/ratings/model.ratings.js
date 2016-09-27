@@ -4,22 +4,22 @@ let Users = require('../users/model.users.js')
 let chalk = require('chalk')
 
 const User_Ratings = sequelize.define('user_ratings',{
-  star: {
-    type: Sequelize.INTEGER,
-  },
-  review: {
-    type: Sequelize.TEXT,
-    notNull: true
-  }
+	star: {
+		type: Sequelize.INTEGER,
+	},
+	review: {
+		type: Sequelize.TEXT,
+		notNull: true
+	}
 },{
-  timestamps: true,
-  underscore: true,
-  deletedAt: false
+	timestamps: true,
+	underscore: true,
+	deletedAt: false
 })
 
 User_Ratings.belongsTo(Users,{
-  as:'reviewer_user_id',
-  foreignKey: 'users'
+	as:'reviewer_user_id',
+	foreignKey: 'users'
 })
 
 // User_Ratings.sync().then(function () {
