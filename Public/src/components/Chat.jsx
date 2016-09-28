@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
 
+const socket = io()
 
 export default class Chat extends Component {
 	constructor(props) {
@@ -16,6 +17,7 @@ export default class Chat extends Component {
 	}
 
 	render() {
+		console.log('socket', socket)
 		return (
 		<div className='chat-container'>
 		<form className='chat-input'>
