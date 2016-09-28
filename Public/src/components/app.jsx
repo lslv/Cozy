@@ -11,6 +11,7 @@ import HouseSelect from './HouseSelect'
 import CreateHouse from './CreateHouse'
 import JoinHouse from './JoinHouse'
 import Profile from './Profile'
+import Calendar from '../containers/Calendar'
 
 export default class App extends Component {
 	render () {
@@ -21,6 +22,7 @@ export default class App extends Component {
         <Route path='/bulletin_board' component={BulletinBoard} />
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/chorelist' component={ChoreList} />
+        <Route path='/calendar' component={Calendar} />
         <Route path='/signup' component={Signup} />
         <Route path='/login' component={Login} />
         <Route path='/logout' component={Logout} />
