@@ -56,7 +56,28 @@ export default class Queue extends Component{
 			nodes:{
 				shape:'dot',
 				size:20
+			},
+			interaction:{
+			// 	dragNodes:false,
+			// 	dragView: false,
+			// 	hideEdgesOnDrag: false,
+			// 	hideNodesOnDrag: false,
+			// 	hover: false,
+			// 	hoverConnectedEdges: false,
+			// 	keyboard: {
+			// 		enabled: false,
+			// 		speed: {x: 10, y: 10, zoom: 0.02},
+			// 		bindToWindow: false
+			// 	},
+			// 	multiselect: false,
+			// 	navigationButtons: false,
+			// 	selectable: false,
+			// 	selectConnectedEdges: false,
+			// 	tooltipDelay: 300,
+				zoomView: false
 			}
+			//in order to set interactions to false
+
 		}
 
     // initialize your network!
@@ -81,17 +102,29 @@ export default class Queue extends Component{
           
 	}
 
+	shouldComponentUpdate(nextProps, nextState) {
+		// console.log('***********')
+		// console.log(nextProps)
+		// console.log(nextState)
+		return true
+	}
+
 	render(){
 
 		if(this.state.network){
 			var nodeIdList=this.state.nodes.map((node)=> node.id )
 			console.log('center the queue network')
 			this.state.network.fit({nodes:nodeIdList})
+
 		}
 		console.log('parent panel state: ',this.props.open)
 		if(this.props.open){
 			this.state.onceForceUpdate()
 		}
+		// else{
+		// 	this.setState({onceForceUpdate:_.once(this.forceUpdate.bind(this)), once:'twice' })
+		// 	this.setState({once:'once'})
+		// }
 		return <div className="network" id={`mynetwork${this.props.chore.id}`}></div>
 	}
 
