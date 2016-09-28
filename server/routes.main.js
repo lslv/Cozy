@@ -10,6 +10,7 @@ const billing = require('./billing/routes.billing')
 const bulletinBoard = require('./bulletinBoard/routes.bulletinBoard')
 const chores = require('./chores/routes.chores')
 const users = require('./users/routes.users')
+const ratings = require('./ratings/routes.ratings')
 
 // middleware
 router.use(morgan('combined'))
@@ -28,6 +29,7 @@ router.use('/api/billing', billing)
 router.use('/api/bulletinBoard', bulletinBoard)
 router.use('/api/chores', chores)
 router.use('/api/users', users)
+router.use('/api/ratings',ratings)
 
 router.use((req, res, next) => {
 	res.status(404).send('Sorry that does not exist')

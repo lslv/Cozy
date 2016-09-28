@@ -6,33 +6,33 @@ let chalk = require('chalk')
 
 // This is the chore Table itself
 const Chores = sequelize.define('chores', {
-  chore_name: {
-    type: Sequelize.STRING(50),
-    allowNull: false
-  },
-  day:{
-    type: Sequelize.STRING(20)
-  },
-  user_turn: {
-    type: Sequelize.INTEGER
-  },
-  num_of_users:{
-    type: Sequelize.INTEGER
-  },
+	chore_name: {
+		type: Sequelize.STRING(50),
+		allowNull: false
+	},
+	day:{
+		type: Sequelize.STRING(20)
+	},
+	user_turn: {
+		type: Sequelize.INTEGER
+	},
+	num_of_users:{
+		type: Sequelize.INTEGER
+	},
 },
-  {
-    timestamps: true,
-    underscored: true,
-    paranoid: true
-  })
+	{
+		timestamps: true,
+		underscored: true,
+		paranoid: true
+	})
 
 Chores.belongsTo(Houses)
 
 Chores.sync().then(function () {
   // Table created
-  console.log(chalk.yellow('+++line32 model.chores table successfully created'))
+	console.log(chalk.white('+++line32 model.chores table successfully created'))
 }).catch(function(err){
-  console.error(chalk.red('There was an error in model.chores'), err)
+	console.error(chalk.white('There was an error in model.chores'), err)
 })
 
 // This is the Chore Days
@@ -41,46 +41,46 @@ Chores.sync().then(function () {
 
 const Chore_Days = sequelize.define('chore_days', {
   // Days will be inputed as "monday, tuesday, wednesday, thursday, friday, saturday, sunday"
-  day: {
-    type: Sequelize.STRING(10),
-    unique: true,
-    notNull: true
-  }
+	day: {
+		type: Sequelize.STRING(10),
+		unique: true,
+		notNull: true
+	}
 })
 
 Chore_Days.belongsTo(Chores)
 
 Chore_Days.sync().then(function () {
   // Table created
-  console.log(chalk.yellow('+++line53 model.Chore_Days table successfully created'))
+	console.log(chalk.white('+++line53 model.Chore_Days table successfully created'))
 }).catch(function(err){
-  console.error(chalk.red('There was an error in model.chores.Chore_Days'), err)
+	console.error(chalk.white('There was an error in model.chores.Chore_Days'), err)
 })
 
 // This table keeps track of whether a chore is completed by a user
 const Chore_Completions = sequelize.define('chore_completions', {
-  verified: {
-    type: Sequelize.BOOLEAN
-  },
-  completed: {
-    type: Sequelize.BOOLEAN
-  }
+	verified: {
+		type: Sequelize.BOOLEAN
+	},
+	completed: {
+		type: Sequelize.BOOLEAN
+	}
 },
-  {
-    timestamps: true,
-    createdAt: 'created_at',
-    updatedAt: false,
-    deletedAt: false
-  })
+	{
+		timestamps: true,
+		createdAt: 'created_at',
+		updatedAt: false,
+		deletedAt: false
+	})
 
 Chore_Completions.belongsTo(Chores, {
-  as: 'chore_id',
-  foreignKey: 'Chores'
+	as: 'chore_id',
+	foreignKey: 'Chores'
 })
 
 Chore_Completions.belongsTo(Users, {
-  as: 'user_id',
-  foreignKey: 'Users'
+	as: 'user_id',
+	foreignKey: 'Users'
 })
 
 //DO NOT DELETE THIS. THIS ALLOWS FOR THE CHORE_COMPLETIONS TABLE TO BE CREATED.CHORE_COMPLETIONS IS USED FOR GAMIFYING OUR APP
@@ -94,10 +94,10 @@ Chore_Completions.belongsTo(Users, {
 // This Table is the queues the order of user turns
 
 const Queues = sequelize.define('queues', {
-  turn: {
-    type: Sequelize.INTEGER
+	turn: {
+		type: Sequelize.INTEGER
   // allowNull: false
-  }
+	}
 })
 
 Queues.belongsTo(Users) //changed column
@@ -106,9 +106,9 @@ Queues.belongsTo(Chores) //changed column
 
 Queues.sync().then(function () {
   // Table created
-  console.log(chalk.yellow('+++line104 model.chores.queues table successfully created'))
+	console.log(chalk.white('+++line104 model.chores.queues table successfully created'))
 }).catch(function(err){
-  console.error(chalk.red('There was an error in model.chores.queues'), err)
+	console.error(chalk.white('There was an error in model.chores.queues'), err)
 })
 
 module.exports = {Chores: Chores, Chore_Days: Chore_Days, Chore_Completions: Chore_Completions, Queues: Queues}
