@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
+import ReactDOM from 'react-dom'
 
 const socket = io()
 const user = sessionStorage.getItem('username') || 'anonymous'
+
 
 export default class Chat extends Component {
 	constructor(props) {
@@ -11,12 +13,15 @@ export default class Chat extends Component {
 		this.state = { 
 			message: '', 
 			messageList: [],
-			user: ''
+			user: '',
+			isTyping: false,
+			userTyping: ''
 		}
 
 		this.OnInputChange = this.OnInputChange.bind(this)
 		this.sendMessage = this.sendMessage.bind(this)
 		this.displayMessages = this.displayMessages.bind(this)
+		this.typingTimeout = this.typingTimeout.bind(this)
 
 		socket.on('message', (message) => {
 			this.setState({ messageList: [...this.state.messageList, message] })
@@ -27,8 +32,15 @@ export default class Chat extends Component {
 			setTimeout(() => {
 				this.setState({ user: ''})
 			}, 3000)
-
 		})
+
+		socket.on('isTyping', (user) => {
+			this.setState({ userTyping: user})
+		})
+	}
+
+	componentDidMount() {
+		ReactDOM.findDOMNode(this.refs.chatbar).focus();
 	}
 
 	displayMessages() {
@@ -39,9 +51,22 @@ export default class Chat extends Component {
 		})
 	}
 
-	OnInputChange(e) {
-		//emit that the user is typing here 
+	typingTimeout () {
+		console.log('in typingTimeout')
+		setTimeout(() => {
+				this.setState({ isTyping: false})
+			}, 2000)
+	}
 
+	OnInputChange(e) {
+
+		socket.emit('isTyping', user)
+
+		//emit that the user is typing here
+		if(!this.state.isTyping) {
+			this.setState({ isTyping: true })
+		} 
+		this.typingTimeout()
 
 		this.setState({ message: e.target.value })
 	}
@@ -58,8 +83,10 @@ export default class Chat extends Component {
 		{/*This appears on a timeout when user connects to chat*/}
 		<p>{this.state.user}</p>
 		<ul id='chat-messages'>{this.displayMessages()}</ul>
+		{this.state.isTyping ? `${this.state.userTyping} is typing`: ''}
 		<form className='chat-input' onSubmit={this.sendMessage}>
 			<input type='text'
+			ref='chatbar'
 			className='chat-bar form-control'
 			value={this.state.message}
 			onChange={this.OnInputChange} 

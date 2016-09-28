@@ -8,6 +8,14 @@ module.exports = (io) => {
 		socket.on('message', (message) => {
 			io.emit('message', message)
 		})
+
+		socket.on('isTyping', (user) => {
+			io.emit('isTyping', user)
+		})
+
+
+
+
 	})
 
 
