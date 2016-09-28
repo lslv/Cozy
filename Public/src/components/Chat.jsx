@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
 
 const socket = io()
+const user = sessionStorage.getItem('username') || 'anonymous'
 
 export default class Chat extends Component {
 	constructor(props) {
@@ -9,7 +10,8 @@ export default class Chat extends Component {
 
 		this.state = { 
 			message: '', 
-			messageList: []
+			messageList: [],
+			user: ''
 		}
 
 		this.OnInputChange = this.OnInputChange.bind(this)
@@ -19,10 +21,17 @@ export default class Chat extends Component {
 		socket.on('message', (message) => {
 			this.setState({ messageList: [...this.state.messageList, message] })
 		})
+
+		socket.on('userEntered', () => {
+			this.setState({ user: `${user} has entered the room` })
+			setTimeout(() => {
+				this.setState({ user: ''})
+			}, 3000)
+
+		})
 	}
 
 	displayMessages() {
-		const user = sessionStorage.getItem('username') || 'anonymous'
 		return this.state.messageList.map((message) => {
 			return (
 				<li key={message} className='message'>{user}: {message}</li>
@@ -31,6 +40,9 @@ export default class Chat extends Component {
 	}
 
 	OnInputChange(e) {
+		//emit that the user is typing here 
+
+
 		this.setState({ message: e.target.value })
 	}
 
@@ -43,6 +55,8 @@ export default class Chat extends Component {
 	render() {
 		return (
 		<div className='chat-container'>
+		{/*This appears on a timeout when user connects to chat*/}
+		<p>{this.state.user}</p>
 		<ul id='chat-messages'>{this.displayMessages()}</ul>
 		<form className='chat-input' onSubmit={this.sendMessage}>
 			<input type='text'
