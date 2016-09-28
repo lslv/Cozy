@@ -17,15 +17,15 @@ export default class Chat extends Component {
 		this.displayMessages = this.displayMessages.bind(this)
 
 		socket.on('message', (message) => {
-			console.log('message on client', message)
 			this.setState({ messageList: [...this.state.messageList, message] })
 		})
 	}
 
 	displayMessages() {
+		const user = sessionStorage.getItem('username') || 'anonymous'
 		return this.state.messageList.map((message) => {
 			return (
-				<li>{message}</li>
+				<li key={message} className='message'>{user}: {message}</li>
 			)
 		})
 	}

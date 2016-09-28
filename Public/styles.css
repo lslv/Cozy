@@ -19,3 +19,8 @@
 	bottom: 0;
 	width: 100%;
 }
+
+.message {
+	list-style: none;
+	padding: 5px;
+}

@@ -4,7 +4,6 @@ module.exports = (io) => {
 		console.log('connected')
 
 		socket.on('message', (message) => {
-			console.log('message on server', message)
 			io.emit('message', message)
 		})
 	})
