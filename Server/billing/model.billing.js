@@ -35,9 +35,9 @@ Bills.belongsTo(Houses)
 
 Bills.sync().then(function () {
   // Table created
-	console.log(chalk.cyan('+++line37 model.bills table successfully created'))
+	console.log(chalk.white('+++line37 model.bills table successfully created'))
 }).catch(function (err) {
-	console.error(chalk.cyan('+++line39 There was an error in model.bills'), err)
+	console.error(chalk.white('+++line39 There was an error in model.bills'), err)
 })
 
 //This is the Slush_Fund_Payments Table
@@ -68,9 +68,9 @@ Slush_Fund_Payments.belongsTo(Users, {
 
 Slush_Fund_Payments.sync().then(function () {
   // Table created
-	console.log(chalk.cyan('+++line72 model.slush_fund_payments table successfully created'))
+	console.log(chalk.white('+++line72 model.slush_fund_payments table successfully created'))
 }).catch(function (err) {
-	console.error(chalk.cyan('+++line74 There was an error in model.slush_fund_payments'), err)
+	console.error(chalk.white('+++line74 There was an error in model.slush_fund_payments'), err)
 })
 
 module.exports = {Bills: Bills, Slush_Fund_Payments: Slush_Fund_Payments}
