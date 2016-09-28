@@ -7,6 +7,7 @@ import ChoreList from '../containers/ChoreList'
 import Signup from './Signup'
 import Login from './Login'
 import Logout from './Logout'
+import Chat from './Chat'
 import HouseSelect from './HouseSelect'
 import CreateHouse from './CreateHouse'
 import JoinHouse from './JoinHouse'
@@ -25,6 +26,7 @@ export default class App extends Component {
         <Route path='/login' component={Login} />
         <Route path='/logout' component={Logout} />
         <Route path='/profile' component={Profile} />
+        <Route path='/chat' component={Chat} />
       </Router>
     )
 	}

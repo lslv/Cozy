@@ -1,5 +1,21 @@
-        .network {
-            width: 600px;
-            height: 400px;
-            border: 1px solid lightgray;
-        }
+.network {
+    width: 600px;
+    height: 400px;
+    border: 1px solid lightgray;
+}
+
+.chat-container {
+	position: relative;
+	border: 1px solid black;
+	margin: auto;
+	width: 50%;
+	height: 30em;
+}
+
+.chat-input {
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	bottom: 0;
+	width: 100%;
+}

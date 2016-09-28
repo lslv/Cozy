@@ -17,6 +17,10 @@ export default class Dashboard extends Component {
           <Link to='/chorelist'> Go to the chore list board
           </Link>
         </button>
+        <button>
+          <Link to='/chat'> Go to the chat room
+          </Link>
+        </button>
       </div>
     )
   }
