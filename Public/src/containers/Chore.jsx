@@ -15,7 +15,7 @@ class Chore extends Component {
 	}
 
 	componentWillMount(){
-		this.props.getQueue(this.props.chore.id)
+		this.props.getQueue(this.props.chore.id) //refactor this code so that it grabs all chores associated with a house
 	}
 
 
@@ -50,8 +50,10 @@ class Chore extends Component {
 		const {queues} = this.props
 		const {chore} = this.props
 		const {users}= this.props
+		var openState=this.state.open
+		console.log('open state about to be passed in ',openState)
 		if(Object.keys(queues).length && queues[this.props.chore.id]){
-			return <Queue chore={chore} queues={queues} users={users}/>
+			return <Queue chore={chore} queues={queues} users={users} open={openState}/>
 		}
 	}
 
@@ -67,7 +69,8 @@ class Chore extends Component {
 				header={chore.chore_name}
 				collapsible
 				expanded={this.state.open}
-				onClick={()=>this.setState({open: true})}>
+				onClick={()=>this.setState({open: !this.state.open})}
+				>
 					<h3>{chore.chore_name}</h3>
 					<h6>{chore.day}</h6>
 					{this.renderQueue()}
@@ -88,6 +91,8 @@ class Chore extends Component {
 			)
 	}
 }
+// expanded={this.state.open}
+// onClick={()=>this.setState({open: true})}
 function mapStateToProps(state){
 	return {queues:state.queues, users:state.users}
 }

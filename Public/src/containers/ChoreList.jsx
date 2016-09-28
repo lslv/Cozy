@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {getChores } from '../actions/actions_chores'
+import { connect} from 'react-redux'
+import { getChores } from '../actions/actions_chores'
 import { getUsers } from '../actions/actions_users'
 import {bindActionCreators} from 'redux'
 import AddChore from './AddChore'
 import Chore from './Chore'
-import {Accordion, Panel, Button, Collapse, Well} from 'react-bootstrap'
+import { Accordion, Panel, Button, Collapse, Well } from 'react-bootstrap'
 
 class ChoreList extends Component {
 	constructor(props){

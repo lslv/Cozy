@@ -21,7 +21,8 @@ module.exports = {
 		queuePosts.push({
 			turn:turnNum,
 			userId: user.dataValues.id,
-			choreId: createdPost.dataValues.id
+			choreId: createdPost.dataValues.id,
+			houseId: req.body.house_id
 		})
 		turnNum++
 	})
@@ -36,7 +37,8 @@ module.exports = {
 	db.Queues.create({
 		turn:0,
 		userId:user.dataValues.id,
-		choreId: createdPost.dataValues.id
+		choreId: createdPost.dataValues.id,
+		houseId: req.body.house_id
 	})
   .then(()=>{
 	res.status(200).send(createdPost)
@@ -82,6 +84,17 @@ module.exports = {
 	getQueue: (req, res) => {
 		console.log('getQueue query', req.query)
 		db.Queues.findAll({where: {choreId:req.query.choreId}})
+    .then((queues)=>{
+	res.status(200).json(queues)
+})
+    .catch((err)=>{
+	res.status(404).send(err)
+})
+
+	},
+	getQueues: (req, res) => {
+		console.log('getQueues query', req.query)
+		db.Queues.findAll({where: {choreId:req.query.houseId}})
     .then((queues)=>{
 	res.status(200).json(queues)
 })
