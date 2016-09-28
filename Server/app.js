@@ -26,4 +26,3 @@ server.listen(port, () => {
 	console.log(chalk.cyan(`<Cozy> is listening on ${port}`))
 })
 
-module.exports = { io: io }
