@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
 import {deleteChore, updateChoreTurn } from '../actions/actions_chores'
 import { getQueue } from '../actions/actions_queues'

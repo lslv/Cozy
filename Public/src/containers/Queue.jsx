@@ -28,10 +28,10 @@ export default class Queue extends Component{
 
 		for(var i=0;i < queueInOrder.length;i++){
 			if(i < queueInOrder.length-1){
-				edges.push({from:queueInOrder[i].userId, to:queueInOrder[i+1].userId, arrows:'from'})
+				edges.push({to:queueInOrder[i].userId, from:queueInOrder[i+1].userId, arrows:'from'})
 			}
 			else
-                edges.push({from:queueInOrder[i].userId, to:queueInOrder[0].userId, arrows:'from'})
+                edges.push({to:queueInOrder[i].userId, from:queueInOrder[0].userId, arrows:'from'})
 		}
 		this.setState({edges})
 		var edges = new vis.DataSet(edges)
@@ -56,25 +56,24 @@ export default class Queue extends Component{
 				size:20
 			},
 			interaction:{
-			// 	dragNodes:false,
-			// 	dragView: false,
-			// 	hideEdgesOnDrag: false,
-			// 	hideNodesOnDrag: false,
-			// 	hover: false,
-			// 	hoverConnectedEdges: false,
-			// 	keyboard: {
-			// 		enabled: false,
-			// 		speed: {x: 10, y: 10, zoom: 0.02},
-			// 		bindToWindow: false
-			// 	},
-			// 	multiselect: false,
-			// 	navigationButtons: false,
-			// 	selectable: false,
-			// 	selectConnectedEdges: false,
-			// 	tooltipDelay: 300,
+				// dragNodes:false,
+				// dragView: false,
+				// hideEdgesOnDrag: false,
+				// hideNodesOnDrag: false,
+				// hover: false,
+				// hoverConnectedEdges: false,
+				// keyboard: {
+				// 	enabled: false,
+				// 	speed: {x: 10, y: 10, zoom: 0.02},
+				// 	bindToWindow: false
+				// },
+				// multiselect: false,
+				// navigationButtons: false,
+				// selectable: false,
+				// selectConnectedEdges: false,
+				// tooltipDelay: 300,
 				zoomView: false
 			}
-			//in order to set interactions to false
 
 		}
 
@@ -98,7 +97,7 @@ export default class Queue extends Component{
 		if(this.props.open){
 			this.props.onceForceUpdate()
 		}
-		return <div className="network" id={`mynetwork${this.props.chore.id}`}></div>
+		return <div onClick={(event)=>event.stopPropagation()} className="network" id={`mynetwork${this.props.chore.id}`}></div>
 	}
 
 }
