@@ -72,7 +72,7 @@ export default class Chat extends Component {
 	render() {
 		return (
 		<div className='chat-container'>
-		<div className='chat-room-list'></div>	
+		<ChatRoomList />
 			<div className='chat'>
 			{/*This appears on a timeout when user connects to chat*/}
 			<p>{this.state.user}</p>
