@@ -67,7 +67,6 @@ class Chore extends Component {
 	clickHandler(){
 		console.log('clickHandler')
 		if(this.state.open){
-			console.log('unmounting Node')
 			this.setState({onceForceUpdate:_.once(this.forceUpdate.bind(this))})
 		}
 		this.setState({open: !this.state.open})
