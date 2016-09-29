@@ -1,17 +1,21 @@
 import React, {Component} from 'react'
+import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
 import {deleteChore, updateChoreTurn } from '../actions/actions_chores'
 import { getQueue } from '../actions/actions_queues'
 import {bindActionCreators} from 'redux'
 import {Button, Panel} from 'react-bootstrap'
 import Queue from './Queue'
+import $ from 'jquery'
 
 class Chore extends Component {
 	constructor(props){
 		super(props)
 		this.state={
-			open:false
+			open:false,
+			onceForceUpdate:_.once(this.forceUpdate.bind(this))
 		}
+		this.clickHandler=this.clickHandler.bind(this)
 	}
 
 	componentWillMount(){
@@ -50,16 +54,24 @@ class Chore extends Component {
 		const {queues} = this.props
 		const {chore} = this.props
 		const {users}= this.props
-		var openState=this.state.open
-		console.log('open state about to be passed in ',openState)
+		console.log('open state about to be passed in ',this.state.open)
 		if(Object.keys(queues).length && queues[this.props.chore.id]){
-			return <Queue chore={chore} queues={queues} users={users} open={openState}/>
+			return <Queue onClick={event => event.stopPropagation() } chore={chore} queues={queues} users={users} open={this.state.open} onceForceUpdate={this.state.onceForceUpdate}/>
 		}
 	}
 
 	handleVerify(event){
 		event.stopPropagation()
 		this.props.updateChoreTurn(this.props.chore.id)
+	}
+
+	clickHandler(){
+		console.log('clickHandler')
+		if(this.state.open){
+			console.log('unmounting Node')
+			this.setState({onceForceUpdate:_.once(this.forceUpdate.bind(this))})
+		}
+		this.setState({open: !this.state.open})
 	}
 
 	render(){
@@ -69,7 +81,7 @@ class Chore extends Component {
 				header={chore.chore_name}
 				collapsible
 				expanded={this.state.open}
-				onClick={()=>this.setState({open: !this.state.open})}
+				onClick={this.clickHandler}
 				>
 					<h3>{chore.chore_name}</h3>
 					<h6>{chore.day}</h6>
@@ -91,8 +103,7 @@ class Chore extends Component {
 			)
 	}
 }
-// expanded={this.state.open}
-// onClick={()=>this.setState({open: true})}
+
 function mapStateToProps(state){
 	return {queues:state.queues, users:state.users}
 }

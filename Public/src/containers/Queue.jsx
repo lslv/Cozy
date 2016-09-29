@@ -5,9 +5,7 @@ import _ from 'lodash'
 export default class Queue extends Component{
 	constructor(props){
 		super(props)
-		// console.log('queue props in queue component',this.props.queues)
 		this.state={
-			onceForceUpdate:_.once(this.forceUpdate.bind(this))
 		}
 	}
 	componentDidMount() {
@@ -82,31 +80,10 @@ export default class Queue extends Component{
 
     // initialize your network!
 		var network = new vis.Network(container, data, options)
-		// var nodeIdList=nodes.map((node)=> node.id )
-		// console.log(nodeIdList)
-		// network.fit({nodes:nodeIdList})
-		// network.redraw()
-		// network.moveTo({position:{x:-50,y:+50}})
-		// console.log(network.fit)
-		
-		// this.setState({network:network}, ()=>{
-		// 	console.log('network state saved')
-		// 	this.setState({stuff:'stuff'},()=>{
-		// 		console.log('trigger rerender')
-		// 		var nodeIdList=this.state.nodes.map((node)=> node.id )
-		// 		this.state.network.fit({nodes:nodeIdList})
-		// 	})
-		// })
+
 		this.setState({network:network})
 
           
-	}
-
-	shouldComponentUpdate(nextProps, nextState) {
-		// console.log('***********')
-		// console.log(nextProps)
-		// console.log(nextState)
-		return true
 	}
 
 	render(){
@@ -119,12 +96,8 @@ export default class Queue extends Component{
 		}
 		console.log('parent panel state: ',this.props.open)
 		if(this.props.open){
-			this.state.onceForceUpdate()
+			this.props.onceForceUpdate()
 		}
-		// else{
-		// 	this.setState({onceForceUpdate:_.once(this.forceUpdate.bind(this)), once:'twice' })
-		// 	this.setState({once:'once'})
-		// }
 		return <div className="network" id={`mynetwork${this.props.chore.id}`}></div>
 	}
 
