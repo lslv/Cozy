@@ -12,8 +12,6 @@ const chores = require('./chores/routes.chores')
 const users = require('./users/routes.users')
 const houses = require('./houses/routes.houses.js')
 const chat = require('./chat/routes.chat.js')
-console.log('chat in routes', chat)
-console.log('houses in routes', houses)
 
 // middleware
 router.use(morgan('combined'))

@@ -5,7 +5,6 @@ const chalk = require('chalk')
 
 
 router.post('/createRoom', (req, res)=> {
-	console.log('in create room routes')
   	controller.createRoom(req,res)
 })
 
