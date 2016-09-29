@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { getUsers } from '../actions/actions_users'
+import { createRoom } from '../actions/actions_chats'
 
 class ChatRoomList extends Component {
 	constructor(props) {
@@ -20,6 +21,7 @@ class ChatRoomList extends Component {
 		this.hideModal = this.hideModal.bind(this)
 		this.handleInput = this.handleInput.bind(this)
 		this.addToChat = this.addToChat.bind(this)
+		this.createRoom = this.createRoom.bind(this)
 	}
 
 	componentWillMount() {
@@ -50,20 +52,24 @@ class ChatRoomList extends Component {
 
 	addToChat(user) {
 		let userList = this.state.userList
-		let updatedUserList	
 		for(let i = 0; i < userList.length; i++) {
 			if(userList[i].id == user.id) {
 				userList.splice(i,1)
 				break
 			}
 		}
-		updatedUserList = userList
+		let updatedUserList = userList
 		this.setState({ 
 			chatMembersList: [...this.state.chatMembersList, user],
 			userList: updatedUserList
 		})
-		console.log('userList', this.state.userList)
-		console.log('chatMembersList', this.state.chatMembersList)
+	}
+
+	createRoom() {
+		console.log('in createRoom')
+		const name = this.state.roomName
+		const list = this.state.chatMembersList
+		this.props.createRoom(name, list)
 	}
 
 	renderUsers(role) {
@@ -93,6 +99,7 @@ class ChatRoomList extends Component {
 	}
 
 	render() {
+		console.log('this props', this.props)
 		return (
 		<div className='chat-room-list'>
 			<Button bsStyle='info' onClick={this.showModal}>Create a chat: 
@@ -109,36 +116,38 @@ class ChatRoomList extends Component {
 			show={this.state.showCreateRoomModal}
 			onHide={this.hideModal}
 			aria-labelledby='contained-modal-title-sm'>
-			<Modal.Header closeButton>
-				<Modal.Title id='contained-modal-title-sm'>
-				Create a room
-				</Modal.Title>
+				<Modal.Header closeButton>
+					<Modal.Title id='contained-modal-title-sm'>
+					Create a room
+					</Modal.Title>
+				</Modal.Header>
+				<form onSubmit={this.createRoom}>
 				<Modal.Body>
-				<form>
-				<input className='form-control'
-				value={this.state.roomName}
-				onChange={this.handleInput}
-				placeholder='Room Name'
-				/>
-				</form>
-				<hr width='50%' />
-				<div className='friendsList'>
-					<h5>Invite friends</h5>
-					<ul>
-					{this.renderUsers('invite')}
-					</ul>
-					<h5>Invited friends</h5>
-					<ul>
-					{this.renderUsers('invited')}
-					</ul>
-				</div>
+					<input className='form-control'
+					value={this.state.roomName}
+					onChange={this.handleInput}
+					placeholder='Room Name'
+					/>
+					<hr width='50%' />
+					<div className='friendsList'>
+						<h5>Invite friends</h5>
+						<ul>
+						{this.renderUsers('invite')}
+						</ul>
+						<h5>Invited friends</h5>
+						<ul>
+						{this.renderUsers('invited')}
+						</ul>
+					</div>
 				</Modal.Body>
-			</Modal.Header>
-			<Modal.Footer>
-			<Button bsStyle='info' onClick={this.showModal}>
-			Make chat  
-			</Button>
-			</Modal.Footer>
+				<Modal.Footer>
+					<Button bsStyle='info' 
+					type='submit'
+					onClick={this.hideModal}>
+					Make chat  
+					</Button>
+				</Modal.Footer>
+				</form>
 		    </Modal>
 		</div>
 
@@ -148,9 +157,9 @@ class ChatRoomList extends Component {
 
 }
 
-function mapStateToProps({users}) {
-	return { users }
+function mapStateToProps({users, chats}) {
+	return { users, chats }
 }
 
 
-export default connect(mapStateToProps, {getUsers})(ChatRoomList)
+export default connect(mapStateToProps, {getUsers, createRoom})(ChatRoomList)

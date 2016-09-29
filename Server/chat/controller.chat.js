@@ -16,7 +16,10 @@ module.exports = {
 				})
 			}))
 		})
-		.then(chatRoom => res.status(201).json(chatRoom))
+		.then(chatRoom => res.status(201).json({
+			room_name: req.body.room_name,
+			chatRoom: chatRoom
+		}))
 		.catch(error => res.status(404).send(error))
 	}
 

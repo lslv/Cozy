@@ -5,6 +5,7 @@ import VotesReducer from './reducer_votes'
 import ChoreReducer from './reducer_chores'
 import QueueReducer from './reducer_queues'
 import UserReducer from './reducer_users'
+import ChatReducer from './reducer_chats'
 import {reducer as formReducer} from 'redux-form'
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   queues: QueueReducer,
   users: UserReducer,
   votes: VotesReducer,
+  chats: ChatReducer,
   form: formReducer
 })
 

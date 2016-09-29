@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../config/database')
 const Users = require('../users/model.users')
+const Houses = require('../houses/model.houses')
 const chalk = require('chalk')
 
 const Room_Names = sequelize.define('Room_Names', {
