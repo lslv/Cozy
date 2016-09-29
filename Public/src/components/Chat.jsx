@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
 import ReactDOM from 'react-dom'
+import ChatRoomList from '../containers/ChatRoomList'
 
 const socket = io()
 const user = sessionStorage.getItem('username') || 'anonymous'
@@ -14,8 +15,7 @@ export default class Chat extends Component {
 			message: '', 
 			messageList: [],
 			user: '',
-			isTyping: false,
-			userTyping: ''
+			isTyping: false
 		}
 
 		this.OnInputChange = this.OnInputChange.bind(this)
@@ -34,9 +34,6 @@ export default class Chat extends Component {
 			}, 3000)
 		})
 
-		socket.on('isTyping', (user) => {
-			this.setState({ userTyping: user})
-		})
 	}
 
 	componentDidMount() {
@@ -52,17 +49,12 @@ export default class Chat extends Component {
 	}
 
 	typingTimeout () {
-		console.log('in typingTimeout')
 		setTimeout(() => {
 				this.setState({ isTyping: false})
 			}, 2000)
 	}
 
 	OnInputChange(e) {
-
-		socket.emit('isTyping', user)
-
-		//emit that the user is typing here
 		if(!this.state.isTyping) {
 			this.setState({ isTyping: true })
 		} 
@@ -80,21 +72,24 @@ export default class Chat extends Component {
 	render() {
 		return (
 		<div className='chat-container'>
-		{/*This appears on a timeout when user connects to chat*/}
-		<p>{this.state.user}</p>
-		<ul id='chat-messages'>{this.displayMessages()}</ul>
-		{this.state.isTyping ? `${this.state.userTyping} is typing`: ''}
-		<form className='chat-input' onSubmit={this.sendMessage}>
-			<input type='text'
-			ref='chatbar'
-			className='chat-bar form-control'
-			value={this.state.message}
-			onChange={this.OnInputChange} 
-			/>
-			<Button type='submit' bsStyle='info'>
-			<i className='fa fa-paper-plane' aria-hidden='true'></i>
-			</Button>
-		</form>
+		<div className='chat-room-list'></div>	
+			<div className='chat'>
+			{/*This appears on a timeout when user connects to chat*/}
+			<p>{this.state.user}</p>
+			<ul id='chat-messages'>{this.displayMessages()}</ul>
+			<p className='isTyping'>{this.state.isTyping ? `${user} is typing`: ''}</p>
+			<form className='chat-input' onSubmit={this.sendMessage}>
+				<input type='text'
+				ref='chatbar'
+				className='chat-bar form-control'
+				value={this.state.message}
+				onChange={this.OnInputChange}
+				/>
+				<Button type='submit' bsStyle='info'>
+				<i className='fa fa-paper-plane' aria-hidden='true'></i>
+				</Button>
+			</form>
+			</div>
 		</div>
 		)
 	}

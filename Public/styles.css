@@ -5,11 +5,22 @@
 }
 
 .chat-container {
+	display: flex;
+	flex-direction: row;
+	margin-left: 5%;
+}
+
+.chat {
 	position: relative;
 	border: 1px solid black;
-	margin: auto;
-	width: 50%;
+	width: 60%;
 	height: 30em;
+}
+
+.chat-room-list {
+	border: 1px solid black;
+	height: 30em;
+	width: 20%;
 }
 
 .chat-input {
@@ -20,7 +31,13 @@
 	width: 100%;
 }
 
+
 .message {
 	list-style: none;
 	padding: 5px;
+}
+
+.isTyping {
+	display: flex;
+	vertical-align: bottom;
 }
