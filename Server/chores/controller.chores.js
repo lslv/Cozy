@@ -1,5 +1,28 @@
 const db = require('../chores/model.chores')
 const Users = require('../users/model.users')
+const schedule =require('node-schedule')
+
+//wrap this whole thing in a cron job so it executes at the beginning of every week
+var rule = new schedule.RecurrenceRule()
+rule.day=0
+// rule.minute=43
+var weeklyCronUpdate= schedule.scheduleJob(rule, function(){
+	db.Chores.findAll()
+	.then(chores=>{
+		chores.forEach(chore=>{
+			console.log('updating chore #', chore.id)
+			var newTurn= chore.user_turn +1
+			if(newTurn <  chore.num_of_users)
+				chore.update({user_turn: newTurn})
+			else
+				chore.update({user_turn: 0})
+		})
+	})
+	
+})
+
+
+
 
 module.exports = {
 	postChore: (req, res) => {
@@ -45,7 +68,45 @@ module.exports = {
 })
 })
 	}
-	// res.status(200).send(createdPost)
+	// creat cron job related to each chore here, make a call to updateCHore Turn
+	// console.log(req.body.day)
+	// var weekDayNum=0
+	// switch(req.body.day){
+	// case 'monday':
+	// 	weekDayNum=1
+	// 	break
+	// case 'tuesday':
+	// 	weekDayNum=2
+	// 	break
+	// case 'wednesday':
+	// 	weekDayNum=3
+	// 	break
+	// case 'thursday':
+	// 	weekDayNum=4
+	// 	break
+	// case 'friday':
+	// 	weekDayNum=5
+	// 	break
+	// case 'saturday':
+	// 	weekDayNum=6
+	// 	break
+	// case 'sunday':
+	// 	weekDayNum=7
+	// 	break
+
+	// }
+	// var choreCronJob= schedule.scheduleJob('* * * * * *', function(){
+		
+	// })
+
+	// setTimeout(function(){
+	// 	console.log('cancelling that cron job')
+	// 	choreCronJob.cancel()
+	// }, 5000, choreCronJob)
+
+
+
+
 })
     .catch((err) => {
 	res.status(404).send(err)
