@@ -9,7 +9,6 @@ export default class Queue extends Component{
 		}
 	}
 	componentDidMount() {
-		console.log('after component did mount')
 		const {queues} = this.props
 		const {chore} = this.props
 		const {users}= this.props 
@@ -89,11 +88,8 @@ export default class Queue extends Component{
 
 		if(this.state.network){
 			var nodeIdList=this.state.nodes.map((node)=> node.id )
-			console.log('center the queue network')
 			this.state.network.fit({nodes:nodeIdList})
-
 		}
-		console.log('parent panel state: ',this.props.open)
 		if(this.props.open){
 			this.props.onceForceUpdate()
 		}

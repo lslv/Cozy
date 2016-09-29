@@ -109,12 +109,12 @@ module.exports = {
 			where: { id: req.body.id }
 		})
     .then((choreToBeUpdated) => {
-      //might need to add the number of users in a house
-	var newTurn= choreToBeUpdated.user_turn + 1
-	if(newTurn < choreToBeUpdated.num_of_users)
+      //now it becomes the user for the previos week, might be a good place to make google notifcation on calendar
+	var newTurn= choreToBeUpdated.user_turn -1
+	if(newTurn >= 0)
 		return choreToBeUpdated.update({user_turn: newTurn})
 	else
-        return choreToBeUpdated.update({user_turn: 0})
+        return choreToBeUpdated.update({user_turn: choreToBeUpdated.num_of_users-1})
 
 })
     .then((updatedChore) => {

@@ -53,19 +53,17 @@ class Chore extends Component {
 		const {queues} = this.props
 		const {chore} = this.props
 		const {users}= this.props
-		console.log('open state about to be passed in ',this.state.open)
 		if(Object.keys(queues).length && queues[this.props.chore.id]){
 			return <Queue onClick={event => event.stopPropagation() } chore={chore} queues={queues} users={users} open={this.state.open} onceForceUpdate={this.state.onceForceUpdate}/>
 		}
 	}
 
-	handleVerify(event){
+	handleUnverify(event){
 		event.stopPropagation()
 		this.props.updateChoreTurn(this.props.chore.id)
 	}
 
 	clickHandler(){
-		console.log('clickHandler')
 		if(this.state.open){
 			this.setState({onceForceUpdate:_.once(this.forceUpdate.bind(this))})
 		}
@@ -94,8 +92,8 @@ class Chore extends Component {
 					</Button>
 					<Button
 					bsStyle="info"
-					onClick={(event) => this.handleVerify(event)}>
-					Verify Chore
+					onClick={(event) => this.handleUnverify(event)}>
+					Un-Verify Chore (Assigned User Did Not Complete Chore)
 					</Button>
 				</Panel>
 			)
