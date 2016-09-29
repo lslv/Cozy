@@ -3,15 +3,11 @@ const sequelize = require('../config/database')
 const Users = require('../users/model.users')
 const chalk = require('chalk')
 
-const Rooms = sequelize.define('Rooms', {
+const Room_Names = sequelize.define('Room_Names', {
 	room_name: {
 		type: Sequelize.STRING(20),
 		notNUll: true
 	}
-
-
-
-
 }, {
 	timestamps: false,
 	underscored: true
@@ -24,10 +20,10 @@ const ChatRooms = sequelize.define('chatRooms', {
 	underscored: true
 })
 
-Rooms.belongsToMany(Users, { through: ChatRooms })
-Users.belongsToMany(Rooms, { through: ChatRooms })
+Room_Names.belongsToMany(Users, { through: ChatRooms })
+Users.belongsToMany(Room_Names, { through: ChatRooms })
 
-Rooms.sync().then(function () {
+Room_Names.sync().then(function () {
   console.log(chalk.green('+++line26 model.rooms table successfully created'))
 }).catch(function (err) {
   console.error('There was an error in model.users', err)
@@ -40,6 +36,8 @@ ChatRooms.sync().then(function () {
   console.error('There was an error in model.users', err)
 })
 
-// //Uncomment to drop tables
+//Uncomment to drop tables
 // ChatRooms.sync({force:true})
-// Rooms.sync({force:true})
+// Room_Names.sync({force:true})
+
+module.exports = { Room_Names: Room_Names, ChatRooms: ChatRooms }

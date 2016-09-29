@@ -11,7 +11,7 @@ const bulletinBoard = require('./bulletinBoard/routes.bulletinBoard')
 const chores = require('./chores/routes.chores')
 const users = require('./users/routes.users')
 const houses = require('./houses/routes.houses.js')
-const chat = require('./chat/routes.chat.js')
+const chat = require('./chat/routes.chat')
 
 // middleware
 router.use(morgan('combined'))
