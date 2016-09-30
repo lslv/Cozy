@@ -14,6 +14,10 @@ router.post('/login', (req, res) => {
 //
 // })
 
+router.post('/addHouseId', (req, res) => {
+	controller.addHouseId(req, res)
+})
+
 router.get('/userById', (req, res) => {
 	controller.userById(req, res)
 })
