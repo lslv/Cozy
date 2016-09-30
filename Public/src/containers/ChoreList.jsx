@@ -89,34 +89,34 @@ class ChoreList extends Component {
        * appropriate message is printed.
        */
 	listUpcomingEvents() {
-		console.log('listUpcomingEvents')
-		var request = gapi.client.calendar.events.list({
-			'calendarId': 'primary',
-			'timeMin': (new Date()).toISOString(),
-			'showDeleted': false,
-			'singleEvents': true,
-			'maxResults': 10,
-			'orderBy': 'startTime'
-		})
+		// console.log('listUpcomingEvents')
+		// var request = gapi.client.calendar.events.list({
+		// 	'calendarId': 'primary',
+		// 	'timeMin': (new Date()).toISOString(),
+		// 	'showDeleted': false,
+		// 	'singleEvents': true,
+		// 	'maxResults': 10,
+		// 	'orderBy': 'startTime'
+		// })
 
-		request.execute(function(resp) {
-			var events = resp.items
-			this.appendPre('Upcoming events:')
+		// request.execute(function(resp) {
+		// 	var events = resp.items
+		// 	this.appendPre('Upcoming events:')
 
-			if (events.length > 0) {
-				for (var i = 0; i < events.length; i++) {
-					var event = events[i]
-					var when = event.start.dateTime
-					if (!when) {
-						when = event.start.date
-					}
-					this.appendPre(event.summary + ' (' + when + ')')
-				}
-			} else {
-				this.appendPre('No upcoming events found.')
-			}
+		// 	if (events.length > 0) {
+		// 		for (var i = 0; i < events.length; i++) {
+		// 			var event = events[i]
+		// 			var when = event.start.dateTime
+		// 			if (!when) {
+		// 				when = event.start.date
+		// 			}
+		// 			this.appendPre(event.summary + ' (' + when + ')')
+		// 		}
+		// 	} else {
+		// 		this.appendPre('No upcoming events found.')
+		// 	}
 
-		}.bind(this) )
+		// }.bind(this) )
 	}
 
 	createNewCalendar(){
@@ -154,11 +154,31 @@ class ChoreList extends Component {
 								'recurrence':['RRULE:FREQ=WEEKLY']}
 			})
 			request.execute(function(response){
-				console.log(response)
+				//console.log(response)
 			})
 
 		})
 
+		this.inviteHouseMates(newCal)
+
+
+	}
+
+	inviteHouseMates(newCal){
+		//right now just invite your other email address instead of dynamically grabbing the email address from the users in the database
+		let request = gapi.client.calendar.acl.insert({
+				'calendarId': newCal.id,
+				'resource':  {	
+								'role':'reader',
+								'scope':{
+									'type':'user',
+									'value':'lsfisher@usc.edu'
+								}}
+			})
+		request.execute(function(response){
+			console.log('response from access control')
+			console.log(response)
+		})
 	}
 
 
@@ -195,7 +215,7 @@ class ChoreList extends Component {
 		        <Button id="authorize-button" onClick={ event=>this.handleMakeCalendarClick(event)}>
 		          Make The Chores Calendar
 		        </Button>
-				<pre id="output"></pre>
+				
 				<Accordion>
 					<Panel>
 						<AddChore />
@@ -206,6 +226,7 @@ class ChoreList extends Component {
 			)
 	}
 }
+// <pre id="output"></pre>
 // <button id="authorize-button" onClick={this.handleAuthClick(event)}>
 
 function mapStateToProps(state){
