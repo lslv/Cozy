@@ -50,5 +50,21 @@ module.exports = {
 		})
     .then(user => res.status(200).json(user[0]))
     .catch(err => res.status(401).send(err))
+	},
+
+	addHouseId: (req, res) => {
+		Users.findOne({
+			where: { id : req.body.user_id },
+		})
+		.then(updateUser => {
+			updateUser.update({
+				house_id: req.body.house_id
+			})
+			res.status(200).json(updateUser[0])
+		})
+    .catch(err => res.status(401).send(err))
+
+		console.log('user: ', req.body.user_id)
+		console.log('house: ', req.body.house_id)
 	}
 }

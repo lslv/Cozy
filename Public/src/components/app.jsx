@@ -9,7 +9,7 @@ import Login from './Login'
 import Logout from './Logout'
 import HouseSelect from './HouseSelect'
 import CreateHouse from './CreateHouse'
-import JoinHouse from './JoinHouse'
+import JoinHouse from '../containers/JoinHouse'
 import Profile from './Profile'
 import Calendar from '../containers/Calendar'
 
