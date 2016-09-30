@@ -93,7 +93,7 @@ class Chore extends Component {
 					<Button
 					bsStyle="info"
 					onClick={(event) => this.handleUnverify(event)}>
-					Un-Verify Chore (Assigned User Did Not Complete Chore)
+					Un-Verify Chore (Assigned User Did Not Complete Chore, should only be for admin)
 					</Button>
 				</Panel>
 			)

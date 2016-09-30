@@ -4,8 +4,11 @@ const schedule =require('node-schedule')
 
 //wrap this whole thing in a cron job so it executes at the beginning of every week
 var rule = new schedule.RecurrenceRule()
-rule.day=0
-// rule.minute=43
+rule.dayOfWeek=0
+// rule.minute=0
+rule.minute=0
+rule.hour=0
+
 var weeklyCronUpdate= schedule.scheduleJob(rule, function(){
 	db.Chores.findAll()
 	.then(chores=>{
