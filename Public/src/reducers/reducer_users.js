@@ -7,7 +7,7 @@ export default function(state={}, action){
 		action.payload.data.forEach(user=>{
 			newState[user.id]=user
 		})
-		return Object.assign({}, state, newState)
+		return {...state, ...newState}
 	default:
 		return state
 	}

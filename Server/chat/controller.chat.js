@@ -1,5 +1,6 @@
 const db = require('../chat/model.chat')
 const Promise = require('bluebird')
+const Users = require('../users/model.users')
 const _ = require('lodash')
 
 module.exports = {
@@ -9,18 +10,19 @@ module.exports = {
 			room_name: req.body.room_name
 		})
 		.then((room) => {
-			return Promise.all(req.body.user_id_list.map((id) => {
+			Promise.all(req.body.user_id_list.map((id) => {
 				return db.ChatRooms.create({
 					//for some reason, double underscore
-					room__name_id: room.dataValues.id,
+					RoomNameId: room.dataValues.id,
 					user_id: id
 				})
 			}))
+			.then(chatRoom => res.status(201).json({
+				id: room.dataValues.id,
+				room_name: req.body.room_name,
+				chatRoom: chatRoom
+			}))
 		})
-		.then(chatRoom => res.status(201).json({
-			room_name: req.body.room_name,
-			chatRoom: chatRoom
-		}))
 		.catch(error => res.status(404).send(error))
 	},
 
@@ -31,22 +33,25 @@ module.exports = {
 			}
 		})
 		.then((roomsCurrentUser) => {
+			console.log('roomsCurrentUser', roomsCurrentUser)
 			var whereConditions=roomsCurrentUser.map(room=>{
 				return {
-					room__name_id:{
-						$eq:room.room__name_id
+					RoomNameId:{
+						$eq:room.RoomNameId
 					}
 				}
 			})
+			console.log('whereConditions', whereConditions)
 			db.ChatRooms.findAll({
 				where:{
 					$or: whereConditions
 				}
 			})
 			.then(result => {
-				const rooms = result.map((obj) => {
+				const rooms = result.map((obj, i) => {
 					return {
-						room_id: obj.dataValues.room__name_id,
+						id: i,
+						room_id: obj.dataValues.RoomNameId,
 						users: []
 					}
 				})
@@ -55,7 +60,7 @@ module.exports = {
 				})
 				for(let obj of uniqueRooms) {
 					for(let o of result) {
-						if(obj.room_id == o.room__name_id) {
+						if(obj.room_id == o.RoomNameId) {
 							obj.users.push(o.user_id)
 						}
 					}
@@ -73,7 +78,6 @@ module.exports = {
 					}
 				})
 				.then(rooms => {
-
 					for(let room of uniqueRooms) {
 						for(let name of rooms) {
 							if(room.room_id == name.id) {
@@ -81,17 +85,11 @@ module.exports = {
 							}
 						}
 					}
- 
-
-
-					res.json({rooms: rooms, uniqueRooms: uniqueRooms})
+					res.status(200).json(uniqueRooms)
 				})
-
-				// res.status(200).json(room_names_list)
 			})
 		})
 		.catch(error => res.status(404).send(error))
-
 
 	}
 

@@ -6,15 +6,7 @@ export default function(state= [], action) {
 			return [...state, action.payload.data]
 		}
 		case GET_USER_ROOMS: {
-			let data = action.payload.data
-			let rooms = []
-
-			for(let i = 0; i < data.length; i++) {
-				for(let j = 0; j < data[i].length; j++) {
-					rooms.push(data[i][j])
-				}
-			}
-			return rooms
+			return action.payload.data
 		}
 	}
 	return state

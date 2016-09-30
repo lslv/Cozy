@@ -38,6 +38,15 @@ class ChatRoomList extends Component {
 		})
 
 		getUserRooms()
+		.then(results => {
+			console.log('users', results)
+			results.payload.data.forEach((roomObject)=>{
+				roomObject.users.forEach(userId=>{
+					console.log(this.state.userList[userId].user_name)
+				})
+			})
+
+		})
 
 	}
 
@@ -97,7 +106,7 @@ class ChatRoomList extends Component {
 	renderChatList() {
 		return this.props.chats.map((chat) => {
 			return (
-			<li key={chat.room_name}>{chat.room_name}</li>
+			<li key={chat.id}>{chat.room_id}</li>
 			)
 		})
 	}
