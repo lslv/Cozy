@@ -8,4 +8,9 @@ router.post('/createRoom', (req, res)=> {
   	controller.createRoom(req,res)
 })
 
+router.get('/getUserRooms', (req, res)=> {
+  	controller.getUserRooms(req,res)
+})
+
+
 module.exports = router

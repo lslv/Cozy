@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { getUsers } from '../actions/actions_users'
-import { createRoom } from '../actions/actions_chats'
+import { createRoom, getUserRooms } from '../actions/actions_chats'
 
 class ChatRoomList extends Component {
 	constructor(props) {
@@ -13,7 +13,6 @@ class ChatRoomList extends Component {
 			roomName: '',
 			userList: [],
 			chatMembersList: []
-
 		}
 
 		this.renderUsers = this.renderUsers.bind(this)
@@ -22,20 +21,24 @@ class ChatRoomList extends Component {
 		this.handleInput = this.handleInput.bind(this)
 		this.addToChat = this.addToChat.bind(this)
 		this.createRoom = this.createRoom.bind(this)
+		this.renderChatList = this.renderChatList.bind(this)
 	}
 
 	componentWillMount() {
+		const { getUsers, getUserRooms} = this.props
 		const house_id = sessionStorage.getItem('house_id')
-		this.props.getUsers(house_id)
+		getUsers(house_id)
 		.then((users) => {
 			let userList = []
 			let data = users.payload.data
 			for(let user in data) {
 				userList.push(data[user])
 			}
-
 			this.setState({ userList })
 		})
+
+		getUserRooms()
+
 	}
 
 	showModal() {
@@ -66,7 +69,6 @@ class ChatRoomList extends Component {
 	}
 
 	createRoom() {
-		console.log('in createRoom')
 		const name = this.state.roomName
 		const list = this.state.chatMembersList
 		this.props.createRoom(name, list)
@@ -74,43 +76,43 @@ class ChatRoomList extends Component {
 
 	renderUsers(role) {
 		const { users } = this.props
-		if(role === 'display') {
-		return Object.keys(users).map((user) => {
-			return (
-			<li key={user}>{users[user].first_name} {users[user].last_name}</li>
-			)
-		})
-		} 
-		else if (role === 'invited') {
-		return this.state.chatMembersList.map((user) => {
-			return (
-			<li key={user.id}>{user.first_name} {user.last_name}</li>
-			)
-		})
-		} else if (role == 'invite') {
+		if (role === 'invited') {
+			return this.state.chatMembersList.map((user) => {
+				return (
+				<li key={user.id}>{user.first_name} {user.last_name}</li>
+				)
+			})
+		}
+		if (role == 'invite') {
 			return this.state.userList.map((user) => {
-			return (
-			<li key={user.id} onClick={() => this.addToChat(user)}>
-			{user.first_name} {user.last_name}
-			</li>
-			)
-		})
+				return (
+				<li key={user.id} onClick={() => this.addToChat(user)}>
+				{user.first_name} {user.last_name}
+				</li>
+				)
+			})
 		}
 	}
 
+	renderChatList() {
+		return this.props.chats.map((chat) => {
+			return (
+			<li key={chat.room_name}>{chat.room_name}</li>
+			)
+		})
+	}
+
 	render() {
-		console.log('this props', this.props)
+		console.log(this.props)
 		return (
 		<div className='chat-room-list'>
 			<Button bsStyle='info' onClick={this.showModal}>Create a chat: 
 			<i className='fa fa-plus-circle' aria-hidden='true'></i> 
 			</Button>
-			<h4>Users in the house</h4>
-			<ul>
-			{this.renderUsers('display')}
-			</ul>
-			
-		 
+			<h5>Chat Rooms</h5>
+			<hr width='50%' />
+		 	{this.renderChatList()}
+
 			<Modal
 			bsSize='small'
 			show={this.state.showCreateRoomModal}
@@ -162,4 +164,4 @@ function mapStateToProps({users, chats}) {
 }
 
 
-export default connect(mapStateToProps, {getUsers, createRoom})(ChatRoomList)
+export default connect(mapStateToProps, {getUsers, createRoom, getUserRooms})(ChatRoomList)
