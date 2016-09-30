@@ -5,8 +5,11 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import ReduxPromise from 'redux-promise'
 import reducers from './reducers'
+import createLogger from 'redux-logger'
 
-const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore)
+const logger = createLogger()
+
+const createStoreWithMiddleware = applyMiddleware(ReduxPromise, logger)(createStore)
 
 ReactDom.render(
   <Provider store={createStoreWithMiddleware(reducers)}>

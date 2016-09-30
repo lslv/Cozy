@@ -67,7 +67,7 @@ class Post extends Component {
 		} else {
 			return (
         <div>
-        <FormGroup 
+        <FormGroup
         validationState={this.editValidation()}>
         <div className='col-xs-4'>
           <FormControl
@@ -136,5 +136,12 @@ class Post extends Component {
 function mapDispatchToProps (dispatch) {
 	return bindActionCreators({deletePost, editPost}, dispatch)
 }
+
+// function mapDispatchToProps (dispatch) {
+// 	return {
+// 		deletePost: (post)=>dispatch(deletePost(post)),
+// 		editPost: (post, updatedMessage)=>dispatch(editPost(post, updatedMessage))
+// 	}
+// }
 
 export default connect(null, mapDispatchToProps)(Post)
