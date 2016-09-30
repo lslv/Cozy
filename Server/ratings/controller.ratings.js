@@ -25,18 +25,14 @@ module.exports = {
 
 	rate_user: (req, res) => {
 
-		let review_on_userId
-		let reviewed_by_userId
-
 //finds the id of ther user being reviewed
 		let firstPromise = Users.findAll({
 			where: {
 				user_name: req.body.review_on
 			}
-		}).then(user => {
-			review_on_userId = user[0].dataValues.id
+		}).then(reviewing_user => {
+			let review_on_userId = reviewing_user[0].dataValues.id
 			console.log( chalk.cyan('+++line 40 controller.rating user: '), review_on_userId)
-			res.send(200)
 		}).catch(err => {
 			console.log(chalk.cyan('+++line 42 there is a problem with reviewed on user: '), err)
 			res.status(400).send(err)
@@ -47,17 +43,17 @@ module.exports = {
 			where: {
 				user_name: req.body.reviewed_by
 			}
-		}).then(user => {
-			reviewed_by_userId = user[0].dataValues.id
+		}).then(reviewed_user => {
+			let reviewed_by_userId = reviewed_user[0].dataValues.id
 			console.log(chalk.cyan('+++line 53 controller.rating reviewed_by_userId: ') , reviewed_by_userId)
 		}).catch(err => {
 			console.log(chalk.cyan('+++line 55 there is a problem with reviewed by user: '), err)
-			// res.status(400).send(err)
+			res.status(400).send(err)
 		})
 
 //posts the review into the table
 		let thirdPromise = rating_tables.User_Ratings.create({
-			reviewed_by: reviewed_by_userId,
+			reviewed_by: reviewing_user[0].dataValues.id,
 			star: req.body.star,
 			review: req.body.review
 		}).then((created_review) => {
@@ -65,7 +61,7 @@ module.exports = {
 			res.send(200)
 		}).catch((err) => {
 			console.log(chalk.cyan('+++line68 there is an error in creating review!'))
-			// res.status(400).send(err)
+			res.status(400).send(err)
 		})
 
 
