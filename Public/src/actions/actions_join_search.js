@@ -21,7 +21,8 @@ export function postHouseId(houseId){
 	const query = '/api/users/addHouseId'
 	const request = axios.post(query, {
 		user_id: sessionStorage.getItem('id'),
-		house_id: houseId
+		house_id: houseId,
+		admin: false
 	})
 
 	return{

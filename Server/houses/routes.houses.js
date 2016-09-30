@@ -6,4 +6,7 @@ router.get('/search', (req, res) => {
 	controller.search(req, res)
 })
 
+router.post('/addHouse', (req, res) => {
+	controller.addHouse(req, res)
+})
 module.exports = router

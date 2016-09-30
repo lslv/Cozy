@@ -58,7 +58,8 @@ module.exports = {
 		})
 		.then(updateUser => {
 			updateUser.update({
-				house_id: req.body.house_id
+				house_id: req.body.house_id,
+				admin: req.body.admin
 			})
 			res.status(200).json(updateUser[0])
 		})

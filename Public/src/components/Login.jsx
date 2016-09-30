@@ -52,6 +52,7 @@ export default class Login extends Component {
 	sessionStorage.setItem('username', response.data.user_name)
 	sessionStorage.setItem('id', response.data.id)
 	sessionStorage.setItem('pay_percentage', response.data.pay_percentage)
+	sessionStorage.setItem('admin', response.data.admin)
 	if(response.data.house_id){
 		sessionStorage.setItem('house_id', response.data.house_id)
 		this.context.router.push('/dashboard')
