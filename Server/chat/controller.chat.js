@@ -50,8 +50,8 @@ module.exports = {
 					$or: whereConditions
 				}
 			})
-			.then(result => {
-				const rooms = result.map((obj, i) => {
+			.then(roomsContainingUser => {
+				const rooms = roomsContainingUser.map((obj, i) => {
 					return {
 						id: i,
 						room: obj.dataValues.RoomNameId,
@@ -62,7 +62,7 @@ module.exports = {
 					return obj.room
 				})
 				for(let obj of uniqueRooms) {
-					for(let o of result) {
+					for(let o of roomsContainingUser) {
 						if(obj.room == o.RoomNameId) {
 							obj.users.push(o.user_id)
 						}
@@ -88,6 +88,7 @@ module.exports = {
 							}
 						}
 					}
+					console.log('rooms in get rooms', uniqueRooms)
 					res.status(200).json(uniqueRooms)
 				})
 			})

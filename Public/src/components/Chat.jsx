@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
 import ReactDOM from 'react-dom'
-import ChatRoomList from '../containers/ChatRoomList'
-
 const socket = io()
 const user = sessionStorage.getItem('username') || 'anonymous'
 
@@ -71,8 +69,6 @@ export default class Chat extends Component {
 
 	render() {
 		return (
-		<div className='chat-container'>
-		<ChatRoomList />
 			<div className='chat'>
 			{/*This appears on a timeout when user connects to chat*/}
 			<p>{this.state.user}</p>
@@ -90,7 +86,6 @@ export default class Chat extends Component {
 				</Button>
 			</form>
 			</div>
-		</div>
 		)
 	}
 }

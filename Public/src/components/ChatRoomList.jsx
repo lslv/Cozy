@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Modal } from 'react-bootstrap'
-import { connect } from 'react-redux'
-import { getUsers } from '../actions/actions_users'
-import { createRoom, getUserRooms } from '../actions/actions_chats'
 
-class ChatRoomList extends Component {
+
+export default class ChatRoomList extends Component {
 	constructor(props) {
 		super(props)
 
@@ -25,9 +23,9 @@ class ChatRoomList extends Component {
 	}
 
 	componentWillMount() {
-		const { getUsers, getUserRooms} = this.props
+		console.log('props', this.props)
 		const house_id = sessionStorage.getItem('house_id')
-		getUsers(house_id)
+		this.props.getUsers(house_id)
 		.then((users) => {
 			let userList = []
 			let data = users.payload.data
@@ -37,14 +35,14 @@ class ChatRoomList extends Component {
 			this.setState({ userList })
 		})
 
-		getUserRooms()
+		this.props.getUserRooms()
 		.then(results => {
 			console.log('users', results)
-			results.payload.data.forEach((roomObject)=>{
-				roomObject.users.forEach(userId=>{
-					// console.log(this.state.userList[userId].user_name)
-				})
-			})
+			// results.payload.data.forEach((roomObject)=>{
+			// 	roomObject.users.forEach(userId=>{
+			// 		// console.log(this.state.userList[userId].user_name)
+			// 	})
+			// })
 
 		})
 
@@ -106,13 +104,12 @@ class ChatRoomList extends Component {
 	renderChatList() {
 		return this.props.chats.map((chat) => {
 			return (
-			<li key={chat.id}>{chat.room_id}</li>
+			<li key={chat.id}>{chat.room}</li>
 			)
 		})
 	}
 
 	render() {
-		console.log(this.props)
 		return (
 		<div className='chat-room-list'>
 			<Button bsStyle='info' onClick={this.showModal}>Create a chat: 
@@ -164,13 +161,4 @@ class ChatRoomList extends Component {
 
 		)
 	}
-
-
 }
-
-function mapStateToProps({users, chats}) {
-	return { users, chats }
-}
-
-
-export default connect(mapStateToProps, {getUsers, createRoom, getUserRooms})(ChatRoomList)
