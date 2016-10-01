@@ -6,7 +6,8 @@ export default function(state = INITIAL_STATE, action) {
 	switch(action.type) {
 		case ADD_CHAT_ROOM: {
 			let temp = {}
-			temp.chatList = [...state.chatList, ...action.payload.data]
+			temp.chatList = [...state.chatList, action.payload.data]
+			console.log('temp', temp)
 			return {...state, ...temp}
 			}
 		case GET_USER_ROOMS: {
@@ -17,7 +18,6 @@ export default function(state = INITIAL_STATE, action) {
 		case UPDATE_ACTIVE_CHAT: {
 			let temp = {}
 			temp.activeChat = action.payload
-			console.log('state', {...state, ...temp})
 			return {...state, ...temp}
 		}
 	}
