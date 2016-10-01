@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 const socket = io()
 const user = sessionStorage.getItem('username') || 'anonymous'
 
@@ -14,13 +15,15 @@ class Chat extends Component {
 			message: '', 
 			messageList: [],
 			userWhoEntered: '',
-			isTyping: false
+			isTyping: false,
+			noActiveChat: true
 		}
 
 		this.OnInputChange = this.OnInputChange.bind(this)
 		this.sendMessage = this.sendMessage.bind(this)
 		this.displayMessages = this.displayMessages.bind(this)
 		this.typingTimeout = this.typingTimeout.bind(this)
+		this.showActiveChatData = this.showActiveChatData.bind(this)
 
 		socket.on('message', (message) => {
 			this.setState({ messageList: [...this.state.messageList, message] })
@@ -58,7 +61,6 @@ class Chat extends Component {
 			this.setState({ isTyping: true })
 		} 
 		this.typingTimeout()
-
 		this.setState({ message: e.target.value })
 	}
 
@@ -68,11 +70,28 @@ class Chat extends Component {
 		this.setState({ message: ''})
 	}
 
+	showActiveChatData() {
+		const { activeChat } = this.props.chats
+		const hasActiveChat = !_.isEmpty(activeChat)
+		if(hasActiveChat) {
+			return (
+			<p>Welcome to {activeChat.room}</p>	
+			)
+		} else {
+			return (
+			<p>Select a chat room</p>
+			)
+		}
+	}
+
 	render() {
 		console.log('chat props', this.props)
+		const { activeChat } = this.props.chats
 		return (
 			<div className='chat'>
-			 <div className='active-chat-data'></div>
+			 <div className='active-chat-data'>
+			 	{this.showActiveChatData()}
+			 </div>
 				<p>{this.state.userWhoEntered}</p>
 				<ul id='chat-messages'>{this.displayMessages()}</ul>
 				<p className='isTyping'>{this.state.isTyping ? `${user} is typing`: ''}</p>
@@ -83,7 +102,7 @@ class Chat extends Component {
 					value={this.state.message}
 					onChange={this.OnInputChange}
 					/>
-					<Button type='submit' bsStyle='info'>
+					<Button type='submit' bsStyle='info' disabled={_.isEmpty(activeChat)}>
 					<i className='fa fa-paper-plane' aria-hidden='true'></i>
 					</Button>
 				</form>
@@ -92,8 +111,8 @@ class Chat extends Component {
 	}
 }
 
-function mapStateToProps({chats}) {
-	return {chats}
+function mapStateToProps({chats, users}) {
+	return {chats, users}
 }
 
 export default connect(mapStateToProps)(Chat)

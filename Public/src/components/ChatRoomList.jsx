@@ -36,16 +36,6 @@ export default class ChatRoomList extends Component {
     this.props.getUserRooms()
   }
 
-  componentDidMount() {
-  	console.log('chat list props', this.props)
-  	// results.payload.data.forEach((roomObject)=>{
-   //      	roomObject.users.forEach(userId=>{
-   //      		console.log(this.state.userList[userId].user_name)
-   //      	})
-   //      })
-
-  }
-
   showModal () {
     this.setState({ showCreateRoomModal: true })
   }
