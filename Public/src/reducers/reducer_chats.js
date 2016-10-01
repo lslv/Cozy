@@ -1,12 +1,23 @@
-import { ADD_CHAT_ROOM, GET_USER_ROOMS } from '../actions/actions_chats'
+import { ADD_CHAT_ROOM, GET_USER_ROOMS, UPDATE_ACTIVE_CHAT } from '../actions/actions_chats'
 
-export default function(state= [], action) {
+const INITIAL_STATE = { chatList: [], activeChat: {} }
+
+export default function(state = INITIAL_STATE, action) {
 	switch(action.type) {
 		case ADD_CHAT_ROOM: {
-			return [...state, action.payload.data]
-		}
+			let temp = {}
+			temp.chatList = [...state.chatList, ...action.payload.data]
+			return {...state, ...temp}
+			}
 		case GET_USER_ROOMS: {
-			return action.payload.data
+			let temp = {}
+			temp.chatList = [...action.payload.data]
+			return {...state, ...temp}
+		}
+		case UPDATE_ACTIVE_CHAT: {
+			let temp = {}
+			temp.activeChat = action.payload
+			return {...state, ...temp}
 		}
 	}
 	return state

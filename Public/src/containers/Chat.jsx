@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
 import ReactDOM from 'react-dom'
+import { connect } from 'react-redux'
 const socket = io()
 const user = sessionStorage.getItem('username') || 'anonymous'
 
 
-export default class Chat extends Component {
+class Chat extends Component {
 	constructor(props) {
 		super(props)
 
 		this.state = { 
 			message: '', 
 			messageList: [],
-			user: '',
+			userWhoEntered: '',
 			isTyping: false
 		}
 
@@ -26,9 +27,9 @@ export default class Chat extends Component {
 		})
 
 		socket.on('userEntered', () => {
-			this.setState({ user: `${user} has entered the room` })
+			this.setState({ userWhoEntered: `${user} has entered the room` })
 			setTimeout(() => {
-				this.setState({ user: ''})
+				this.setState({ userWhoEntered: ''})
 			}, 3000)
 		})
 
@@ -68,24 +69,33 @@ export default class Chat extends Component {
 	}
 
 	render() {
+		console.log('chat props', this.props)
 		return (
 			<div className='chat'>
-			{/*This appears on a timeout when user connects to chat*/}
-			<p>{this.state.user}</p>
-			<ul id='chat-messages'>{this.displayMessages()}</ul>
-			<p className='isTyping'>{this.state.isTyping ? `${user} is typing`: ''}</p>
-			<form className='chat-input' onSubmit={this.sendMessage}>
-				<input type='text'
-				ref='chatbar'
-				className='chat-bar form-control'
-				value={this.state.message}
-				onChange={this.OnInputChange}
-				/>
-				<Button type='submit' bsStyle='info'>
-				<i className='fa fa-paper-plane' aria-hidden='true'></i>
-				</Button>
-			</form>
+			 <div className='active-chat-data'></div>
+				<p>{this.state.userWhoEntered}</p>
+				<ul id='chat-messages'>{this.displayMessages()}</ul>
+				<p className='isTyping'>{this.state.isTyping ? `${user} is typing`: ''}</p>
+				<form className='chat-input' onSubmit={this.sendMessage}>
+					<input type='text'
+					ref='chatbar'
+					className='chat-bar form-control'
+					value={this.state.message}
+					onChange={this.OnInputChange}
+					/>
+					<Button type='submit' bsStyle='info'>
+					<i className='fa fa-paper-plane' aria-hidden='true'></i>
+					</Button>
+				</form>
 			</div>
 		)
 	}
 }
+
+function mapStateToProps({chats}) {
+	return {chats}
+}
+
+export default connect(mapStateToProps)(Chat)
+
+

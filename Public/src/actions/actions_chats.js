@@ -1,6 +1,7 @@
 import axios from 'axios'
 export const ADD_CHAT_ROOM = 'ADD_CHAT_ROOM'
 export const GET_USER_ROOMS = 'GET_USER_ROOMS'
+export const UPDATE_ACTIVE_CHAT = 'UPDATE_ACTIVE_CHAT'
 
 export function createRoom(name, list) {
 	//get ids from list
@@ -31,7 +32,11 @@ export function getUserRooms() {
 		type: GET_USER_ROOMS,
 		payload: request
 	}
+}
 
-
-
+export function updateActiveChat(room) {
+	return {
+		type: UPDATE_ACTIVE_CHAT,
+		payload: room
+	}
 }

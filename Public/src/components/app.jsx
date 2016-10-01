@@ -15,7 +15,6 @@ import Profile from './Profile'
 
 export default class App extends Component {
   render () {
-    console.log('ChatContainer')
     return (
       // Set up routes
       <Router history={hashHistory}>
