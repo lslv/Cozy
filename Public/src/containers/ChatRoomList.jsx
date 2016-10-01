@@ -42,7 +42,7 @@ class ChatRoomList extends Component {
 			console.log('users', results)
 			results.payload.data.forEach((roomObject)=>{
 				roomObject.users.forEach(userId=>{
-					console.log(this.state.userList[userId].user_name)
+					// console.log(this.state.userList[userId].user_name)
 				})
 			})
 

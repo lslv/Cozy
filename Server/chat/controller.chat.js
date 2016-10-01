@@ -12,16 +12,21 @@ module.exports = {
 		.then((room) => {
 			Promise.all(req.body.user_id_list.map((id) => {
 				return db.ChatRooms.create({
-					//for some reason, double underscore
 					RoomNameId: room.dataValues.id,
 					user_id: id
 				})
 			}))
-			.then(chatRoom => res.status(201).json({
+			.then(chatRoom => { 
+				console.log('chatRoom', chatRoom)
+				const user_id_list = _.map(chatRoom, (room) => room.dataValues.user_id)
+
+				res.status(201).json(
+				{
 				id: room.dataValues.id,
-				room_name: req.body.room_name,
-				chatRoom: chatRoom
-			}))
+				room: req.body.room_name,
+				users: user_id_list
+				}
+			)})
 		})
 		.catch(error => res.status(404).send(error))
 	},
@@ -33,7 +38,6 @@ module.exports = {
 			}
 		})
 		.then((roomsCurrentUser) => {
-			console.log('roomsCurrentUser', roomsCurrentUser)
 			var whereConditions=roomsCurrentUser.map(room=>{
 				return {
 					RoomNameId:{
@@ -41,7 +45,6 @@ module.exports = {
 					}
 				}
 			})
-			console.log('whereConditions', whereConditions)
 			db.ChatRooms.findAll({
 				where:{
 					$or: whereConditions
@@ -51,16 +54,16 @@ module.exports = {
 				const rooms = result.map((obj, i) => {
 					return {
 						id: i,
-						room_id: obj.dataValues.RoomNameId,
+						room: obj.dataValues.RoomNameId,
 						users: []
 					}
 				})
 				const uniqueRooms = _.uniqBy(rooms, (obj) => {
-					return obj.room_id
+					return obj.room
 				})
 				for(let obj of uniqueRooms) {
 					for(let o of result) {
-						if(obj.room_id == o.RoomNameId) {
+						if(obj.room == o.RoomNameId) {
 							obj.users.push(o.user_id)
 						}
 					}
@@ -68,7 +71,7 @@ module.exports = {
 				let room_names_list = _.map(uniqueRooms, (room) => { 
 					return {
 						id: {
-							$eq: room.room_id
+							$eq: room.room
 						}
 					}
 				})
@@ -80,8 +83,8 @@ module.exports = {
 				.then(rooms => {
 					for(let room of uniqueRooms) {
 						for(let name of rooms) {
-							if(room.room_id == name.id) {
-								room.room_id = name.room_name
+							if(room.room == name.id) {
+								room.room = name.room_name
 							}
 						}
 					}
