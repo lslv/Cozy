@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { connect} from 'react-redux'
 import { getChores } from '../actions/actions_chores'
 import { getUsers } from '../actions/actions_users'
+import { getQueue } from '../actions/actions_queues'
 import {bindActionCreators} from 'redux'
 import AddChore from './AddChore'
 import Chore from './Chore'
@@ -24,9 +25,24 @@ class ChoreList extends Component {
 
 	}
 	componentWillMount(){
-		this.props.getUsers(1) //need to pass in houseID and also will call upon successful login, also hardcoded in 1 to get the only house in DB
+		this.props.getUsers(1)
+		.then( ()=>{
+			console.log('get users')
+			console.log(this.props.users)
+		})
+	 	//need to pass in houseID and also will call upon successful login, also hardcoded in 1 to get the only house in DB
+		
+
 		this.props.getChores() //eventually need to pass in house ID from local storage
-		this.checkAuth()
+		.then(()=>{
+		// console.log('chores gotten')
+		console.log(this.props.chores)
+		Promise.all(this.props.chores.map((chore)=> this.props.getQueue(chore.id) ))
+		.then((results)=>{
+			console.log(this.props.queues)
+			this.checkAuth()
+			})
+		})
 	}
       
       /**
@@ -49,6 +65,7 @@ class ChoreList extends Component {
        */
 	handleAuthResult(authResult) {
 		console.log('handleAuthResult')
+		console.log(authResult)
 		var authorizeDiv = document.getElementById('authorize-div')
 		if (authResult && !authResult.error) {
           // Hide auth UI, then load client library.
@@ -89,34 +106,34 @@ class ChoreList extends Component {
        * appropriate message is printed.
        */
 	listUpcomingEvents() {
-		// console.log('listUpcomingEvents')
-		// var request = gapi.client.calendar.events.list({
-		// 	'calendarId': 'primary',
-		// 	'timeMin': (new Date()).toISOString(),
-		// 	'showDeleted': false,
-		// 	'singleEvents': true,
-		// 	'maxResults': 10,
-		// 	'orderBy': 'startTime'
-		// })
+		console.log('listUpcomingEvents')
+		var request = gapi.client.calendar.events.list({
+			'calendarId': 'primary',
+			'timeMin': (new Date()).toISOString(),
+			'showDeleted': false,
+			'singleEvents': true,
+			'maxResults': 10,
+			'orderBy': 'startTime'
+		})
 
-		// request.execute(function(resp) {
-		// 	var events = resp.items
-		// 	this.appendPre('Upcoming events:')
+		request.execute(function(resp) {
+			var events = resp.items
+			this.appendPre('Upcoming events:')
 
-		// 	if (events.length > 0) {
-		// 		for (var i = 0; i < events.length; i++) {
-		// 			var event = events[i]
-		// 			var when = event.start.dateTime
-		// 			if (!when) {
-		// 				when = event.start.date
-		// 			}
-		// 			this.appendPre(event.summary + ' (' + when + ')')
-		// 		}
-		// 	} else {
-		// 		this.appendPre('No upcoming events found.')
-		// 	}
+			if (events.length > 0) {
+				for (var i = 0; i < events.length; i++) {
+					var event = events[i]
+					var when = event.start.dateTime
+					if (!when) {
+						when = event.start.date
+					}
+					this.appendPre(event.summary + ' (' + when + ')')
+				}
+			} else {
+				this.appendPre('No upcoming events found.')
+			}
 
-		// }.bind(this) )
+		}.bind(this) )
 	}
 
 	createNewCalendar(){
@@ -134,30 +151,91 @@ class ChoreList extends Component {
 		//RRULE:FREQ=WEEKLY;COUNT=5; recurrence rule
 		const {chores} = this.props 
 		console.log('creating calendar chores')
-		chores.forEach((chore)=>{
-			var choreDate=new Date(moment().day(chore.day))
-			console.log(choreDate)
-			choreDate=(String(choreDate.getFullYear())+'-'+String(choreDate.getMonth()+1)+'-'+String(choreDate.getDate()))
-			console.log(newCal.id)
-			// console.log(`/calendar/v3/calendars/${newCal.id}/events`)
-			//insert attendees field as other users
-			let request = gapi.client.calendar.events.insert({
-				'calendarId': newCal.id,
-				'resource':  {	'end':{
+		// var batchChoreEvents = gapi.client.newBatch()
+
+
+		let events=[]
+		const {queues} = this.props
+		const {chore} = this.props
+		const {users}= this.props
+		events=this.props.chores.map((chore)=>{
+			var choreQueue= queues[chore.id]
+			var queueInOrder=[ ...choreQueue.slice(chore.user_turn), ...choreQueue.slice(0, chore.user_turn) ]
+			// console.log('choreId ', chore.id, 'queueInOrder', queueInOrder)
+			return queueInOrder.map((queuePosition,index)=>{
+				var choreDate=new Date(moment().day(chore.day))
+				// var verifyCount=7*1 // this would be a good way too offset, just have to store how many times verified
+				var verifyCount=0
+				choreDate.setDate(choreDate.getDate()+(7*index)+verifyCount)
+				choreDate=(String(choreDate.getFullYear())+'-'+String(choreDate.getMonth()+1)+'-'+String(choreDate.getDate()))
+				// console.log(choreDate)
+				return   {	'end':{
 								'date':choreDate
 								},
 								'start':{
 									'date':choreDate
 								},
-								'description': 'This is a chore', //add customization later
-								'summary': chore.chore_name,
-								'recurrence':['RRULE:FREQ=WEEKLY']}
+								'description': 'This is a chore for '+users[queuePosition.userId].user_name, 
+								'summary': chore.chore_name+'-'+users[queuePosition.userId].user_name,
+								// 'recurrence':['RRULE:FREQ=WEEKLY']}
+							}
+				// return {
+				// 	'title' :chore.chore_name + ' - ' +users[queuePosition.userId].user_name,
+				// 	'allDay': true,
+				// 	'start' : choreDate,
+				// 	'end'   : choreDate
+				// }
 			})
-			request.execute(function(response){
-				//console.log(response)
-			})
-
 		})
+		events=[].concat.apply([], events)
+
+		events.forEach((chore)=>{
+		// var choreDate=new Date(moment().day(chore.day))
+		// console.log(choreDate)
+		// choreDate=(String(choreDate.getFullYear())+'-'+String(choreDate.getMonth()+1)+'-'+String(choreDate.getDate()))
+		// console.log(newCal.id)
+		// console.log(`/calendar/v3/calendars/${newCal.id}/events`)
+		//insert attendees field as other users
+		console.log(chore)
+		let request = gapi.client.calendar.events.insert({
+			'calendarId': newCal.id,
+			'resource':  chore})
+		request.execute(function(response){
+			console.log(response)
+		})
+
+	})
+
+
+
+
+
+
+
+		// chores.forEach((chore)=>{
+		// 	var choreDate=new Date(moment().day(chore.day))
+		// 	console.log(choreDate)
+		// 	choreDate=(String(choreDate.getFullYear())+'-'+String(choreDate.getMonth()+1)+'-'+String(choreDate.getDate()))
+		// 	console.log(newCal.id)
+		// 	// console.log(`/calendar/v3/calendars/${newCal.id}/events`)
+		// 	//insert attendees field as other users
+		// 	let request = gapi.client.calendar.events.insert({
+		// 		'calendarId': newCal.id,
+		// 		'resource':  {	'end':{
+		// 						'date':choreDate
+		// 						},
+		// 						'start':{
+		// 							'date':choreDate
+		// 						},
+		// 						'description': 'This is a chore', //add customization later
+		// 						'summary': chore.chore_name,
+		// 						// 'recurrence':['RRULE:FREQ=WEEKLY']}
+		// 	})
+		// 	request.execute(function(response){
+		// 		//console.log(response)
+		// 	})
+
+		// })
 
 		this.inviteHouseMates(newCal)
 
@@ -172,7 +250,7 @@ class ChoreList extends Component {
 								'role':'reader',
 								'scope':{
 									'type':'user',
-									'value':'lsfisher@usc.edu'
+									'value':'lsfisher@usc.edu' //hardcoded in a single user
 								}}
 			})
 		request.execute(function(response){
@@ -215,7 +293,7 @@ class ChoreList extends Component {
 		        <Button id="authorize-button" onClick={ event=>this.handleMakeCalendarClick(event)}>
 		          Make The Chores Calendar
 		        </Button>
-				
+				<pre id="output"></pre>
 				<Accordion>
 					<Panel>
 						<AddChore />
@@ -226,15 +304,13 @@ class ChoreList extends Component {
 			)
 	}
 }
-// <pre id="output"></pre>
-// <button id="authorize-button" onClick={this.handleAuthClick(event)}>
 
 function mapStateToProps(state){
-	return {chores:state.chores} //add state infusion there
+	return {chores:state.chores, queues:state.queues, users:state.users} //add state infusion there
 }
 
 function mapDispatchToProps(dispatch){
-	return bindActionCreators({getChores, getUsers}, dispatch)
+	return bindActionCreators({getChores, getUsers, getQueue}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChoreList)

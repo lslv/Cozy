@@ -12,12 +12,12 @@ export function getQueue(choreId){
 		payload: payload
 	}
 }
-export function getQueues(houseId=1){ //hardcoded in houseId 1
-	console.log('grabbing a chore queue')
-	const payload= axios.get('http://localhost:1337/api/chores/getQueues', {
-		params:{houseId}}) //hardcoded in local host
-	return{
-		type: GET_QUEUES,
-		payload: payload
-	}
-}
+// export function getQueues(houseId=1){ //hardcoded in houseId 1
+// 	console.log('grabbing a chore queue')
+// 	const payload= axios.get('http://localhost:1337/api/chores/getQueues', {
+// 		params:{houseId}}) //hardcoded in local host
+// 	return{
+// 		type: GET_QUEUES,
+// 		payload: payload
+// 	}
+// }

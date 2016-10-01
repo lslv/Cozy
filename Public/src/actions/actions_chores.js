@@ -9,7 +9,7 @@ export function addChore (choreData){
 	choreData.chore_adder='lucas' //hardcoded who 
 	choreData.user_turn=0 //hardcoded user with user 0
 	choreData.house_id=1 //hardcoded house Id of 1
-	choreData.num_of_users=4 //hardcoded number of users to be 4, would dynamically grab from house info
+	choreData.num_of_users=8 //hardcoded number of users to be 4, would dynamically grab from house info
 	const payload= axios.post('http://localhost:1337/api/chores/postChore', choreData) //hardcoded in local host
 	return{
 		type: ADD_CHORE,
