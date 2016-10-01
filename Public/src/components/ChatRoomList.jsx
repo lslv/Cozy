@@ -21,19 +21,12 @@ export default class ChatRoomList extends Component {
     this.renderChatList = this.renderChatList.bind(this)
   }
 
-  componentWillMount () {
-    const house_id = sessionStorage.getItem('house_id')
-    this.props.getUsers(house_id)
-      .then((users) => {
+  componentWillReceiveProps () {
         let userList = []
-        let data = users.payload.data
-        for (let user in data) {
-          userList.push(data[user])
+        for (let user in this.props.users) {
+          userList.push(this.props.users[user])
         }
         this.setState({ userList})
-      })
-
-    this.props.getUserRooms()
   }
 
   showModal () {

@@ -12,11 +12,17 @@ class ChatContainer extends Component {
 
 	}
 
+	componentWillMount() {
+		let house_id = sessionStorage.getItem('house_id')
+		this.props.getUsers(house_id)
+		.then(() => this.props.getUserRooms())
+	}
+
 	render() {
 		return (
 		<div className='chat-container'>
 			<ChatRoomList {...this.props} />
-			<Chat />
+			<Chat {...this.props}/>
 		</div>
 		)
 	}

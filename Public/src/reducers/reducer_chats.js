@@ -17,6 +17,7 @@ export default function(state = INITIAL_STATE, action) {
 		case UPDATE_ACTIVE_CHAT: {
 			let temp = {}
 			temp.activeChat = action.payload
+			console.log('state', {...state, ...temp})
 			return {...state, ...temp}
 		}
 	}

@@ -7,7 +7,7 @@ const socket = io()
 const user = sessionStorage.getItem('username') || 'anonymous'
 
 
-class Chat extends Component {
+export default class Chat extends Component {
 	constructor(props) {
 		super(props)
 
@@ -16,7 +16,8 @@ class Chat extends Component {
 			messageList: [],
 			userWhoEntered: '',
 			isTyping: false,
-			noActiveChat: true
+			noActiveChat: true,
+			users: []
 		}
 
 		this.OnInputChange = this.OnInputChange.bind(this)
@@ -24,6 +25,7 @@ class Chat extends Component {
 		this.displayMessages = this.displayMessages.bind(this)
 		this.typingTimeout = this.typingTimeout.bind(this)
 		this.showActiveChatData = this.showActiveChatData.bind(this)
+		this.formatNames = this.formatNames.bind(this)
 
 		socket.on('message', (message) => {
 			this.setState({ messageList: [...this.state.messageList, message] })
@@ -36,6 +38,23 @@ class Chat extends Component {
 			}, 3000)
 		})
 
+	}
+
+	componentWillReceiveProps() {
+		//change the ids of the users to the user names
+		const { activeChat } = this.props.chats
+		const { users } = this.props
+		// console.log('users', users)
+		// console.log('activeChat', activeChat)
+		let usersInChat = []
+
+		if(!_.isEmpty(activeChat)) {
+			activeChat.users.forEach((person, i) => {
+				usersInChat.push(users[person].user_name)
+			})	
+		}
+		// console.log('usersInChat', usersInChat)
+		this.setState({ users: usersInChat })
 	}
 
 	componentDidMount() {
@@ -74,8 +93,9 @@ class Chat extends Component {
 		const { activeChat } = this.props.chats
 		const hasActiveChat = !_.isEmpty(activeChat)
 		if(hasActiveChat) {
-			return (
-			<p>Welcome to {activeChat.room}</p>	
+			let currentUsers = this.formatNames(this.state.users)
+			return (	
+			<p>Welcome to {activeChat.room}, with {currentUsers}</p>	
 			)
 		} else {
 			return (
@@ -84,8 +104,21 @@ class Chat extends Component {
 		}
 	}
 
+	formatNames(names){
+	  	return names.reduce(function(prev, current, index, array){
+	    if (index === 0){
+	      return current;
+	    }
+	    else if (index === array.length - 1){
+	      return prev + ' & ' + current;
+	    } 
+	    else {
+	      return prev + ', ' + current;
+	    }
+	  	}, '');
+ 	}
+
 	render() {
-		console.log('chat props', this.props)
 		const { activeChat } = this.props.chats
 		return (
 			<div className='chat'>
@@ -111,10 +144,6 @@ class Chat extends Component {
 	}
 }
 
-function mapStateToProps({chats, users}) {
-	return {chats, users}
-}
 
-export default connect(mapStateToProps)(Chat)
 
 
