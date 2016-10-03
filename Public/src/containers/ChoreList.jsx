@@ -38,6 +38,8 @@ class ChoreList extends Component {
 	 	})
 	}
 
+
+
 	checkAuth() { // Check if current user has authorized this application.
 		console.log('checkAuth')
 		gapi.auth.authorize(
@@ -55,8 +57,12 @@ class ChoreList extends Component {
 		var makeCalendarButton = document.getElementById('create-button')
 		if (authResult && !authResult.error) {
 			authorizeDiv.style.display = 'none'
-			makeCalendarButton.style.display = 'inline'
-			gapi.client.load('calendar', 'v3', this.listUpcomingChores)
+			if(!this.props.calendar)
+				makeCalendarButton.style.display = 'inline'
+			if(this.props.calendar){
+				makeCalendarButton.style.display = 'none'
+				gapi.client.load('calendar', 'v3', this.listUpcomingChores)
+			}
 		} else {
 			authorizeDiv.style.display = 'inline'
 			makeCalendarButton.style.display = 'none'
@@ -75,11 +81,11 @@ class ChoreList extends Component {
 		console.log('listUpcomingChores')
 		//currently have it set to the wrong calendar, also need to filter to see if the  username is included in the chore title
 		var request = gapi.client.calendar.events.list({
-			'calendarId': 'primary',
+			'calendarId': this.props.calendar,
 			'timeMin': (new Date()).toISOString(),
 			'showDeleted': false,
 			'singleEvents': true,
-			'maxResults': 10,
+			'maxResults': 20,
 			'orderBy': 'startTime'
 		})
 
@@ -89,12 +95,15 @@ class ChoreList extends Component {
 
 			if (events.length > 0) {
 				for (var i = 0; i < events.length; i++) {
-					var event = events[i]
-					var when = event.start.dateTime
-					if (!when) {
-						when = event.start.date
+					// console.log(events[i])
+					if(events[i].summary.includes('lucas')){ //hardcoded in my username
+						var event = events[i]
+						var when = event.start.dateTime
+						if (!when) {
+							when = event.start.date
+						}
+						this.appendPre(event.summary + ' (' + when + ')')
 					}
-					this.appendPre(event.summary + ' (' + when + ')')
 				}
 			} else {
 				this.appendPre('No upcoming events found.')
@@ -102,6 +111,13 @@ class ChoreList extends Component {
 
 		}.bind(this) )
 	}
+
+	appendPre(message) { //Append a pre element to the body containing the given message as its text node.
+		var pre = document.getElementById('output')
+		var textContent = document.createTextNode(message + '\n')
+		pre.appendChild(textContent)
+	}
+
 
 	//functions invovled in making a calendar
 	handleMakeCalendarClick(event){
@@ -188,11 +204,7 @@ class ChoreList extends Component {
 		})
 	}
 
-	appendPre(message) { //Append a pre element to the body containing the given message as its text node.
-		var pre = document.getElementById('output')
-		var textContent = document.createTextNode(message + '\n')
-		pre.appendChild(textContent)
-	}
+
 
 
 

@@ -12,7 +12,10 @@ export default function(state = INITIAL_STATE , action) {
 	case GET_CALENDAR:
 		console.log('getting calendar to redux state')
 		console.log('payload ', action.payload )
-		return state
+		if(typeof action.payload.data === 'object')
+			return action.payload.data.calendar_google_id
+		else
+			return state
 	default:
 		return state
 	}
