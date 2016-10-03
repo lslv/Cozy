@@ -7,6 +7,7 @@ import ChoreList from '../containers/ChoreList'
 import Signup from './Signup'
 import Login from './Login'
 import Logout from './Logout'
+import ChatContainer from '../containers/ChatContainer'
 import HouseSelect from './HouseSelect'
 import CreateHouse from './CreateHouse'
 import JoinHouse from '../containers/JoinHouse'
@@ -14,8 +15,8 @@ import Profile from './Profile'
 import Calendar from '../containers/Calendar'
 
 export default class App extends Component {
-	render () {
-		return (
+  render () {
+    return (
       // Set up routes
       <Router history={hashHistory}>
         <Route path='/' component={Landing} />
@@ -30,6 +31,7 @@ export default class App extends Component {
 				<Route path='/House_select' component={HouseSelect} />
 				<Route path='/Join_house' component={JoinHouse} />
 				<Route path='/create_house' component={CreateHouse} />
+        <Route path='/chat' component={ChatContainer} />
       </Router>
     )
 	}

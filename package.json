@@ -40,6 +40,7 @@
     "redux-logger": "^2.6.1",
     "redux-promise": "^0.5.3",
     "sequelize": "^3.24.3",
+    "socket.io": "^1.4.8",
     "vis": "^4.16.1"
   },
   "devDependencies": {

@@ -1,3 +1,9 @@
+
+li {
+	list-style: none;
+	cursor: pointer;
+}
+
 .network {
     width: 600px;
     height: 400px;
@@ -523,4 +529,48 @@ button.rbc-input::-moz-focus-inner {
 }
 .rbc-time-content > .rbc-day-slot {
   width: 100%;
+
+}
+.chat-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.chat {
+	position: relative;
+	border: 1px solid black;
+	width: 40%;
+	height: 30em;
+}
+
+.active-chat-data {
+	border-bottom: 1px solid black;
+	width: 100%;
+	height: 3em;
+}
+
+.chat-room-list {
+	border: 1px solid black;
+	height: 30em;
+	width: 20%;
+}
+
+.chat-input {
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	bottom: 0;
+	width: 100%;
+}
+
+
+.message {
+	list-style: none;
+	padding: 5px;
+}
+
+.isTyping {
+	display: flex;
+	vertical-align: bottom;
 }
