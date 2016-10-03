@@ -1,5 +1,7 @@
 module.exports = (io) => {
 
+	let currentUsers= {}
+
 	io.on('connection', (socket) => {
 		console.log('connected')
 

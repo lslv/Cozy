@@ -17,7 +17,7 @@ export default class Chat extends Component {
 			userWhoEntered: '',
 			isTyping: false,
 			noActiveChat: true,
-			users: []
+			members: []
 		}
 
 		this.OnInputChange = this.OnInputChange.bind(this)
@@ -44,21 +44,21 @@ export default class Chat extends Component {
 		//change the ids of the users to the user names
 		const { activeChat } = this.props.chats
 		const { users } = this.props
-		// console.log('users', users)
-		// console.log('activeChat', activeChat)
-		let usersInChat = []
-
+		let members = []
 		if(!_.isEmpty(activeChat)) {
 			activeChat.users.forEach((person, i) => {
-				usersInChat.push(users[person].user_name)
+				members.push(users[person].user_name)
 			})	
 		}
-		// console.log('usersInChat', usersInChat)
-		this.setState({ users: usersInChat })
+
+		this.setState({ members })
 	}
 
 	componentDidMount() {
-		ReactDOM.findDOMNode(this.refs.chatbar).focus();
+		const { activeChat } = this.props.chats
+		if(!_.isEmpty(activeChat)) {
+			ReactDOM.findDOMNode(this.refs.chatbar).focus();
+		}
 	}
 
 	displayMessages() {
@@ -93,9 +93,9 @@ export default class Chat extends Component {
 		const { activeChat } = this.props.chats
 		const hasActiveChat = !_.isEmpty(activeChat)
 		if(hasActiveChat) {
-			let currentUsers = this.formatNames(this.state.users)
+			let members = this.formatNames(this.state.members)
 			return (	
-			<p>Welcome to {activeChat.room}, with {currentUsers}</p>	
+			<p>Welcome to {activeChat.room}, with {members}</p>	
 			)
 		} else {
 			return (
@@ -120,27 +120,36 @@ export default class Chat extends Component {
 
 	render() {
 		const { activeChat } = this.props.chats
-		return (
-			<div className='chat'>
-			 <div className='active-chat-data'>
-			 	{this.showActiveChatData()}
-			 </div>
-				<p>{this.state.userWhoEntered}</p>
-				<ul id='chat-messages'>{this.displayMessages()}</ul>
-				<p className='isTyping'>{this.state.isTyping ? `${user} is typing`: ''}</p>
-				<form className='chat-input' onSubmit={this.sendMessage}>
-					<input type='text'
-					ref='chatbar'
-					className='chat-bar form-control'
-					value={this.state.message}
-					onChange={this.OnInputChange}
-					/>
-					<Button type='submit' bsStyle='info' disabled={_.isEmpty(activeChat)}>
-					<i className='fa fa-paper-plane' aria-hidden='true'></i>
-					</Button>
-				</form>
-			</div>
-		)
+
+		if(_.isEmpty(activeChat)) {
+			return (
+				<div className='chat'>
+					<h4>Please select a chat</h4>
+				</div>
+			)
+		} else {
+			return (
+				<div className='chat'>
+				 <div className='active-chat-data'>
+				 	{this.showActiveChatData()}
+				 </div>
+					<p>{this.state.userWhoEntered}</p>
+					<ul id='chat-messages'>{this.displayMessages()}</ul>
+					<p className='isTyping'>{this.state.isTyping ? `${user} is typing`: ''}</p>
+					<form className='chat-input' onSubmit={this.sendMessage}>
+						<input type='text'
+						ref='chatbar'
+						className='chat-bar form-control'
+						value={this.state.message}
+						onChange={this.OnInputChange}
+						/>
+						<Button type='submit' bsStyle='info'>
+						<i className='fa fa-paper-plane' aria-hidden='true'></i>
+						</Button>
+					</form>
+				</div>
+			)
+		}
 	}
 }
 

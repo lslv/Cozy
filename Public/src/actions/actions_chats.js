@@ -35,6 +35,12 @@ export function getUserRooms() {
 }
 
 export function updateActiveChat(room) {
+
+	const socket = io()
+	//Here, emit a join chat with room details
+
+
+
 	return {
 		type: UPDATE_ACTIVE_CHAT,
 		payload: room
