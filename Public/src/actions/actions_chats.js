@@ -35,9 +35,14 @@ export function getUserRooms() {
 }
 
 export function updateActiveChat(room) {
-
+	console.log(' active room', room)
+	const user = sessionStorage.getItem('username')
 	const socket = io()
 	//Here, emit a join chat with room details
+	socket.emit('joinRoom', {
+		room: room,
+		user: user
+	})
 
 
 

@@ -15,6 +15,7 @@ export default class Chat extends Component {
 			message: '', 
 			messageList: [],
 			userWhoEntered: '',
+			userWhoLeft: '',
 			isTyping: false,
 			noActiveChat: true,
 			members: []
@@ -31,10 +32,17 @@ export default class Chat extends Component {
 			this.setState({ messageList: [...this.state.messageList, message] })
 		})
 
-		socket.on('userEntered', () => {
-			this.setState({ userWhoEntered: `${user} has entered the room` })
+		socket.on('userEntered', (req) => {
+			this.setState({ userWhoEntered: `${req.user} has entered the room` })
 			setTimeout(() => {
 				this.setState({ userWhoEntered: ''})
+			}, 3000)
+		})
+
+		socket.on('userLeft', (req) => {
+			this.setState({ userWhoLeft: `${req.user} has left the room` })
+			setTimeout(() => {
+				this.setState({ userWhoLeft: ''})
 			}, 3000)
 		})
 
@@ -62,9 +70,9 @@ export default class Chat extends Component {
 	}
 
 	displayMessages() {
-		return this.state.messageList.map((message) => {
+		return this.state.messageList.map((message, i) => {
 			return (
-				<li key={message} className='message'>{user}: {message}</li>
+				<li key={i} className='message'>{message.user}: {message.text}</li>
 			)
 		})
 	}
@@ -85,7 +93,8 @@ export default class Chat extends Component {
 
 	sendMessage(e) {
 		e.preventDefault()
-		socket.emit('message', this.state.message)
+		const userMessage = { user: user, text: this.state.message }
+		socket.emit('message', userMessage)
 		this.setState({ message: ''})
 	}
 

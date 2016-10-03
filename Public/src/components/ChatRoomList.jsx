@@ -9,7 +9,8 @@ export default class ChatRoomList extends Component {
       showCreateRoomModal: false,
       roomName: '',
       userList: [],
-      chatMembersList: []
+      chatMembersList: [],
+      showLoadingIcon: false
     }
 
     this.renderUsers = this.renderUsers.bind(this)
@@ -21,12 +22,16 @@ export default class ChatRoomList extends Component {
     this.renderChatList = this.renderChatList.bind(this)
   }
 
+  componentWillMount() {
+    this.setState({ showLoadingIcon: true })
+  }
+
   componentWillReceiveProps () {
         let userList = []
         for (let user in this.props.users) {
           userList.push(this.props.users[user])
         }
-        this.setState({ userList})
+        this.setState({ userList, showLoadingIcon: false })
   }
 
   showModal () {
@@ -88,63 +93,69 @@ export default class ChatRoomList extends Component {
 
   renderChatList () {
   	const { updateActiveChat } = this.props
-    return this.props.chats.chatList.map((chat) => {
-      return (
-        <li key={chat.id} onClick={() => updateActiveChat(chat)}>
-          {chat.room}
-        </li>
-      )
-    })
+    if(this.state.showLoadingIcon) {
+      return ( <img src='../../loader.gif' />)
+    } else {
+      return this.props.chats.chatList.map((chat) => {
+        return (
+          <li key={chat.id} onClick={() => updateActiveChat(chat)}>
+            {chat.room}
+          </li>
+        )
+      })  
+    }
   }
 
   render () {
-    return (
-      <div className='chat-room-list'>
-        <Button bsStyle='info' onClick={this.showModal}>
-          Create a chat:
-          <i className='fa fa-plus-circle' aria-hidden='true'></i>
-        </Button>
-        <h5>Chat Rooms</h5>
-        <hr width='50%' />
-        {this.renderChatList()}
-        <Modal
-          bsSize='small'
-          show={this.state.showCreateRoomModal}
-          onHide={this.hideModal}
-          aria-labelledby='contained-modal-title-sm'>
-          <Modal.Header closeButton>
-            <Modal.Title id='contained-modal-title-sm'>
-              Create a room
-            </Modal.Title>
-          </Modal.Header>
-          <form onSubmit={this.createRoom}>
-            <Modal.Body>
-              <input
-                className='form-control'
-                value={this.state.roomName}
-                onChange={this.handleInput}
-                placeholder='Room Name' />
-              <hr width='50%' />
-              <div className='friendsList'>
-                <h5>Invite friends</h5>
-                <ul>
-                  {this.renderUsers('invite')}
-                </ul>
-                <h5>Invited friends</h5>
-                <ul>
-                  {this.renderUsers('invited')}
-                </ul>
-              </div>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button bsStyle='info' type='submit' onClick={this.hideModal}>
-                Make chat
-              </Button>
-            </Modal.Footer>
-          </form>
-        </Modal>
-      </div>
+      return (
+        <div className='chat-room-list'>
+          <Button bsStyle='info' onClick={this.showModal}>
+            Create a chat:
+            <i className='fa fa-plus-circle' aria-hidden='true'></i>
+          </Button>
+          <h5>Chat Rooms</h5>
+          <hr width='50%' />
+          {this.renderChatList()}
 
-    )
+          <Modal
+            bsSize='small'
+            show={this.state.showCreateRoomModal}
+            onHide={this.hideModal}
+            aria-labelledby='contained-modal-title-sm'>
+            <Modal.Header closeButton>
+              <Modal.Title id='contained-modal-title-sm'>
+                Create a room
+              </Modal.Title>
+            </Modal.Header>
+            <form onSubmit={this.createRoom}>
+              <Modal.Body>
+                <input
+                  className='form-control'
+                  value={this.state.roomName}
+                  onChange={this.handleInput}
+                  placeholder='Room Name' />
+                <hr width='50%' />
+                <div className='friendsList'>
+                  <h5>Invite friends</h5>
+                  <ul>
+                    {this.renderUsers('invite')}
+                  </ul>
+                  <h5>Invited friends</h5>
+                  <ul>
+                    {this.renderUsers('invited')}
+                  </ul>
+                </div>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button bsStyle='info' type='submit' onClick={this.hideModal}>
+                  Make chat
+                </Button>
+              </Modal.Footer>
+            </form>
+          </Modal>
+        </div>
+      )
+
+    }
   }
-}
+

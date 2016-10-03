@@ -17,7 +17,6 @@ module.exports = {
 				})
 			}))
 			.then(chatRoom => { 
-				console.log('chatRoom', chatRoom)
 				const user_id_list = _.map(chatRoom, (room) => room.dataValues.user_id)
 
 				res.status(201).json(
@@ -88,7 +87,6 @@ module.exports = {
 							}
 						}
 					}
-					console.log('rooms in get rooms', uniqueRooms)
 					res.status(200).json(uniqueRooms)
 				})
 			})
