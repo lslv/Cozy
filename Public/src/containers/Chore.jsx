@@ -5,7 +5,6 @@ import { getQueue } from '../actions/actions_queues'
 import {bindActionCreators} from 'redux'
 import {Button, Panel} from 'react-bootstrap'
 import Queue from './Queue'
-import $ from 'jquery'
 
 class Chore extends Component {
 	constructor(props){
