@@ -26,6 +26,11 @@ export default class Dashboard extends Component {
           <Link to='/chat'> Go to the chat room
           </Link>
         </button>
+				<br />
+				<button>
+					<Link to='/budget'> Go to Budget
+					</Link>
+				</button>
       </div>
     )
 	}
