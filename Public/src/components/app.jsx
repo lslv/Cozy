@@ -12,6 +12,7 @@ import CreateHouse from './CreateHouse'
 import JoinHouse from '../containers/JoinHouse'
 import Profile from './Profile'
 import Calendar from '../containers/Calendar'
+import Budget from '../containers/Budget'
 
 export default class App extends Component {
 	render () {
@@ -30,6 +31,7 @@ export default class App extends Component {
 				<Route path='/House_select' component={HouseSelect} />
 				<Route path='/Join_house' component={JoinHouse} />
 				<Route path='/create_house' component={CreateHouse} />
+				<Route path='/budget' component={Budget} />
       </Router>
     )
 	}

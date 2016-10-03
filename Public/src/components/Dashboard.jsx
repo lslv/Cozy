@@ -22,6 +22,11 @@ export default class Dashboard extends Component {
           <Link to='/calendar'> Go to the Calendar
           </Link>
         </button>
+				<br />
+				<button>
+          <Link to='/budget'> Go to Budget
+          </Link>
+        </button>
       </div>
     )
 	}
