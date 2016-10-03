@@ -5,8 +5,7 @@ let chalk = require('chalk')
 
 const Calendars = sequelize.define('calendars',{
 	calendar_google_id:{
-		type: Sequelize.STRING(50),
-		allowNull: false
+		type: Sequelize.STRING(100)
 	}
 })
 
@@ -19,4 +18,4 @@ Calendars.sync().then(function () {
 	console.error(chalk.red('There was an error in model.calendars'), err)
 })
 
-module.exports = {Calendars}
+module.exports = Calendars
