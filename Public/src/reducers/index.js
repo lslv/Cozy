@@ -20,13 +20,9 @@ const rootReducer = combineReducers({
 	votes: VotesReducer,
 	form: formReducer,
 	chats: ChatReducer,
-<<<<<<< 915e458c2587e2bbfbe74e44c3397bf94dbedc40
 	calendar: CalendarReducer,
-	houses: HousesReducer
-=======
 	houses: HousesReducer,
 	bills: BillingReducer
->>>>>>> [bug]webpack not loading
 })
 
 export default rootReducer

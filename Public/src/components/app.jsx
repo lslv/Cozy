@@ -16,8 +16,8 @@ import Calendar from '../containers/Calendar'
 import Budget from '../containers/Budget'
 
 export default class App extends Component {
-  render () {
-    return (
+	render () {
+		return (
       // Set up routes
       <Router history={hashHistory}>
         <Route path='/' component={Landing} />
@@ -32,11 +32,8 @@ export default class App extends Component {
 				<Route path='/House_select' component={HouseSelect} />
 				<Route path='/Join_house' component={JoinHouse} />
 				<Route path='/create_house' component={CreateHouse} />
-<<<<<<< c098167bc1bf17192974fb5c6ec3a891968b0c67
         <Route path='/chat' component={ChatContainer} />
-=======
 				<Route path='/budget' component={Budget} />
->>>>>>> [feature]can see house percentage
       </Router>
     )
 	}

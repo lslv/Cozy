@@ -54,7 +54,6 @@ export default class Dashboard extends Component {
 				<br />
 				<button>
           <Link to='/budget'> Go to Budget
-
           </Link>
         </button>
       </div>
