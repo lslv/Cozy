@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 
+const currentUser = sessionStorage.getItem('username') || 'anonymous'
+
 export default class ChatRoomList extends Component {
   constructor (props) {
     super(props)
@@ -29,7 +31,9 @@ export default class ChatRoomList extends Component {
   componentWillReceiveProps () {
         let userList = []
         for (let user in this.props.users) {
-          userList.push(this.props.users[user])
+          if(user.user_name !== currentUser) {
+            userList.push(this.props.users[user])
+          }
         }
         this.setState({ userList, showLoadingIcon: false })
   }
