@@ -6,6 +6,7 @@ import ChoreReducer from './reducer_chores'
 import QueueReducer from './reducer_queues'
 import UserReducer from './reducer_users'
 import HousesReducer from './reducer_join_search'
+import RatingReducer from './reducer_ratings'
 import {reducer as formReducer} from 'redux-form'
 
 const rootReducer = combineReducers({
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
 	users: UserReducer,
 	votes: VotesReducer,
 	form: formReducer,
-	houses: HousesReducer
+	houses: HousesReducer,
+	ratings : RatingReducer
 })
 
 export default rootReducer
