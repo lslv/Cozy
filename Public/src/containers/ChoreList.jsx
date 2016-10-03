@@ -3,7 +3,7 @@ import { connect} from 'react-redux'
 import { getChores } from '../actions/actions_chores'
 import { getUsers } from '../actions/actions_users'
 import { getQueue } from '../actions/actions_queues'
-import { addCalendar } from '../actions/actions_calendars'
+import { addCalendar, getCalendar } from '../actions/actions_calendars'
 import {bindActionCreators} from 'redux'
 import AddChore from './AddChore'
 import Chore from './Chore'
@@ -25,13 +25,14 @@ class ChoreList extends Component {
 
 	}
 	componentWillMount(){
-	 	Promise.all([this.props.getUsers(), this.props.getChores()])
+	 	Promise.all([this.props.getUsers(), this.props.getChores(), this.props.getCalendar()])
 	 	.then(()=>{
-		console.log('users ',this.props.users)
-		console.log('chores ',this.props.chores)
+		// console.log('users ',this.props.users)
+		// console.log('chores ',this.props.chores)
+		console.log('calendar ', this.props.calendar )
 		Promise.all(this.props.chores.map((chore)=> this.props.getQueue(chore.id) ))
 		.then(()=>{
-			console.log(this.props.queues)
+			//console.log(this.props.queues)
 			this.checkAuth()
 			})
 	 	})
@@ -225,11 +226,11 @@ class ChoreList extends Component {
 }
 
 function mapStateToProps(state){
-	return {chores:state.chores, queues:state.queues, users:state.users} //add state infusion there
+	return {chores:state.chores, queues:state.queues, users:state.users, calendar:state.calendar} //add state infusion there
 }
 
 function mapDispatchToProps(dispatch){
-	return bindActionCreators({getChores, getUsers, getQueue, addCalendar}, dispatch)
+	return bindActionCreators({getChores, getUsers, getQueue, addCalendar, getCalendar}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChoreList)

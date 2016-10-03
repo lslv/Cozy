@@ -17,5 +17,17 @@ module.exports ={
 			console.log(err)
 			res.status(404).send(err)
 		})
+	},
+	getCalendar: (req,res)=>{
+		console.log('getCalendar query', req.query)
+		Calendars.findOne({where:{houseId:req.query.house_id}})
+		.then((houseCal)=>{
+			console.log('HOUSE COMING IN', houseCal)
+			res.status(200).send(houseCal)
+		})
+		.catch((err)=>{
+			console.log(err)
+			res.status(404).send(err)
+		})
 	}
 }

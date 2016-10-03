@@ -1,5 +1,6 @@
 import axios from 'axios'
 export const ADD_CALENDAR = 'ADD_CALENDAR'
+export const GET_CALENDAR = 'GET_CALENDAR'
 
 export function addCalendar(calendarData){
 
@@ -11,4 +12,18 @@ export function addCalendar(calendarData){
 		payload: payload
 	}
 	
+}
+
+export function getCalendar(houseId=1){ //hardcoded default value of 1 
+
+	console.log('retrieivng house google calendar of', houseId)
+	const payload= axios.get('http://localhost:1337/api/calendars/getCalendar', {
+		params:{house_id:houseId}})
+
+	return {
+		type:GET_CALENDAR,
+		payload: payload
+	}
+
+
 }
