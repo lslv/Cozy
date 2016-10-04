@@ -14,11 +14,9 @@ export default class Chat extends Component {
 		this.state = { 
 			message: '', 
 			messageList: [],
-			userWhoEntered: '',
-			userWhoLeft: '',
+			userAction: '',
 			isTyping: false,
 			typingUser: '',
-			noActiveChat: true,
 			members: []
 		}
 
@@ -33,23 +31,21 @@ export default class Chat extends Component {
 			this.setState({ messageList: [...this.state.messageList, message] })
 		})
 
-		socket.on('userEntered', (req) => {
-			this.setState({ userWhoEntered: `${req.user} has entered the room` })
+		socket.on('joinRoom', (req) => {
+			//Reset State when joining a new room
+			this.setState({ 
+				messageList: [], 
+				userAction: `${req.user} has entered the room` 
+			})
 			setTimeout(() => {
-				this.setState({ userWhoEntered: ''})
+				this.setState({ userAction: ''})
 			}, 3000)
 		})
 
-		socket.on('joinRoom', (req) => {
-			console.log('in join room on chat client', req)
-			this.setState({ messageList: [] })
-			console.log('messageList', this.state.messageList)
-		})
-
-		socket.on('userLeft', (req) => {
-			this.setState({ userWhoLeft: `${req.user} has left the room` })
+		socket.on('disconnect', (req) => {
+			this.setState({ userAction: `${req.user} has left the room` })
 			setTimeout(() => {
-				this.setState({ userWhoLeft: ''})
+				this.setState({ userAction: ''})
 			}, 3000)
 		})
 
@@ -71,6 +67,11 @@ export default class Chat extends Component {
 			})	
 			this.setState({ members })
 		}
+		//Here, emit a join chat with room details
+		socket.emit('joinRoom', {
+			room: activeChat,
+			user: user
+		})
 	}
 
 	componentDidMount() {
@@ -112,17 +113,10 @@ export default class Chat extends Component {
 
 	showActiveChatData() {
 		const { activeChat } = this.props.chats
-		const hasActiveChat = !_.isEmpty(activeChat)
-		if(hasActiveChat) {
-			let members = this.formatNames(this.state.members)
-			return (	
-			<p>Welcome to {activeChat.room}, with {members}</p>	
-			)
-		} else {
-			return (
-			<p>Select a chat room</p>
-			)
-		}
+		let members = this.formatNames(this.state.members)
+		return (	
+		<p>Welcome to {activeChat.room}, with {members}</p>	
+		)
 	}
 
 	formatNames(names){
@@ -145,7 +139,7 @@ export default class Chat extends Component {
 				 <div className='active-chat-data'>
 				 	{this.showActiveChatData()}
 				 </div>
-					<p>{this.state.userWhoEntered}</p>
+					<p>{this.state.userAction}</p>
 					<ul id='chat-messages'>{this.displayMessages()}</ul>
 					<p className='isTyping'>{this.state.isTyping ? `${this.state.typingUser} is typing` : ''}</p>
 					<form className='chat-input' onSubmit={this.sendMessage}>

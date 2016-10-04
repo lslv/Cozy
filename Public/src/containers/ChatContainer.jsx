@@ -29,7 +29,7 @@ class ChatContainer extends Component {
 				</div>
 			)
 		} else {
-			return ( <Chat {...this.props}/> )
+			return ( <Chat {...this.props} /> )
 		}
 	}
 
