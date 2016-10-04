@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {addChore} from '../actions/actions_chores'
 import { Button, Collapse, Well, FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
 import {reduxForm} from 'redux-form'
+import {bindActionCreators} from 'redux'
 
 class AddChore extends Component {
 	constructor(props){
@@ -20,6 +21,8 @@ class AddChore extends Component {
 			resetForm()
 		}
 	}
+
+
 
 	render() {
 		const { fields:{type, chore_name, day}, handleSubmit } = this.props
@@ -91,11 +94,18 @@ function validate(formElements){
 	return errors
 }
 
+function mapStateToProps(state){
+	return {chores:state.chores, queues:state.queues, users:state.users, calendar:state.calendar}
+}
+
+function mapDispatchToProps(dispatch){
+	return bindActionCreators({addChore}, dispatch)
+}
 
 export default reduxForm({
 	form: 'AddChore',
 	fields:['type','chore_name', 'day'],
-	validate},null,{addChore})(AddChore)
+	validate},mapStateToProps,mapDispatchToProps)(AddChore)
 
 //form group for multiple day selection->will be used later
 // <FormGroup controlId="formControlsSelectMultiple">

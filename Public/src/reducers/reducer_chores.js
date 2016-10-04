@@ -11,7 +11,7 @@ export default function(state = INITIAL_STATE , action) {
 			}
 		break
 	case ADD_CHORE:
-		return [action.payload.data, ...state]
+		return [{...action.payload.data, new:true}, ...state]
 	case GET_CHORES:
 		return [...action.payload.data]
 	case DELETE_CHORE:

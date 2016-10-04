@@ -205,9 +205,6 @@ class ChoreList extends Component {
 	}
 
 
-
-
-
 	renderChoreList(){
 		return this.props.chores.map( chore => <Chore key={chore.chore_name} chore={chore} />)
 	}
