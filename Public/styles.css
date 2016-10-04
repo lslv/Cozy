@@ -550,6 +550,11 @@ button.rbc-input::-moz-focus-inner {
 	height: 3em;
 }
 
+.active-chat-data p {
+  margin-bottom: 3px;
+}
+
+
 .chat-room-list {
 	border: 1px solid black;
 	height: 30em;
@@ -564,7 +569,6 @@ button.rbc-input::-moz-focus-inner {
 	width: 100%;
 }
 
-
 .message {
 	list-style: none;
 	padding: 5px;
@@ -573,4 +577,24 @@ button.rbc-input::-moz-focus-inner {
 .isTyping {
 	display: flex;
 	vertical-align: bottom;
+}
+
+.active-members {
+  display: flex;
+  flex-direction: row;
+  margin:0px 2px 0px 2px;
+}
+
+.active-members li {
+  margin:0px 2px 0px 2px;
+}
+
+.active {
+  display: inline-block;
+  background: green;
+  border: 1px solid green;
+  border-radius: 50px;
+  padding: 3px;
+  margin-left: 2px;
+
 }

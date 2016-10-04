@@ -14,11 +14,11 @@ export default class Chat extends Component {
 		this.state = { 
 			message: '', 
 			messageList: [],
-			userWhoEntered: '',
-			userWhoLeft: '',
+			userAction: '',
 			isTyping: false,
-			noActiveChat: true,
-			members: []
+			typingUser: '',
+			allMembers: [],
+			activeMembers: []
 		}
 
 		this.OnInputChange = this.OnInputChange.bind(this)
@@ -32,34 +32,59 @@ export default class Chat extends Component {
 			this.setState({ messageList: [...this.state.messageList, message] })
 		})
 
-		socket.on('userEntered', (req) => {
-			this.setState({ userWhoEntered: `${req.user} has entered the room` })
+		socket.on('joinRoom', (req) => {
+			//Reset State when joining a new room
+			this.setState({ 
+				messageList: [], 
+				userAction: `${req.user} has entered the room`,
+				activeMembers: [...this.state.activeMembers, req.user] 
+			})
 			setTimeout(() => {
-				this.setState({ userWhoEntered: ''})
+				this.setState({ userAction: ''})
 			}, 3000)
 		})
 
-		socket.on('userLeft', (req) => {
-			this.setState({ userWhoLeft: `${req.user} has left the room` })
+		socket.on('disconnect', (req) => {
+			this.setState({ userAction: `${req.user} has left the room` })
 			setTimeout(() => {
-				this.setState({ userWhoLeft: ''})
+				this.setState({ userAction: ''})
 			}, 3000)
+		})
+
+		socket.on('isTyping', (user) => {
+			this.setState( { isTyping: true, typingUser: user })
+			this.typingTimeout()
 		})
 
 	}
 
-	componentWillReceiveProps() {
+	componentWillMount() {
 		//change the ids of the users to the user names
 		const { activeChat } = this.props.chats
 		const { users } = this.props
-		let members = []
+		let allMembers = []
 		if(!_.isEmpty(activeChat)) {
 			activeChat.users.forEach((person, i) => {
-				members.push(users[person].user_name)
+				allMembers.push(users[person].user_name)
 			})	
+			this.setState({ allMembers })
 		}
+		//Here, emit a join chat with room details
+		socket.emit('joinRoom', {
+			room: activeChat,
+			user: user
+		})
+	}
 
-		this.setState({ members })
+	componentWillReceiveProps(nextProps) {
+		const { activeChat } = this.props.chats
+		
+		//Emit that new room has been selected
+		//when the active room changes
+		socket.emit('joinRoom', {
+			room: activeChat,
+			user: user
+		})
 	}
 
 	componentDidMount() {
@@ -79,13 +104,14 @@ export default class Chat extends Component {
 
 	typingTimeout () {
 		setTimeout(() => {
-				this.setState({ isTyping: false})
+				this.setState({ isTyping: false, typingUser: ''})
 			}, 2000)
 	}
 
 	OnInputChange(e) {
 		if(!this.state.isTyping) {
-			this.setState({ isTyping: true })
+			//Send msg to server that user is typing
+			socket.emit('isTyping', user)
 		} 
 		this.typingTimeout()
 		this.setState({ message: e.target.value })
@@ -100,18 +126,15 @@ export default class Chat extends Component {
 
 	showActiveChatData() {
 		const { activeChat } = this.props.chats
-		const hasActiveChat = !_.isEmpty(activeChat)
-		if(hasActiveChat) {
-			let members = this.formatNames(this.state.members)
-			return (	
-			<p>Welcome to {activeChat.room}, with {members}</p>	
-			)
-		} else {
+		return this.state.activeMembers.map((member) => {
 			return (
-			<p>Select a chat room</p>
-			)
+				<div key={member}>	
+					<li>{member}
+					<div className='active'></div></li>
+				</div>
+			)		
+		})
 		}
-	}
 
 	formatNames(names){
 	  	return names.reduce(function(prev, current, index, array){
@@ -129,22 +152,18 @@ export default class Chat extends Component {
 
 	render() {
 		const { activeChat } = this.props.chats
-
-		if(_.isEmpty(activeChat)) {
-			return (
-				<div className='chat'>
-					<h4>Please select a chat</h4>
-				</div>
-			)
-		} else {
+		const allMembers = this.formatNames(this.state.allMembers)
 			return (
 				<div className='chat'>
 				 <div className='active-chat-data'>
+				 	<p>You're in {activeChat.room}, with {allMembers}</p>
+				 	<ul className='active-members'>
 				 	{this.showActiveChatData()}
+				 	</ul>
 				 </div>
-					<p>{this.state.userWhoEntered}</p>
+					<p>{this.state.userAction}</p>
 					<ul id='chat-messages'>{this.displayMessages()}</ul>
-					<p className='isTyping'>{this.state.isTyping ? `${user} is typing`: ''}</p>
+					<p className='isTyping'>{this.state.isTyping ? `${this.state.typingUser} is typing` : ''}</p>
 					<form className='chat-input' onSubmit={this.sendMessage}>
 						<input type='text'
 						ref='chatbar'
@@ -160,8 +179,3 @@ export default class Chat extends Component {
 			)
 		}
 	}
-}
-
-
-
-

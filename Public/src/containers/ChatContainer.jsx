@@ -10,6 +10,7 @@ class ChatContainer extends Component {
 	constructor(props) {
 		super(props)
 
+		this.renderChatWhenActive = this.renderChatWhenActive.bind(this)
 	}
 
 	componentWillMount() {
@@ -18,11 +19,25 @@ class ChatContainer extends Component {
 		.then(() => this.props.getUserRooms())
 	}
 
+	renderChatWhenActive() {
+		const { activeChat } = this.props.chats
+
+		if(_.isEmpty(activeChat)) {
+			return (
+				<div className='chat'>
+					<h4>Please select a chat</h4>
+				</div>
+			)
+		} else {
+			return ( <Chat {...this.props} /> )
+		}
+	}
+
 	render() {
 		return (
 		<div className='chat-container'>
 			<ChatRoomList {...this.props} />
-			<Chat {...this.props}/>
+			{this.renderChatWhenActive()}
 		</div>
 		)
 	}

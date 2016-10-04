@@ -5,20 +5,19 @@ module.exports = (io) => {
 	io.on('connection', (socket) => {
 		console.log('connected')
 
+		socket.on('joinRoom', (req) => {
+			console.log('req', req)
+			currentUsers[socket.id] = req 
+			socket.join(req.room)
+			io.to(req.room).emit('joinRoom', req)
+		})
+
 		socket.on('message', (message) => {
-			io.emit('message', message)
+			io.to(currentUsers[socket.id].room).emit('message', message)
 		})
 
 		socket.on('isTyping', (user) => {
-			io.emit('isTyping', user)
-		})
-
-		socket.on('joinRoom', (req) => {
-			currentUsers[socket.id] = req 
-			console.log('currentUsers', currentUsers[socket.id])
-			socket.join(req.room)
-
-			socket.broadcast.to(req.room).emit('userEntered', req)
+			io.to(currentUsers[socket.id].room).emit('isTyping', user)
 		})
 
 		socket.on('disconnect', () => {
@@ -26,9 +25,9 @@ module.exports = (io) => {
 
 			if(currentUsers[socket.id]) {
 				socket.leave(userData.room)
-
-				io.to(userData.room).emit('userLeft', userData)
+				io.to(userData.room).emit('disconnect', userData)
 			}
+			delete currentUsers[socket.id]
 		})
 
 
