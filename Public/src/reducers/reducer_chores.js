@@ -11,16 +11,16 @@ export default function(state = INITIAL_STATE , action) {
 			}
 		break
 	case ADD_CHORE:
-		return [action.payload.data, ...state]
+		return [{...action.payload.data, new:true}, ...state]
 	case GET_CHORES:
 		return [...action.payload.data]
 	case DELETE_CHORE:
-		console.log(state)
-		console.log(action.payload)
+		// console.log(state)
+		// console.log(action.payload)
 		for(var i=0;i<state.length;i++)
 			if(state[i].id==action.payload.data.id){
-				console.log(action.payload.data)
-				console.log(state[i])
+				// console.log(action.payload.data)
+				// console.log(state[i])
 				return [...state.slice(0,i),...state.slice(i+1)]
 			}
 		break

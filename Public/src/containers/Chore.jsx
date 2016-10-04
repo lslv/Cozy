@@ -5,6 +5,7 @@ import { getQueue } from '../actions/actions_queues'
 import {bindActionCreators} from 'redux'
 import {Button, Panel} from 'react-bootstrap'
 import Queue from './Queue'
+import moment from 'moment'
 
 class Chore extends Component {
 	constructor(props){
@@ -17,7 +18,49 @@ class Chore extends Component {
 	}
 
 	componentWillMount(){
-		this.props.getQueue(this.props.chore.id) //refactor this code so that it grabs all chores associated with a house
+		this.props.getQueue(this.props.chore.id)
+		.then(()=>{
+			const {queues} = this.props
+			const {users} = this.props
+			const {chore} = this.props
+			if(this.props.chore.new){
+				var choreQueue= queues[chore.id]
+				var queueInOrder=[ ...choreQueue.slice(chore.user_turn), ...choreQueue.slice(0, chore.user_turn) ]
+				var events = queueInOrder.map((queuePosition,index)=>{
+				var choreDate=new Date(moment().day(chore.day))
+				var verifyCount=0
+				choreDate.setDate(choreDate.getDate()+(7*index)+verifyCount)
+				choreDate=(String(choreDate.getFullYear())+'-'+String(choreDate.getMonth()+1)+'-'+String(choreDate.getDate()))
+				var choreResource=   {	'end':{
+								'date':choreDate
+								},
+								'start':{
+									'date':choreDate
+								},
+								'description': 'This is a chore for '+users[queuePosition.userId].user_name, 
+								'summary': chore.chore_name+'-'+users[queuePosition.userId].user_name,
+							}
+				if(chore.num_of_users===1){
+					console.log('personal chore')
+					choreResource['recurrence']=['RRULE:FREQ=WEEKLY;']
+				}
+				return choreResource
+				})
+			console.log(events)
+			var batchChoreEvents = gapi.client.newBatch()
+			events.forEach((chore)=>{
+			//insert attendees field as other users
+			console.log(chore)
+			let request = gapi.client.calendar.events.insert({
+				'calendarId': this.props.calendar,
+				'resource':  chore})
+			batchChoreEvents.add(request)
+			})
+			batchChoreEvents.then((results)=>{
+				console.log(results)
+			})
+				}
+		})
 	}
 
 
@@ -52,19 +95,17 @@ class Chore extends Component {
 		const {queues} = this.props
 		const {chore} = this.props
 		const {users}= this.props
-		console.log('open state about to be passed in ',this.state.open)
 		if(Object.keys(queues).length && queues[this.props.chore.id]){
 			return <Queue onClick={event => event.stopPropagation() } chore={chore} queues={queues} users={users} open={this.state.open} onceForceUpdate={this.state.onceForceUpdate}/>
 		}
 	}
 
-	handleVerify(event){
+	handleUnverify(event){
 		event.stopPropagation()
 		this.props.updateChoreTurn(this.props.chore.id)
 	}
 
 	clickHandler(){
-		console.log('clickHandler')
 		if(this.state.open){
 			this.setState({onceForceUpdate:_.once(this.forceUpdate.bind(this))})
 		}
@@ -93,8 +134,8 @@ class Chore extends Component {
 					</Button>
 					<Button
 					bsStyle="info"
-					onClick={(event) => this.handleVerify(event)}>
-					Verify Chore
+					onClick={(event) => this.handleUnverify(event)}>
+					Un-Verify Chore (Assigned User Did Not Complete Chore, should only be for admin)
 					</Button>
 				</Panel>
 			)
@@ -102,7 +143,7 @@ class Chore extends Component {
 }
 
 function mapStateToProps(state){
-	return {queues:state.queues, users:state.users}
+	return {queues:state.queues, users:state.users, calendar:state.calendar}
 }
 
 
