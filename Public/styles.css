@@ -590,9 +590,11 @@ button.rbc-input::-moz-focus-inner {
 }
 
 .active {
+  display: inline-block;
   background: green;
   border: 1px solid green;
   border-radius: 50px;
-  width:7px;
-  height:7px;
+  padding: 3px;
+  margin-left: 2px;
+
 }
