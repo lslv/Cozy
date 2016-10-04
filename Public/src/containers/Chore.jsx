@@ -31,7 +31,7 @@ class Chore extends Component {
 				var verifyCount=0
 				choreDate.setDate(choreDate.getDate()+(7*index)+verifyCount)
 				choreDate=(String(choreDate.getFullYear())+'-'+String(choreDate.getMonth()+1)+'-'+String(choreDate.getDate()))
-				return   {	'end':{
+				var choreResource=   {	'end':{
 								'date':choreDate
 								},
 								'start':{
@@ -40,7 +40,12 @@ class Chore extends Component {
 								'description': 'This is a chore for '+users[queuePosition.userId].user_name, 
 								'summary': chore.chore_name+'-'+users[queuePosition.userId].user_name,
 							}
-					})
+				if(chore.num_of_users===1){
+					console.log('personal chore')
+					choreResource['recurrence']=['RRULE:FREQ=WEEKLY;']
+				}
+				return choreResource
+				})
 			console.log(events)
 			var batchChoreEvents = gapi.client.newBatch()
 			events.forEach((chore)=>{

@@ -30,13 +30,22 @@ var weeklyCronUpdate= schedule.scheduleJob(rule, function(){
 module.exports = {
 	postChore: (req, res) => {
 		console.log(req.body)
-		db.Chores.create({
-			chore_name: req.body.chore_name,
-			user_turn: 0,
-			num_of_users:req.body.num_of_users,
-			day:req.body.day,
-			house_id: req.body.house_id,
-		})
+		if(req.body.type==='group')
+			db.Chores.create({
+				chore_name: req.body.chore_name,
+				user_turn: 0,
+				num_of_users:req.body.num_of_users,
+				day:req.body.day,
+				house_id: req.body.house_id,
+			})
+		else //could refactor into object being passed in being modifed
+			db.Chores.create({
+				chore_name: req.body.chore_name,
+				user_turn: 0,
+				num_of_users:1,
+				day:req.body.day,
+				house_id: req.body.house_id,
+			})
     .then((createdPost) => {
 	if(req.body.type==='group'){
 		Users.findAll({where:{house_id:req.body.house_id}})
