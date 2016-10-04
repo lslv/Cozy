@@ -55,8 +55,8 @@ module.exports = {
 	db.Queues.bulkCreate(queuePosts)
     .then(()=>{
 	res.status(200).send(createdPost)
-})
-})}
+	})
+	})}
 	else{
 		Users.findOne({where:{user_name:req.body.chore_adder}})
     .then((user)=>{
@@ -68,8 +68,8 @@ module.exports = {
 	})
   .then(()=>{
 	res.status(200).send(createdPost)
-})
-})
+	})
+	})
 	}
 	// creat cron job related to each chore here, make a call to updateCHore Turn
 	// console.log(req.body.day)
@@ -110,10 +110,10 @@ module.exports = {
 
 
 
-})
+	})
     .catch((err) => {
 	res.status(404).send(err)
-})
+	})
 	},
 
 	getChores: (req, res) => {
@@ -123,10 +123,10 @@ module.exports = {
 		})
       .then((queriedPosts) => {
 	res.status(200).json(queriedPosts)
-})
+	})
       .catch((err) => {
 	res.status(404).send(err)
-})
+	})
 	},
 
 	deleteChore: (req, res) => {
@@ -139,10 +139,10 @@ module.exports = {
 // })
 //       .then((deletedChore)=>{
 	res.status(200).json(choreToDelete)
-})
+	})
       .catch((err) => {
 	res.status(404).send(err)
-})
+	})
 	},
 
 	getQueue: (req, res) => {
@@ -150,10 +150,10 @@ module.exports = {
 		db.Queues.findAll({where: {choreId:req.query.choreId}})
     .then((queues)=>{
 	res.status(200).json(queues)
-})
+	})
     .catch((err)=>{
 	res.status(404).send(err)
-})
+	})
 
 	},
 	getQueues: (req, res) => {
@@ -161,10 +161,10 @@ module.exports = {
 		db.Queues.findAll({where: {choreId:req.query.houseId}})
     .then((queues)=>{
 	res.status(200).json(queues)
-})
+	})
     .catch((err)=>{
 	res.status(404).send(err)
-})
+	})
 
 	},
 	updateChoreTurn: (req, res) => {
@@ -180,14 +180,14 @@ module.exports = {
 	else
         return choreToBeUpdated.update({user_turn: choreToBeUpdated.num_of_users-1})
 
-})
+	})
     .then((updatedChore) => {
 	console.log(updatedChore)
 	res.status(200).send(updatedChore)
-})
+	})
     .catch((err) => {
 	res.status(404).send(err)
-})
+	})
 	}
 
 
