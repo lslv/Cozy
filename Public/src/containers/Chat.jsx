@@ -17,7 +17,8 @@ export default class Chat extends Component {
 			userAction: '',
 			isTyping: false,
 			typingUser: '',
-			members: []
+			allMembers: [],
+			activeMembers: []
 		}
 
 		this.OnInputChange = this.OnInputChange.bind(this)
@@ -35,7 +36,8 @@ export default class Chat extends Component {
 			//Reset State when joining a new room
 			this.setState({ 
 				messageList: [], 
-				userAction: `${req.user} has entered the room` 
+				userAction: `${req.user} has entered the room`,
+				activeMembers: [...this.state.activeMembers, req.user] 
 			})
 			setTimeout(() => {
 				this.setState({ userAction: ''})
@@ -60,14 +62,25 @@ export default class Chat extends Component {
 		//change the ids of the users to the user names
 		const { activeChat } = this.props.chats
 		const { users } = this.props
-		let members = []
+		let allMembers = []
 		if(!_.isEmpty(activeChat)) {
 			activeChat.users.forEach((person, i) => {
-				members.push(users[person].user_name)
+				allMembers.push(users[person].user_name)
 			})	
-			this.setState({ members })
+			this.setState({ allMembers })
 		}
 		//Here, emit a join chat with room details
+		socket.emit('joinRoom', {
+			room: activeChat,
+			user: user
+		})
+	}
+
+	componentWillReceiveProps(nextProps) {
+		const { activeChat } = this.props.chats
+		
+		//Emit that new room has been selected
+		//when the active room changes
 		socket.emit('joinRoom', {
 			room: activeChat,
 			user: user
@@ -113,11 +126,15 @@ export default class Chat extends Component {
 
 	showActiveChatData() {
 		const { activeChat } = this.props.chats
-		let members = this.formatNames(this.state.members)
-		return (	
-		<p>Welcome to {activeChat.room}, with {members}</p>	
-		)
-	}
+		return this.state.activeMembers.map((member) => {
+			return (
+				<div key={member}>	
+					<li>{member}
+					<div className='active'></div></li>
+				</div>
+			)		
+		})
+		}
 
 	formatNames(names){
 	  	return names.reduce(function(prev, current, index, array){
@@ -134,10 +151,15 @@ export default class Chat extends Component {
  	}
 
 	render() {
+		const { activeChat } = this.props.chats
+		const allMembers = this.formatNames(this.state.allMembers)
 			return (
 				<div className='chat'>
 				 <div className='active-chat-data'>
+				 	<p>You're in {activeChat.room}, with {allMembers}</p>
+				 	<ul className='active-members'>
 				 	{this.showActiveChatData()}
+				 	</ul>
 				 </div>
 					<p>{this.state.userAction}</p>
 					<ul id='chat-messages'>{this.displayMessages()}</ul>

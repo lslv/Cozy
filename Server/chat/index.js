@@ -6,9 +6,9 @@ module.exports = (io) => {
 		console.log('connected')
 
 		socket.on('joinRoom', (req) => {
+			console.log('req', req)
 			currentUsers[socket.id] = req 
 			socket.join(req.room)
-			
 			io.to(req.room).emit('joinRoom', req)
 		})
 
@@ -27,7 +27,6 @@ module.exports = (io) => {
 				socket.leave(userData.room)
 				io.to(userData.room).emit('disconnect', userData)
 			}
-
 			delete currentUsers[socket.id]
 		})
 
