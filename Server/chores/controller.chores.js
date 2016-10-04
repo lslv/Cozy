@@ -30,112 +30,107 @@ var weeklyCronUpdate= schedule.scheduleJob(rule, function(){
 module.exports = {
 	postChore: (req, res) => {
 		console.log(req.body)
-		if(req.body.type==='group')
-			db.Chores.create({
+		var choreToBeAdded= {
 				chore_name: req.body.chore_name,
 				user_turn: 0,
 				num_of_users:req.body.num_of_users,
 				day:req.body.day,
 				house_id: req.body.house_id,
+			}
+		if(req.body.type==='personal'){
+			choreToBeAdded[num_of_users]=1
+		}
+		db.Chores.create(choreToBeAdded)
+	    .then((createdPost) => {
+		if(req.body.type==='group'){
+			Users.findAll({where:{house_id:req.body.house_id}})
+	            .then((users)=>{
+		var queuePosts=[]
+		var turnNum=0
+		users.forEach((user)=>{
+			queuePosts.push({
+				turn:turnNum,
+				userId: user.dataValues.id,
+				choreId: createdPost.dataValues.id,
+				houseId: req.body.house_id
 			})
-		else //could refactor into object being passed in being modifed
-			db.Chores.create({
-				chore_name: req.body.chore_name,
-				user_turn: 0,
-				num_of_users:1,
-				day:req.body.day,
-				house_id: req.body.house_id,
-			})
-    .then((createdPost) => {
-	if(req.body.type==='group'){
-		Users.findAll({where:{house_id:req.body.house_id}})
-            .then((users)=>{
-	var queuePosts=[]
-	var turnNum=0
-	users.forEach((user)=>{
-		queuePosts.push({
-			turn:turnNum,
-			userId: user.dataValues.id,
+			turnNum++
+		})
+		db.Queues.bulkCreate(queuePosts)
+	    .then(()=>{
+		res.status(200).send(createdPost)
+		})
+		})}
+		else{
+			Users.findOne({where:{user_name:req.body.chore_adder}})
+	    .then((user)=>{
+		db.Queues.create({
+			turn:0,
+			userId:user.dataValues.id,
 			choreId: createdPost.dataValues.id,
 			houseId: req.body.house_id
 		})
-		turnNum++
-	})
-	db.Queues.bulkCreate(queuePosts)
-    .then(()=>{
-	res.status(200).send(createdPost)
-	})
-	})}
-	else{
-		Users.findOne({where:{user_name:req.body.chore_adder}})
-    .then((user)=>{
-	db.Queues.create({
-		turn:0,
-		userId:user.dataValues.id,
-		choreId: createdPost.dataValues.id,
-		houseId: req.body.house_id
-	})
-  .then(()=>{
-	res.status(200).send(createdPost)
-	})
-	})
-	}
-	// creat cron job related to each chore here, make a call to updateCHore Turn
-	// console.log(req.body.day)
-	// var weekDayNum=0
-	// switch(req.body.day){
-	// case 'monday':
-	// 	weekDayNum=1
-	// 	break
-	// case 'tuesday':
-	// 	weekDayNum=2
-	// 	break
-	// case 'wednesday':
-	// 	weekDayNum=3
-	// 	break
-	// case 'thursday':
-	// 	weekDayNum=4
-	// 	break
-	// case 'friday':
-	// 	weekDayNum=5
-	// 	break
-	// case 'saturday':
-	// 	weekDayNum=6
-	// 	break
-	// case 'sunday':
-	// 	weekDayNum=7
-	// 	break
-
-	// }
-	// var choreCronJob= schedule.scheduleJob('* * * * * *', function(){
-		
-	// })
-
-	// setTimeout(function(){
-	// 	console.log('cancelling that cron job')
-	// 	choreCronJob.cancel()
-	// }, 5000, choreCronJob)
-
-
-
-
-	})
-    .catch((err) => {
-	res.status(404).send(err)
-	})
-	},
-
-	getChores: (req, res) => {
-		console.log('getChores query: ', req.query)
-		db.Chores.findAll({
-			where: { house_id: req.query.house_id }
+	  .then(()=>{
+		res.status(200).send(createdPost)
 		})
-      .then((queriedPosts) => {
-	res.status(200).json(queriedPosts)
-	})
-      .catch((err) => {
-	res.status(404).send(err)
-	})
+		})
+		}
+		// creat cron job related to each chore here, make a call to updateCHore Turn
+		// console.log(req.body.day)
+		// var weekDayNum=0
+		// switch(req.body.day){
+		// case 'monday':
+		// 	weekDayNum=1
+		// 	break
+		// case 'tuesday':
+		// 	weekDayNum=2
+		// 	break
+		// case 'wednesday':
+		// 	weekDayNum=3
+		// 	break
+		// case 'thursday':
+		// 	weekDayNum=4
+		// 	break
+		// case 'friday':
+		// 	weekDayNum=5
+		// 	break
+		// case 'saturday':
+		// 	weekDayNum=6
+		// 	break
+		// case 'sunday':
+		// 	weekDayNum=7
+		// 	break
+
+		// }
+		// var choreCronJob= schedule.scheduleJob('* * * * * *', function(){
+			
+		// })
+
+		// setTimeout(function(){
+		// 	console.log('cancelling that cron job')
+		// 	choreCronJob.cancel()
+		// }, 5000, choreCronJob)
+
+
+
+
+		})
+	    .catch((err) => {
+		res.status(404).send(err)
+		})
+		},
+
+		getChores: (req, res) => {
+			console.log('getChores query: ', req.query)
+			db.Chores.findAll({
+				where: { house_id: req.query.house_id }
+			})
+	      .then((queriedPosts) => {
+		res.status(200).json(queriedPosts)
+		})
+	      .catch((err) => {
+		res.status(404).send(err)
+		})
 	},
 
 	deleteChore: (req, res) => {

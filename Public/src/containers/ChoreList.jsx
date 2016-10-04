@@ -52,7 +52,7 @@ class ChoreList extends Component {
 
 	handleAuthResult(authResult) { // Handle response from authorization server.
 		console.log('handleAuthResult')
-		console.log(authResult)
+		console.log(authResult.error)
 		var authorizeDiv = document.getElementById('authorize-div')
 		var makeCalendarButton = document.getElementById('create-button')
 		if (authResult && !authResult.error) {
@@ -220,7 +220,7 @@ class ChoreList extends Component {
 			        <span>Authorize access to Google Calendar API</span>
 			        <br/>
 			        <Button id="authorize-button" onClick={ event=>this.handleAuthClick(event)}>
-			          Sync Your Google Calendar
+			          Authorize Google Calendar Access
 			        </Button>
 			        <br/>
 		        </div>
