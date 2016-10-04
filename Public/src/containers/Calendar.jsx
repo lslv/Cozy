@@ -48,7 +48,7 @@ class Calendar extends Component {
 				// var verifyCount=7*1 // this would be a good way too offset, just have to store how many times verified
 				var verifyCount=0
 				choreDate.setDate(choreDate.getDate()+(7*index)+verifyCount)
-				console.log(choreDate)
+				// console.log(choreDate)
 				return {
 					'title' :chore.chore_name + ' - ' +users[queuePosition.userId].user_name,
 					'allDay': true,

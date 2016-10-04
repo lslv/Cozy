@@ -12,6 +12,7 @@ const chores = require('./chores/routes.chores')
 const users = require('./users/routes.users')
 const houses = require('./houses/routes.houses.js')
 const chat = require('./chat/routes.chat')
+const calendars = require('./calendars/routes.calendars.js')
 
 // middleware
 router.use(morgan('combined'))
@@ -32,6 +33,7 @@ router.use('/api/chores', chores)
 router.use('/api/users', users)
 router.use('/api/houses', houses)
 router.use('/api/chat', chat)
+router.use('/api/calendars', calendars)
 
 router.use((req, res) => {
 	res.status(404).send('Sorry that does not exist')
