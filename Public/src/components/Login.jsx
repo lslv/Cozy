@@ -7,11 +7,13 @@ export default class Login extends Component {
 		super (props)
 
 		this.state = { username: '', password: ''}
+
+		this.onLogin = this.onLogin.bind(this)
 	}
 
 	render () {
 		return (
-      <form>
+      <form onSubmit={this.onLogin}>
         <input
           value={this.state.username}
           placeholder="Username"
@@ -25,7 +27,6 @@ export default class Login extends Component {
           onChange={event => this.onPasswordChange(event.target.value)} />
 
         <input
-          onClick={event => this.onLogin()}
           value="Login"
           type="submit"
         />
@@ -41,7 +42,8 @@ export default class Login extends Component {
 		this.setState({password})
 	}
 
-	onLogin(){
+	onLogin(e){
+		e.preventDefault()
 		axios.post('/api/users/login',{
 			username: this.state.username,
 			password: this.state.password
