@@ -12,7 +12,8 @@ class JoinHouse extends Component{
 		this.handleSearchInput = this.handleSearchInput.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
-	handleSubmit(){
+	handleSubmit(e){
+		e.preventDefault()
 		this.props.getResults(this.state.searchText)
 	}
 	handleSearchInput(event){

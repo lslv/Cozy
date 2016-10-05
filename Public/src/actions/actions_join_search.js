@@ -19,7 +19,7 @@ export function getResults(searchTerm){
 
 export function postHouseId(houseId){
 	const query = '/api/users/addHouseId'
-	const request = axios.post(query, {
+	const request = axios.put(query, {
 		user_id: sessionStorage.getItem('id'),
 		house_id: houseId,
 		admin: false

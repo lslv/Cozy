@@ -9,8 +9,9 @@ class House extends Component{
 		this.handleJoinHouse = this.handleJoinHouse.bind(this)
 	}
 	handleJoinHouse(houseId){
-		postHouseId(houseId)
+		console.log('house id in func', houseId)
 		sessionStorage.setItem('house_id', houseId)
+		this.props.postHouseId(houseId)
 		this.context.router.push('/dashboard')
 	}
 
@@ -24,7 +25,7 @@ class House extends Component{
 						{house.house_name}</li>
 			)
 		})
-
+		console.log('this propsin house search', this.props)
 		return(
       <ul>
 			{houses}
@@ -45,4 +46,4 @@ function mapStateToProps(state){
 
 
 
-export default connect(mapStateToProps, {getResults})(House)
+export default connect(mapStateToProps, {getResults, postHouseId})(House)

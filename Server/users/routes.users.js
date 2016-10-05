@@ -15,17 +15,17 @@ router.post('/login', (req, res) => {
 router.get('/login/facebook', passport.authenticate('facebook', { scope: 'email' }))
 
 router.get('/login/facebook/callback', passport.authenticate('facebook'), (req,res) => {
+	let userData = fb_auth.serialize(req.user.dataValues)
 	//check if the user is associated w/ a house. If so, redirect to dash, if not redirect to create/join house
 	if(req.user.dataValues.house_id) {
 		//serialize user data to query string
-		let userData = fb_auth.serialize(req.user.dataValues)
 		res.redirect('/#/dashboard?' + userData)	
 	} else {
-		res.redirect('/#/house_select')
+		res.redirect('/#/house_select?' + userData)
 	}
 })
 
-router.post('/addHouseId', (req, res) => {
+router.put('/addHouseId', (req, res) => {
 	controller.addHouseId(req, res)
 })
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+import _ from 'lodash'
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -8,16 +9,21 @@ export default class Dashboard extends Component {
 
   componentWillMount() {
     //here check if the user logged in via FB auth
-        //if so, save data to session storage 
+        //if so, save data on url query str to session storage 
       const { query } = this.props.location
-      console.log('url', this.props.location.query)
-      sessionStorage.setItem('id', query.id)
-      sessionStorage.setItem('username', query.user_name)
-      sessionStorage.setItem('pay_percentage', query.pay_percentage)
-      sessionStorage.setItem('admin', query.admin)
-      sessionStorage.setItem('house_id', query.house_id)
-      sessionStorage.setItem('fb_pic', query.fb_picture)
-
+      console.log('url', this.props.location)
+      //on fb login, if user is associated with house
+      //query obj is truthy and sets data to sessionStorage
+      //if the user just joined a house, the data
+      //has already been stored
+      if(!_.isEmpty(query)) {
+        sessionStorage.setItem('id', query.id)
+        sessionStorage.setItem('username', query.user_name)
+        sessionStorage.setItem('pay_percentage', query.pay_percentage)
+        sessionStorage.setItem('admin', query.admin)
+        sessionStorage.setItem('house_id', query.house_id)
+        sessionStorage.setItem('fb_pic', query.fb_picture)  
+      }
   }
 
 
