@@ -57,11 +57,13 @@ module.exports = {
 			where: { id : req.body.user_id },
 		})
 		.then(updateUser => {
+			console.log('req body', req.body)
+			console.log('user', updateUser)
 			updateUser.update({
 				house_id: req.body.house_id,
 				admin: req.body.admin
 			})
-			res.status(200).json(updateUser[0])
+			res.status(200).json(updateUser)
 		})
     .catch(err => res.status(401).send(err))
 

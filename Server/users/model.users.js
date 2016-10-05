@@ -6,6 +6,9 @@ let chalk = require('chalk')
 // let User_Ratings = require('../ratings/model.ratings.js')
 
 const Users = sequelize.define('users', {
+	fb_id: {
+		type: Sequelize.BIGINT
+	},
 	user_name: {
 		type: Sequelize.STRING(50),
 		unique: true,
@@ -13,11 +16,9 @@ const Users = sequelize.define('users', {
 	},
 	first_name: {
 		type: Sequelize.STRING(60),
-		notNull: true
 	},
 	last_name: {
 		type: Sequelize.STRING(60),
-		notNull: false
 	},
 	admin: {
 		type: Sequelize.BOOLEAN
@@ -30,32 +31,24 @@ const Users = sequelize.define('users', {
 	},
 	password: {
 		type: Sequelize.STRING,
-		notNull: true
 	},
 	pay_percentage: {
 		type: Sequelize.DECIMAL,
-		notNull: true,
 		isDecimal: true
+	},
+	fb_picture: {
+		type: Sequelize.STRING
 	}
 } ,
 	{
 		timestamps: true,
-		underscored: true,
-		paranoid: true
+		underscored: true
 	}
 )
 
 Users.belongsTo(Houses)
 
 Users.sync()
-	// .then(function () {
-	//   // Table created
-	// 	console.log(chalk.white('+++line72 model.users table successfully created'))
-	// })
-	// .catch(function (err) {
-	// 	console.error(chalk.white('+++line74 There was an error in model.users'), err)
-	// })
-
-console.log(chalk.cyan('+++line 57 this is users table in users model: ', Users))
+console.log(chalk.cyan('+++line 52 this is users table in users model: ', Users))
 
 module.exports = Users
