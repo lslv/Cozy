@@ -43,21 +43,12 @@ const Users = sequelize.define('users', {
 	{
 		timestamps: true,
 		underscored: true
-		// paranoid: true
 	}
 )
 
 Users.belongsTo(Houses)
 
 Users.sync()
-	// .then(function () {
-	//   // Table created
-	// 	console.log(chalk.white('+++line72 model.users table successfully created'))
-	// })
-	// .catch(function (err) {
-	// 	console.error(chalk.white('+++line74 There was an error in model.users'), err)
-	// })
-
-console.log(chalk.cyan('+++line 57 this is users table in users model: ', Users))
+console.log(chalk.cyan('+++line 52 this is users table in users model: ', Users))
 
 module.exports = Users

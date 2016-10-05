@@ -27,7 +27,7 @@ module.exports = (passport, Strategy, app, port) => {
 				}
 			})
 			.then((user) => {
-
+				console.log('user', user)
 				if(!user) {
 					Users.create({
 						fb_id: profile.id,
@@ -45,11 +45,7 @@ module.exports = (passport, Strategy, app, port) => {
 
 		}))
 
-
-
 	app.use(passport.initialize())
 	app.use(passport.session())
-
-
 
 }

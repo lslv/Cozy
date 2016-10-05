@@ -11,14 +11,16 @@ router.post('/login', (req, res) => {
 	controller.login(req, res)
 })
 
-
-// router.post('/logout', (req, res) => {
-//
-// })
-
 router.get('/login/facebook', passport.authenticate('facebook', { scope: 'email' }))
 
-router.get('/login/facebook/callback', passport.authenticate('facebook', { successRedirect: '/#/dashboard', failureRedirect: '/#/login' }))
+router.get('/login/facebook/callback', passport.authenticate('facebook'), (req,res) => {
+	//check if the user is associated w/ a house. If so, redirect to dash, if not redirect to create/join house
+	if(req.user.dataValues.house_id) {
+		res.redirect('/#/dashboard')	
+	} else {
+		res.redirect('/#/house_select')
+	}
+})
 
 router.post('/addHouseId', (req, res) => {
 	controller.addHouseId(req, res)
