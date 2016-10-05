@@ -1,13 +1,12 @@
-const Billing = require('./model.billing')
+const Billing = require('../billing/model.billing').Bills
 
 module.exports = {
 	getBills : (req, res) => {
     //takes in a house id
     //returns all bills with the house id
 		Billing.findAll({
-			where: { house_id: req.query.house_id }
+			where: { houseId: req.query.house_id }
 		})
-    .then(res.status(200).send(req.query.house_id))
-
+    .then(bills => res.status(200).json(bills))
 	}
 }
