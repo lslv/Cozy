@@ -27,9 +27,14 @@ export default class Login extends Component {
           onChange={event => this.onPasswordChange(event.target.value)} />
 
         <input
+          className='btn btn-info'
           value="Login"
           type="submit"
         />
+         <a
+          href='/api/users/login/facebook'
+          className='btn btn-primary'
+          ><span className='fa fa-facebook'></span> Facebook Login</a>
       </form>
     )
 	}
