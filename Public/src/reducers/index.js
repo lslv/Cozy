@@ -8,6 +8,7 @@ import UserReducer from './reducer_users'
 import ChatReducer from './reducer_chats'
 import HousesReducer from './reducer_join_search'
 import CalendarReducer from './reducer_calendars'
+import BillingReducer from './reducer_billing'
 import {reducer as formReducer} from 'redux-form'
 
 const rootReducer = combineReducers({
@@ -19,8 +20,13 @@ const rootReducer = combineReducers({
 	votes: VotesReducer,
 	form: formReducer,
 	chats: ChatReducer,
+<<<<<<< 915e458c2587e2bbfbe74e44c3397bf94dbedc40
 	calendar: CalendarReducer,
 	houses: HousesReducer
+=======
+	houses: HousesReducer,
+	bills: BillingReducer
+>>>>>>> [bug]webpack not loading
 })
 
 export default rootReducer
