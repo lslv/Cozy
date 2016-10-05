@@ -3,7 +3,7 @@ const fb_auth = require('./auth')
 
 module.exports = (passport, Strategy, app, port) => {
 
-	//Change to user id to query to & from db to match profile w/ user
+	
 	passport.serializeUser((user, done) => {
 		done(null, user.id)
 	})
@@ -20,8 +20,30 @@ module.exports = (passport, Strategy, app, port) => {
 	},
 	function(accessToken, refreshToken, profile, done) {
 		console.log('fb profile in fb_auth', profile)
-		return done(null, profile)
-	}))
+
+		Users.findOne({ 
+				where: {
+					fb_id: profile.id
+				}
+			})
+			.then((user) => {
+
+				if(!user) {
+					Users.create({
+						fb_id: profile.id,
+						user_name: profile.displayName,
+						email: profile.emails[0].value,
+						fb_picture: profile.photos[0].value
+					})
+					.then(user => done(null, user))
+					.catch(err => console.log('err in fb auth', err))
+				} else {
+					return done(null, user)
+				}	
+
+			})
+
+		}))
 
 
 
