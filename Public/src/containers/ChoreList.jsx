@@ -16,7 +16,8 @@ class ChoreList extends Component {
 		this.state={
 			open:true,
 			CLIENT_ID:'503377227577-hhc9agh884ka1tn6ev6abl58lflb9h5t.apps.googleusercontent.com',
-			SCOPES: ['https://www.googleapis.com/auth/calendar']
+			SCOPES: ['https://www.googleapis.com/auth/calendar'],
+			makeButtonStyle:{style:'inline'}
 		}
 		this.handleAuthResult=this.handleAuthResult.bind(this)
 		this.listUpcomingChores=this.listUpcomingChores.bind(this)
@@ -88,7 +89,7 @@ class ChoreList extends Component {
 			'timeMin': (new Date()).toISOString(),
 			'showDeleted': false,
 			'singleEvents': true,
-			'maxResults': 20,
+			'maxResults': 10,
 			'orderBy': 'startTime'
 		})
 
@@ -124,6 +125,7 @@ class ChoreList extends Component {
 
 	//functions invovled in making a calendar
 	handleMakeCalendarClick(event){
+		this.setState({makeButtonStyle:{display:'none'}} )
 		gapi.client.load('calendar', 'v3', this.createNewCalendar)
 	}
 
@@ -188,6 +190,7 @@ class ChoreList extends Component {
 		})
 		batchChoreEvents.then((results)=>{
 			//console.log(results)
+			this.listUpcomingChores()
 		})
 
 		this.inviteHouseMates(newCal)
@@ -199,18 +202,26 @@ class ChoreList extends Component {
 		//right now just invite your other email address instead of dynamically grabbing the email address from the users in the database
 		var batchInvites = gapi.client.newBatch()
 
-		var inviteResources= [];
-		const {users} = this.props
-		for(var userId in users){
-			// console.log(users[userId])
-			if(users[userId].user_name !== sessionStorage.getItem('username'))
-				inviteResources.push({	
+		//just for testing right now
+		var inviteResources=[{	
 									'role':'reader',
 									'scope':{
 										'type':'user',
-										'value':users[userId].email //hardcoded in a single user
-									}})
-		}
+										'value':'lsfisher@usc.edu' //hardcoded in a single user
+									}}]
+		//real production code
+		// var inviteResources= [];
+		// const {users} = this.props
+		// for(var userId in users){
+		// 	// console.log(users[userId])
+		// 	if(users[userId].user_name !== sessionStorage.getItem('username'))
+		// 		inviteResources.push({	
+		// 							'role':'reader',
+		// 							'scope':{
+		// 								'type':'user',
+		// 								'value':users[userId].email //hardcoded in a single user
+		// 							}})
+		// }
 		console.log('inviteResources', inviteResources)
 		inviteResources.forEach((resource)=>{
 		let request = gapi.client.calendar.acl.insert({
@@ -240,7 +251,7 @@ class ChoreList extends Component {
 			        </Button>
 			        <br/>
 		        </div>
-		        <Button id="create-button" onClick={ event=>this.handleMakeCalendarClick(event)}>
+		        <Button style={this.state.makeButtonStyle} id="create-button" onClick={ event=>this.handleMakeCalendarClick(event)}>
 		          Make The Chores Calendar
 		        </Button>
 				<pre id="output"></pre>
@@ -254,6 +265,7 @@ class ChoreList extends Component {
 			)
 	}
 }
+// style={{display:'none' }} 
 
 function mapStateToProps(state){
 	return {chores:state.chores, queues:state.queues, users:state.users, calendar:state.calendar} //add state infusion there
