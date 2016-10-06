@@ -6,12 +6,12 @@ const INITIAL_STATE=null
 export default function(state = INITIAL_STATE , action) {
 	switch (action.type) {
 	case ADD_CALENDAR:
-		console.log('adding calendar to redux state')
-		console.log('payload ', action.payload )
+		//console.log('adding calendar to redux state')
+		//console.log('payload ', action.payload )
 		return action.payload.data.calendar_google_id
 	case GET_CALENDAR:
-		console.log('getting calendar to redux state')
-		console.log('payload ', action.payload )
+		//console.log('getting calendar to redux state')
+		//console.log('payload ', action.payload )
 		if(typeof action.payload.data === 'object')
 			return action.payload.data.calendar_google_id
 		else

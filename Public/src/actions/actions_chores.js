@@ -6,10 +6,10 @@ export const UPDATE_CHORE = 'UPDATE_CHORE'
 
 export function addChore (choreData){
 	console.log('adding a chore action', choreData)
-	choreData.chore_adder='lucas' //hardcoded who 
+	choreData.chore_adder=sessionStorage.getItem('username') //hardcoded who 
 	choreData.user_turn=0 //hardcoded user with user 0
-	choreData.house_id=1 //hardcoded house Id of 1
-	choreData.num_of_users=8 //hardcoded number of users to be 4, would dynamically grab from house info
+	choreData.house_id=sessionStorage.getItem('house_id') //hardcoded house Id of 1
+	choreData.num_of_users=sessionStorage.getItem('num_of_users')//hardcoded number of users to be 4, would dynamically grab from house info
 	const payload= axios.post('http://localhost:1337/api/chores/postChore', choreData) //hardcoded in local host
 	return{
 		type: ADD_CHORE,
@@ -38,7 +38,7 @@ export function updateChoreTurn(choreId){
 }
 
 
-export function getChores (house_id=1){ //harcoded in house ID
+export function getChores (house_id){ //harcoded in house ID
 	console.log('getting a chore action')
 	const payload =axios.get('http://localhost:1337/api/chores/getChores', {
 		params:{house_id}}) //hardcoded in localhost

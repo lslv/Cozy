@@ -25,11 +25,14 @@ class ChoreList extends Component {
 
 	}
 	componentWillMount(){
-	 	Promise.all([this.props.getUsers(), this.props.getChores(), this.props.getCalendar()])
+		// console.log('house ID of currently logged in User ', sessionStorage.getItem('house_id'))
+		const house_id= sessionStorage.getItem('house_id')
+	 	Promise.all([this.props.getUsers(house_id), this.props.getChores(house_id), this.props.getCalendar(house_id)])
 	 	.then(()=>{
+	 	sessionStorage.setItem('num_of_users', Object.keys(this.props.users).length)
 		// console.log('users ',this.props.users)
 		// console.log('chores ',this.props.chores)
-		console.log('calendar ', this.props.calendar )
+		//console.log('calendar ', this.props.calendar )
 		Promise.all(this.props.chores.map((chore)=> this.props.getQueue(chore.id) ))
 		.then(()=>{
 			//console.log(this.props.queues)
@@ -52,7 +55,7 @@ class ChoreList extends Component {
 
 	handleAuthResult(authResult) { // Handle response from authorization server.
 		console.log('handleAuthResult')
-		console.log(authResult.error)
+		//console.log(authResult.error)
 		var authorizeDiv = document.getElementById('authorize-div')
 		var makeCalendarButton = document.getElementById('create-button')
 		if (authResult && !authResult.error) {
@@ -96,7 +99,7 @@ class ChoreList extends Component {
 			if (events.length > 0) {
 				for (var i = 0; i < events.length; i++) {
 					// console.log(events[i])
-					if(events[i].summary.includes('lucas')){ //hardcoded in my username
+					if(events[i].summary.includes(sessionStorage.getItem('username'))){ //hardcoded in my username
 						var event = events[i]
 						var when = event.start.dateTime
 						if (!when) {
@@ -133,7 +136,7 @@ class ChoreList extends Component {
 			console.log(resp)
 			this.props.addCalendar({
 				calendar_google_id:resp.id,
-				houseId: 1 //hardcoded house Id on 1 right now
+				houseId:  sessionStorage.getItem('house_id')//hardcoded house Id on 1 right now
 			})
 			this.createCalendarChores(resp)
 		}.bind(this))
@@ -177,14 +180,14 @@ class ChoreList extends Component {
 
 		events.forEach((chore)=>{
 		//insert attendees field as other users
-		console.log(chore)
+		//console.log(chore)
 		let request = gapi.client.calendar.events.insert({
 			'calendarId': newCal.id,
 			'resource':  chore})
 		batchChoreEvents.add(request)
 		})
 		batchChoreEvents.then((results)=>{
-			console.log(results)
+			//console.log(results)
 		})
 
 		this.inviteHouseMates(newCal)
@@ -194,18 +197,31 @@ class ChoreList extends Component {
 
 	inviteHouseMates(newCal){
 		//right now just invite your other email address instead of dynamically grabbing the email address from the users in the database
+		var batchInvites = gapi.client.newBatch()
+
+		var inviteResources= [];
+		const {users} = this.props
+		for(var userId in users){
+			// console.log(users[userId])
+			if(users[userId].user_name !== sessionStorage.getItem('username'))
+				inviteResources.push({	
+									'role':'reader',
+									'scope':{
+										'type':'user',
+										'value':users[userId].email //hardcoded in a single user
+									}})
+		}
+		console.log('inviteResources', inviteResources)
+		inviteResources.forEach((resource)=>{
 		let request = gapi.client.calendar.acl.insert({
 				'calendarId': newCal.id,
-				'resource':  {	
-								'role':'reader',
-								'scope':{
-									'type':'user',
-									'value':'lsfisher@usc.edu' //hardcoded in a single user
-								}}
+				'resource':  resource
 			})
-		request.execute(function(response){
-			console.log('response from access control')
-			console.log(response)
+		batchInvites.add(request)
+		})
+
+		batchInvites.then((results)=>{
+			console.log(results)
 		})
 	}
 

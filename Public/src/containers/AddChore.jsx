@@ -16,6 +16,7 @@ class AddChore extends Component {
 	checkIfValidSubmit(event){
 		const {handleSubmit, addChore, resetForm} = this.props
 		event.preventDefault()
+		console.log(event)
 		if(handleSubmit(addChore)(event)){
 			this.setState({ open: !this.state.open })
 			resetForm()

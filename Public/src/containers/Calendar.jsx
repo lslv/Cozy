@@ -25,9 +25,11 @@ class Calendar extends Component {
 		const events=[]
 		this.props.getUsers(1)
 		.then(()=>{
-			this.props.getChores().then(()=>{
+			console.log(this.props.users)
+			this.props.getChores(sessionStorage.getItem('house_id')).then(()=>{
 				Promise.all(this.props.chores.map((chore)=> this.props.getQueue(chore.id) ))
 				.then(()=>{
+					console.log(this.props.queues)
 					this.createEvents()
 				})
 			})
