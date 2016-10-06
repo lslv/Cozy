@@ -1,0 +1,28 @@
+.landing {
+	display: flex;
+	flex-direction: column;
+}
+
+.landing-tile {
+	width: 100%;
+    border: 1px solid black;
+    height: 20em;
+
+    #landing-title {
+    	margin-top: 6%;
+    }
+
+    h1 {
+    font-size: 400%;
+	text-align: center;
+	margin-top: 1%;
+    }
+
+    h1 + p {
+    	text-align: center;
+    }
+
+    .input-group {
+    	margin: 0 30%
+    }
+}

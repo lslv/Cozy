@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import _ from 'lodash'
 
+import Navbar from '../components/Navbar'
+
 export default class Dashboard extends Component {
 	constructor(props) {
 		super(props)
@@ -29,9 +31,7 @@ export default class Dashboard extends Component {
 	render () {
 		return (
       <div>
-        <p>
-          In the dashboard
-        </p>
+       <Navbar />
         <button>
           <Link to='/bulletin_board'> Go to the bulletin board
           </Link>
