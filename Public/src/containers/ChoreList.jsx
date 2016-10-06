@@ -14,6 +14,7 @@ class ChoreList extends Component {
 	constructor(props){
 		super(props)
 		this.state={
+			loading:true,
 			open:true,
 			CLIENT_ID:'503377227577-hhc9agh884ka1tn6ev6abl58lflb9h5t.apps.googleusercontent.com',
 			SCOPES: ['https://www.googleapis.com/auth/calendar'],
@@ -68,8 +69,8 @@ class ChoreList extends Component {
 				//makeCalendarButton.style.display = 'inline'
 			if(this.props.calendar){
 				//makeCalendarButton.style.display = 'none'
-				this.setState({makeButtonStyle:{display:'none'}} )
-				gapi.client.load('calendar', 'v3', this.listUpcomingChores)
+				this.setState({makeButtonStyle:{display:'none'}, loading:false},
+				()=> gapi.client.load('calendar', 'v3', this.listUpcomingChores)  )
 			}
 		} else {
 			// authorizeDiv.style.display = 'inline'
@@ -246,28 +247,34 @@ class ChoreList extends Component {
 		return this.props.chores.map( chore => <Chore key={chore.chore_name} chore={chore} />)
 	}
 	render(){
-		return (
-			<div>
-				<div id="authorize-div" style={this.state.authButtonStyle}>
-			        <span>Authorize access to Google Calendar API</span>
-			        <br/>
-			        <Button id="authorize-button" onClick={ event=>this.handleAuthClick(event)}>
-			          Authorize Google Calendar Access
+		if(this.state.loading===true){
+			return (<div>
+					<iframe src="//giphy.com/embed/dw100K61tlysE" width="480" height="387" frameBorder="0" allowFullScreen></iframe>
+					</div>)
+		}
+		else
+			return (
+				<div>
+					<div id="authorize-div" style={this.state.authButtonStyle}>
+				        <span>Authorize access to Google Calendar API</span>
+				        <br/>
+				        <Button id="authorize-button" onClick={ event=>this.handleAuthClick(event)}>
+				          Authorize Google Calendar Access
+				        </Button>
+				        <br/>
+			        </div>
+			        <Button style={this.state.makeButtonStyle} id="create-button" onClick={ event=>this.handleMakeCalendarClick(event)}>
+			          Make The Chores Calendar
 			        </Button>
-			        <br/>
-		        </div>
-		        <Button style={this.state.makeButtonStyle} id="create-button" onClick={ event=>this.handleMakeCalendarClick(event)}>
-		          Make The Chores Calendar
-		        </Button>
-				<pre id="output"></pre>
-				<Accordion>
-					<Panel>
-						<AddChore />
-					</Panel>
-					{this.renderChoreList()}
-				</Accordion>
-			</div>
-			)
+					<pre id="output"></pre>
+					<Accordion>
+						<Panel>
+							<AddChore />
+						</Panel>
+						{this.renderChoreList()}
+					</Accordion>
+				</div>
+				)
 	}
 }
 // style={{display:'none' }} 
