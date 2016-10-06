@@ -7,7 +7,8 @@ import ReduxPromise from 'redux-promise'
 import reducers from './reducers'
 import createLogger from 'redux-logger'
 
-// const logger = createLogger()
+//Sass
+require('../../Styles/main.scss')
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore)
 

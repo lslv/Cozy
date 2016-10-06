@@ -25,7 +25,6 @@ class House extends Component{
 						{house.house_name}</li>
 			)
 		})
-		console.log('this propsin house search', this.props)
 		return(
       <ul>
 			{houses}
