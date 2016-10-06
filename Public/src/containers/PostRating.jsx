@@ -11,7 +11,9 @@ export default class PostRating extends Component {
 
 		this.state = {
 			star:'',
-			rating:''
+			rating:'',
+			reviewer: sessionStorage.getItem('id') //can i just grab sessionStorage from anywhere?
+			reviewed: sessionStorage.getItem('') //need a copy of searched user's id
 		}
 		this.submitRating = this.submitRating.bind(this);
 	} //end of constructor
@@ -34,5 +36,5 @@ submitRating(){
 function mapDispatchToProps (dispatch) {
 	return bindActionCreators({postRating}, dispatch)
 }
-
+//where does fetchAllRatings(which is the action)get the information from?
 export default connect(fetchAllRatings,mapDispatchToProps)(PostRating)

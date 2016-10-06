@@ -40,8 +40,7 @@ const Users = sequelize.define('users', {
 } ,
 	{
 		timestamps: true,
-		underscored: true,
-		paranoid: true
+		underscored: true
 	}
 )
 

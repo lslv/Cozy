@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const controller = require('./controller.ratings')
 
+
+
 router.get('/find_user_ratings', (req, res) => {
 	controller.find_user_ratings(req, res)
 })
