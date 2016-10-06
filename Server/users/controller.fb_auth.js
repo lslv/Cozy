@@ -19,8 +19,6 @@ module.exports = (passport, Strategy, app, port) => {
 		profileFields: ['id','email','displayName', 'picture']
 	},
 	function(accessToken, refreshToken, profile, done) {
-		console.log('fb profile in fb_auth', profile)
-
 		Users.findOne({ 
 				where: {
 					fb_id: profile.id

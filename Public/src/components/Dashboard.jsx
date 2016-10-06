@@ -11,7 +11,6 @@ export default class Dashboard extends Component {
     //here check if the user logged in via FB auth
         //if so, save data on url query str to session storage 
       const { query } = this.props.location
-      console.log('url', this.props.location)
       //on fb login, if user is associated with house
       //query obj is truthy and sets data to sessionStorage
       //if the user just joined a house, the data
