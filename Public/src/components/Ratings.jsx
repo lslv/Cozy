@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 // import RatingItem from './RatingItem'
 import RatingList from './RatingList'
-// import PostRating from './PostRating'
+import PostRating from '../containers/PostRating'
 import UserRatingProfile from './UserRatingProfile'
+
 
 export default class Ratings extends Component {
 	constructor(props){

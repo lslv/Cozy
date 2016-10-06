@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router()
 const controller = require('./controller.ratings')
 
-router.get('/find_user', (req, res) => {
-	controller.find_user(req, res)
+router.get('/find_user_ratings', (req, res) => {
+	controller.find_user_ratings(req, res)
 })
 
 router.post('/rate_user',(req, res) => {

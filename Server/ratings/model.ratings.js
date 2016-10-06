@@ -33,9 +33,18 @@ User_Ratings.sync().then(function () {
 
 // This is the User_Ratings_Join_Table that will depend an instance of review
 
-const User_Ratings_Join_Table = sequelize.define('user_ratings_join_table')
+const User_Ratings_Join_Table = sequelize.define('user_ratings_join_table',{},{
+	timestamps: false,
+	underscore: true,
+	deletedAt: false})
 
 User_Ratings.belongsToMany(Users, {through: User_Ratings_Join_Table})
-Users.belongsToMany(User_Ratings, {through: User_Ratings_Join_Table})
+Users.belongsToMany(User_Ratings, {through: User_Ratings_Join_Table, as: 'review_id'})
+
+User_Ratings_Join_Table.sync().then(function () {
+	console.log(chalk.white('SAY WHAAAT'))
+}).catch(function (err) {
+	console.error(chalk.white('+++line44 There was an error'), err)
+})
 
 module.exports = {User_Ratings: User_Ratings, User_Ratings_Join_Table: User_Ratings_Join_Table}
