@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+import Navbar from './Navbar'
 
 
 export default class Landing extends Component {
   render () {
     return (
       <div>
+       <Navbar />
         <p>
           In the landing page
         </p>
