@@ -19,7 +19,9 @@ class ChoreList extends Component {
 			CLIENT_ID:'503377227577-hhc9agh884ka1tn6ev6abl58lflb9h5t.apps.googleusercontent.com',
 			SCOPES: ['https://www.googleapis.com/auth/calendar'],
 			makeButtonStyle:{display:'none'},
-			authButtonStyle:{display:'none'}
+			authButtonStyle:{display:'none'},
+			upcomingEventsStyle:{display:'none'},
+			upcomingChores:[]
 		}
 		this.handleAuthResult=this.handleAuthResult.bind(this)
 		this.listUpcomingChores=this.listUpcomingChores.bind(this)
@@ -33,9 +35,9 @@ class ChoreList extends Component {
 	 	Promise.all([this.props.getUsers(house_id), this.props.getChores(house_id), this.props.getCalendar(house_id)])
 	 	.then(()=>{
 	 	sessionStorage.setItem('num_of_users', Object.keys(this.props.users).length)
-		// console.log('users ',this.props.users)
-		// console.log('chores ',this.props.chores)
-		//console.log('calendar ', this.props.calendar )
+		console.log('users ',this.props.users)
+		console.log('chores ',this.props.chores)
+		console.log('calendar ', this.props.calendar )
 		Promise.all(this.props.chores.map((chore)=> this.props.getQueue(chore.id) ))
 		.then(()=>{
 			//console.log(this.props.queues)
@@ -62,20 +64,21 @@ class ChoreList extends Component {
 		var authorizeDiv = document.getElementById('authorize-div')
 		var makeCalendarButton = document.getElementById('create-button')
 		if (authResult && !authResult.error) {
-			this.setState({authButtonStyle:{display:'none'}} )
+			this.setState({authButtonStyle:{display:'none'}, loading:false} )
 			// authorizeDiv.style.display = 'none'
-			if(!this.props.calendar)
+			if(!this.props.calendar){}
 				this.setState({makeButtonStyle:{display:'inline'}} )
 				//makeCalendarButton.style.display = 'inline'
 			if(this.props.calendar){
 				//makeCalendarButton.style.display = 'none'
-				this.setState({makeButtonStyle:{display:'none'}, loading:false},
+				this.setState({makeButtonStyle:{display:'none'}, upcomingEventsStyle:{display:'inline'}},
 				()=> gapi.client.load('calendar', 'v3', this.listUpcomingChores)  )
 			}
 		} else {
 			// authorizeDiv.style.display = 'inline'
 			// makeCalendarButton.style.display = 'none'
-			this.setState({authButtonStyle:{display:'inline'}} )
+			console.log('not logged in')
+			this.setState({authButtonStyle:{display:'inline'}, loading:false} )
 		}
 	}
 
@@ -101,8 +104,8 @@ class ChoreList extends Component {
 
 		request.execute(function(resp) {
 			var events = resp.items
-			this.appendPre('Upcoming events:')
-
+			// this.appendPre('Upcoming events:')
+			var upcomingEvents=[]
 			if (events.length > 0) {
 				for (var i = 0; i < events.length; i++) {
 					// console.log(events[i])
@@ -112,21 +115,30 @@ class ChoreList extends Component {
 						if (!when) {
 							when = event.start.date
 						}
-						this.appendPre(event.summary + ' (' + when + ')')
+						upcomingEvents.push(event.summary + ' (' + when + ')')
+						// this.appendPre(event.summary + ' (' + when + ')')
 					}
 				}
 			} else {
-				this.appendPre('No upcoming events found.')
+				upcomingEvents.push('No upcoming chores')
+				// this.appendPre('No upcoming events found.')
 			}
+			this.setState({ upcomingChores: upcomingEvents })
 
 		}.bind(this) )
 	}
-
-	appendPre(message) { //Append a pre element to the body containing the given message as its text node.
-		var pre = document.getElementById('output')
-		var textContent = document.createTextNode(message + '\n')
-		pre.appendChild(textContent)
+	renderUpcomingChores(){
+		if(this.state.upcomingChores.length)
+			return this.state.upcomingChores.map((chore)=> <li key={chore} >{chore}</li>)
+		else
+			return <li>no events</li>
 	}
+
+	// appendPre(message) { //Append a pre element to the body containing the given message as its text node.
+	// 	var pre = document.getElementById('output')
+	// 	var textContent = document.createTextNode(message + '\n')
+	// 	pre.appendChild(textContent)
+	// }
 
 
 	//functions invovled in making a calendar
@@ -248,9 +260,7 @@ class ChoreList extends Component {
 	}
 	render(){
 		if(this.state.loading===true){
-			return (<div>
-					<iframe src="//giphy.com/embed/dw100K61tlysE" width="480" height="387" frameBorder="0" allowFullScreen></iframe>
-					</div>)
+			return <img src='/../../cozy_loading.gif' />
 		}
 		else
 			return (
@@ -266,7 +276,14 @@ class ChoreList extends Component {
 			        <Button style={this.state.makeButtonStyle} id="create-button" onClick={ event=>this.handleMakeCalendarClick(event)}>
 			          Make The Chores Calendar
 			        </Button>
-					<pre id="output"></pre>
+			        
+					<div style={this.state.upcomingEventsStyle}>
+						<h1>Upcoming Chores</h1>
+						<Button href="https://calendar.google.com/calendar/iphoneselect" bsStyle="link">Sync Calendar With Phone</Button>
+						<ul>
+						{this.renderUpcomingChores()}
+						</ul>
+					</div>
 					<Accordion>
 						<Panel>
 							<AddChore />
@@ -278,6 +295,7 @@ class ChoreList extends Component {
 	}
 }
 // style={{display:'none' }} 
+// <pre id="output"></pre>
 
 function mapStateToProps(state){
 	return {chores:state.chores, queues:state.queues, users:state.users, calendar:state.calendar} //add state infusion there

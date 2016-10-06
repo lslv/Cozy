@@ -12,12 +12,16 @@ class Chore extends Component {
 		super(props)
 		this.state={
 			open:false,
-			onceForceUpdate:_.once(this.forceUpdate.bind(this))
+			onceForceUpdate:_.once(this.forceUpdate.bind(this)),
+			verifyButtonStyle:{display:'none'}
 		}
 		this.clickHandler=this.clickHandler.bind(this)
 	}
 
 	componentWillMount(){
+		if(sessionStorage.getItem('admin')==='true')
+			this.setState({verifyButtonStyle:{display:'inline'}})
+
 		this.props.getQueue(this.props.chore.id)
 		.then(()=>{
 			const {queues} = this.props
@@ -134,9 +138,10 @@ class Chore extends Component {
 					Delete Chore
 					</Button>
 					<Button
+					style={this.state.verifyButtonStyle}
 					bsStyle="info"
 					onClick={(event) => this.handleUnverify(event)}>
-					Un-Verify Chore (Assigned User Did Not Complete Chore, should only be for admin)
+					Undo Chore Completion
 					</Button>
 				</Panel>
 			)
