@@ -5,6 +5,8 @@ import { getPosts } from '../actions/actions_posts'
 import { getPolls } from '../actions/actions_polls'
 import { bindActionCreators } from 'redux'
 
+
+import Navbar from '../components/Navbar'
 import AddPost from './AddPost'
 import AddPoll from './AddPoll'
 import Post from './Post'
@@ -77,10 +79,16 @@ class BulletinBoard extends Component {
 
 	render () {
 		if (this.state.showLoadingIcon) {
-			return ( <img src='../../loader.gif' />)
+			return (
+				<div>
+				<Navbar /> 
+				<img src='../../loader.gif' />
+				</div>
+				)
 		} else {
 			return (
-        <Col xs={12} md={8}>
+        <div>
+        <Navbar />
         <Button bsStyle='info' onClick={this.toggleAddPost}>
           Add a post-it <i className='fa fa-plus-circle' aria-hidden='true'></i>
         </Button>
@@ -95,7 +103,7 @@ class BulletinBoard extends Component {
           {this.renderPosts()}
           {this.renderPolls()}
           </ListGroup>
-        </Col>
+        </div>
       )
 		}
 	}

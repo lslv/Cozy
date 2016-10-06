@@ -1,4 +1,8 @@
+@import './base/fonts';
+@import './base/color-scheme';
 @import './base/global';
+@import './layout/navbar';
+@import './layout/landing';
 @import './components/calendar/calendar';
 @import './components/chat/chat';
 @import './components/chores/chores';

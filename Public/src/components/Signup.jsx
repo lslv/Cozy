@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Router, browserHistory, Link } from 'react-router'
 import axios from 'axios'
 
+import Navbar from '../components/Navbar'
+
 export default class Signup extends Component{
 	constructor(props){
 		super(props)
@@ -16,6 +18,8 @@ export default class Signup extends Component{
 	}
 	render () {
 		return (
+	<div>
+	  <Navbar />
       <form>
         <input
 					value={this.state.Firstname}
@@ -58,6 +62,7 @@ export default class Signup extends Component{
 					type="submit"
 					onClick={event => this.onSignup()} />
       </form>
+     </div>
     )
 	}
 

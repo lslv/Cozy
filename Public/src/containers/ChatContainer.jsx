@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { getUsers } from '../actions/actions_users'
 import { createRoom, getUserRooms, updateActiveChat } from '../actions/actions_chats'
 
+import Navbar from '../components/Navbar'
 import ChatRoomList from '../components/ChatRoomList'
 import Chat from '../containers/Chat'
 
@@ -35,9 +36,12 @@ class ChatContainer extends Component {
 
 	render() {
 		return (
-		<div className='chat-container'>
-			<ChatRoomList {...this.props} />
-			{this.renderChatWhenActive()}
+		<div>
+			<Navbar />
+			<div className='chat-container'>
+				<ChatRoomList {...this.props} />
+				{this.renderChatWhenActive()}
+			</div>
 		</div>
 		)
 	}
