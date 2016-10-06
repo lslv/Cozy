@@ -1,1 +1,4 @@
-@import './styles'
+@import './base/global';
+@import './components/calendar/calendar';
+@import './components/chat/chat';
+@import './components/chores/chores';
