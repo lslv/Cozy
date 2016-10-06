@@ -8,6 +8,7 @@ import UserReducer from './reducer_users'
 import ChatReducer from './reducer_chats'
 import HousesReducer from './reducer_join_search'
 import CalendarReducer from './reducer_calendars'
+import BillingReducer from './reducer_billing'
 import {reducer as formReducer} from 'redux-form'
 
 const rootReducer = combineReducers({
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
 	form: formReducer,
 	chats: ChatReducer,
 	calendar: CalendarReducer,
-	houses: HousesReducer
+	houses: HousesReducer,
+	bills: BillingReducer
 })
 
 export default rootReducer

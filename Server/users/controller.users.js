@@ -37,6 +37,7 @@ module.exports = {
 	},
 
 	houseIdUsers: (req ,res) => {
+		console.log('request',req.query.house_id)
 		Users.findAll({
 			where: { house_id: req.query.house_id }
 		})

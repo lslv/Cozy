@@ -13,10 +13,11 @@ import CreateHouse from './CreateHouse'
 import JoinHouse from '../containers/JoinHouse'
 import Profile from './Profile'
 import Calendar from '../containers/Calendar'
+import Budget from '../containers/Budget'
 
 export default class App extends Component {
-  render () {
-    return (
+	render () {
+		return (
       // Set up routes
       <Router history={hashHistory}>
         <Route path='/' component={Landing} />
@@ -32,6 +33,7 @@ export default class App extends Component {
 				<Route path='/Join_house' component={JoinHouse} />
 				<Route path='/create_house' component={CreateHouse} />
         <Route path='/chat' component={ChatContainer} />
+				<Route path='/budget' component={Budget} />
       </Router>
     )
 	}
