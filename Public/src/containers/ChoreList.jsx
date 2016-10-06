@@ -10,6 +10,8 @@ import Chore from './Chore'
 import { Accordion, Panel, Button, Collapse, Well } from 'react-bootstrap'
 import moment from 'moment'
 
+import Navbar from '../components/Navbar'
+
 class ChoreList extends Component {
 	constructor(props){
 		super(props)
@@ -216,6 +218,7 @@ class ChoreList extends Component {
 	render(){
 		return (
 			<div>
+				<Navbar />
 				<div id="authorize-div">
 			        <span>Authorize access to Google Calendar API</span>
 			        <br/>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Router, browserHistory, Link } from 'react-router'
 import axios from 'axios'
+import Navbar from './Navbar'
 
 export default class Login extends Component {
 	constructor (props) {
@@ -13,29 +14,32 @@ export default class Login extends Component {
 
 	render () {
 		return (
-      <form onSubmit={this.onLogin}>
-        <input
-          value={this.state.username}
-          placeholder="Username"
-          required
-          onChange={event => this.onUsernameChange(event.target.value)} />
-        <input
-          value={this.state.password}
-          placeholder="Password"
-          required
-          type="password"
-          onChange={event => this.onPasswordChange(event.target.value)} />
+		<div>
+		  <Navbar />
+	      <form onSubmit={this.onLogin}>
+	        <input
+	          value={this.state.username}
+	          placeholder="Username"
+	          required
+	          onChange={event => this.onUsernameChange(event.target.value)} />
+	        <input
+	          value={this.state.password}
+	          placeholder="Password"
+	          required
+	          type="password"
+	          onChange={event => this.onPasswordChange(event.target.value)} />
 
-        <input
-          className='btn btn-info'
-          value="Login"
-          type="submit"
-        />
-         <a
-          href='/api/users/login/facebook'
-          className='btn btn-primary'
-          ><span className='fa fa-facebook'></span> Facebook Login</a>
-      </form>
+	        <input
+	          className='btn btn-info'
+	          value="Login"
+	          type="submit"
+	        />
+	         <a
+	          href='/api/users/login/facebook'
+	          className='btn btn-primary'
+	          ><span className='fa fa-facebook'></span> Facebook Login</a>
+	      </form>
+	    </div>
     )
 	}
 

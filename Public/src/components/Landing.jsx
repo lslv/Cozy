@@ -8,17 +8,6 @@ export default class Landing extends Component {
     return (
       <div>
        <Navbar />
-        <p>
-          In the landing page
-        </p>
-        <button>
-          <Link to='/signup'>Signup</Link>
-        </button>
-        <br />
-        <button>
-          <Link to='/login'>Login</Link>
-        </button>
-        <br />
         <button>
           <Link to='/logout'>Logout</Link>
         </button>

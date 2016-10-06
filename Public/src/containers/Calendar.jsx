@@ -8,6 +8,8 @@ import BigCalendar from 'react-big-calendar'
 import moment from 'moment'
 import Promise from 'promise'
 
+import Navbar from '../components/Navbar'
+
 BigCalendar.setLocalizer(
 	BigCalendar.momentLocalizer(moment))
 
@@ -66,15 +68,18 @@ class Calendar extends Component {
 		const {events}=this.state
 		if(events.length>0)
 			return (
-				<div className="calendar">
-			      <BigCalendar
-			      	popup
-			        events={events}
-			      />
+				<div>
+				<Navbar />
+					<div className="calendar">
+				      <BigCalendar
+				      	popup
+				        events={events}
+				      />
+			  		</div>
 		  		</div>
 	    )
 		else{
-			return <div></div>
+			return <div><Navbar /></div>
 		}
 	}
 }
