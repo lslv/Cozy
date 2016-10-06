@@ -17,7 +17,8 @@ class ChoreList extends Component {
 			open:true,
 			CLIENT_ID:'503377227577-hhc9agh884ka1tn6ev6abl58lflb9h5t.apps.googleusercontent.com',
 			SCOPES: ['https://www.googleapis.com/auth/calendar'],
-			makeButtonStyle:{style:'inline'}
+			makeButtonStyle:{display:'none'},
+			authButtonStyle:{display:'none'}
 		}
 		this.handleAuthResult=this.handleAuthResult.bind(this)
 		this.listUpcomingChores=this.listUpcomingChores.bind(this)
@@ -60,16 +61,20 @@ class ChoreList extends Component {
 		var authorizeDiv = document.getElementById('authorize-div')
 		var makeCalendarButton = document.getElementById('create-button')
 		if (authResult && !authResult.error) {
-			authorizeDiv.style.display = 'none'
+			this.setState({authButtonStyle:{display:'none'}} )
+			// authorizeDiv.style.display = 'none'
 			if(!this.props.calendar)
-				makeCalendarButton.style.display = 'inline'
+				this.setState({makeButtonStyle:{display:'inline'}} )
+				//makeCalendarButton.style.display = 'inline'
 			if(this.props.calendar){
-				makeCalendarButton.style.display = 'none'
+				//makeCalendarButton.style.display = 'none'
+				this.setState({makeButtonStyle:{display:'none'}} )
 				gapi.client.load('calendar', 'v3', this.listUpcomingChores)
 			}
 		} else {
-			authorizeDiv.style.display = 'inline'
-			makeCalendarButton.style.display = 'none'
+			// authorizeDiv.style.display = 'inline'
+			// makeCalendarButton.style.display = 'none'
+			this.setState({authButtonStyle:{display:'inline'}} )
 		}
 	}
 
@@ -243,7 +248,7 @@ class ChoreList extends Component {
 	render(){
 		return (
 			<div>
-				<div id="authorize-div">
+				<div id="authorize-div" style={this.state.authButtonStyle}>
 			        <span>Authorize access to Google Calendar API</span>
 			        <br/>
 			        <Button id="authorize-button" onClick={ event=>this.handleAuthClick(event)}>
