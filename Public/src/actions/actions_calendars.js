@@ -14,7 +14,7 @@ export function addCalendar(calendarData){
 	
 }
 
-export function getCalendar(house_id=1){ //hardcoded default value of 1 
+export function getCalendar(house_id){ //hardcoded default value of 1 
 
 	console.log('retrieivng house google calendar of', house_id)
 	const payload= axios.get('http://localhost:1337/api/calendars/getCalendar', {

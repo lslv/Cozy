@@ -23,7 +23,8 @@ class Chore extends Component {
 			const {queues} = this.props
 			const {users} = this.props
 			const {chore} = this.props
-			if(this.props.chore.new){
+			// console.log('calendar in chore ', this.props.calendar)
+			if(this.props.chore.new && this.props.calendar){
 				var choreQueue= queues[chore.id]
 				var queueInOrder=[ ...choreQueue.slice(chore.user_turn), ...choreQueue.slice(0, chore.user_turn) ]
 				var events = queueInOrder.map((queuePosition,index)=>{
