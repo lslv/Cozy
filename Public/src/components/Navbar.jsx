@@ -17,15 +17,18 @@ export default class NavBar extends Component {
 		    <Navbar.Collapse>
 		      <Nav>
 		      </Nav>
-		      <Navbar.Brand bsClass='nav-text'>
+		      <Navbar.Brand>
 		        <Link to='/'>Cozy</Link>
 		      </Navbar.Brand>
 		      <Nav pullRight>
-		        <NavItem bsClass='nav-text'>
-		        <Link to='/login'>Login</Link>
+		        <NavItem>
+		        <Link to='/login' className='nav-text'>Login</Link>
 		        </NavItem>
-		        <NavItem bsClass='nav-text'>
-		        <Link to='/signup'>Signup</Link>
+		        <NavItem>
+		        <Link to='/signup' className='nav-text'>Signup</Link>
+		        </NavItem>
+		        <NavItem>
+		        <Link to='/logiut' className='nav-text'>Logout</Link>
 		        </NavItem>
 		      </Nav>
 		    </Navbar.Collapse>

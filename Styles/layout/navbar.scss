@@ -2,13 +2,23 @@
 	background-color: $primaryColor;
 	border-color: $primaryColor;
 	border-radius: 0px;
+	margin-bottom: 0px;
 	color: $snow;
+}
+
+.nav-text {
+	color: $snow;
+}
+
+.nav-text:hover {
+	color: $snow;
+	text-decoration: underline;
 }
 
 .navbar-inverse .navbar-brand {
     color: $snow;
 }
 
-.navbar-inverse .navbar-nav>li>a {
-    color: $snow;
+.navbar-inverse .navbar-brand:hover {
+    text-decoration: underline;
 }
