@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import {fetchAllRatings} from '../actions/actions_ratings'
+import { fetchAllRatings } from '../actions/actions_ratings'
 
 class UserRatingProfile extends Component {
 
-	constructor(props){
+	constructor(props) {
 		super(props)
-		this.state= {
+		this.state = {
 			username:''
 		}
+		
 		this.SearchUsername = this.SearchUsername.bind(this)
 		this.SearchBar = this.SearchBar.bind(this)
 	}
@@ -55,5 +56,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(null, mapDispatchToProps)(UserRatingProfile);
+export default connect(null, mapDispatchToProps)(UserRatingProfile)
 // export default connect(null, {fetchAllRatings})(UserRatingProfile)

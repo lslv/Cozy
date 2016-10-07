@@ -17,8 +17,9 @@ class RatingList extends Component {
 
     this.ratingList = this.ratingList.bind(this)
   }
+
   ratingList() {
-    if(this.props.ratingList.data) {
+    if(Array.isArray(this.props.ratingList.data)) {
       sessionStorage.setItem('review_on', this.props.ratingList.data.shift())
 
       return this.props.ratingList.data.map( (rating) => {

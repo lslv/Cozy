@@ -49,25 +49,26 @@ module.exports = {
 //post on a user a star rating and a review. Need: reviewed_by, review_on, star, review, Gives: success or error (you already posted a review, or system error)
 
 	rate_user: (req, res) => {
+		console.log(req.body, 'hello')
 	//posts the review into the table
-		rating_tables.User_Ratings.create({
-				reviewed_by: req.body.reviewed_by,
-				star: req.body.star,
-				review: req.body.review
-		}).then((created_review) => {
-			console.log(chalk.cyan('+++line66 this is the CREATED_REVIEW ID: '), created_review.dataValues.id)
-
-			rating_tables.User_Ratings_Join_Table.create({
-				userRatingId: created_review.dataValues.id,
-				user_id: req.body.review_on
-			}).then(()=>{
-				console.log('SUCCESS')
-			});
-			res.sendStatus(201);
-		}).catch((err) => {
-			console.log(chalk.cyan('+++line68 there is an error in creating review!'))
-			res.status(500).send(err)
-		})
+		// rating_tables.User_Ratings.create({
+		// 		reviewed_by: req.body.reviewed_by,
+		// 		star: req.body.star,
+		// 		review: req.body.review
+		// }).then((created_review) => {
+		// 	console.log(chalk.cyan('+++line66 this is the CREATED_REVIEW ID: '), created_review.dataValues.id)
+		//
+		// 	rating_tables.User_Ratings_Join_Table.create({
+		// 		userRatingId: created_review.dataValues.id,
+		// 		user_id: req.body.review_on
+		// 	}).then(()=>{
+		// 		console.log('SUCCESS')
+		// 	});
+		// 	res.sendStatus(201);
+		// }).catch((err) => {
+		// 	console.log(chalk.cyan('+++line68 there is an error in creating review!'))
+		// 	res.status(500).send(err)
+		// })
 	}
 
 
