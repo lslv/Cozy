@@ -28,7 +28,7 @@ export default class NavBar extends Component {
 		        <Link to='/signup' className='nav-text'>Signup</Link>
 		        </NavItem>
 		        <NavItem>
-		        <Link to='/logiut' className='nav-text'>Logout</Link>
+		        <Link to='/logout' className='nav-text'>Logout</Link>
 		        </NavItem>
 		      </Nav>
 		    </Navbar.Collapse>
