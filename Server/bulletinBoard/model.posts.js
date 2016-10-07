@@ -7,18 +7,18 @@ let chalk = require('chalk')
 // This is the table for Posts and comments on posts
 
 const Posts = sequelize.define('posts', {
-  title: {
-    type: Sequelize.STRING(50),
-    notNull: true
-  },
-  message: {
-    type: Sequelize.STRING
-  }
+	title: {
+		type: Sequelize.STRING(50),
+		notNull: true
+	},
+	message: {
+		type: Sequelize.STRING
+	}
 },
-  {
-    timestamps: true,
-    underscored: true
-  })
+	{
+		timestamps: true,
+		underscored: true
+	})
 
 Posts.belongsTo(Houses
 // ,{
@@ -42,22 +42,22 @@ Posts.belongsTo(Users
 
 const Post_Votes = sequelize.define('post_votes', {
   // Vote_value consists of 0's (a down vote) and 1's (an up vote)
-  vote_value: {
-    type: Sequelize.INTEGER
-  }
+	vote_value: {
+		type: Sequelize.INTEGER
+	}
 })
 
 Post_Votes.belongsTo(Users,
-  {
-    as: 'user_id',
-    foreignKey: 'Users'
-  })
+	{
+		as: 'user_id',
+		foreignKey: 'Users'
+	})
 
 Post_Votes.belongsTo(Posts,
-  {
-    as: 'post_id',
-    foreignKey: 'Posts'
-  })
+	{
+		as: 'post_id',
+		foreignKey: 'Posts'
+	})
 
 Posts.sync().then(function () {
   // Table created
@@ -68,9 +68,9 @@ Posts.sync().then(function () {
 
 Post_Votes.sync().then(function () {
   // Table created
-  console.log(chalk.green('+++line79 model.post_Votes table successfully created'))
+	console.log(chalk.white('+++line79 model.post_Votes table successfully created'))
 }).catch(function (err) {
-  console.error('There was an error in model.users', err)
+	console.error('There was an error in model.users', err)
 })
 
 //Uncomment to drop tables
