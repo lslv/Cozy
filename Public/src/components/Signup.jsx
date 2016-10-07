@@ -16,6 +16,12 @@ export default class Signup extends Component{
 			Email: '',
 			Password: ''
 		}
+		this.onSignup = this.onSignup.bind(this)
+		this.onFirstnameChange = this.onFirstnameChange.bind(this)
+		this.onLastnameChange = this.onLastnameChange.bind(this)
+		this.onUsernameChange = this.onUsernameChange.bind(this)
+		this.onEmailChange = this.onEmailChange.bind(this)
+		this.onPasswordChange = this.onPasswordChange.bind(this)
 	}
 	render () {
 		return (
@@ -101,10 +107,12 @@ export default class Signup extends Component{
 
 		})
     .then((response)=>{
-	console.log(response)
+	console.log(response.data)
 	sessionStorage.setItem('username', response.data.user_name)
 	sessionStorage.setItem('id', response.data.id)
 	sessionStorage.setItem('pay_percentage', response.data.pay_percentage)
+	sessionStorage.setItem('admin', response.data.admin)
+	console.log(sessionStorage.getItem('username'))
 	this.context.router.push('/house_select')
 })
     .catch((error)=>{console.log(error)})

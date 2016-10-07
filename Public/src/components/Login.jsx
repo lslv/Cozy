@@ -69,17 +69,16 @@ export default class Login extends Component {
     .then((response) => {
 	console.log(response.data)
       //this should be a token in the future
-	sessionStorage.setItem('username', response.data.user_name)
 	sessionStorage.setItem('id', response.data.id)
+	sessionStorage.setItem('username', response.data.user_name)
 	sessionStorage.setItem('pay_percentage', response.data.pay_percentage)
 	sessionStorage.setItem('admin', response.data.admin)
-	if(response.data.house_id){
+	if(response.data.house_id !== null){
 		sessionStorage.setItem('house_id', response.data.house_id)
 		this.context.router.push('/dashboard')
 	}else{
 		this.context.router.push('/house_select')
 	}
-	console.log(sessionStorage.getItem('user'))
 })
     .catch((error) => {
 	console.error(error)

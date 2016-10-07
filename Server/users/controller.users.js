@@ -11,10 +11,11 @@ module.exports = {
 					first_name: req.body.firstname,
 					last_name: req.body.lastname,
 					email: req.body.email,
+					admin: false,
 					password: hash,
 					pay_percentage: 0
 				})
-				.then(createdPost => res.status(200).send(createdPost))
+				.then(createdPost => res.status(200).json(createdPost))
 				.catch(err => res.status(400).send(err))
 			})
 		})
