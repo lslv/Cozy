@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Router, browserHistory, Link } from 'react-router'
+import { Modal } from 'react-bootstrap'
 import axios from 'axios'
 import Navbar from './Navbar'
 
@@ -16,29 +17,37 @@ export default class Login extends Component {
 		return (
 		<div>
 		  <Navbar />
-	      <form onSubmit={this.onLogin}>
+	   <Modal.Dialog className='login-component'>
+		  <Modal.Header>
+        <Modal.Title className='login-title'>Login</Modal.Title>
+      </Modal.Header>
+		  <Modal.Body>
+	      <form onSubmit={this.onLogin} className='login-form'>
 	        <input
 	          value={this.state.username}
 	          placeholder="Username"
+	          className='form-control'
 	          required
 	          onChange={event => this.onUsernameChange(event.target.value)} />
 	        <input
 	          value={this.state.password}
+	          className='form-control'
 	          placeholder="Password"
 	          required
 	          type="password"
 	          onChange={event => this.onPasswordChange(event.target.value)} />
-
-	        <input
-	          className='btn btn-info'
-	          value="Login"
-	          type="submit"
-	        />
+	       <div className='btn-group'>
+	        <button className='btn btn-info'>
+	        Login
+	        </button>
 	         <a
 	          href='/api/users/login/facebook'
 	          className='btn btn-primary'
 	          ><span className='fa fa-facebook'></span> Facebook Login</a>
+	        </div>
 	      </form>
+	      </Modal.Body>
+	      </Modal.Dialog>
 	    </div>
     )
 	}
