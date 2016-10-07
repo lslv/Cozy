@@ -13,7 +13,7 @@ class PostRating extends Component {
 		this.state = {
 			star:'',
 			rating:'',
-			review_on: sessionStorage.getItem('review_on'),
+			review_on:'',
 			reviewed_by: sessionStorage.getItem('username') //need a copy of searched user's id
 		}
 		this.inputStar = this.inputStar.bind(this);
@@ -36,7 +36,7 @@ class PostRating extends Component {
 		this.props.postRating({
 			star: this.state.star,
 			rating: this.state.rating,
-			review_on: this.state.review_on,
+			review_on: sessionStorage.getItem('review_on'),
 			reviewed_by: this.state.reviewed_by
 		})
 	}

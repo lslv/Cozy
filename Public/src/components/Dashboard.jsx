@@ -56,6 +56,11 @@ export default class Dashboard extends Component {
           <Link to='/budget'> Go to Budget
           </Link>
         </button>
+				<br />
+				<button>
+    			<Link to='/ratings'>ratings
+					</Link>
+    		</button>
       </div>
     )
 	}

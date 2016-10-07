@@ -5,7 +5,7 @@ export const ADD_REVIEW = 'add_review'
 export function postRating(data) {
 	let baseurl = 'api/ratings/rate_user'
 
-	return axios.post(baseurl, {body: {data}})
+	return axios.post(baseurl, data)
 	.then( (payload) => {
 		return {
 			type: ADD_REVIEW,
