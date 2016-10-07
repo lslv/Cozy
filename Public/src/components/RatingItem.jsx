@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-const RatingItem = ({star, review, reviewer}) => {
+const RatingItem = ({stars, review, reviewer}) => {
 	return (
-    <li className="stars"> Stars:{star} Review:{review}  Reviewer:{reviewer}</li>
+    <li className="stars"> Stars:{stars} Review:{review}  Reviewer:{reviewer}</li>
   )
 }
 

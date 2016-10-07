@@ -7,11 +7,6 @@ import {fetchAllRatings} from '../actions/actions_ratings'
 
 class RatingList extends Component {
 
-  // componentWillMount(){
-  //   //call a function, which is an action(fetchAllRatings)
-  //   this.props.fetchAllRatings()
-  //
-  // }
   constructor (props) {
 		super(props)
 
