@@ -98,7 +98,7 @@ export default class ChatRoomList extends Component {
   renderChatList () {
   	const { updateActiveChat } = this.props
     if(this.state.showLoadingIcon) {
-      return ( <img src='../../loader.gif' />)
+      return ( <img src='../../assets/loader.gif' />)
     } else {
       return this.props.chats.chatList.map((chat) => {
         return (

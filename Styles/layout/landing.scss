@@ -1,15 +1,11 @@
-.landing {
-	display: flex;
-	flex-direction: column;
-}
 
 .landing-tile {
 	width: 100%;
     border: 1px solid black;
-    height: 20em;
+    height: 32em;
 
     #landing-title {
-    	margin-top: 6%;
+    	margin-top: 10%;
     }
 
     h1 {
@@ -26,3 +22,43 @@
     	margin: 0 30%
     }
 }
+
+#lt2 {
+	.features {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+
+		div {
+			justify-content: center;	
+			margin: 1% 7%;
+			text-align: center;
+			h4 {
+				font-size: 200%;
+			}
+		} 
+	}
+}
+
+
+#lt3 {
+	.tech {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+
+		div {
+			justify-content: center;	
+			margin: 1% 7%;
+			text-align: center;
+			h4 {
+				font-size: 200%;
+			}
+		} 
+	}
+}
+
+
+
