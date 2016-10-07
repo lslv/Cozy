@@ -73,6 +73,24 @@ export default class Landing extends Component {
          </div>
          <div className='landing-tile' id='lt4'>
          <h1>Developers</h1>
+         <div className='developers'>
+         <div>
+         <img src ='../../assets/lee_pic.jpeg' />
+            <h4>Lee Mordell</h4>
+          </div>
+          <div>
+          <img src ='../../assets/viv_pic.jpeg' />
+            <h4>Vivian Sze</h4>
+          </div>
+          <div>
+          <img src ='../../assets/lucas_pic.png' />
+            <h4>Lucas Fisher</h4>
+          </div>
+          <div>
+          <img src ='../../assets/sean_pic.jpeg' />
+            <h4>Sean Cox</h4>
+          </div>
+         </div>
          </div>
         </div>
       </div>

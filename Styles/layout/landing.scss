@@ -60,5 +60,29 @@
 	}
 }
 
+#lt4 {
+	height: 40em;
+	.developers {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+
+		div {
+			justify-content: center;	
+			margin: 1% 7%;
+			text-align: center;
+			img {
+				border-radius: 50%;
+			}
+			h4 {
+				font-size: 200%;
+			}
+		} 
+	}
+}
+
+
+
 
 
