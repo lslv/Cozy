@@ -82,7 +82,7 @@ class BulletinBoard extends Component {
 			return (
 				<div>
 				<Navbar /> 
-				<img src='../../loader.gif' />
+				<img src='../../assets/loader.gif' />
 				</div>
 				)
 		} else {

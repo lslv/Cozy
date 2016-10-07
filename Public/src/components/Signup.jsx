@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Router, browserHistory, Link } from 'react-router'
+import { Modal } from 'react-bootstrap'
 import axios from 'axios'
 
 import Navbar from '../components/Navbar'
@@ -20,48 +21,55 @@ export default class Signup extends Component{
 		return (
 	<div>
 	  <Navbar />
-      <form>
-        <input
-					value={this.state.Firstname}
-					placeholder="First name"
-					required
-					onChange={event => this.onFirstnameChange(event.target.value)}
-        /><br />
-
-        <input
-					value={this.state.Lastname}
-					placeholder="Last name"
-					required
-					onChange={event => this.onLastnameChange(event.target.value)}
-        /><br />
-
-        <input
-					value={this.state.Username}
-					placeholder="User name"
-					required
-					onChange={event => this.onUsernameChange(event.target.value)}
-        /><br />
-
-        <input
-					value={this.state.Email}
-					placeholder="Email"
-					type="email"
-					required
-					onChange={event => this.onEmailChange(event.target.value)}
-        /><br />
-
-        <input
-					value={this.state.Password}
-					placeholder="Password"
-					required
-					type="password"
-					onChange={event => this.onPasswordChange(event.target.value)}
-        /><br />
-
-        <input
-					type="submit"
-					onClick={event => this.onSignup()} />
-      </form>
+      <Modal.Dialog className='signup-component'>
+		  <Modal.Header>
+        <Modal.Title className='signup-title'>Sign Up</Modal.Title>
+      </Modal.Header>
+		<Modal.Body>
+	      <form className='signup-form' onSubmit={this.onSignup}>
+        	<input
+				value={this.state.Firstname}
+				placeholder="First name"
+				required
+				className='form-control'
+				onChange={event => this.onFirstnameChange(event.target.value)}
+     		/>
+        	<input
+				value={this.state.Lastname}
+				placeholder="Last name"
+				className='form-control'
+				required
+				onChange={event => this.onLastnameChange(event.target.value)}
+        	/>
+        	<input
+				value={this.state.Username}
+				placeholder="User name"
+				className='form-control'
+				required
+				onChange={event => this.onUsernameChange(event.target.value)}
+        	/>
+        	<input
+				value={this.state.Email}
+				placeholder="Email"
+				type="email"
+				className='form-control'
+				required
+				onChange={event => this.onEmailChange(event.target.value)}
+        	/>
+        	<input
+				value={this.state.Password}
+				placeholder="Password"
+				className='form-control'
+				required
+				type="password"
+				onChange={event => this.onPasswordChange(event.target.value)}
+       		 />
+	        <button type='submit' className='btn btn-info'>
+	        Submit
+	        </button>
+      	  </form>
+	    </Modal.Body>
+	    </Modal.Dialog>
      </div>
     )
 	}
@@ -82,7 +90,8 @@ export default class Signup extends Component{
 		this.setState({Password})
 	}
 
-	onSignup(){
+	onSignup(e){
+		e.preventDefault()
 		axios.post('/api/users/signup',{
 			firstname: this.state.Firstname,
 			lastname: this.state.Lastname,
