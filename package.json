@@ -34,6 +34,8 @@
     "pg": "^6.1.0",
     "pg-hstore": "^2.3.2",
     "promise": "^7.1.1",
+    "pui-react-panels": "^6.0.2",
+    "pui-react-tile-layout": "^6.0.2",
     "react": "^15.3.2",
     "react-big-calendar": "^0.10.3",
     "react-bootstrap": "^0.30.3",

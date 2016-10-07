@@ -61,8 +61,8 @@ class ChoreList extends Component {
 	handleAuthResult(authResult) { // Handle response from authorization server.
 		console.log('handleAuthResult')
 		//console.log(authResult.error)
-		var authorizeDiv = document.getElementById('authorize-div')
-		var makeCalendarButton = document.getElementById('create-button')
+		// var authorizeDiv = document.getElementById('authorize-div')
+		// var makeCalendarButton = document.getElementById('create-button')
 		if (authResult && !authResult.error) {
 			this.setState({authButtonStyle:{display:'none'}, loading:false} )
 			// authorizeDiv.style.display = 'none'
@@ -260,32 +260,27 @@ class ChoreList extends Component {
 	}
 	render(){
 		if(this.state.loading===true){
-			return <img src='/../../cozy_loading.gif' />
+			return <img className="spinner" src='/../../cozy_loading.gif' />
 		}
 		else
 			return (
-				<div>
-					<div id="authorize-div" style={this.state.authButtonStyle}>
-				        <span>Authorize access to Google Calendar API</span>
-				        <br/>
-				        <Button id="authorize-button" onClick={ event=>this.handleAuthClick(event)}>
+				<div className="choreList">
+				        <Button className="authorizeButton" id="authorize-button" onClick={ event=>this.handleAuthClick(event)} style={this.state.authButtonStyle}>
 				          Authorize Google Calendar Access
 				        </Button>
-				        <br/>
-			        </div>
-			        <Button style={this.state.makeButtonStyle} id="create-button" onClick={ event=>this.handleMakeCalendarClick(event)}>
-			          Make The Chores Calendar
+			        <Button className="makeCalButton" style={this.state.makeButtonStyle} id="create-button" onClick={ event=>this.handleMakeCalendarClick(event)}>
+			          Make Cozy Google Calendar
 			        </Button>
 			        
-					<div style={this.state.upcomingEventsStyle}>
+					<div className="upcomingChores" style={this.state.upcomingEventsStyle}>
 						<h1>Upcoming Chores</h1>
-						<Button href="https://calendar.google.com/calendar/iphoneselect" bsStyle="link">Sync Calendar With Phone</Button>
+						<a href="https://calendar.google.com/calendar/iphoneselect" target="_blank">Sync Calendar With Phone</a>
 						<ul>
 						{this.renderUpcomingChores()}
 						</ul>
 					</div>
 					<Accordion>
-						<Panel>
+						<Panel style={{textAlign:'center'}}>
 							<AddChore />
 						</Panel>
 						{this.renderChoreList()}

@@ -1,5 +1,29 @@
+// * {
+// 	border:0px solid black;
+// }
 .network {
     width: 600px;
     height: 400px;
-    border: 1px solid lightgray;
+    border: 0px solid lightgray;
+    margin: auto
+}
+
+.choreList{
+	margin:auto;
+	width:700px;
+	text-align:center;
+}
+
+.makeCalButton{
+	margin:10px;
+}
+
+.authorizeButton{
+	margin:20px;
+}
+
+.spinner{
+	border:0px solid red;
+	display:block;
+	margin:auto;
 }

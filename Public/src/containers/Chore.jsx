@@ -125,14 +125,16 @@ class Chore extends Component {
 				collapsible
 				expanded={this.state.open}
 				onClick={this.clickHandler}
+				style={{textAlign:'center'}}
 				>
-					<h3>{chore.chore_name}</h3>
-					<h6>{chore.day}</h6>
+					<h2>{chore.chore_name}</h2>
+					<h5>Every {chore.day}</h5>
 					{this.renderQueue()}
 					<br/>
 					{this.renderQueueNetwork()}
 					<br/>
 					<Button
+					style={this.state.verifyButtonStyle}
 					bsStyle="danger"
 					onClick={()=> this.deleteChore(chore.id)}>
 					Delete Chore

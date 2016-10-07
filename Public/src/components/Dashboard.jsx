@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import _ from 'lodash'
+import {TileLayout, TileLayoutItem} from 'pui-react-tile-layout'
+import {ClickableAltPanel} from 'pui-react-panels'
 
 export default class Dashboard extends Component {
 	constructor(props) {
@@ -27,36 +29,63 @@ export default class Dashboard extends Component {
 
 
 	render () {
-		return (
-      <div>
-        <p>
-          In the dashboard
-        </p>
-        <button>
-          <Link to='/bulletin_board'> Go to the bulletin board
-          </Link>
-        </button>
-        <br />
-        <button>
-          <Link to='/chorelist'> Go to the chore list board
-          </Link>
-        </button>
-        <br />
-        <button>
-          <Link to='/calendar'> Go to the Calendar
-          </Link>
-        </button>
-				<br />
-        <button>
-          <Link to='/chat'> Go to the chat room
-				</Link>
-				</button>
-				<br />
-				<button>
-          <Link to='/budget'> Go to Budget
-          </Link>
-        </button>
-      </div>
-    )
+
+    return (
+        <TileLayout columns={3}>
+         <TileLayoutItem>
+           <ClickableAltPanel><Link to='/bulletin_board'> Go to the bulletin board
+            </Link></ClickableAltPanel>
+         </TileLayoutItem>
+         <TileLayoutItem>
+           <ClickableAltPanel><Link to='/chorelist'> Go to the chore list board
+            </Link></ClickableAltPanel>
+         </TileLayoutItem>
+         <TileLayoutItem>
+           <ClickableAltPanel><Link to='/calendar'> Go to the Calendar
+            </Link></ClickableAltPanel>
+         </TileLayoutItem>
+         <TileLayoutItem>
+           <ClickableAltPanel><Link to='/chat'> Go to the chat room
+          </Link></ClickableAltPanel>
+         </TileLayoutItem>
+         <TileLayoutItem>
+           <ClickableAltPanel><Link to='/budget'> Go to Budget
+            </Link></ClickableAltPanel>
+         </TileLayoutItem>
+       </TileLayout>
+     )
+
+
+		// return (
+  //     <div>
+  //       <p>
+  //         In the dashboard
+  //       </p>
+  //       <button>
+  //         <Link to='/bulletin_board'> Go to the bulletin board
+  //         </Link>
+  //       </button>
+  //       <br />
+  //       <button>
+  //         <Link to='/chorelist'> Go to the chore list board
+  //         </Link>
+  //       </button>
+  //       <br />
+  //       <button>
+  //         <Link to='/calendar'> Go to the Calendar
+  //         </Link>
+  //       </button>
+		// 		<br />
+  //       <button>
+  //         <Link to='/chat'> Go to the chat room
+		// 		</Link>
+		// 		</button>
+		// 		<br />
+		// 		<button>
+  //         <Link to='/budget'> Go to Budget
+  //         </Link>
+  //       </button>
+  //     </div>
+  //   )
 	}
 }
