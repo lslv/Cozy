@@ -35,7 +35,7 @@ router.use('/api/users', users)
 router.use('/api/houses', houses)
 router.use('/api/chat', chat)
 router.use('/api/calendars', calendars)
-router.use('./api/ratings',ratings)
+router.use('/api/ratings',ratings)
 
 router.use((req, res) => {
 	res.status(404).send('Sorry that does not exist')
