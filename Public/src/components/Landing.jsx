@@ -25,6 +25,11 @@ export default class Landing extends Component {
           <Link to='/dashboard'> Go to the dashboard
           </Link>
         </button>
+        <br />
+        <button>
+          <Link to='/ratings'> User Ratings
+          </Link>
+        </button>
 
 
       </div>

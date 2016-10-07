@@ -22,8 +22,8 @@ module.exports = {
 					user_id: reviewed_user[0].dataValues.id
 				}
 			}).then((reviews)=>{
-				console.log(reviews);
-				let review_id=[];
+				console.log(reviews)
+				let review_id=[]
 				for(var i = 0; i<reviews.length; i++){
 					review_id.push(reviews[i].userRatingId);
 				}
@@ -36,6 +36,7 @@ module.exports = {
 					})
 				})) //1) there has to be a better way than this 2) It's nested arrays!
 				.then((obj)=>{
+					obj.unshift(reviewed_user[0].dataValues.id)
 					res.status(200).send(obj);
 				})
 			})

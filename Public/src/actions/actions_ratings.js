@@ -1,31 +1,49 @@
 import axios from 'axios'
 export const ALL_RATINGS = 'all_ratings'
-//
-// export function searchUser(){
-// 	return {
-// 		type: SEARCH_USER,
-// 		payload: something
-// 	}
-// }
-//
-// export function postRating(){
-// 	return {
-// 		type: ADD_REVIEW,
-// 		payload: something
-// 	}
-// }
+export const ADD_REVIEW = 'add_review'
 
-export function fetchAllRatings(){
+export function postRating(data) {
+	let baseurl = 'api/ratings/rate_user'
+
+	return axios.post(baseurl, {body: {data}})
+	.then( (payload) =>
+		return {
+			type: ADD_REVIEW,
+			payload: payload
+		}
+	})
+}
+
+export function fetchAllRatings(username){
   // url to make database call
+  // console.log('+++line 20 actions_ratings fetchAllRatings on user_name: ' , username)
+
   let baseurl = 'api/ratings/find_user_ratings'
-	//how do i grab information from input to add to action
+
+  return axios.get(baseurl,{params:{username}})
+    .then((payload)=>{
+      return {
+        type: ALL_RATINGS,
+        payload: payload
+      }
+    })
+
 
   //return a function and it takes dispatch as an argument
-	return function(dispatch){
-		axios.get(baseurl,).then((res)=>{
-			dispatch({type: ALL_RATINGS, payload: res})//need two things for dispatch: type: ALL_RATINGS, payload: response
-		}).catch((err)=>{
-			console.error(err)
-		})
-	}
 }
+
+
+
+
+
+
+
+
+// return function(dispatch){
+//
+//     axios.get(baseurl,{params:username}).then((res)=>{
+// 		dispatch({type: ALL_RATINGS, payload: res})//need two things for dispatch: type: ALL_RATINGS, payload: responses
+// 	}).catch((err)=>{
+// 		console.error(err)
+// 	})
+// }
