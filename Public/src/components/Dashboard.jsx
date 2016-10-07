@@ -33,25 +33,41 @@ export default class Dashboard extends Component {
     return (
         <TileLayout columns={3}>
          <TileLayoutItem>
-           <ClickableAltPanel><Link to='/bulletin_board'> Go to the bulletin board
-            </Link></ClickableAltPanel>
+           <ClickableAltPanel>
+           <Link to='/bulletin_board'> Bulletin Board</Link>
+           </ClickableAltPanel>
          </TileLayoutItem>
+
          <TileLayoutItem>
-           <ClickableAltPanel><Link to='/chorelist'> Go to the chore list board
-            </Link></ClickableAltPanel>
+          <ClickableAltPanel>
+           <Link to='/chorelist'> Chores</Link>
+          </ClickableAltPanel>
          </TileLayoutItem>
+
          <TileLayoutItem>
-           <ClickableAltPanel><Link to='/calendar'> Go to the Calendar
-            </Link></ClickableAltPanel>
+           <ClickableAltPanel>
+            <Link to='/calendar'> Calendar</Link>
+           </ClickableAltPanel>
          </TileLayoutItem>
+
          <TileLayoutItem>
-           <ClickableAltPanel><Link to='/chat'> Go to the chat room
-          </Link></ClickableAltPanel>
+           <ClickableAltPanel>
+            <Link to='/chat'> Chat Room </Link>
+           </ClickableAltPanel>
          </TileLayoutItem>
+
          <TileLayoutItem>
-           <ClickableAltPanel><Link to='/budget'> Go to Budget
-            </Link></ClickableAltPanel>
+           <ClickableAltPanel>
+            <Link to='/budget'> Budget</Link>
+           </ClickableAltPanel>
          </TileLayoutItem>
+
+          <TileLayoutItem>
+           <ClickableAltPanel>
+            <Link to='/review'> User Reviews</Link>
+           </ClickableAltPanel>
+         </TileLayoutItem>
+
        </TileLayout>
      )
 
