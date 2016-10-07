@@ -57,7 +57,7 @@ module.exports = {
 		 		review: req.body.review
 		 }).then((created_review) => {
 		 	console.log(chalk.cyan('+++line66 this is the CREATED_REVIEW ID: '), created_review.dataValues.id)
-		
+
 		 	rating_tables.User_Ratings_Join_Table.create({
 		 		userRatingId: created_review.dataValues.id,
 		 		user_id: req.body.review_on
@@ -70,16 +70,5 @@ module.exports = {
 		 	res.status(500).send(err)
 		 })
 	}
-
-
-	 edit_rating: (req, res) => {
-	 	 User_Ratings
-	 },
-  
-  
-  
-	 delete_rating: (req, res) => {
-  
-	 }
 
 }
