@@ -65,7 +65,8 @@ export default class ChatRoomList extends Component {
     })
   }
 
-  createRoom () {
+  createRoom (e) {
+    e.preventDefault()
     const name = this.state.roomName
     const list = this.state.chatMembersList
     this.props.createRoom(name, list)

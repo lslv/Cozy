@@ -16,6 +16,7 @@ export default class Signup extends Component{
 			Email: '',
 			Password: ''
 		}
+		this.onSignup = this.onSignup.bind(this)
 	}
 	render () {
 		return (

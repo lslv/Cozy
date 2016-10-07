@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+import Navbar from '../components/Navbar'
 
 export default class HouseSetup extends Component {
     constructor(props) {
@@ -20,6 +21,7 @@ export default class HouseSetup extends Component {
 	render () {
 		return (
             <div>
+              <Navbar />
                 <button>
                     <Link to="/create_house">Create a house</Link>
                 </button>
