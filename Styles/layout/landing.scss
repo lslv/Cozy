@@ -15,7 +15,7 @@
 	text-shadow: 1px 1px black;
 
     h1 {
-    font-size: 400%;
+    font-size: 500%;
 	text-align: center;
 	margin-top: 1%;
     }
@@ -36,6 +36,7 @@
 }
 
 #lt2 {
+	margin-top: 8%;
 	.features {
 		display: flex;
 		flex-direction: row;
@@ -44,7 +45,7 @@
 
 		div {
 			justify-content: center;	
-			margin: 1% 7%;
+			margin: 2% 7%;
 			text-align: center;
 			h4 {
 				font-size: 200%;
@@ -55,6 +56,7 @@
 
 
 #lt3 {
+	margin-top: 8%;
 	.tech {
 		display: flex;
 		flex-direction: row;
@@ -68,12 +70,20 @@
 			h4 {
 				font-size: 200%;
 			}
+		}
+
+		#postgre {
+			zoom: 87%;
+		}
+		#sass {
+			zoom: 81%;
 		} 
 	}
 }
 
 #lt4 {
 	height: 40em;
+	margin-top: 8%;
 	.developers {
 		display: flex;
 		flex-direction: row;

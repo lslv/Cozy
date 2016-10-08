@@ -26,23 +26,23 @@ export default class Landing extends Component {
             <h1>Features</h1>
             <div className='features'>
               <div>
-                <Image responsive src ='../../assets/chore.png' />
+                <Image src ='../../assets/chore.png' />
                 <h4>Chores</h4>
               </div>
               <div>
-                <Image responsive src ='../../assets/budget.png' />
+                <Image src ='../../assets/budget.png' />
                 <h4>Budget</h4>
               </div>
               <div>
-                <Image responsive src ='../../assets/bulletin_board.png' />
+                <Image src ='../../assets/bulletin_board.png' />
                 <h4>Bulletin Board</h4>
               </div>
               <div>
-                <Image responsive src ='../../assets/chat.png' />
+                <Image src ='../../assets/chat.png' />
                 <h4>Chat</h4>
               </div>
               <div>
-                <Image responsive src ='../../assets/user_review.png' />
+                <Image src ='../../assets/user_review.png' />
                 <h4>Roommate Reviews</h4>
               </div>
             </div>
@@ -51,24 +51,32 @@ export default class Landing extends Component {
          <h1>Tech Stack</h1>
          <div className='tech'>
           <div>
-            <Image responsive src ='../../assets/react.svg' />
+            <Image src ='../../assets/react.svg' />
             <h4>ReactJS</h4>
           </div>
           <div>
-            <Image responsive src ='../../assets/redux.png' />
+            <Image src ='../../assets/redux.png' />
             <h4>Redux</h4>
           </div>
           <div>
-            <Image responsive src ='../../assets/sass.png' />
+            <Image src ='../../assets/sass.png' 
+            id='sass'
+            />
+            <h4>Sass</h4>
           </div>
           <div>
-            <Image responsive src ='../../assets/express.png' />
+            <Image src ='../../assets/nodejs.png' />
+            <h4>NodeJs</h4>
           </div>
           <div>
-            <Image responsive src ='../../assets/postgresql.png' />
+            <Image src ='../../assets/postgresql.png' 
+            id='postgre'
+            />
+            <h4>PostgreSQL</h4>
           </div>
           <div>
-            <Image responsive src ='../../assets/sequelize.png' />
+            <Image src ='../../assets/sequelize.png' />
+            <h4>Sequelize ORM</h4>
           </div>
          </div>
          </div>
@@ -76,54 +84,53 @@ export default class Landing extends Component {
          <h1>Developers</h1>
          <div className='developers'>
          <div>
-            <Image responsive src ='../../assets/lee_pic.jpeg' />
+            <Image src ='../../assets/lee_pic.jpeg' />
             <h4>Lee Mordell</h4>
             <div className='developer-links'>
               <a href='https://github.com/lmordell'>
-              <Image responsive src ='../../assets/github.png' />
+              <Image src ='../../assets/github.png' />
               </a>
               <a href='https://www.linkedin.com/in/leemordell'>
-              <Image responsive src ='../../assets/linkedin.png' />
+              <Image src ='../../assets/linkedin.png' />
               </a>
             </div>
           </div>
           <div>
-          <Image responsive
+          <Image
           className='img-offset' 
           src ='../../assets/viv_pic.jpeg' />
             <h4>Vivian Sze</h4>
             <div className='developer-links'>
               <a href='https://github.com/vvnsze'>
-              <Image responsive src ='../../assets/github.png' />
+              <Image src ='../../assets/github.png' />
               </a>
               <a href='https://www.linkedin.com/in/vivian-sze-755044125'>
-              <Image responsive src ='../../assets/linkedin.png' />
+              <Image src ='../../assets/linkedin.png' />
               </a>
             </div>
           </div>
           <div>
-          <Image responsive src ='../../assets/lucas_pic.png' />
+          <Image src ='../../assets/lucas_pic.png' />
             <h4>Lucas Fisher</h4>
             <div className='developer-links'>
               <a href='https://github.com/lsfisher'>
-              <Image responsive src ='../../assets/github.png' />
+              <Image src ='../../assets/github.png' />
               </a>
               <a href='https://www.linkedin.com/in/lucasscottfisher'>
-              <Image responsive src ='../../assets/linkedin.png' />
+              <Image src ='../../assets/linkedin.png' />
               </a>
             </div>
           </div>
           <div>
-          <Image responsive
-          className='img-offset' 
+          <Image 
           src ='../../assets/sean_pic.jpeg' />
             <h4>Sean Cox</h4>
             <div className='developer-links'>
               <a href='https://github.com/SeanCox'>
-              <Image responsive src ='../../assets/github.png' />
+              <Image src ='../../assets/github.png' />
               </a>
               <a href='https://www.linkedin.com/in/seancoxcode'>
-              <Image responsive src ='../../assets/linkedin.png' />
+              <Image src ='../../assets/linkedin.png' />
               </a>
             </div>
           </div>
