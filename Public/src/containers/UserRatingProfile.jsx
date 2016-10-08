@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import PostRating from '../containers/PostRating'
 import { fetchAllRatings } from '../actions/actions_ratings'
+import {Jumbotron} from 'react-bootstrap'
 
 class UserRatingProfile extends Component {
 
@@ -38,8 +39,8 @@ class UserRatingProfile extends Component {
 	render () {
 		return(
 			<div>
-			<div className='jumbotron UserRatingProfile'>
-			<div className='container cheese'>
+			<Jumbotron className='UserRatingProfile'>
+			<div className='UserRatingTitle'>
 						<h1>User Review</h1>
 						<h4>Reliability is key to a Cozy home</h4>
 						<br></br>
@@ -51,10 +52,10 @@ class UserRatingProfile extends Component {
 								<input className='findRoomateButton' type="submit" value="Find Roommate"/>
 							</form>
 						</div>
-			</div>
-
 	    </div>
-				{this.renderPostRating()}
+
+			</Jumbotron>
+			{this.renderPostRating()}
 			</div>
 		)
 	}

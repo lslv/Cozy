@@ -2,12 +2,26 @@
 .UserRatingProfile {
   background-image: url('http://www.hercampus.com/sites/default/files/2015/08/22/o-COLLEGE-ROOMMATES-facebook.jpg');
   background-position: top right;
-  background-size: cover;
-  height: 490px;
+  background-size: auto;
+  background-repeat: no-repeat;
+  height: 600px;
+
+  h1 {
+    padding-left: 90px;
+    padding-right: auto;
+  }
+
+  h4 {
+    padding-left: 140px;
+    padding-right: auto;
+  }
 
   input {
+    display: inline-block;
     width: 300px;
     text-align:center;
+    margin-left: 119px;
+    margin-right: auto;
   }
 
   input:focus{
@@ -20,7 +34,6 @@
 
 .PostRating {
 
-
   input{
     text-align: center;
   }
@@ -29,3 +42,16 @@
     outline-color: #E5545C;
   }
 }
+
+//This is for ratingItem
+
+// .Ratings {
+//   .stars + .Reviewer {
+//     text-align: center;
+//   }
+//
+//   .review {
+//     text-align: center;
+//   }
+//
+// }

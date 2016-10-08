@@ -44,12 +44,20 @@ class PostRating extends Component {
 
 	render () {
 		return (
-			<div className='PostRating'>
+			<div className='PostRating container-fluid'>
 
 				<form onSubmit={this.submitRating} className="RatingForm">
-	        <input type="text" value={this.state.star} onChange={this.inputStar} placeholder="Stars out of 5"/>
-	        <input type="text" value={this.state.rating} onChange={this.inputRating} placeholder="Write a Rating"/>
-	        <input type="submit" value="Post" />
+				<Grid>
+				<Row>
+				<Col md={4}>
+		        <input type="text" value={this.state.star} onChange={this.inputStar} placeholder="Stars out of 5"/>
+				</Col>
+				<Col md={8}>
+		        <input type="text" value={this.state.rating} onChange={this.inputRating} placeholder="Write a Rating"/>
+		        <input type="submit" value="Post" />
+				</Col>
+					</Row>
+					</Grid>
 	      </form>
 
 			</div>
