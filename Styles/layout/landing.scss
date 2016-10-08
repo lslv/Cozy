@@ -23,6 +23,14 @@
     }
 }
 
+#lt1 {
+	background-image: url('/../../assets/cozy_tagline_img.jpeg');
+	background-repeat: no-repeat;
+	height: 29em;
+	color: $snow;
+	text-shadow: 1px 1px black;
+}
+
 #lt2 {
 	.features {
 		display: flex;

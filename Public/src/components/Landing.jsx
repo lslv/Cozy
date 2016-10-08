@@ -12,7 +12,7 @@ export default class Landing extends Component {
        <div className='landing'>
          <div className='landing-tile' id='lt1'>
             <h1 id='landing-title'>Cozy</h1>
-            <p>Cozy Tagline</p>
+            <p>This is home</p>
             <div className="col-lg-4">
             <div className="input-group">
             <input type="text" className="form-control" placeholder="Find Roommates" />
