@@ -64,8 +64,8 @@ export default class Landing extends Component {
             />
             <h4>Sass</h4>
           </div>
-          <div>
-            <Image src ='../../assets/nodejs.png' />
+          <div id='node'>
+            <Image src ='../../assets/nodejs.png'/>
             <h4>NodeJs</h4>
           </div>
           <div>
