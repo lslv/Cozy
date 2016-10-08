@@ -76,20 +76,56 @@ export default class Landing extends Component {
          <h1>Developers</h1>
          <div className='developers'>
          <div>
-         <Image responsive src ='../../assets/lee_pic.jpeg' />
+            <Image responsive src ='../../assets/lee_pic.jpeg' />
             <h4>Lee Mordell</h4>
+            <div className='developer-links'>
+              <a href='https://github.com/lmordell'>
+              <Image responsive src ='../../assets/github.png' />
+              </a>
+              <a href='https://www.linkedin.com/in/leemordell'>
+              <Image responsive src ='../../assets/linkedin.png' />
+              </a>
+            </div>
           </div>
           <div>
-          <Image responsive src ='../../assets/viv_pic.jpeg' />
+          <Image responsive
+          className='img-offset' 
+          src ='../../assets/viv_pic.jpeg' />
             <h4>Vivian Sze</h4>
+            <div className='developer-links'>
+              <a href='https://github.com/vvnsze'>
+              <Image responsive src ='../../assets/github.png' />
+              </a>
+              <a href='https://www.linkedin.com/in/vivian-sze-755044125'>
+              <Image responsive src ='../../assets/linkedin.png' />
+              </a>
+            </div>
           </div>
           <div>
           <Image responsive src ='../../assets/lucas_pic.png' />
             <h4>Lucas Fisher</h4>
+            <div className='developer-links'>
+              <a href='https://github.com/lsfisher'>
+              <Image responsive src ='../../assets/github.png' />
+              </a>
+              <a href='https://www.linkedin.com/in/lucasscottfisher'>
+              <Image responsive src ='../../assets/linkedin.png' />
+              </a>
+            </div>
           </div>
           <div>
-          <Image responsive src ='../../assets/sean_pic.jpeg' />
+          <Image responsive
+          className='img-offset' 
+          src ='../../assets/sean_pic.jpeg' />
             <h4>Sean Cox</h4>
+            <div className='developer-links'>
+              <a href='https://github.com/SeanCox'>
+              <Image responsive src ='../../assets/github.png' />
+              </a>
+              <a href='https://www.linkedin.com/in/seancoxcode'>
+              <Image responsive src ='../../assets/linkedin.png' />
+              </a>
+            </div>
           </div>
          </div>
          </div>
