@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Col, ListGroup, Button } from 'react-bootstrap'
+import { Col, ListGroup, Button, Modal } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { getPosts } from '../actions/actions_posts'
 import { getPolls } from '../actions/actions_polls'
@@ -87,14 +87,21 @@ class BulletinBoard extends Component {
 				)
 		} else {
 			return (
-        <div>
+        <div className='bulletin-page'>
         <Navbar />
-        <Button bsStyle='info' onClick={this.toggleAddPost}>
+          <Modal.Dialog className='bulletin-component'>
+		  <Modal.Header>
+        <Modal.Title className='bulletin-title'>Bulletin Board</Modal.Title>
+      </Modal.Header>
+		<Modal.Body>
+		<div className='bulletin-button-container'>
+	   	 <Button bsStyle='info' onClick={this.toggleAddPost}>
           Add a post-it <i className='fa fa-plus-circle' aria-hidden='true'></i>
         </Button>
         <Button bsStyle='primary' onClick={this.toggleAddPoll}>
           Add a poll <i className='fa fa-plus-circle' aria-hidden='true'></i>
         </Button>
+        </div>
         <ListGroup>
           {this.renderAddPost()}
           {this.renderAddPoll()}
@@ -103,6 +110,8 @@ class BulletinBoard extends Component {
           {this.renderPosts()}
           {this.renderPolls()}
           </ListGroup>
+	    </Modal.Body>
+	    </Modal.Dialog>
         </div>
       )
 		}

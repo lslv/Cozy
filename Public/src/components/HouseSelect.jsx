@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import _ from 'lodash'
 
+import Navbar from '../components/Navbar'
+
+
 export default class HouseSetup extends Component {
 	constructor(props) {
 		super(props)
@@ -23,6 +26,7 @@ export default class HouseSetup extends Component {
 	render () {
 		return (
             <div>
+              <Navbar />
                 <button>
                     <Link to="/create_house">Create a house</Link>
                 </button>

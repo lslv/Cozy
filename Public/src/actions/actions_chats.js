@@ -3,9 +3,13 @@ export const ADD_CHAT_ROOM = 'ADD_CHAT_ROOM'
 export const GET_USER_ROOMS = 'GET_USER_ROOMS'
 export const UPDATE_ACTIVE_CHAT = 'UPDATE_ACTIVE_CHAT'
 
+const user_id = sessionStorage.getItem('id')
+
 export function createRoom(name, list) {
 	//get ids from list
-	const user_ids = list.map((user) => user.id)
+	let user_ids = list.map((user) => user.id)
+	//include the user
+	user_ids = [...user_ids, user_id]
 
 	const request = axios.post('/api/chat/createRoom', {
 		room_name: name,
@@ -20,8 +24,6 @@ export function createRoom(name, list) {
 }
 
 export function getUserRooms() {
-
-	const user_id = sessionStorage.getItem('id')
 
 	const request = axios.get('./api/chat/getUserRooms', {
 		params: {

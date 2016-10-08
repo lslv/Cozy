@@ -16,6 +16,7 @@ class ChatContainer extends Component {
 
 	componentWillMount() {
 		let house_id = sessionStorage.getItem('house_id')
+		console.log('house_id', house_id)
 		this.props.getUsers(house_id)
 		.then(() => this.props.getUserRooms())
 	}

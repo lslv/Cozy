@@ -8,22 +8,50 @@ export default class NavBar extends Component {
 
 	}
 
+	showUserProfilePic() {
+		const fb_pic = sessionStorage.getItem('fb_pic')
+
+		if(fb_pic) {
+			return (
+				<img src={fb_pic} className='navbar-userpic'/>
+			)
+		} else {
+			return ( <noscript />)
+		}
+	}
+
+	checkLoginStatus() {
+		const id = sessionStorage.getItem('id')
+
+		if(id) {
+			return (
+			<NavItem>
+	        <Link to='/dashboard' className='nav-text'>Dashboard</Link>
+	        </NavItem>
+			)
+		} else {
+			return (
+			<NavItem>
+	        <Link to='/login' className='nav-text'>Login</Link>
+	        </NavItem>
+			)
+
+		}
+	}
+
 	render() {
 		return (
 		<Navbar inverse bsClass='navbar'>
 		    <Navbar.Header>
+		    {this.showUserProfilePic()}
 		      <Navbar.Toggle />
 		    </Navbar.Header>
 		    <Navbar.Collapse>
-		      <Nav>
-		      </Nav>
-		      <Navbar.Brand>
+		      <Navbar.Brand bsStyle='brandname'>
 		        <Link to='/'>Cozy</Link>
 		      </Navbar.Brand>
 		      <Nav pullRight>
-		        <NavItem>
-		        <Link to='/login' className='nav-text'>Login</Link>
-		        </NavItem>
+		        {this.checkLoginStatus()}
 		        <NavItem>
 		        <Link to='/signup' className='nav-text'>Signup</Link>
 		        </NavItem>

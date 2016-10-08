@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Router, browserHistory, Link } from 'react-router'
 import axios from 'axios'
 
+import Navbar from '../components/Navbar'
+
 export default class CreateHouse extends Component{
 	constructor(props){
 		super(props)
@@ -13,6 +15,7 @@ export default class CreateHouse extends Component{
 	render () {
 		return (
       <div>
+      	<Navbar />
         <h1>CreateHouse</h1>
         <form>
           <input

@@ -26,6 +26,7 @@ class AddPoll extends Component {
 	render () {
 		const { fields: { question, options }, errors, submitting} = this.props
 		return (
+	  <div className='addItem-container'>
       <form onSubmit={this.submitForm}>
         <div className={`form-group ${question.touched && question.error ? 'has-error' : ''}`}>
           <label>
@@ -34,23 +35,24 @@ class AddPoll extends Component {
           <PureInput type='text' className='form-control' placeholder='Whats your question?' field={question} title={question.error} />
           <p>{errors.question}</p>
         </div>
-        <div className='form-group'>
+        <div className='bulletin-button-container'>
           <Button bsStyle='primary' onClick={() => options.addField()}>
-            Add option: <i className='fa fa-plus-circle' aria-hidden='true'></i>
+            Add option <i className='fa fa-plus-circle' aria-hidden='true'></i>
           </Button>
           <Button bsStyle='success' type='submit' disabled={submitting}>
            Make poll
           </Button>
         </div>
         {options.map((option, i) => {
-	return (
+			return (
             <div className='form-group' key={i}>
               <label>Option { i + 1}</label>
                 <PureInput type='text' className='form-control' placeholder={i + 1} field={option.option} />
             </div>
           )
-})}
+		})}
       </form>
+      </div>
     )
 	}
 }

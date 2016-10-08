@@ -136,6 +136,7 @@ class Poll extends Component {
         expanded={this.state.open}
         onClick={this.handleCollapsible}>
         {this.pollView()}
+        <div className='bulletin-item-button-container'>
          <Button bsStyle='success' type='submit' onClick={!hasVoted ? this.voteOnPoll : null} disabled={hasVoted}>
 		{hasVoted ? 'Thanks!': 'Submit'} <i className='fa fa-check-circle' aria-hidden='true'></i>
 		</Button>
@@ -143,6 +144,7 @@ class Poll extends Component {
 			See Results
 		</Button>
 		{this.showDelete()}
+		</div>
       </Panel>
 		)
 	}
