@@ -1,12 +1,18 @@
+.landing {
+	background-image: url('/../../assets/cozy_landing_image.jpeg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	margin-top: -1%;
+}
+
 
 .landing-tile {
 	width: 100%;
-    border: 1px solid black;
     height: 32em;
-
-    #landing-title {
-    	margin-top: 10%;
-    }
+    background-repeat: no-repeat;
+    color: $snow;
+	text-shadow: 1px 1px black;
 
     h1 {
     font-size: 400%;
@@ -23,12 +29,10 @@
     }
 }
 
+
 #lt1 {
-	background-image: url('/../../assets/cozy_tagline_img.jpeg');
-	background-repeat: no-repeat;
-	height: 29em;
-	color: $snow;
-	text-shadow: 1px 1px black;
+	padding-top: 12%;
+	height: 32em;
 }
 
 #lt2 {

@@ -11,7 +11,7 @@ export default class Landing extends Component {
        <Navbar />
        <div className='landing'>
          <div className='landing-tile' id='lt1'>
-            <h1 id='landing-title'>Cozy</h1>
+            <h1>Cozy</h1>
             <p>This is home</p>
             <div className="col-lg-4">
             <div className="input-group">
