@@ -48,6 +48,7 @@ class AddPost extends Component {
 			return <noscript />
 		}
 		return (
+	  <div className='addItem-container'>
       <form onSubmit={this.handleSubmit}>
       <FormGroup validationState={this.titleValidation()}>
         <FormControl placeholder='Add title' 
@@ -74,6 +75,7 @@ class AddPost extends Component {
           </ButtonGroup>
         </div>
         </form>
+       </div>
     )
 	}
 }

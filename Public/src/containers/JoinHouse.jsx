@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getResults } from '../actions/actions_join_search'
 import House from './House'
+import Navbar from '../components/Navbar'
+
 
 class JoinHouse extends Component{
 	constructor (props) {
@@ -22,6 +24,7 @@ class JoinHouse extends Component{
 	render () {
 		return (
       <div>
+      <Navbar />
       <h1>Join House</h1>
         <form onSubmit={this.handleSubmit}>
           <input

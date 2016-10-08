@@ -1,15 +1,21 @@
+.landing {
+	background-image: url('/../../assets/cozy_landing_image.jpeg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	margin-top: -1%;
+}
+
 
 .landing-tile {
 	width: 100%;
-    border: 1px solid black;
     height: 32em;
-
-    #landing-title {
-    	margin-top: 10%;
-    }
+    background-repeat: no-repeat;
+    color: $snow;
+	text-shadow: 1px 1px black;
 
     h1 {
-    font-size: 400%;
+    font-size: 500%;
 	text-align: center;
 	margin-top: 1%;
     }
@@ -23,7 +29,14 @@
     }
 }
 
+
+#lt1 {
+	padding-top: 12%;
+	height: 32em;
+}
+
 #lt2 {
+	margin-top: 8%;
 	.features {
 		display: flex;
 		flex-direction: row;
@@ -32,7 +45,7 @@
 
 		div {
 			justify-content: center;	
-			margin: 1% 7%;
+			margin: 2% 7%;
 			text-align: center;
 			h4 {
 				font-size: 200%;
@@ -43,6 +56,7 @@
 
 
 #lt3 {
+	margin-top: 8%;
 	.tech {
 		display: flex;
 		flex-direction: row;
@@ -56,23 +70,33 @@
 			h4 {
 				font-size: 200%;
 			}
+		}
+
+		#postgre {
+			zoom: 87%;
+		}
+		#sass {
+			zoom: 81%;
 		} 
 	}
 }
 
 #lt4 {
 	height: 40em;
+	margin-top: 8%;
 	.developers {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		justify-content: center;
+		justify-content: space-between;
 
 		div {
-			justify-content: center;	
-			margin: 1% 7%;
+			justify-content: space-between;	
+			margin: 4% 5%;
 			text-align: center;
 			img {
+				margin-left: 4%;
+				zoom: 85%;
 				border-radius: 50%;
 			}
 			h4 {
@@ -80,6 +104,15 @@
 			}
 		} 
 	}
+}
+
+.developer-links {
+	display: flex;
+	flex-direction: row;
+}
+
+.img-offset {
+	margin-left: 7%;
 }
 
 

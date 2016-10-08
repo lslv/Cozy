@@ -94,10 +94,19 @@ export default class Chat extends Component {
 		}
 	}
 
+	displayFBpic() {
+		const fb_pic = sessionStorage.getItem('fb_pic')
+		return ( <img src={fb_pic} className='chat-userpic'/>)
+	}
+
 	displayMessages() {
+		const fb_pic = sessionStorage.getItem('fb_pic')
+
+		const userName = fb_pic ? this.displayFBpic() : message.user 
+
 		return this.state.messageList.map((message, i) => {
 			return (
-				<li key={i} className='message'>{message.user}: {message.text}</li>
+				<li key={i} className='message'>{userName}: {message.text}</li>
 			)
 		})
 	}
@@ -162,8 +171,12 @@ export default class Chat extends Component {
 				 	</ul>
 				 </div>
 					<p>{this.state.userAction}</p>
-					<ul id='chat-messages'>{this.displayMessages()}</ul>
-					<p className='isTyping'>{this.state.isTyping ? `${this.state.typingUser} is typing` : ''}</p>
+					<div className='chat-messages'>
+					<ul>{this.displayMessages()}</ul>
+					</div>
+					<div className='isTyping'>
+					<p>{this.state.isTyping ? `${this.state.typingUser} is typing` : ''}</p>
+					</div>
 					<form className='chat-input' onSubmit={this.sendMessage}>
 						<input type='text'
 						ref='chatbar'
