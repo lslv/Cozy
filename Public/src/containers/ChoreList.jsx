@@ -8,9 +8,8 @@ import {bindActionCreators} from 'redux'
 import AddChore from './AddChore'
 import Chore from './Chore'
 import { Accordion, Panel, Button, Collapse, Well } from 'react-bootstrap'
-import moment from 'moment'
-
 import Navbar from '../components/Navbar'
+import moment from 'moment'
 
 class ChoreList extends Component {
 	constructor(props){
@@ -267,9 +266,10 @@ class ChoreList extends Component {
 		else
 			return (
 				<div className="choreList">
-				        <Button className="authorizeButton" id="authorize-button" onClick={ event=>this.handleAuthClick(event)} style={this.state.authButtonStyle}>
-				          Authorize Google Calendar Access
-				        </Button>
+					<NavBar />
+			        <Button className="authorizeButton" id="authorize-button" onClick={ event=>this.handleAuthClick(event)} style={this.state.authButtonStyle}>
+			          Authorize Google Calendar Access
+			        </Button>
 			        <Button className="makeCalButton" style={this.state.makeButtonStyle} id="create-button" onClick={ event=>this.handleMakeCalendarClick(event)}>
 			          Make Cozy Google Calendar
 			        </Button>

@@ -4,7 +4,6 @@ import _ from 'lodash'
 import {TileLayout, TileLayoutItem} from 'pui-react-tile-layout'
 import {ClickableAltPanel} from 'pui-react-panels'
 import {Grid, Row, Col, Button} from 'react-bootstrap'
-
 import Navbar from '../components/Navbar'
 
 export default class Dashboard extends Component {
@@ -33,18 +32,21 @@ export default class Dashboard extends Component {
 
 	render () {
     return (
-    <Grid>
-      <Row className="show-grid">
-      <Col xs={6} md={4}> <Link to='/bulletin_board'><ClickableAltPanel className='panel tile' >  Bulletin board</ClickableAltPanel>  </Link> </Col>
-      <Col xs={6} md={4}>  <Link to='/chorelist'> <ClickableAltPanel className='panel tile' > Chores </ClickableAltPanel> </Link> </Col>
-      <Col xsHidden md={4}> <Link to='/calendar'> <ClickableAltPanel className='panel tile' > Calendar </ClickableAltPanel> </Link> </Col>
-      </Row>
-      <Row className="show-grid">
-      <Col xs={6} md={4}> <Link to='/chat'>  <ClickableAltPanel className='panel tile' > Chats </ClickableAltPanel> </Link> </Col>
-      <Col xs={6} md={4}> <Link to='/budget'> <ClickableAltPanel className='panel tile' >  Budget </ClickableAltPanel> </Link> </Col>
-      <Col xsHidden md={4}> <Link to='/reviews'> <ClickableAltPanel className='panel tile'>  Reviews </ClickableAltPanel> </Link> </Col>
-      </Row>
-    </Grid>
+    <div>
+      <Navbar />
+      <Grid>
+        <Row className="show-grid">
+        <Col xs={6} md={4}> <Link className="tileLink" to='/bulletin_board'><ClickableAltPanel className='panel tile' >  Bulletin board</ClickableAltPanel>  </Link> </Col>
+        <Col xs={6} md={4}>  <Link className="tileLink" to='/chorelist'> <ClickableAltPanel className='panel tile' > Chores </ClickableAltPanel> </Link> </Col>
+        <Col xsHidden md={4}> <Link className="tileLink" to='/calendar'> <ClickableAltPanel className='panel tile' > Calendar </ClickableAltPanel> </Link> </Col>
+        </Row>
+        <Row className="show-grid">
+        <Col xs={6} md={4}> <Link className="tileLink" to='/chat'>  <ClickableAltPanel className='panel tile' > Chats </ClickableAltPanel> </Link> </Col>
+        <Col xs={6} md={4}> <Link className="tileLink" to='/budget'> <ClickableAltPanel className='panel tile' >  Budget </ClickableAltPanel> </Link> </Col>
+        <Col xsHidden md={4}> <Link className="tileLink" to='/reviews'> <ClickableAltPanel className='panel tile'>  Reviews </ClickableAltPanel> </Link> </Col>
+        </Row>
+      </Grid>
+    </div>
 
 
 
@@ -54,7 +56,7 @@ export default class Dashboard extends Component {
     // return (
     //     <TileLayout columns={3}>
     //      <TileLayoutItem>
-    //      <Link to='/bulletin_board'>
+    //      <Link className="tileLink" to='/bulletin_board'>
     //        <ClickableAltPanel>
     //         Bulletin Board
     //        </ClickableAltPanel>
