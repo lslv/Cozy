@@ -37,7 +37,7 @@ export default class CreateHouse extends Component{
 			sessionStorage.setItem('house_id', response.data.id)
 			//send user id and house id
 			//set house id and admin
-			axios.post('/api/users/addHouseId', {
+			axios.put('/api/users/addHouseId', {
 				user_id: sessionStorage.getItem('id'),
 				house_id: response.data.id,
 				admin: true

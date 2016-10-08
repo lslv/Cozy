@@ -25,7 +25,7 @@ router.get('/login/facebook/callback', passport.authenticate('facebook'), (req,r
 	}
 })
 
-router.post('/addHouseId', (req, res) => {
+router.put('/addHouseId', (req, res) => {
 	controller.addHouseId(req, res)
 })
 
