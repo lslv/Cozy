@@ -26,7 +26,6 @@ export default class Ratings extends Component {
 					AverageStars ={this.state.AverageStars}
 					HouseName ={this.state.HouseName}
 				/>
-				<PostRating />
 
 
 				<div className="rating-list">
