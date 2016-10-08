@@ -16,7 +16,6 @@ class AddChore extends Component {
 	checkIfValidSubmit(event){
 		const {handleSubmit, addChore, resetForm} = this.props
 		event.preventDefault()
-		console.log(event)
 		if(handleSubmit(addChore)(event)){
 			this.setState({ open: !this.state.open })
 			resetForm()
@@ -29,7 +28,8 @@ class AddChore extends Component {
 		const { fields:{type, chore_name, day}, handleSubmit } = this.props
 		return (
       <div>
-        <Button bsStyle="primary" onClick={ ()=> this.setState({ open: !this.state.open })}>
+        <Button bsStyle="primary" onClick={ ()=> this.setState({ open: !this.state.open })}
+        bsSize="large" block>
           Add Chore <i className='fa fa-plus-circle' aria-hidden='true'></i>
         </Button>
         <Collapse in={this.state.open}>

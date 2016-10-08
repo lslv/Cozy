@@ -19,7 +19,8 @@ class Calendar extends Component {
 		super(props)
 		this.createEvents=this.createEvents.bind(this)
 		this.state={
-			events:[]
+			events:[],
+			loading:true
 		}
 	}
 
@@ -30,6 +31,7 @@ class Calendar extends Component {
 			this.props.getChores(sessionStorage.getItem('house_id')).then(()=>{
 				Promise.all(this.props.chores.map((chore)=> this.props.getQueue(chore.id) ))
 				.then(()=>{
+					this.setState({loading:false})
 					// console.log(this.props.queues)
 					this.createEvents()
 				})
@@ -70,11 +72,11 @@ class Calendar extends Component {
 
 	render(){
 		const {events}=this.state
-		if(events.length>0)
+		if(events.length>0 && this.state.loading===false)
 			return (
 				<div>
 				<Navbar />
-					<div className="calendar">
+					<div className="calendarContainer">
 				      <BigCalendar
 				      	popup
 				        events={events}
@@ -83,7 +85,11 @@ class Calendar extends Component {
 		  		</div>
 	    )
 		else{
-			return <div><Navbar /></div>
+			return (
+				<div>
+				<Navbar />
+				<img className="spinner" src='/../../cozy_loading.gif' />
+				</div>)
 		}
 	}
 }

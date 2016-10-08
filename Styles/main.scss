@@ -3,9 +3,10 @@
 @import './base/global';
 @import './layout/navbar';
 @import './layout/landing';
-@import './components/calendar/calendar';
 @import './components/bulletinBoard/bulletinBoard';
 @import './components/chat/chat';
 @import './components/chores/chores';
 @import './components/user_auth/login';
 @import './components/user_auth/signup';
+@import './components/dashboard/dashboard';
+@import './components/calendar/calendar';
