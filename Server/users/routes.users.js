@@ -19,13 +19,13 @@ router.get('/login/facebook/callback', passport.authenticate('facebook'), (req,r
 	//check if the user is associated w/ a house. If so, redirect to dash, if not redirect to create/join house
 	if(req.user.dataValues.house_id) {
 		//serialize user data to query string
-		res.redirect('/#/dashboard?' + userData)	
+		res.redirect('/#/dashboard?' + userData)
 	} else {
 		res.redirect('/#/house_select?' + userData)
 	}
 })
 
-router.put('/addHouseId', (req, res) => {
+router.post('/addHouseId', (req, res) => {
 	controller.addHouseId(req, res)
 })
 
