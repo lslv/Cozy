@@ -8,16 +8,27 @@ export default class NavBar extends Component {
 
 	}
 
+	showUserProfilePic() {
+		const fb_pic = sessionStorage.getItem('fb_pic')
+
+		if(fb_pic) {
+			return (
+				<img src={fb_pic} className='navbar-userpic'/>
+			)
+		} else {
+			return ( <noscript />)
+		}
+	}
+
 	render() {
 		return (
 		<Navbar inverse bsClass='navbar'>
 		    <Navbar.Header>
+		    {this.showUserProfilePic()}
 		      <Navbar.Toggle />
 		    </Navbar.Header>
 		    <Navbar.Collapse>
-		      <Nav>
-		      </Nav>
-		      <Navbar.Brand>
+		      <Navbar.Brand bsStyle='brandname'>
 		        <Link to='/'>Cozy</Link>
 		      </Navbar.Brand>
 		      <Nav pullRight>
