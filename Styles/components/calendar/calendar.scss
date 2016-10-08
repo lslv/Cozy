@@ -1,8 +1,4 @@
 
-.calendar{
-  height: 500px;
-}
-
 .rbc-btn {
   color: inherit;
   font: inherit;
@@ -89,6 +85,7 @@ button.rbc-input::-moz-focus-inner {
   width: 100%;
   padding: 0 10px;
   text-align: center;
+  font-size: 50px;
 }
 .rbc-toolbar button {
   color: #373a3c;
@@ -168,7 +165,7 @@ button.rbc-input::-moz-focus-inner {
 .rbc-event {
   cursor: pointer;
   padding: 2px 5px;
-  background-color: #3174ad;
+  background-color: $primaryColor;
   border-radius: 5px;
   color: #fff;
 }
@@ -519,4 +516,11 @@ button.rbc-input::-moz-focus-inner {
 .rbc-time-content > .rbc-day-slot {
   width: 100%;
 
+}
+
+.calendarContainer{
+  height: 500px;
+  position:relative;
+  top:50px;
+  color:$primaryColor;
 }

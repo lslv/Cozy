@@ -74,7 +74,7 @@ class Calendar extends Component {
 			return (
 				<div>
 				<Navbar />
-					<div className="calendar">
+					<div className="calendarContainer">
 				      <BigCalendar
 				      	popup
 				        events={events}

@@ -29,21 +29,64 @@ export default class Dashboard extends Component {
 		}
 	}
 
-
+ 
 	render () {
     return (
     <div>
       <Navbar />
-      <Grid>
+
+      <Grid className="dashboardContainer">
         <Row className="show-grid">
-        <Col xs={6} md={4}> <Link className="tileLink" to='/bulletin_board'><ClickableAltPanel className='panel tile' >  Bulletin board</ClickableAltPanel>  </Link> </Col>
-        <Col xs={6} md={4}>  <Link className="tileLink" to='/chorelist'> <ClickableAltPanel className='panel tile' > Chores </ClickableAltPanel> </Link> </Col>
-        <Col xsHidden md={4}> <Link className="tileLink" to='/calendar'> <ClickableAltPanel className='panel tile' > Calendar </ClickableAltPanel> </Link> </Col>
+        <Col xs={6} md={4}>
+          <Link className="tileLink" to='/bulletin_board'>
+            <ClickableAltPanel className='panel tile' >
+              Bulletin board
+             <img className="icon" src='../../assets/bulletin_board_white.png' />
+            </ClickableAltPanel>
+          </Link>
+        </Col>
+        <Col xs={6} md={4}>
+          <Link className="tileLink" to='/chorelist'>
+            <ClickableAltPanel className='panel tile' >
+              Chores
+              <img className="icon" src='../../assets/chore_white.png' />
+            </ClickableAltPanel>
+          </Link>
+        </Col>
+        <Col xsHidden md={4}>
+            <Link className="tileLink" to='/calendar'>
+              <ClickableAltPanel className='panel tile' >
+                Calendar
+                <img className="icon calendar" src='../../assets/cal_white.png' />
+              </ClickableAltPanel>
+            </Link>
+          </Col>
         </Row>
         <Row className="show-grid">
-        <Col xs={6} md={4}> <Link className="tileLink" to='/chat'>  <ClickableAltPanel className='panel tile' > Chats </ClickableAltPanel> </Link> </Col>
-        <Col xs={6} md={4}> <Link className="tileLink" to='/budget'> <ClickableAltPanel className='panel tile' >  Budget </ClickableAltPanel> </Link> </Col>
-        <Col xsHidden md={4}> <Link className="tileLink" to='/reviews'> <ClickableAltPanel className='panel tile'>  Reviews </ClickableAltPanel> </Link> </Col>
+          <Col xs={6} md={4}>
+            <Link className="tileLink" to='/chat'>
+              <ClickableAltPanel className='panel tile' >
+              Chats
+              <img className="icon" src='../../assets/chat_white.png' />
+              </ClickableAltPanel>
+            </Link>
+          </Col>
+          <Col xs={6} md={4}>
+            <Link className="tileLink" to='/budget'>
+              <ClickableAltPanel className='panel tile' >
+              Budget
+              <img className="icon" src='../../assets/budget_white.png' />
+              </ClickableAltPanel>
+            </Link>
+          </Col>
+          <Col xsHidden md={4}>
+            <Link className="tileLink" to='/reviews'>
+              <ClickableAltPanel className='panel tile'> 
+              Reviews
+              <img className="icon" src='../../assets/user_review_white.png' />
+              </ClickableAltPanel>
+            </Link>
+          </Col>
         </Row>
       </Grid>
     </div>

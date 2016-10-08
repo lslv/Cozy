@@ -265,28 +265,30 @@ class ChoreList extends Component {
 		}
 		else
 			return (
-				<div className="choreList">
-					<NavBar />
-			        <Button className="authorizeButton" id="authorize-button" onClick={ event=>this.handleAuthClick(event)} style={this.state.authButtonStyle}>
-			          Authorize Google Calendar Access
-			        </Button>
-			        <Button className="makeCalButton" style={this.state.makeButtonStyle} id="create-button" onClick={ event=>this.handleMakeCalendarClick(event)}>
-			          Make Cozy Google Calendar
-			        </Button>
-			        
-					<div className="upcomingChores" style={this.state.upcomingEventsStyle}>
-						<h1>Upcoming Chores</h1>
-						<a href="https://calendar.google.com/calendar/iphoneselect" target="_blank">Sync Calendar With Phone</a>
-						<ul>
-						{this.renderUpcomingChores()}
-						</ul>
+				<div>
+					<Navbar />
+					<div className="choreList">
+				        <Button className="authorizeButton" id="authorize-button" onClick={ event=>this.handleAuthClick(event)} style={this.state.authButtonStyle}>
+				          Authorize Google Calendar Access
+				        </Button>
+				        <Button className="makeCalButton" style={this.state.makeButtonStyle} id="create-button" onClick={ event=>this.handleMakeCalendarClick(event)}>
+				          Make Cozy Google Calendar
+				        </Button>
+				        
+						<div className="upcomingChores" style={this.state.upcomingEventsStyle}>
+							<h1>Upcoming Chores</h1>
+							<a href="https://calendar.google.com/calendar/iphoneselect" target="_blank">Sync Calendar With Phone</a>
+							<ul>
+							{this.renderUpcomingChores()}
+							</ul>
+						</div>
+						<Accordion>
+							<Panel style={{textAlign:'center'}}>
+								<AddChore />
+							</Panel>
+							{this.renderChoreList()}
+						</Accordion>
 					</div>
-					<Accordion>
-						<Panel style={{textAlign:'center'}}>
-							<AddChore />
-						</Panel>
-						{this.renderChoreList()}
-					</Accordion>
 				</div>
 				)
 	}
