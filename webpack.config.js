@@ -14,10 +14,15 @@ module.exports = {
         presets: ['react', 'es2015', 'stage-1']
       }
     },
+        //   {
+        // test: /\.css$/,
+        // loader:'style!css!'
+        // },
       {
         test: /\.scss$/,
         loaders:['style', 'css', 'sass']
-      }
+      },
+
     ]
   },
   resolve: {
