@@ -1,0 +1,31 @@
+//This is for UserRatingProfile
+.UserRatingProfile {
+  background-image: url('http://www.hercampus.com/sites/default/files/2015/08/22/o-COLLEGE-ROOMMATES-facebook.jpg');
+  background-position: top right;
+  background-size: cover;
+  height: 490px;
+
+  input {
+    width: 300px;
+    text-align:center;
+  }
+
+  input:focus{
+    outline-color: #E5545C;
+  }
+
+}
+
+//This is for PostRating
+
+.PostRating {
+
+
+  input{
+    text-align: center;
+  }
+
+  input:focus{
+    outline-color: #E5545C;
+  }
+}

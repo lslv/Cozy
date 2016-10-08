@@ -38,16 +38,24 @@ class UserRatingProfile extends Component {
 	render () {
 		return(
 			<div>
-				<form onSubmit={this.SearchUsername}>
-					<input type="text" value={this.state.username} onChange={this.SearchBar} placeholder="Search UserName Here"/>
-					<input type="submit" value="Search"/>
-				</form>
+			<div className='jumbotron UserRatingProfile'>
+			<div className='container cheese'>
+						<h1>User Review</h1>
+						<h4>Reliability is key to a Cozy home</h4>
+						<br></br>
+						<div className='searchReviews'>
+							<form onSubmit={this.SearchUsername}>
+								<input type="text" value={this.state.username} onChange={this.SearchBar} placeholder="Search UserName Here"/>
+								<br></br>
+								<br></br>
+								<input className='findRoomateButton' type="submit" value="Find Roommate"/>
+							</form>
+						</div>
+			</div>
 
-	      <div className="UserOverview"><h5>HIPSTER</h5></div>
-	      <div className="UserOverview"><p>LOREM</p></div>
-	      <div className="UserOverview"><p>IPSEM</p></div>
-				{this.renderPostRating()}
 	    </div>
+				{this.renderPostRating()}
+			</div>
 		)
 	}
 
