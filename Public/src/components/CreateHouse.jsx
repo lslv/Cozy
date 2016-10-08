@@ -7,6 +7,8 @@ export default class CreateHouse extends Component{
 		super(props)
 
 		this.state= {houseName: ''}
+
+		this.onCreateHouse = this.onCreateHouse.bind(this)
 	}
 	render () {
 		return (
@@ -26,10 +28,12 @@ export default class CreateHouse extends Component{
     )
 	}
 	onCreateHouse(houseName){
+		console.log(houseName)
 		axios.post('/api/houses/addHouse', {
 			houseName: houseName
 		})
 		.then(response => {
+			console.log('the final then')
 			sessionStorage.setItem('house_id', response.data.id)
 			//send user id and house id
 			//set house id and admin

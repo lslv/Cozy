@@ -22,7 +22,7 @@ const Houses = sequelize.define('houses', {
 		createdAt: 'created_at',
 		updatedAt: 'updated_at',
 		deletedAt: 'deleted_at',
-		paranoid: true
+		//paranoid: true
 	})
 
 Houses.sync().then(function () {
