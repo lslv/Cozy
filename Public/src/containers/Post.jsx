@@ -90,7 +90,7 @@ class Post extends Component {
 
 		if(this.state.isAuthor) {
 			return (
-				<div>
+				<div className='bulletin-item-button-container'>
 				 <Button bsStyle='danger' onClick={this.handleDelete}>
           			<i className='fa fa-minus-circle' aria-hidden='true'></i>
         		 </Button>
@@ -136,12 +136,5 @@ class Post extends Component {
 function mapDispatchToProps (dispatch) {
 	return bindActionCreators({deletePost, editPost}, dispatch)
 }
-
-// function mapDispatchToProps (dispatch) {
-// 	return {
-// 		deletePost: (post)=>dispatch(deletePost(post)),
-// 		editPost: (post, updatedMessage)=>dispatch(editPost(post, updatedMessage))
-// 	}
-// }
 
 export default connect(null, mapDispatchToProps)(Post)
