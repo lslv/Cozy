@@ -10,11 +10,13 @@ export default class Logout extends Component {
 		return (
       <button
         onClick={event => {
-	sessionStorage.removeItem('user')
-	sessionStorage.removeItem('id')
-}
-      }
-      >logout</button>
+	sessionStorage.clear()
+	this.context.router.push('/')
+}}>logout</button>
     )
 	}
+}
+
+Logout.contextTypes = {
+	router: React.PropTypes.object
 }
