@@ -10,13 +10,15 @@ export default class NavBar extends Component {
 
 	showUserProfilePic() {
 		const fb_pic = sessionStorage.getItem('fb_pic')
+		const id = sessionStorage.getItem('id')
 
 		if(fb_pic) {
-			return (
-				<img src={fb_pic} className='navbar-userpic'/>
-			)
+			return ( <img src={fb_pic} className='navbar-userpic'/> )
+		} 
+		else if(id && !fb_pic) {
+			return ( <img src='../../assets/profile-placeholder.png' className='navbar-userpic'/> )
 		} else {
-			return ( <noscript />)
+			return ( <noscript/> )
 		}
 	}
 
@@ -39,6 +41,15 @@ export default class NavBar extends Component {
 		}
 	}
 
+	showUserNameOnLogin() {
+		const user = sessionStorage.getItem('username')
+		if(user) {
+			return ( <li>Welcome home, {user}</li> )
+		} else {
+			return ( <Link to='/'>Cozy</Link> )
+		}
+	}
+
 	render() {
 		return (
 		<Navbar inverse bsClass='navbar'>
@@ -48,7 +59,7 @@ export default class NavBar extends Component {
 		    </Navbar.Header>
 		    <Navbar.Collapse>
 		      <Navbar.Brand bsStyle='brandname'>
-		        <Link to='/'>Cozy</Link>
+		       {this.showUserNameOnLogin()} 
 		      </Navbar.Brand>
 		      <Nav pullRight>
 		        {this.checkLoginStatus()}

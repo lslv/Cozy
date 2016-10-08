@@ -81,8 +81,9 @@ class BulletinBoard extends Component {
 		if (this.state.showLoadingIcon) {
 			return (
 				<div>
-				<Navbar /> 
-				<img src='../../assets/loader.gif' />
+				<Navbar />
+				<iframe 
+				src="//giphy.com/embed/dw100K61tlysE" width="380" height="287" frameBorder="0" allowFullScreen></iframe>
 				</div>
 				)
 		} else {
