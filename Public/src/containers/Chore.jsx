@@ -12,12 +12,16 @@ class Chore extends Component {
 		super(props)
 		this.state={
 			open:false,
-			onceForceUpdate:_.once(this.forceUpdate.bind(this))
+			onceForceUpdate:_.once(this.forceUpdate.bind(this)),
+			verifyButtonStyle:{display:'inline'}
 		}
 		this.clickHandler=this.clickHandler.bind(this)
 	}
 
 	componentWillMount(){
+		if(sessionStorage.getItem('admin')==='true')
+			this.setState({verifyButtonStyle:{display:'inline'}})
+
 		this.props.getQueue(this.props.chore.id)
 		.then(()=>{
 			const {queues} = this.props
@@ -121,27 +125,32 @@ class Chore extends Component {
 				collapsible
 				expanded={this.state.open}
 				onClick={this.clickHandler}
+				style={{textAlign:'center'}}
 				>
-					<h3>{chore.chore_name}</h3>
-					<h6>{chore.day}</h6>
+					<h2>{chore.chore_name}</h2>
+					<h5>Every {chore.day}</h5>
 					{this.renderQueue()}
 					<br/>
 					{this.renderQueueNetwork()}
 					<br/>
 					<Button
+					style={this.state.verifyButtonStyle}
 					bsStyle="danger"
 					onClick={()=> this.deleteChore(chore.id)}>
 					Delete Chore
 					</Button>
 					<Button
+					
 					bsStyle="info"
 					onClick={(event) => this.handleUnverify(event)}>
-					Un-Verify Chore (Assigned User Did Not Complete Chore, should only be for admin)
+					Undo Chore Completion
 					</Button>
 				</Panel>
 			)
 	}
 }
+
+// style={this.state.verifyButtonStyle}
 
 function mapStateToProps(state){
 	return {queues:state.queues, users:state.users, calendar:state.calendar}
