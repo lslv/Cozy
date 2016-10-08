@@ -112,7 +112,7 @@ button.rbc-input::-moz-focus-inner {
 .rbc-toolbar button.rbc-active:hover,
 .rbc-toolbar button:active:focus,
 .rbc-toolbar button.rbc-active:focus {
-  color: #373a3c;
+  color: $primaryColor;
   background-color: #d4d4d4;
   border-color: #8c8c8c;
 }
@@ -122,10 +122,15 @@ button.rbc-input::-moz-focus-inner {
   border-color: #adadad;
 }
 .rbc-toolbar button:hover {
-  color: #373a3c;
+  color: $primaryColor;
   background-color: #e6e6e6;
   border-color: #adadad;
 }
+
+.rbc-calendar button{
+  color: $primaryColor;
+}
+
 .rbc-btn-group {
   display: inline-block;
   white-space: nowrap;
@@ -170,7 +175,9 @@ button.rbc-input::-moz-focus-inner {
   color: #fff;
 }
 .rbc-event.rbc-selected {
-  background-color: #265985;
+  background-color: white;
+  color: $primaryColor;
+  border:1px solid grey;
 }
 .rbc-event-label {
   font-size: 80%;
