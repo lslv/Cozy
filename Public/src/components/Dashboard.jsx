@@ -9,6 +9,14 @@ import Navbar from '../components/Navbar'
 export default class Dashboard extends Component {
 	constructor(props) {
 		super(props)
+    this.state={
+      bulletin:'../../assets/bulletin_board_white.png',
+      chores:'../../assets/chore_white.png',
+      calendar: '../../assets/cal_white.png',
+      chats:'../../assets/chat_white.png' ,
+      budget:'../../assets/budget_white.png',
+      reviews:'../../assets/user_review_white.png'
+    }
 	}
 
 	componentWillMount() {
@@ -28,8 +36,24 @@ export default class Dashboard extends Component {
 			sessionStorage.setItem('fb_pic', query.fb_picture)
 		}
 	}
-
+  onHover(tileName){
+    var currentPath= this.state[tileName].slice(0,-10)
+    // console.log(currentPath.slice(0,-10))
+    var newState={};
+    newState[tileName]=currentPath + '_red.png';
+    this.setState(newState)
+    //console.log('onMouseOver bulletin')
+  }
+  onHoverLeave(tileName){
+    var currentPath= this.state[tileName].slice(0,-8)
+    var newState={};
+    newState[tileName]=currentPath + '_white.png';
+    this.setState(newState)
+    // this.setState({bulletin: currentPath + '_white.png'})
+    //console.log('onMouseOver bulletin')
+  }
  
+
 	render () {
     return (
     <div>
@@ -38,52 +62,69 @@ export default class Dashboard extends Component {
       <Grid className="dashboardContainer">
         <Row className="show-grid">
         <Col xs={6} md={4}>
-          <Link className="tileLink" to='/bulletin_board'>
+          <Link className="tileLink" to='/bulletin_board'
+          onMouseOver={()=>{this.onHover('bulletin')}}
+          onMouseOut={()=>{this.onHoverLeave('bulletin')}}>
             <ClickableAltPanel className='panel tile' >
               Bulletin board
-             <img className="icon" src='../../assets/bulletin_board_white.png' />
+             <img className="icon" src={this.state.bulletin}/>
             </ClickableAltPanel>
           </Link>
         </Col>
         <Col xs={6} md={4}>
-          <Link className="tileLink" to='/chorelist'>
+          <Link className="tileLink" to='/chorelist'
+          onMouseOver={()=>{this.onHover('chores')}}
+          onMouseOut={()=>{this.onHoverLeave('chores')}}          
+          >
             <ClickableAltPanel className='panel tile' >
               Chores
-              <img className="icon" src='../../assets/chore_white.png' />
+              <img className="icon" src={this.state.chores} />
             </ClickableAltPanel>
           </Link>
         </Col>
         <Col xsHidden md={4}>
-            <Link className="tileLink" to='/calendar'>
+            <Link className="tileLink" to='/calendar'
+          onMouseOver={()=>{this.onHover('calendar')}}
+          onMouseOut={()=>{this.onHoverLeave('calendar')}}  
+            >
               <ClickableAltPanel className='panel tile' >
                 Calendar
-                <img className="icon calendar" src='../../assets/cal_white.png' />
+                <img className="icon calendar" src={this.state.calendar} />
               </ClickableAltPanel>
             </Link>
           </Col>
         </Row>
         <Row className="show-grid">
           <Col xs={6} md={4}>
-            <Link className="tileLink" to='/chat'>
+            <Link className="tileLink" to='/chat'
+          onMouseOver={()=>{this.onHover('chats')}}
+          onMouseOut={()=>{this.onHoverLeave('chats')}}
+            >
               <ClickableAltPanel className='panel tile' >
               Chats
-              <img className="icon" src='../../assets/chat_white.png' />
+              <img className="icon" src={this.state.chats} />
               </ClickableAltPanel>
             </Link>
           </Col>
           <Col xs={6} md={4}>
-            <Link className="tileLink" to='/budget'>
+            <Link className="tileLink" to='/budget'
+          onMouseOver={()=>{this.onHover('budget')}}
+          onMouseOut={()=>{this.onHoverLeave('budget')}}
+            >
               <ClickableAltPanel className='panel tile' >
               Budget
-              <img className="icon" src='../../assets/budget_white.png' />
+              <img className="icon" src={this.state.budget} />
               </ClickableAltPanel>
             </Link>
           </Col>
           <Col xsHidden md={4}>
-            <Link className="tileLink" to='/reviews'>
+            <Link className="tileLink" to='/reviews'
+          onMouseOver={()=>{this.onHover('reviews')}}
+          onMouseOut={()=>{this.onHoverLeave('reviews')}}
+            >
               <ClickableAltPanel className='panel tile'> 
               Reviews
-              <img className="icon" src='../../assets/user_review_white.png' />
+              <img className="icon" src={this.state.reviews} />
               </ClickableAltPanel>
             </Link>
           </Col>
