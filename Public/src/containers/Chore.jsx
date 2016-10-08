@@ -13,7 +13,7 @@ class Chore extends Component {
 		this.state={
 			open:false,
 			onceForceUpdate:_.once(this.forceUpdate.bind(this)),
-			verifyButtonStyle:{display:'none'}
+			verifyButtonStyle:{display:'inline'}
 		}
 		this.clickHandler=this.clickHandler.bind(this)
 	}
@@ -140,7 +140,7 @@ class Chore extends Component {
 					Delete Chore
 					</Button>
 					<Button
-					style={this.state.verifyButtonStyle}
+					
 					bsStyle="info"
 					onClick={(event) => this.handleUnverify(event)}>
 					Undo Chore Completion
@@ -149,6 +149,8 @@ class Chore extends Component {
 			)
 	}
 }
+
+// style={this.state.verifyButtonStyle}
 
 function mapStateToProps(state){
 	return {queues:state.queues, users:state.users, calendar:state.calendar}
