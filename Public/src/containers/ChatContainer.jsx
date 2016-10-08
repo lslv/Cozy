@@ -36,7 +36,6 @@ class ChatContainer extends Component {
 	}
 
 	render() {
-		console.log('chat container props', this.props)
 		return (
 		<div>
 			<Navbar />

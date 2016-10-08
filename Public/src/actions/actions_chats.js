@@ -6,8 +6,6 @@ export const UPDATE_ACTIVE_CHAT = 'UPDATE_ACTIVE_CHAT'
 const user_id = sessionStorage.getItem('id')
 
 export function createRoom(name, list) {
-	console.log('name', name)
-	console.log('list', list)
 	//get ids from list
 	let user_ids = list.map((user) => user.id)
 	//include the user

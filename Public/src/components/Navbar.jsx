@@ -20,6 +20,25 @@ export default class NavBar extends Component {
 		}
 	}
 
+	checkLoginStatus() {
+		const id = sessionStorage.getItem('id')
+
+		if(id) {
+			return (
+			<NavItem>
+	        <Link to='/dashboard' className='nav-text'>Dashboard</Link>
+	        </NavItem>
+			)
+		} else {
+			return (
+			<NavItem>
+	        <Link to='/login' className='nav-text'>Login</Link>
+	        </NavItem>
+			)
+
+		}
+	}
+
 	render() {
 		return (
 		<Navbar inverse bsClass='navbar'>
@@ -32,14 +51,12 @@ export default class NavBar extends Component {
 		        <Link to='/'>Cozy</Link>
 		      </Navbar.Brand>
 		      <Nav pullRight>
-		        <NavItem>
-		        <Link to='/login' className='nav-text'>Login</Link>
-		        </NavItem>
+		        {this.checkLoginStatus()}
 		        <NavItem>
 		        <Link to='/signup' className='nav-text'>Signup</Link>
 		        </NavItem>
 		        <NavItem>
-		        <Link to='/logiut' className='nav-text'>Logout</Link>
+		        <Link to='/logout' className='nav-text'>Logout</Link>
 		        </NavItem>
 		      </Nav>
 		    </Navbar.Collapse>

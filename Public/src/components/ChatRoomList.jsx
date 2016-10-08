@@ -103,7 +103,8 @@ export default class ChatRoomList extends Component {
     } else {
       return this.props.chats.chatList.map((chat) => {
         return (
-          <li key={chat.id} onClick={() => updateActiveChat(chat)}>
+          <li key={chat.id} 
+              onClick={() => updateActiveChat(chat)}>
             {chat.room}
           </li>
         )
@@ -115,10 +116,10 @@ export default class ChatRoomList extends Component {
       return (
         <div className='chat-room-list'>
           <Button bsStyle='info' onClick={this.showModal}>
-            Create a chat:
-            <i className='fa fa-plus-circle' aria-hidden='true'></i>
+            Create a chat
+             <i className='fa fa-plus-circle' aria-hidden='true'></i>
           </Button>
-          <h5>Chat Rooms</h5>
+          <h5 className=''>Chat Rooms</h5>
           <hr width='50%' />
           {this.renderChatList()}
 

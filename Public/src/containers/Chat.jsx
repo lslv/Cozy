@@ -162,8 +162,12 @@ export default class Chat extends Component {
 				 	</ul>
 				 </div>
 					<p>{this.state.userAction}</p>
-					<ul id='chat-messages'>{this.displayMessages()}</ul>
-					<p className='isTyping'>{this.state.isTyping ? `${this.state.typingUser} is typing` : ''}</p>
+					<div className='chat-messages'>
+					<ul>{this.displayMessages()}</ul>
+					</div>
+					<div className='isTyping'>
+					<p>{this.state.isTyping ? `${this.state.typingUser} is typing` : 'balh'}</p>
+					</div>
 					<form className='chat-input' onSubmit={this.sendMessage}>
 						<input type='text'
 						ref='chatbar'
