@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux'
 import PieChart from 'react-simple-pie-chart'
 import { getUsers } from '../actions/actions_users'
 import { getBills } from '../actions/actions_billing'
+import { Link } from 'react-router'
+import Navbar from '../components/Navbar'
 
 class Budget extends Component{
 	constructor(props){
@@ -27,14 +29,12 @@ class Budget extends Component{
 			if(item.pay_percentage)return {color: 'cadetblue', value: parseInt(item.pay_percentage)}
 		})
 
-		if(test[0])	test[0].color = '#540D6E'
-		if(test[1])	test[1].color = '#EE4266'
-		if(test[2])	test[2].color = '#FFD23F'
-		if(test[3])	test[3].color = '#3BCEAC'
-		if(test[4])	test[4].color = '#0EAD69'
+		const colors = ['#540D6E', '#EE4266', '#FFD23F', '#3BCEAC', '#0EAD69', '#3FA7D6', '#EE6352', '#FAC05E', '#59CD90', '#F79D84']
+		test.forEach((item, index) => test[index].color = colors[index] || 'cadetblue')
 
 		return (
       <div>
+			<Navbar />
 			<div style={{height: '500px', width: '500px', position: 'absolute', right: '0px', padding: '10px' }}>
 			<PieChart
 			slices={test}
@@ -43,7 +43,7 @@ class Budget extends Component{
 			</div>
 			<h2>House Budget</h2>
 			<h3>percentages</h3>
-			{sessionStorage.getItem('admin') === 'true' ? <button>edit percentages</button> : console.log('hello user')}
+			{sessionStorage.getItem('admin') === 'true' ? <Link to='/updatePercentage'><button>edit percentages</button></Link> : null}
 			{(() => {
 				let array = []
 				for (let key in this.props.users){
@@ -54,7 +54,7 @@ class Budget extends Component{
 			}
 			<br />
       <h3>bill breakdown</h3>
-			{sessionStorage.getItem('admin') === 'true' ? <button>edit bills</button> : console.log('hello user')}
+			{sessionStorage.getItem('admin') === 'true' ? <Link to='/updateBills'><button>edit bills</button></Link> : null}
 			{(() => {
 				let array = []
 				for (let key in this.props.bills){

@@ -67,7 +67,6 @@ export default class Login extends Component {
 			password: this.state.password
 		})
     .then((response) => {
-	console.log(response.data)
       //this should be a token in the future
 	sessionStorage.setItem('id', response.data.id)
 	sessionStorage.setItem('username', response.data.user_name)

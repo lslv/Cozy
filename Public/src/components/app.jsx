@@ -15,6 +15,9 @@ import Profile from './Profile'
 import Calendar from '../containers/Calendar'
 import Budget from '../containers/Budget'
 import Ratings from './Ratings'
+import UpdatePercentage from './updatePercentage'
+import UpdateBills from './updateBills'
+import CreateBill from './CreateBill'
 
 export default class App extends Component {
 	render () {
@@ -36,6 +39,9 @@ export default class App extends Component {
         <Route path='/chat' component={ChatContainer} />
 				<Route path='/budget' component={Budget} />
 				<Route path='/ratings' component={Ratings} />
+				<Route path='/updatePercentage' component={UpdatePercentage} />
+				<Route path='/updateBills' component={UpdateBills} />
+				<Route path='/createBill' component={CreateBill} />
       </Router>
     )
 	}

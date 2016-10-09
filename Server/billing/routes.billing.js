@@ -9,4 +9,8 @@ router.get('/test', (req, res) => {
 router.get('/getBills', (req, res) => {
 	controller.getBills(req, res)
 })
+
+router.post('/createBill', (req, res) => {
+	controller.createBill(req, res)
+})
 module.exports = router
