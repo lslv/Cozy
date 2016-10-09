@@ -4,7 +4,6 @@ import { Link } from 'react-router'
 import RatingItem from '../components/RatingItem'
 import { bindActionCreators } from 'redux';
 import {fetchAllRatings} from '../actions/actions_ratings'
-import {Grid, Row, Col} from 'react-bootstrap'
 
 class RatingList extends Component {
 
@@ -35,11 +34,12 @@ class RatingList extends Component {
 
   render() {
     return (
-      <Grid fluid={true}>
-      <ul className ="rating-list">
+      <div className="rateList">
+      <div className ="rating-list">
         {this.ratingList()}
-      </ul>
-      </Grid>
+      </div>
+      <br></br>
+      </div>
 
     )
   }

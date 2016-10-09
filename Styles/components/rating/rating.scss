@@ -6,22 +6,26 @@
   background-repeat: no-repeat;
   height: 600px;
 
+
   h1 {
-    padding-left: 90px;
+    padding-left: 70px;
     padding-right: auto;
+    font-size: 80px;
   }
 
   h4 {
-    padding-left: 140px;
+    padding-left: 164px;
     padding-right: auto;
   }
 
   input {
     display: inline-block;
-    width: 300px;
+    width: 350px;
+    height: 40px;
     text-align:center;
     margin-left: 119px;
     margin-right: auto;
+    font-size: 15px;
   }
 
   input:focus{
@@ -29,6 +33,50 @@
   }
 
 }
+
+
+//This is for RatingList
+
+.rateList {
+  display: inline-block;
+  margin: 0 auto;
+  // text-align: center;
+  // width: 50%;
+  padding-top: auto;
+}
+
+.Ratings {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.stars{
+  display: inline-block;
+  background-color: #E5545C;
+  color: #FFFCF9;
+  font-size: 30px;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.review{
+  display: inline-block;
+  background-color: #93938C;
+  font-size: 20px;
+  border-radius: 10px 10px 10px 10px;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+//This is for RatingItem
+
+
+
+
+
 
 //This is for PostRating
 
@@ -42,16 +90,3 @@
     outline-color: #E5545C;
   }
 }
-
-//This is for ratingItem
-
-// .Ratings {
-//   .stars + .Reviewer {
-//     text-align: center;
-//   }
-//
-//   .review {
-//     text-align: center;
-//   }
-//
-// }

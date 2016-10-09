@@ -1,23 +1,14 @@
 import React, { Component } from 'react'
-import {Grid, Col, Row} from 'react-bootstrap'
 
 const RatingItem = ({stars, review, reviewer}) => {
 	return (
 
-    <li className="Ratings">
+    <div className="Ratings">
 
-		<Row>
-		<Col md={6}>
-			<div className="stars">Stars:{stars}</div>
-		</Col>
-		<Col md={6}>
-			<div className="Reviewer">Reviewer:{reviewer}</div>
-		</Col>
-		</Row>
+			<div className="stars">{reviewer} has given {stars} Stars </div>
 
-		<br></br>
-			<div className="review">Review:{review}</div>
-		</li>
+			<div className="review">{review}</div>
+		</div>
 
   )
 }

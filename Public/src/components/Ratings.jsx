@@ -20,7 +20,7 @@ export default class Ratings extends Component {
 	}
 	render () {
 		return (
-      <div className="main-container">
+      <div>
 				<UserRatingProfile
 					Username={this.state.Username}
 					AverageStars ={this.state.AverageStars}
