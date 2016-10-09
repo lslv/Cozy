@@ -31,12 +31,12 @@ class AddChore extends Component {
 	render() {
 		const { fields:{type, chore_name, day}, handleSubmit } = this.props
 		return (
-      <div>
+      <div >
         <button className="addButton" onClick={ ()=> this.clickHandler() }
         bsSize="large" block>
           Add Chore <i className='fa fa-plus-circle' aria-hidden='true'></i>
         </button>
-        <Collapse in={this.state.open}>
+        <Collapse in={this.state.open} className="addChoreContainer">
           <div>
             	<div>
 					<form onSubmit={this.checkIfValidSubmit }>

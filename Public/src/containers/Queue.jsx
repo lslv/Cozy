@@ -16,9 +16,9 @@ export default class Queue extends Component{
 		var queueInOrder=[ ...choreQueue.slice(chore.user_turn), ...choreQueue.slice(0, chore.user_turn) ]
 		var nodes= queueInOrder.map((queuePosition,index)=>{        
 			if(index===0){
-				return {id:users[queuePosition.userId].id, label: users[queuePosition.userId].user_name, color:'lime' }
+				return {id:users[queuePosition.userId].id, label: users[queuePosition.userId].user_name, color:'#e5545c', font: {size:60, color:'white', face:'Raleway', strokeWidth:3, strokeColor:'#e5545c'}}
 			}
-			return {id:users[queuePosition.userId].id, label: users[queuePosition.userId].user_name }
+			return {id:users[queuePosition.userId].id, label: users[queuePosition.userId].user_name, font: {size:15, color:'#e5545c', face:'Raleway', strokeWidth:3, strokeColor:'white'} }
 		})
 		nodes= new vis.DataSet(nodes)
 		this.setState({nodes})
@@ -46,13 +46,18 @@ export default class Queue extends Component{
 			edges:{
 				color:{
 					inherit:false,
-					color:'#97C2FC',
-					highlight:'#97C2FC'
+					color:'#e5545c',
+					highlight:'#e5545c'
 				}
 			},
 			nodes:{
 				shape:'dot',
-				size:20
+				size:20,
+				color:{
+					background:'white',
+					border:'#e5545c',
+					highlight:'#e5545c'
+				}
 			},
 			interaction:{
 				// dragNodes:false,

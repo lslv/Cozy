@@ -135,13 +135,13 @@ class Chore extends Component {
 					<br/>
 					<Button
 					style={this.state.verifyButtonStyle}
-					bsStyle="danger"
+					bsStyle="danger" className="choreButton"
 					onClick={()=> this.deleteChore(chore.id)}>
 					Delete Chore
 					</Button>
 					<Button
 					
-					bsStyle="info"
+					bsStyle="info" className="choreButton"
 					onClick={(event) => this.handleUnverify(event)}>
 					Undo Chore Completion
 					</Button>
