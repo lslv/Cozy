@@ -1,0 +1,22 @@
+.house_select_component > div {
+		margin-top: 16%;
+
+	.house_select_title {
+		text-align: center;
+	}
+}
+
+.house_select_body {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 2%;
+
+	button {
+		margin-bottom: 2%;
+		padding: 2%;
+		
+		a {
+			color: $snow; 	
+		}
+	}
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+import { Modal } from 'react-bootstrap'
 import _ from 'lodash'
 
 import Navbar from '../components/Navbar'
@@ -25,15 +26,22 @@ export default class HouseSetup extends Component {
 
 	render () {
 		return (
-            <div>
-              <Navbar />
-                <button>
-                    <Link to="/create_house">Create a house</Link>
-                </button>
-                <button>
-                    <Link to="/join_house">Join a house</Link>
-                </button>
-            </div>
+		<div>
+		<Navbar />
+	     <Modal.Dialog className='house_select_component'>
+		 <Modal.Header>
+          <Modal.Title className='house_select_title'>Welcome to Cozy</Modal.Title>
+         </Modal.Header>
+		  <Modal.Body className='house_select_body'>
+		   <button className='btn btn-success'>
+              <Link to="/create_house">Create a house</Link>
+           </button>
+           <button className='btn btn-info'>
+              <Link to="/join_house">Join a house</Link>
+           </button>
+	      </Modal.Body>
+	      </Modal.Dialog>
+	    </div>
         )
 	}
 }
