@@ -67,19 +67,27 @@
   width: 50%;
 }
 
-
-//This is for PostRating
-
 .PostRating {
-
   margin:0 auto;
   width: 50%;
+  border: 1px solid;
+  border-color: #93938C;
+  padding:10px 20px;
+  text-align: center;
 
-  input{
+  input {
     text-align: center;
   }
 
   input:focus{
     outline-color: #E5545C;
   }
+
+  .inputReview{
+    width: 40%;
+    height: auto;
+  }
+
 }
+
+//This is for PostRating

@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { postRating } from '../actions/actions_ratings'
 import { bindActionCreators } from 'redux'
 import {reduxForm} from 'redux-form'
-import { Grid, Row, Col } from 'react-bootstrap'
 
 class PostRating extends Component {
 	//beginning of constructor
@@ -44,20 +43,19 @@ class PostRating extends Component {
 
 	render () {
 		return (
-			<div className='PostRating container-fluid'>
+			<div className='PostRating'>
 
 				<form onSubmit={this.submitRating} className="RatingForm">
-				<Grid>
-				<Row>
-				<Col md={4}>
+						<div className="inputStar">
 		        <input type="text" value={this.state.star} onChange={this.inputStar} placeholder="Stars out of 5"/>
-				</Col>
-				<Col md={8}>
+						</div>
+						<br></br>
+						<div className="inputReview">
 		        <input type="text" value={this.state.rating} onChange={this.inputRating} placeholder="Write a Rating"/>
-		        <input type="submit" value="Post" />
-				</Col>
-					</Row>
-					</Grid>
+						</div>
+						<div className="rateButton">
+		        <input type="submit" value="Post Review" />
+						</div>
 	      </form>
 
 			</div>
