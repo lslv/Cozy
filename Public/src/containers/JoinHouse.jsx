@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Modal } from 'react-bootstrap'
 import { getResults } from '../actions/actions_join_search'
 import House from './House'
 import Navbar from '../components/Navbar'

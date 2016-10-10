@@ -26,24 +26,30 @@ export default class Landing extends Component {
             <h1>Features</h1>
             <div className='features'>
               <div>
-                <Image src ='../../assets/chore.png' />
+                <Image src ='../../assets/chore_white.png' />
                 <h4>Chores</h4>
               </div>
               <div>
-                <Image src ='../../assets/budget.png' />
-                <h4>Budget</h4>
+                <Image src ='../../assets/budget_white.png' />
+                <h4>Budgeting</h4>
               </div>
               <div>
-                <Image src ='../../assets/bulletin_board.png' />
+                <Image src ='../../assets/bulletin_board_white.png' />
                 <h4>Bulletin Board</h4>
               </div>
               <div>
-                <Image src ='../../assets/chat.png' />
+                <Image src ='../../assets/chat_white.png' />
                 <h4>Chat</h4>
               </div>
               <div>
-                <Image src ='../../assets/user_review.png' />
+                <Image 
+                src ='../../assets/user_review_white.png' />
                 <h4>Roommate Reviews</h4>
+              </div>
+              <div className='calendar_landing_image'>
+                <Image 
+                src ='../../assets/cal_white_copy.png' />
+                <h4>Calendar</h4>
               </div>
             </div>
          </div>
