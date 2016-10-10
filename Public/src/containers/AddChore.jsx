@@ -11,6 +11,7 @@ class AddChore extends Component {
 			selectValue:'Sunday'
 		}
 		this.checkIfValidSubmit=this.checkIfValidSubmit.bind(this)
+		this.clickHandler= this.clickHandler.bind(this)
 	}
 
 	checkIfValidSubmit(event){
@@ -22,17 +23,20 @@ class AddChore extends Component {
 		}
 	}
 
+	clickHandler(){
+		this.setState({ open: !this.state.open })
+	}
 
 
 	render() {
 		const { fields:{type, chore_name, day}, handleSubmit } = this.props
 		return (
-      <div>
-        <Button bsStyle="primary" onClick={ ()=> this.setState({ open: !this.state.open })}
+      <div >
+        <button className="addButton" onClick={ ()=> this.clickHandler() }
         bsSize="large" block>
           Add Chore <i className='fa fa-plus-circle' aria-hidden='true'></i>
-        </Button>
-        <Collapse in={this.state.open}>
+        </button>
+        <Collapse in={this.state.open} className="addChoreContainer">
           <div>
             	<div>
 					<form onSubmit={this.checkIfValidSubmit }>

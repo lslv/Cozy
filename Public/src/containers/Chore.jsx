@@ -80,20 +80,21 @@ class Chore extends Component {
 		if(Object.keys(queues).length && queues[this.props.chore.id]){
 			var choreQueue= queues[this.props.chore.id]
 			var queueInOrder=[ ...choreQueue.slice(chore.user_turn), ...choreQueue.slice(0, chore.user_turn) ]
-			return queueInOrder.map((queuePosition,index)=>{		
-				if(index< queues[this.props.chore.id].length-1)
-					return (
-						<span key={queuePosition.id}>
-						{ `${users[queuePosition.userId].user_name}\'s` } Turn {'<'}-  
-						</span>
-						)
-				else
-					return (
-						<span key={queuePosition.id}>
-						{ `${users[queuePosition.userId].user_name}\'s` } Turn 
-						</span>
-						)
-			})
+			return <span>{ `${users[queueInOrder[0].userId].user_name}\'s` } Turn </span>
+			// return queueInOrder.map((queuePosition,index)=>{		
+			// 	if(index< queues[this.props.chore.id].length-1)
+			// 		return (
+			// 			<span key={queuePosition.id}>
+			// 			{ `${users[queuePosition.userId].user_name}\'s` } Turn {'<'}-  
+			// 			</span>
+			// 			)
+			// 	else
+			// 		return (
+			// 			<span key={queuePosition.id}>
+			// 			{ `${users[queuePosition.userId].user_name}\'s` } Turn 
+			// 			</span>
+			// 			)
+			// })
 		}
 	}
 	renderQueueNetwork(){
@@ -135,13 +136,13 @@ class Chore extends Component {
 					<br/>
 					<Button
 					style={this.state.verifyButtonStyle}
-					bsStyle="danger"
+					bsStyle="danger" className="choreButton"
 					onClick={()=> this.deleteChore(chore.id)}>
 					Delete Chore
 					</Button>
 					<Button
 					
-					bsStyle="info"
+					bsStyle="info" className="choreButton"
 					onClick={(event) => this.handleUnverify(event)}>
 					Undo Chore Completion
 					</Button>

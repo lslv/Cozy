@@ -21,6 +21,7 @@ class ChoreList extends Component {
 			SCOPES: ['https://www.googleapis.com/auth/calendar'],
 			makeButtonStyle:{display:'none'},
 			authButtonStyle:{display:'none'},
+			loaderStyle: {display:'none'},
 			upcomingEventsStyle:{display:'none'},
 			upcomingChores:[]
 		}
@@ -93,6 +94,7 @@ class ChoreList extends Component {
 
 	listUpcomingChores() { //list upcoming chores
 		console.log('listUpcomingChores')
+		this.setState({loaderStyle:{display:'none'}, upcomingEventsStyle:{display:'inline'}})
 		//currently have it set to the wrong calendar, also need to filter to see if the  username is included in the chore title
 		var request = gapi.client.calendar.events.list({
 			'calendarId': this.props.calendar,
@@ -104,6 +106,7 @@ class ChoreList extends Component {
 		})
 
 		request.execute(function(resp) {
+			console.log('listupcoming events response', resp)
 			var events = resp.items
 			// this.appendPre('Upcoming events:')
 			var upcomingEvents=[]
@@ -144,7 +147,7 @@ class ChoreList extends Component {
 
 	//functions invovled in making a calendar
 	handleMakeCalendarClick(event){
-		this.setState({makeButtonStyle:{display:'none'}} )
+		this.setState({makeButtonStyle:{display:'none'}, loaderStyle:{display:'inline-block'}} )
 		gapi.client.load('calendar', 'v3', this.createNewCalendar)
 	}
 
@@ -208,8 +211,9 @@ class ChoreList extends Component {
 		batchChoreEvents.add(request)
 		})
 		batchChoreEvents.then((results)=>{
-			//console.log(results)
-			this.listUpcomingChores()
+			//console.log('results of events creation',results)
+			setTimeout( () => {this.listUpcomingChores()}, 3000)
+			// this.listUpcomingChores()
 		})
 
 		this.inviteHouseMates(newCal)
@@ -274,11 +278,11 @@ class ChoreList extends Component {
 				        <Button className="makeCalButton" style={this.state.makeButtonStyle} id="create-button" onClick={ event=>this.handleMakeCalendarClick(event)}>
 				          Make Cozy Google Calendar
 				        </Button>
-				        
+				        <img className="spinner small" style={this.state.loaderStyle} src='/../../cozy_loading.gif' />
 						<div className="upcomingChores" style={this.state.upcomingEventsStyle}>
 							<h1>Upcoming Chores</h1>
 							<a href="https://calendar.google.com/calendar/iphoneselect" target="_blank">Sync Calendar With Phone</a>
-							<ul>
+							<ul className="upcomingChores" >
 							{this.renderUpcomingChores()}
 							</ul>
 						</div>

@@ -5,6 +5,7 @@ import { Modal } from 'react-bootstrap'
 import { getResults } from '../actions/actions_join_search'
 import House from './House'
 import Navbar from '../components/Navbar'
+import {Button, FormGroup, FormControl, ControlLabel} from 'react-bootstrap'
 
 
 class JoinHouse extends Component{
@@ -26,14 +27,21 @@ class JoinHouse extends Component{
 		return (
       <div>
       <Navbar />
-      <h1>Join House</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            value={this.state.searchText}
-            onChange={this.handleSearchInput}
-            placeholder="search" />
-        </form>
-				<House />
+	      <div className="joinHouseContainer">
+	      	<h1>Join A House</h1>
+	        <form onSubmit={this.handleSubmit}>
+		        <FormGroup>
+		          <FormControl
+		          	className="joinHouseSearch"
+		          	type="text"
+		            value={this.state.searchText}
+		            onChange={this.handleSearchInput}
+		            placeholder="search" />
+		            <Button type="submit">Search</Button>
+				</FormGroup>
+	        </form>
+			<House />
+		</div>
       </div>
     )
 	}
