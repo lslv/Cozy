@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
+import PostRating from '../containers/PostRating'
 import { fetchAllRatings } from '../actions/actions_ratings'
+import {Jumbotron} from 'react-bootstrap'
 
 class UserRatingProfile extends Component {
 
 	constructor(props) {
 		super(props)
 		this.state = {
-			username:''
+			username:'',
+			search:false
 		}
-		
+
 		this.SearchUsername = this.SearchUsername.bind(this)
 		this.SearchBar = this.SearchBar.bind(this)
 	}
@@ -20,22 +23,40 @@ class UserRatingProfile extends Component {
 	}
 
 	SearchUsername(e){
+		this.setState({search:true})
 		e.preventDefault();
 		this.props.fetchAllRatings(this.state.username)
+	}
+	renderPostRating(){
+		if(this.state.search){
+			return <PostRating />
+		}
+		else{
+			return <span></span>
+		}
 	}
 
 	render () {
 		return(
 			<div>
-				<form onSubmit={this.SearchUsername}>
-					<input type="text" value={this.state.username} onChange={this.SearchBar} placeholder="Search UserName Here"/>
-					<input type="submit" value="Search"/>
-				</form>
-
-	      <div className="UserOverview"><h5>HIPSTER</h5></div>
-	      <div className="UserOverview"><p>LOREM</p></div>
-	      <div className="UserOverview"><p>IPSEM</p></div>
+			<Jumbotron className='UserRatingProfile'>
+			<div className='UserRatingTitle'>
+						<h1>User Review</h1>
+						<h4>Reliability is key to a Cozy home</h4>
+						<br></br>
+						<div className='searchReviews'>
+							<form onSubmit={this.SearchUsername}>
+								<input type="text" value={this.state.username} onChange={this.SearchBar} placeholder="Search UserName Here"/>
+								<br></br>
+								<br></br>
+								<input className='findRoomateButton' type="submit" value="Find Roommate"/>
+							</form>
+						</div>
 	    </div>
+
+			</Jumbotron>
+			{this.renderPostRating()}
+			</div>
 		)
 	}
 

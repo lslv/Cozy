@@ -17,7 +17,9 @@ class RatingList extends Component {
     if(Array.isArray(this.props.ratingList.data)) {
       sessionStorage.setItem('review_on', this.props.ratingList.data.shift())
 
-      return this.props.ratingList.data.map( (rating) => {
+      let results = this.props.ratingList.data.reverse();
+
+      return results.map( (rating) => {
         return (
           <RatingItem
             key={rating[0].id}
@@ -32,9 +34,9 @@ class RatingList extends Component {
 
   render() {
     return (
-      <ul className ="rating-list">
-        {this.ratingList()}
-      </ul>
+        <div className='rating-container'>
+          {this.ratingList()}
+        </div>
     )
   }
 }
