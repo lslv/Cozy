@@ -43,11 +43,23 @@ class PostRating extends Component {
 
 	render () {
 		return (
-			<form onSubmit={this.submitRating} className="RatingForm">
-        <input type="text" value={this.state.star} onChange={this.inputStar} placeholder="Stars out of 5"/>
-        <input type="text" value={this.state.rating} onChange={this.inputRating} placeholder="Write a Rating"/>
-        <input type="submit" value="Post" />
-      </form>
+			<div className='PostRating'>
+
+				<form onSubmit={this.submitRating} className="RatingForm">
+						<div className="inputStar">
+		        <input type="text" value={this.state.star} onChange={this.inputStar} placeholder="Stars out of 5"/>
+						</div>
+						<br></br>
+						<div>
+		        <input className="inputReview" type="text" value={this.state.rating} onChange={this.inputRating} placeholder="Write a Rating"/>
+						</div>
+						<br></br>
+						<div className="rateButton">
+		        <input type="submit" value="Post Review" />
+						</div>
+	      </form>
+
+			</div>
     )
 	}
 }
