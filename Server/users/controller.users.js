@@ -56,7 +56,7 @@ module.exports = {
 
 	addHouseId: (req, res) => {
 		Users.findOne({
-			where: { id : req.body.user_id },
+			where: { id : req.body.user_id }
 		})
 		.then(updateUser => {
 			console.log('req body', req.body)

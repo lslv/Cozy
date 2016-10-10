@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Router, browserHistory, Link } from 'react-router'
 import Navbar from './Navbar'
 import axios from 'axios'
 
@@ -28,7 +29,10 @@ export default class CreateBill extends Component{
 			amount: this.state.billPrice,
 			houseId: sessionStorage.getItem('house_id')
 		})
-    .then(res => console.log(res))
+    .then(res => {
+	console.log(res)
+	this.context.router.push('/budget')
+})
     .catch(error => console.log(error))
 	}
 
@@ -44,4 +48,8 @@ export default class CreateBill extends Component{
       </div>
     )
 	}
+}
+
+CreateBill.contextTypes = {
+	router: React.PropTypes.object
 }

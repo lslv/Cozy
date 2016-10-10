@@ -13,4 +13,8 @@ router.get('/getBills', (req, res) => {
 router.post('/createBill', (req, res) => {
 	controller.createBill(req, res)
 })
+
+router.put('/updateBill', (req, res) => {
+	controller.updateBill(req, res)
+})
 module.exports = router

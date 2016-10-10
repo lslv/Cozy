@@ -10,7 +10,7 @@ module.exports = {
     .then(bills => res.status(200).json(bills))
 	},
 
-	createBill : (req,res) => {
+	createBill : (req, res) => {
 		Billing.create({
 			bill_name: req.body.billname,
 			amount_due_in_cents: parseInt(req.body.amount) * 100,
@@ -18,5 +18,15 @@ module.exports = {
 			is_paid: false
 		})
 		.then(bill => res.status(200).json(bill))
+	},
+	updateBill : (req, res) => {
+		Billing.findOne({
+			where: {id : req.body.id}
+		})
+			.then(updateBill => {
+				updateBill.update({
+					amount_due_in_cents: req.body.amount
+				})
+			})
 	}
 }
