@@ -129,6 +129,7 @@ class Poll extends Component {
 		const poll = this.props.data
 		const hasVoted = this.state.hasVoted
 		return (
+		<div className='bb_option'>
 		<Panel
       	bsStyle='primary'
         header={poll.question}
@@ -146,6 +147,7 @@ class Poll extends Component {
 		{this.showDelete()}
 		</div>
       </Panel>
+      </div>
 		)
 	}
 }

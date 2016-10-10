@@ -120,6 +120,7 @@ class Post extends Component {
 	render () {
 		const post = this.props.data
 		return (
+	  <div className='bb_option'>
       <Panel
       	bsStyle='info'
         header={post.title}
@@ -129,6 +130,7 @@ class Post extends Component {
         {this.showMessageEdit()}
        	{this.showAuthoringTools()}
       </Panel>
+      </div>
     )
 	}
 }

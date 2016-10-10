@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Router, browserHistory, Link } from 'react-router'
+import { Modal } from 'react-bootstrap'
 import axios from 'axios'
 
 import Navbar from '../components/Navbar'
@@ -14,20 +15,28 @@ export default class CreateHouse extends Component{
 	}
 	render () {
 		return (
+     
       <div>
-      	<Navbar />
-        <h1>CreateHouse</h1>
-        <form>
+		<Navbar />
+	     <Modal.Dialog className='house_select_component'>
+		 <Modal.Header>
+          <Modal.Title className='house_select_title'>Create a house</Modal.Title>
+         </Modal.Header>
+		  <Modal.Body className='house_select_body'>
+			<form onSubmit={event => this.onCreateHouse(this.state.houseName)}>
           <input
+          className='form-control'
             placeholder="House Name"
-						value={this.state.houseName}
-						onChange={event => this.setState({houseName: event.target.value})}
-						/>
-          <input
-            type="submit"
-						onClick={event => this.onCreateHouse(this.state.houseName)}/>
+			value={this.state.houseName}
+			onChange={event => this.setState({houseName: event.target.value})}
+			/>
+           <button className='btn btn-info'>
+            Submit
+		   </button>
         </form>
-      </div>
+	      </Modal.Body>
+	      </Modal.Dialog>
+	    </div>
     )
 	}
 	onCreateHouse(houseName){
