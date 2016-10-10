@@ -3,7 +3,7 @@ const fb_auth = require('./auth')
 
 module.exports = (passport, Strategy, app, port) => {
 
-	
+
 	passport.serializeUser((user, done) => {
 		done(null, user.id)
 	})
@@ -19,13 +19,13 @@ module.exports = (passport, Strategy, app, port) => {
 		profileFields: ['id','email','displayName', 'picture']
 	},
 	function(accessToken, refreshToken, profile, done) {
-		Users.findOne({ 
+		Users.findOne({
 				where: {
 					fb_id: profile.id
 				}
 			})
 			.then((user) => {
-				console.log('user', user)
+				console.log('viv fb profile', profile)
 				if(!user) {
 					Users.create({
 						fb_id: profile.id,
@@ -37,7 +37,7 @@ module.exports = (passport, Strategy, app, port) => {
 					.catch(err => console.log('err in fb auth', err))
 				} else {
 					return done(null, user)
-				}	
+				}
 
 			})
 
