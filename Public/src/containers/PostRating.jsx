@@ -50,9 +50,10 @@ class PostRating extends Component {
 		        <input type="text" value={this.state.star} onChange={this.inputStar} placeholder="Stars out of 5"/>
 						</div>
 						<br></br>
-						<div className="inputReview">
-		        <input type="text" value={this.state.rating} onChange={this.inputRating} placeholder="Write a Rating"/>
+						<div>
+		        <input className="inputReview" type="text" value={this.state.rating} onChange={this.inputRating} placeholder="Write a Rating"/>
 						</div>
+						<br></br>
 						<div className="rateButton">
 		        <input type="submit" value="Post Review" />
 						</div>
