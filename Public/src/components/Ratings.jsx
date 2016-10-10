@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import RatingList from '../containers/RatingList'
 import PostRating from '../containers/PostRating'
 import UserRatingProfile from '../containers/UserRatingProfile'
+import Navbar from './Navbar'
 
 
 export default class Ratings extends Component {
@@ -21,6 +22,7 @@ export default class Ratings extends Component {
 	render () {
 		return (
       <div>
+				<Navbar/>
 				<UserRatingProfile
 					Username={this.state.Username}
 					AverageStars ={this.state.AverageStars}
