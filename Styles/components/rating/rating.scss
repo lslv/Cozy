@@ -56,7 +56,10 @@
   #quotes{
     font-size: 20px;
   }
-  
+
+  .fa-star {
+    color: #93938C;
+  }
 }
 
 .rating-container {
@@ -65,11 +68,12 @@
 }
 
 
-
-
 //This is for PostRating
 
 .PostRating {
+
+  margin:0 auto;
+  width: 50%;
 
   input{
     text-align: center;
