@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getResults, postHouseId } from '../actions/actions_join_search'
+import {ListGroup, ListGroupItem, Button} from 'react-bootstrap'
 
 class House extends Component{
 	constructor (props) {
@@ -18,17 +19,21 @@ class House extends Component{
 	render(){
 		let houses = this.props.houses.map(house =>{
 			return (
-				<li key={house.house_name}
-						onClick={event =>{
-							this.handleJoinHouse(house.id)}
-						}>
-						{house.house_name}</li>
+					<ListGroupItem key={house.house_name}>
+						<div className="houseContainer">
+							<span className="houseName">{house.house_name}</span>
+							<Button className="joinButton" bsStyle="primary"
+							onClick={event =>{this.handleJoinHouse(house.id)}}>
+							Join House
+							</Button>
+						</div>
+					</ListGroupItem>
 			)
 		})
 		return(
-      <ul>
+      <ListGroup>
 			{houses}
-      </ul>
+      </ListGroup>
     )
 	}
 }
