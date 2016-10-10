@@ -27,10 +27,7 @@ export default class Ratings extends Component {
 					HouseName ={this.state.HouseName}
 				/>
 
-
-				<div className="rating-list">
 					<RatingList RatingList={this.state.RatingList} />
-					</div>
 
 
 			</div>

@@ -1,14 +1,21 @@
 import React, { Component } from 'react'
 
 const RatingItem = ({stars, review, reviewer}) => {
+
 	return (
 
-    <div className="Ratings">
+			<div className="rateItem">
+				<div className="star">{stars} <i className="fa fa-star fa-lg" aria-hidden="true"></i>
 
-			<div className="stars">{reviewer} has given {stars} Stars </div>
+				</div>
+				<div className="reviewer">{reviewer} says: "</div>
 
-			<div className="review">{review}</div>
-		</div>
+				<div className="reviewText">
+					{review}
+					<span id="quotes">"</span>
+				</div>
+
+			</div>
 
   )
 }

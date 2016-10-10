@@ -34,13 +34,9 @@ class RatingList extends Component {
 
   render() {
     return (
-      <div className="rateList">
-      <div className ="rating-list">
-        {this.ratingList()}
-      </div>
-      <br></br>
-      </div>
-
+        <div className='rating-container'>
+          {this.ratingList()}
+        </div>
     )
   }
 }

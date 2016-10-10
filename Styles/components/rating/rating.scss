@@ -37,43 +37,32 @@
 
 //This is for RatingList
 
-.rateList {
-  display: inline-block;
-  margin: 0 auto;
-  // text-align: center;
-  // width: 50%;
-  padding-top: auto;
+.rateItem {
+  border: 1px solid;
+  border-color: #E56E74;
+  margin: 20px 10px;
+  padding:10px 20px;
+
+  .reviewer{
+    text-align: left;
+    font-size: 20px;
+  }
+
+  .star{
+    text-align: right;
+    font-size: 20px;
+  }
+
+  #quotes{
+    font-size: 20px;
+  }
+  
 }
 
-.Ratings {
-  margin-top: 30px;
-  margin-bottom: 30px;
+.rating-container {
+  margin:0 auto;
+  width: 50%;
 }
-
-.stars{
-  display: inline-block;
-  background-color: #E5545C;
-  color: #FFFCF9;
-  font-size: 30px;
-  border-radius: 10px 10px 10px 10px;
-}
-
-.review{
-  display: inline-block;
-  background-color: #93938C;
-  font-size: 20px;
-  border-radius: 10px 10px 10px 10px;
-  text-align: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-
-//This is for RatingItem
-
-
 
 
 
