@@ -31,7 +31,8 @@ module.exports = (passport, Strategy, app, port) => {
 						fb_id: profile.id,
 						user_name: profile.displayName,
 						email: profile.emails[0].value,
-						fb_picture: profile.photos[0].value
+						fb_picture: profile.photos[0].value,
+						pay_percentage:10
 					})
 					.then(user => done(null, user))
 					.catch(err => console.log('err in fb auth', err))
