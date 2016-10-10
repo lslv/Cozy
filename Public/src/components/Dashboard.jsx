@@ -118,7 +118,7 @@ export default class Dashboard extends Component {
             </Link>
           </Col>
           <Col xsHidden md={4}>
-            <Link className="tileLink" to='/reviews'
+            <Link className="tileLink" to='/ratings'
           onMouseOver={()=>{this.onHover('reviews')}}
           onMouseOut={()=>{this.onHoverLeave('reviews')}}
             >
