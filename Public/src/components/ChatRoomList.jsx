@@ -78,8 +78,7 @@ export default class ChatRoomList extends Component {
       return this.state.chatMembersList.map((user) => {
         return (
           <li key={user.id}>
-            {user.first_name}
-            {user.last_name}
+            {user.user_name}
           </li>
         )
       })
@@ -88,8 +87,7 @@ export default class ChatRoomList extends Component {
       return this.state.userList.map((user) => {
         return (
           <li key={user.id} onClick={() => this.addToChat(user)}>
-            {user.first_name}
-            {user.last_name}
+            {user.user_name}
           </li>
         )
       })
