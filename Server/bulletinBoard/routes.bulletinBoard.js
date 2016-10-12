@@ -2,13 +2,13 @@ const express = require('express')
 const router = express.Router()
 const controller = require('./controller.bulletinBoard')
 
+// Posts
+
 router.post('/addPost', (req, res) => {
-  console.log('in addpost controller')
   controller.addPost(req, res)
 })
 
 router.get('/getPosts', (req, res) => {
-  console.log('in getPosts controller')
   controller.getPosts(req, res)
 })
 
@@ -20,4 +20,25 @@ router.put('/editPost', (req, res) => {
   controller.editPost(req, res)
 })
 
+// Polls
+
+router.post('/addPoll', (req, res) => {
+  controller.addPoll(req, res)
+})
+
+router.get('/getPolls', (req, res) => {
+  controller.getPolls(req, res)
+})
+
+router.delete('/deletePoll', (req, res) => {
+  controller.deletePoll(req, res)
+})
+
+router.post('/vote', (req, res) => {
+  controller.vote(req, res)
+})
+
+router.get('/getVotes', (req, res) => {
+  controller.getVotes(req, res)
+})
 module.exports = router

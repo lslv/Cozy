@@ -1,0 +1,33 @@
+.bulletin-page {
+	overflow: scroll;
+}
+
+.bulletin-component {
+	margin-top: 10%;
+	overflow-y: auto;
+
+	.bulletin-title {
+		text-align: center;
+	}
+}
+
+.bulletin-button-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.addItem-container {
+	margin-top: 3%;
+}
+
+.bulletin-item-button-container {
+	button {
+		margin-right: 0.5%;
+	}
+}
+
+.bb_option {
+	margin-bottom: 2%;
+}
+

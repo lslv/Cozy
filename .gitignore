@@ -1,2 +1,4 @@
 node_modules
 Public/bundle.js
+npm-debug.log
+Server/users/auth.js

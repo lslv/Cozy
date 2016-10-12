@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
 
 export default class Logout extends Component {
-  constructor (props) {
-    super(props)
+	constructor (props) {
+		super(props)
 
-  }
+	}
 
-  render () {
-    return (
+	render () {
+		return (
       <button
-        onClick={event => sessionStorage.removeItem('user')}
-      >logout</button>
+        onClick={event => {
+	sessionStorage.clear()
+	this.context.router.push('/')
+}}>logout</button>
     )
-  }
+	}
+}
+
+Logout.contextTypes = {
+	router: React.PropTypes.object
 }

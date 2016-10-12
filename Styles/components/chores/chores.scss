@@ -1,0 +1,79 @@
+// * {
+// 	border:0px solid black;
+// }
+.network {
+    width: 600px;
+    height: 400px;
+    border: 0px solid lightgray;
+    margin: auto
+}
+
+.choreList{
+	margin:auto;
+	width:80%;
+	text-align:center;
+
+}
+
+.makeCalButton{
+	margin:10px;
+}
+
+.authorizeButton{
+	margin:20px;
+}
+
+.spinner{
+	border:0px solid red;
+	height:400px;
+
+	display:block;
+	margin:auto;
+	margin-top:100px;
+}
+
+.addButton{
+	padding:10px 12px;
+	width:100%;
+	color:white;
+	background-color:$primaryColor;
+	border:1px solid white;
+	border-radius:4px;
+}
+
+.addButton:hover{
+	background-color:white;
+	color:$primaryColor;
+	border:1px solid $primaryColor;
+}
+.addButton:focus{
+	// background-color:$primaryColor;
+	// color:white;
+	outline:0px;
+	// border:1px solid white;
+}
+// .addButton:active{
+// 	background-color:cyan;
+// 	border:5px solid red;
+// }
+
+.choreButton{
+	width:200px;
+	margin:15px;
+}
+
+.addChoreContainer{
+	padding:30px 70px 0px 70px;
+}
+
+.upcomingChores{
+	padding:0;
+}
+
+.small{
+	height:160px;
+	display:inline-block;
+}
+
+
+
