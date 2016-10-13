@@ -2,7 +2,7 @@
   "name": "cozy",
   "version": "1.0.0",
   "description": "A roommate mangement app for bills, chores, messages and shared calander",
-  "main": "webpack.config.js",
+  "main": "server/app.js",
   "scripts": {
     "start": "node server/app.js",
     "bundle": "node_modules/.bin/webpack -w",
