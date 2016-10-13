@@ -2,9 +2,9 @@
   "name": "cozy",
   "version": "1.0.0",
   "description": "A roommate mangement app for bills, chores, messages and shared calander",
-  "main": "server/app.js",
+  "main": "Server/app.js",
   "scripts": {
-    "start": "node server/app.js",
+    "start": "node Server/app.js",
     "bundle": "node_modules/.bin/webpack -w",
     "postinstall": "node_modules/.bin/webpack -p",
     "test": "echo \"Error: no test specified\" && exit 1"
