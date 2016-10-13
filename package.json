@@ -4,8 +4,9 @@
   "description": "A roommate mangement app for bills, chores, messages and shared calander",
   "main": "server/app.js",
   "scripts": {
-    "start": "nodemon server/app.js",
+    "start": "node server/app.js",
     "bundle": "node_modules/.bin/webpack -w",
+    "postinstall": "node_modules/.bin/webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
