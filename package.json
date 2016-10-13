@@ -2,7 +2,7 @@
   "name": "cozy",
   "version": "1.0.0",
   "description": "A roommate mangement app for bills, chores, messages and shared calander",
-  "main": "server/app.js",
+  "main": "webpack.config.js",
   "scripts": {
     "start": "node server/app.js",
     "bundle": "node_modules/.bin/webpack -w",
@@ -71,19 +71,6 @@
     "webpack": "^1.13.2"
   },
   "devDependencies": {
-    "babel-core": "^6.14.0",
-    "babel-loader": "^6.2.5",
-    "babel-preset-es2015": "^6.14.0",
-    "babel-preset-react": "^6.11.1",
-    "babel-preset-stage-1": "^6.13.0",
-    "css-loader": "^0.25.0",
-    "eslint": "^3.6.0",
-    "eslint-plugin-react": "^6.3.0",
-    "node-sass": "^3.10.1",
-    "pg": "^6.1.0",
-    "sass-loader": "^4.0.2",
-    "sequelize": "^3.24.3",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.13.2"
+
   }
 }
