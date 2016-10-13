@@ -27,7 +27,7 @@ router.use('/*', (req, res, next) => {
 })
 
 // routes
-router.use('/', express.static('public'))
+router.use('/', express.static('Public'))
 router.use('/api/billing', billing)
 router.use('/api/bulletinBoard', bulletinBoard)
 router.use('/api/chores', chores)
