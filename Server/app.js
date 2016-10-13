@@ -6,7 +6,7 @@ const database = require('./config/database.js')
 const routesMain = require('./routes.main.js')
 const passport = require('passport')
 const Strategy = require('passport-facebook').Strategy
-const port = process.env.PORT || 1337
+const port = process.env.PORT || 8080
 const fb_auth = require('./users/auth')
 
 //Sockets for chat
@@ -31,4 +31,3 @@ app.use('/', routesMain)
 server.listen(port, () => {
 	console.log(chalk.cyan(`<Cozy> is listening on ${port}`))
 })
-
