@@ -5,7 +5,7 @@ export const GET_CALENDAR = 'GET_CALENDAR'
 export function addCalendar(calendarData){
 
 	console.log('adding calendar with data ', calendarData)
-	const payload= axios.post('http://localhost:1337/api/calendars/addCalendar', calendarData) //hardcoded in local host
+	const payload= axios.post('/api/calendars/addCalendar', calendarData) //hardcoded in local host
 
 	return {
 		type: ADD_CALENDAR,
@@ -17,7 +17,7 @@ export function addCalendar(calendarData){
 export function getCalendar(house_id){ //hardcoded default value of 1 
 
 	console.log('retrieivng house google calendar of', house_id)
-	const payload= axios.get('http://localhost:1337/api/calendars/getCalendar', {
+	const payload= axios.get('/api/calendars/getCalendar', {
 		params:{house_id}})
 
 	return {

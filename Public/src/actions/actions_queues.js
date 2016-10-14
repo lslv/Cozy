@@ -5,7 +5,7 @@ export const GET_QUEUES = 'GET_QUEUES'
 
 export function getQueue(choreId){
 	console.log('grabbing a chore queue')
-	const payload= axios.get('http://localhost:1337/api/chores/getQueue', {
+	const payload= axios.get('/api/chores/getQueue', {
 		params:{choreId}}) //hardcoded in local host
 	return{
 		type: GET_QUEUE,
