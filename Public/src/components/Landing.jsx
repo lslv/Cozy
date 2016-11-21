@@ -12,15 +12,9 @@ export default class Landing extends Component {
        <div className='landing'>
          <div className='landing-tile' id='lt1'>
             <h1>Cozy</h1>
-            <p>This is home</p>
-            <div className="col-lg-4">
-            <div className="input-group">
-            <input type="text" className="form-control" placeholder="Find Roommates" />
-            <span className="input-group-btn">
-              <button className="btn btn-default" type="button">Go!</button>
-            </span>
-            </div>
-            </div>
+            <p>This is home</p>    
+            <p><strong>Cozy</strong> is a roommate management platform
+            that facilitates communication, planning, and budgeting for roommates</p>
         </div>
          <div className='landing-tile' id='lt2'>
             <h1>Features</h1>

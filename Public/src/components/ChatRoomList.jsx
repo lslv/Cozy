@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Modal } from 'react-bootstrap'
+import { connect } from 'react-redux'
 
 const currentUser = sessionStorage.getItem('username') || 'anonymous'
 
@@ -95,7 +96,7 @@ export default class ChatRoomList extends Component {
   }
 
   renderChatList () {
-  	const { updateActiveChat } = this.props
+    const { updateActiveChat } = this.props
     if(this.state.showLoadingIcon) {
       return ( <img src='../../assets/loader.gif' />)
     } else {
@@ -111,6 +112,7 @@ export default class ChatRoomList extends Component {
   }
 
   render () {
+
       return (
         <div className='chat-room-list'>
           <Button bsStyle='info' onClick={this.showModal}>
@@ -162,4 +164,3 @@ export default class ChatRoomList extends Component {
 
     }
   }
-
