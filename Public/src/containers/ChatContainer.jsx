@@ -16,7 +16,6 @@ class ChatContainer extends Component {
 
 	componentWillMount() {
 		let house_id = sessionStorage.getItem('house_id')
-		console.log('house_id', house_id)
 		this.props.getUsers(house_id)
 		.then(() => this.props.getUserRooms())
 	}
@@ -36,7 +35,6 @@ class ChatContainer extends Component {
 	}
 
 	render() {
-		console.log('this props', this.props)
 		return (
 		<div>
 			<Navbar />

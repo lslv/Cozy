@@ -62,10 +62,13 @@ export default class Chat extends Component {
 		//change the ids of the users to the user names
 		const { activeChat } = this.props.chats
 		const { users } = this.props
+		
 		let allMembers = []
 		if(!_.isEmpty(activeChat)) {
 			activeChat.users.forEach((person, i) => {
-				allMembers.push(users[person].user_name)
+				if(users[person]) {
+					allMembers.push(users[person].user_name)
+				}
 			})	
 			this.setState({ allMembers })
 		}
@@ -102,9 +105,9 @@ export default class Chat extends Component {
 	displayMessages() {
 		const fb_pic = sessionStorage.getItem('fb_pic')
 
-		const userName = fb_pic ? this.displayFBpic() : message.user 
 
 		return this.state.messageList.map((message, i) => {
+			const userName = fb_pic ? this.displayFBpic() : message.user 
 			return (
 				<li key={i} className='message'>{userName}: {message.text}</li>
 			)
