@@ -23,7 +23,7 @@ export default class CreateHouse extends Component{
           <Modal.Title className='house_select_title'>Create a house</Modal.Title>
          </Modal.Header>
 		  <Modal.Body className='house_select_body'>
-			<form onSubmit={event => this.onCreateHouse(this.state.houseName)}>
+			<form onSubmit={event => this.onCreateHouse(event)}>
           <input
           className='form-control'
             placeholder="House Name"
@@ -39,13 +39,12 @@ export default class CreateHouse extends Component{
 	    </div>
     )
 	}
-	onCreateHouse(houseName){
-		console.log(houseName)
+	onCreateHouse(e){
+		e.preventDefault()
 		axios.post('/api/houses/addHouse', {
-			houseName: houseName
+			houseName: this.state.houseName
 		})
 		.then(response => {
-			console.log('the final then')
 			sessionStorage.setItem('house_id', response.data.id)
 			//send user id and house id
 			//set house id and admin
