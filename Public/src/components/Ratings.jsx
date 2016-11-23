@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
-// import RatingItem from './RatingItem'
 import RatingList from '../containers/RatingList'
 import PostRating from '../containers/PostRating'
 import UserRatingProfile from '../containers/UserRatingProfile'

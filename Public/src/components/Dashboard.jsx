@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import _ from 'lodash'
-import {TileLayout, TileLayoutItem} from 'pui-react-tile-layout'
+import { TileLayout, TileLayoutItem } from 'pui-react-tile-layout'
 import {ClickableAltPanel} from 'pui-react-panels'
 import {Grid, Row, Col, Button} from 'react-bootstrap'
 import Navbar from '../components/Navbar'

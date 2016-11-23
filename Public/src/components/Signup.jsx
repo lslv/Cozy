@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Router, browserHistory, Link } from 'react-router'
 import { Modal } from 'react-bootstrap'
 import axios from 'axios'
 

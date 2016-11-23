@@ -11,7 +11,6 @@ import ChatContainer from '../containers/ChatContainer'
 import HouseSelect from './HouseSelect'
 import CreateHouse from './CreateHouse'
 import JoinHouse from '../containers/JoinHouse'
-import Profile from './Profile'
 import Calendar from '../containers/Calendar'
 import Budget from '../containers/Budget'
 import Ratings from './Ratings'
@@ -32,7 +31,6 @@ export default class App extends Component {
         <Route path='/signup' component={Signup} />
         <Route path='/login' component={Login} />
         <Route path='/logout' component={Logout} />
-        <Route path='/profile' component={Profile} />
 				<Route path='/House_select' component={HouseSelect} />
 				<Route path='/Join_house' component={JoinHouse} />
 				<Route path='/create_house' component={CreateHouse} />
