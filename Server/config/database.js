@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 
-const db = new Sequelize('postgres://admin:RFMFJTYTDJBBJTTN@aws-us-east-1-portal.9.dblayer.com:15350/compose')
+const db = new Sequelize('postgres://jbtfiwchnvetss:NT4vocOZ3xizxMUn_0qE_Tr7yE@ec2-54-235-255-27.compute-1.amazonaws.com:5432/d7elsc8qf9fl0n')
 
 db.authenticate()
     .then(function(err) {
