@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Router, browserHistory, Link } from 'react-router'
 import { Modal } from 'react-bootstrap'
 import axios from 'axios'
 
@@ -107,12 +106,10 @@ export default class Signup extends Component{
 
 		})
     .then((response)=>{
-	console.log(response.data)
 	sessionStorage.setItem('username', response.data.user_name)
 	sessionStorage.setItem('id', response.data.id)
 	sessionStorage.setItem('pay_percentage', response.data.pay_percentage)
 	sessionStorage.setItem('admin', response.data.admin)
-	console.log(sessionStorage.getItem('username'))
 	this.context.router.push('/house_select')
 })
     .catch((error)=>{console.log(error)})

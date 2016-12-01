@@ -15,7 +15,7 @@ module.exports = (passport, Strategy, app, port) => {
 	passport.use(new Strategy({
 		clientID: fb_auth.clientID,
 		clientSecret: fb_auth.clientSecret,
-		callbackURL: `http://localhost:${port}/api/users/login/facebook/callback`,
+		callbackURL: `https://cozy-app.herokuapp.com/api/users/login/facebook/callback`,
 		profileFields: ['id','email','displayName', 'picture']
 	},
 	function(accessToken, refreshToken, profile, done) {

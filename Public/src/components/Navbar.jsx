@@ -27,15 +27,25 @@ export default class NavBar extends Component {
 
 		if(id) {
 			return (
+			<div className='nav-container'>
 			<NavItem>
 	        <Link to='/dashboard' className='nav-text'>Dashboard</Link>
 	        </NavItem>
+	        <NavItem>
+		      <Link to='/logout' className='nav-text'>Logout</Link>
+		    </NavItem>
+		    </div>
 			)
 		} else {
 			return (
+			<div className='nav-container'>
 			<NavItem>
 	        <Link to='/login' className='nav-text'>Login</Link>
 	        </NavItem>
+	        <NavItem>
+		      <Link to='/signup' className='nav-text'>Signup</Link>
+		    </NavItem>
+		    </div>
 			)
 
 		}
@@ -63,12 +73,6 @@ export default class NavBar extends Component {
 		      </Navbar.Brand>
 		      <Nav pullRight>
 		        {this.checkLoginStatus()}
-		        <NavItem>
-		        <Link to='/signup' className='nav-text'>Signup</Link>
-		        </NavItem>
-		        <NavItem>
-		        <Link to='/logout' className='nav-text'>Logout</Link>
-		        </NavItem>
 		      </Nav>
 		    </Navbar.Collapse>
   		</Navbar>
